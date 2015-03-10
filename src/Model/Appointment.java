@@ -64,20 +64,21 @@ public class Appointment {
         TimeTables timeTableMED = new TimeTables(medicalEquip);
 
     }
-//    public void setTimeTableCON() {
-//        TimeTables timeTableCON = new TimeTables(1,consultantType);
-//
-//    }
+    public void setTimeTableCON() {
+        TimeTables timeTableCON = new TimeTables(1,consultantType);
+
+    }
 
     public void setAppointment(String recIn, int equipIn,int conIn) {
         ao = new AppointmentOperations();
         ao.addAppointment(recIn, equipIn, conIn);
-//        if (medicalEquip == -1) {
-//            setTimeTableCON();
-//        } else if(consultantType == -1){
-        System.out.println("all the way down here");
+        if (medicalEquip == -1) {
+            setTimeTableCON();
+        } else{
+            System.out.println("all the way down here");
             setTimeTableMED();
         }
+    }
 
 
     public void cancelAppointment(int appointmentNumber, String patientFName, String patientSurname, String patientDOB) {
