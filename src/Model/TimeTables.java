@@ -34,13 +34,14 @@ public class TimeTables {
 
     }
 
-//    public TimeTables(int fake, int conReqIn) {
-//        conReq=conReqIn;
-//        refreshTimeTables();
-//        setFromConReq(conReq);
-//
-//
-//    }
+    public TimeTables(int fake, int conReqIn) {
+        conReq=conReqIn;
+        clearArrays();
+        refreshTimeTables();
+        setFromConReq(conReq);
+
+
+    }
 
     public TimeTables(int medEquipIn) {
         medEquip=medEquipIn;

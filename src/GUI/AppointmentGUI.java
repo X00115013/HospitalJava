@@ -19,10 +19,11 @@ import java.util.Date;
  * Created by Roland on 01/03/2015.
  */
 public class AppointmentGUI extends JFrame implements ActionListener {
-    String[] list1 = {"med1                                          :", "med2        ", "med3        "};
-    String[] list2 = {"cons1                                         :", "cons2       ", "cons3       "};
+    String[] list1 = {"med1 :", "med2        ", "med3        "};
+    String[] list2 = {"cons1 :", "cons2       ", "cons3       "};
     JButton confirm;
     JButton cancel;
+    private  Object selectedItem;
 
     JLabel label1;
     JLabel label2;
@@ -103,6 +104,7 @@ public class AppointmentGUI extends JFrame implements ActionListener {
 
         combo1 = new JComboBox<String>(list1);
         middle.add(combo1, getConstraints(2, 3, 1, 1, GridBagConstraints.LINE_START));
+        combo1.addActionListener(this);
 
 
         label4 = new JLabel("Consultant Type Required");
@@ -111,6 +113,7 @@ public class AppointmentGUI extends JFrame implements ActionListener {
 
         combo2 = new JComboBox<String>(list2);
         middle.add(combo2, getConstraints(2, 5, 1, 1, GridBagConstraints.LINE_START));
+        combo2.addActionListener(this);
 
         JPanel dob = new JPanel();
         label5 = new JLabel("Patient Date Of Birth");
@@ -151,6 +154,13 @@ public class AppointmentGUI extends JFrame implements ActionListener {
         f.setVisible(true);
     }
 
+    public Object getCombo1Item() {
+        return combo1;
+    }
+
+    public Object getElementAt(int i) {
+        return list1[i];
+    }
 
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
@@ -169,7 +179,13 @@ public class AppointmentGUI extends JFrame implements ActionListener {
             System.exit(0);
 
         } else if (e.getSource().equals(confirm)) {
-            AppointmentOperations ao = new AppointmentOperations();
+                String medEquip;
+                Appointment app =new Appointment(field2.getText(),1,1);
+
+
+
+
+//            AppointmentOperations ao = new AppointmentOperations();
 //            ao.addAppointment(new Appointment(Integer.valueOf(label5.getText()),label2.getText(),Integer.valueOf(label4.getText()),Integer.valueOf(label3.getText()),String.valueOf(dateFormat.format(date))));
 
         }

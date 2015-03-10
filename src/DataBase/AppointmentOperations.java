@@ -23,18 +23,18 @@ public class AppointmentOperations {
             OracleDataSource ods = new OracleDataSource();
 
 //			// Tallaght
-			ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
-            String uName = "X00115013";
-            ods.setUser(uName);
-            String uPass = "db02Dec77";
-            ods.setPassword(uPass);
+//			ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
+//            String uName = "X00115013";
+//            ods.setUser(uName);
+//            String uPass = "db02Dec77";
+//            ods.setPassword(uPass);
 
 //			Home Oracle XE
-//            ods.setURL("jdbc:oracle:thin:hr/hr@localhost:1521/XE");
-//            String uName = "SYSTEM";
-//            ods.setUser(uName);
-//            String uPass = "30905149";
-//            ods.setPassword(uPass);
+            ods.setURL("jdbc:oracle:thin:hr/hr@localhost:1521/XE");
+            String uName = "SYSTEM";
+            ods.setUser(uName);
+            String uPass = "30905149";
+            ods.setPassword(uPass);
 
             conn = ods.getConnection();
             System.out.println(" Appointment connected.");

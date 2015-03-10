@@ -15,15 +15,15 @@ import Model.TimeTables;
 public class TestHospital {
     public static void main(String[] args) {
         HospitalOperations ho = new HospitalOperations();
-        AppointmentGUI ag=new AppointmentGUI();
-        ag.setVisible(true);
-        SecurityGUI su=new SecurityGUI();
-        su.setVisible(true);
+//        AppointmentGUI ag=new AppointmentGUI();
+//        ag.setVisible(true);
+//        SecurityGUI su=new SecurityGUI();
+//        su.setVisible(true);
 //        Referrals referrals= new Referrals(1,"Jim","dublin","mick","jagger",-1,
 //        "Carlow","02Jan2000","4591662","sick","help him",1,3,0,"male");
-        ReferralGUI referralGUI= new ReferralGUI();
-        referralGUI.setVisible(true);
-//        Appointment ap=new Appointment("Tom",3,1);
+//        ReferralGUI referralGUI= new ReferralGUI();
+//        referralGUI.setVisible(true);
+        Appointment ap=new Appointment("Tom",3,1);
 //        Appointment ap1=new Appointment("Ava",2,2);
 //        Appointment ap2=new Appointment("Cain",1,3);
 //        ProcessReferrals processReferrals = new ProcessReferrals();
