@@ -24,7 +24,7 @@ public class Appointment {
         reasonForVisit = reasonForVisitIn;
         consultantType = consultantTypeIn;
         medicalEquip = medicalEquipIn;
-        setAppointment(reasonForVisit,consultantType,medicalEquip);
+        setAppointment(reasonForVisit,medicalEquip,consultantType);
         ao = new AppointmentOperations();
         try {
             rset = ao.getAppointment();
@@ -38,7 +38,6 @@ public class Appointment {
             System.out.println("stupid crap");
         }
         System.out.println("And here");
-        setTimeTableMED();
     }
 
     public int getTime() {
@@ -65,20 +64,21 @@ public class Appointment {
         TimeTables timeTableMED = new TimeTables(medicalEquip);
 
     }
-    public void setTimeTableCON() {
-        TimeTables timeTableCON = new TimeTables(1,consultantType);
-
-    }
+//    public void setTimeTableCON() {
+//        TimeTables timeTableCON = new TimeTables(1,consultantType);
+//
+//    }
 
     public void setAppointment(String recIn, int equipIn,int conIn) {
         ao = new AppointmentOperations();
         ao.addAppointment(recIn, equipIn, conIn);
-        if (medicalEquip == -1) {
-            setTimeTableCON();
-        } else if(consultantType == -1){
+//        if (medicalEquip == -1) {
+//            setTimeTableCON();
+//        } else if(consultantType == -1){
+        System.out.println("all the way down here");
             setTimeTableMED();
         }
-    }
+
 
     public void cancelAppointment(int appointmentNumber, String patientFName, String patientSurname, String patientDOB) {
         if (appointmentNumber == -1) {

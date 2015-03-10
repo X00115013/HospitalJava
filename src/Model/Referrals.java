@@ -126,14 +126,16 @@ public class Referrals {
     }
 
     public void setReferral(){
-        ro.setReferral(gpName,gpLocation,patientFName,patientSurname,patientNumber,patientAddress,dob,patientPhone,
+        ro=new ReferralOperations();
+        ro.setReferral(gpName,gpLocation,patientFName,patientSurname,patientAddress,dob,patientPhone,
                 reasonForVisit,recommendations,medicalRequired,consultantRequired,checked,gender);
 
     }
 
+
     public static void main(String args[]) {
         Referrals referrals =new Referrals();
-        ReferralGUI referralGUI= new ReferralGUI(referrals);
+        ReferralGUI referralGUI= new ReferralGUI();
         referralGUI.setVisible(true);
 
     }

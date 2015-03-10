@@ -1,5 +1,7 @@
 package Model;
 
+import DataBase.TimeTableOperations;
+
 /**
  * Created by x00115013 on 09/03/2015.
  */
@@ -7,6 +9,8 @@ public class XRayTimeTable {
     private int timeIn,appNum;
     private String taken;
     private String consultantNameIn;
+    private TimeTableOperations to;
+    private ConsultantTimeTable cont;
 
     public XRayTimeTable(int timeIn,String taken,String consultantNameIn, int appNumIn){
         this.timeIn=timeIn;
@@ -25,5 +29,13 @@ public class XRayTimeTable {
 
     public String getConsultantNumIn() {
         return consultantNameIn;
+    }
+
+    public void setTable(){
+        System.out.println("Where the fuck");
+        to = new TimeTableOperations();
+        cont= new ConsultantTimeTable(timeIn + 1,to.getConsultantName(1), 1);
+        cont.setTable();
+        to.setXRayTimeTable(timeIn + 1, taken, 1);
     }
 }

@@ -23,23 +23,21 @@ public class TimeTableOperations {
             OracleDataSource ods = new OracleDataSource();
 
 //			// Tallaght
-//			ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
-//			System.out.println("Enter your user name:");
-//            String uName = "X00115013";
-//            ods.setUser(uName);
-//            System.out.println("Enter your password:");
-//            String uPass = "db02Dec77";
-//            ods.setPassword(uPass);
-
-//			Home Oracle XE
-            ods.setURL("jdbc:oracle:thin:hr/hr@localhost:1521/XE");
-            String uName = "SYSTEM";
+			ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
+            String uName = "X00115013";
             ods.setUser(uName);
-            String uPass = "30905149";
+            String uPass = "db02Dec77";
             ods.setPassword(uPass);
 
+//			Home Oracle XE
+//            ods.setURL("jdbc:oracle:thin:hr/hr@localhost:1521/XE");
+//            String uName = "SYSTEM";
+//            ods.setUser(uName);
+//            String uPass = "30905149";
+//            ods.setPassword(uPass);
+
             conn = ods.getConnection();
-            System.out.println("connected.");
+            System.out.println("TimeTables connected.");
         } catch (Exception e) {
             System.out.print("Unable to load driver " + e);
             System.exit(1);
@@ -138,12 +136,12 @@ public class TimeTableOperations {
             System.out.println(e);
         }
     }
-    public void setConsultantTimeTable(int timeIn, int consultantNumIn ){
+    public void setConsultantTimeTable(int timeIn, String consultantNumIn ){
         try {
             String queryString1 = "INSERT INTO ConsultantTimeTable(conTT_ID,time,con_Name)VALUES(conTT_seq.nextval,?,?)";
             pstmt = conn.prepareStatement(queryString1);
             pstmt.setInt(1,timeIn);
-            pstmt.setString(2, getConsultantName(consultantNumIn));
+            pstmt.setString(2, consultantNumIn);
             pstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);

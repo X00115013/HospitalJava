@@ -36,6 +36,8 @@ public class ProcessReferrals {
             }
         } catch (SQLException e1) {
             System.out.println(e1);
+
+
         }
             for (int i = 0; i < refList.size(); i++) {
                 if (refList.get(i).isChecked() == 0) {

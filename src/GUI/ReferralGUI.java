@@ -72,7 +72,7 @@ public class ReferralGUI extends JFrame implements ActionListener {
     JComboBox<String> combo2;
     JFrame f;
 
-    public ReferralGUI(Referrals r) {
+    public ReferralGUI() {
         f = new JFrame();
         setTitle("Referrals");
         f.setLayout(new GridLayout(2, 2));

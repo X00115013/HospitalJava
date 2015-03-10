@@ -22,23 +22,21 @@ public class ReferralOperations {
             OracleDataSource ods = new OracleDataSource();
 
 //			// Tallaght
-//			ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
-//			System.out.println("Enter your user name:");
-//            String uName = "X00115013";
-//            ods.setUser(uName);
-//            System.out.println("Enter your password:");
-//            String uPass = "db02Dec77";
-//            ods.setPassword(uPass);
-
-//			Home Oracle XE
-            ods.setURL("jdbc:oracle:thin:hr/hr@localhost:1521/XE");
-            String uName = "SYSTEM";
+			ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
+            String uName = "X00115013";
             ods.setUser(uName);
-            String uPass = "30905149";
+            String uPass = "db02Dec77";
             ods.setPassword(uPass);
 
+//			Home Oracle XE
+//            ods.setURL("jdbc:oracle:thin:hr/hr@localhost:1521/XE");
+//            String uName = "SYSTEM";
+//            ods.setUser(uName);
+//            String uPass = "30905149";
+//            ods.setPassword(uPass);
+
             conn = ods.getConnection();
-            System.out.println("connected.");
+            System.out.println("Referral connected.");
         } catch (Exception e) {
             System.out.print("Unable to load driver " + e);
             System.exit(1);
@@ -79,13 +77,13 @@ public class ReferralOperations {
     }
 
     public void setReferral(String gpNameIn, String gpLocationIn, String patientFNameIn, String patientSurnameIn,
-                            int patientNumberIn, String patientAddressIn, String dobIn,
+                            String patientAddressIn, String dobIn,
                             String patientPhoneIn, String reasonForVisitIn,String recommendationsIn,
                             int medicalRequiredIn, int consultantRequiredIn,int checked,String genderIn){
         try {
             String queryString1 = "INSERT INTO Referral(GPNumber,GPName,GPLocation,Patient_FName," +
                     "Patient_LName,Patient_DOB,Patient_Address,Patient_Phone,ReasonVisit,Recommendation,Med_Equip_Needed," +
-                    "Consultant_Type,Checked,gender,patient_Number)VALUES(GPID.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    "Consultant_Type,Checked,gender)VALUES(GPID.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             pstmt = conn.prepareStatement(queryString1);
             pstmt.setString(1,gpNameIn);
             pstmt.setString(2,gpLocationIn);
@@ -100,7 +98,6 @@ public class ReferralOperations {
             pstmt.setInt(11,consultantRequiredIn);
             pstmt.setInt(12,checked);
             pstmt.setString(13,genderIn);
-            pstmt.setInt(14,patientNumberIn );
             pstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
