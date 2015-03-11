@@ -19,8 +19,8 @@ import java.util.Date;
  * Created by Roland on 01/03/2015.
  */
 public class AppointmentGUI extends JFrame implements ActionListener {
-    String[] list1 = {"med1 :", "med2        ", "med3        "};
-    String[] list2 = {"cons1 :", "cons2       ", "cons3       "};
+    String[] list1 = {"XRay :", "MRI Scan :", "CT Scan :"};
+    String[] list2 = {"Radiology :", "Pediatrics :", "Surgery :"};
     JButton confirm;
     JButton cancel;
     private  Object selectedItem;
@@ -154,14 +154,6 @@ public class AppointmentGUI extends JFrame implements ActionListener {
         f.setVisible(true);
     }
 
-    public Object getCombo1Item() {
-        return combo1;
-    }
-
-    public Object getElementAt(int i) {
-        return list1[i];
-    }
-
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5, 5, 5, 5);
@@ -179,8 +171,33 @@ public class AppointmentGUI extends JFrame implements ActionListener {
             System.exit(0);
 
         } else if (e.getSource().equals(confirm)) {
-                String medEquip;
-                Appointment app =new Appointment(field2.getText(),1,1);
+            int catcher = 0, catcher2=0;
+            try {
+
+                String medEquip = (String) combo1.getSelectedItem();
+                if (medEquip.equals("XRay :")) {
+                    catcher = 1;
+                } else if (medEquip.equals("MRI Scan :")) {
+                    catcher = 2;
+                } else if (medEquip.equals("CT Scan :")) {
+                    catcher = 3;
+                }
+                String conEquip = (String) combo2.getSelectedItem();
+                if (conEquip.equals("Radiology :")) {
+                    catcher2 = 1;
+                } else if (conEquip.equals("Pediatrics :")) {
+                    catcher2 = 2;
+                } else if (conEquip.equals("Surgery :")) {
+                    catcher2 = 3;
+                }
+            }catch(InputMismatchException im){
+                System.out.println(im);
+            }
+
+//            Appointment app =new Appointment(field2.getText(),catcher2,catcher);
+            System.out.println(field2.getText());
+            System.out.println(catcher);
+            System.out.println(catcher2);
 
 
 

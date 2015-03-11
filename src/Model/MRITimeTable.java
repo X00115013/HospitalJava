@@ -12,10 +12,9 @@ public class MRITimeTable {
     private TimeTableOperations to;
     private ConsultantTimeTable cont;
 
-    public MRITimeTable(int timeIn,String taken,String consultantNameIn, int appNumIn){
+    public MRITimeTable(int timeIn,String taken,String consultantNameIn){
         this.timeIn=timeIn;
         this.taken=taken;
-        this.appNum=appNumIn;
         this.consultantNameIn=consultantNameIn;
     }
 
@@ -33,8 +32,8 @@ public class MRITimeTable {
 
     public void setTable(){
         to = new TimeTableOperations();
-        cont= new ConsultantTimeTable(timeIn + 1,to.getConsultantName(2), 1);
+        cont= new ConsultantTimeTable(timeIn + 1,to.getConsultantName(2));
         cont.setTable();
-        to.setMRITimeTable(timeIn + 1, taken, 2);
+        to.setMRITimeTable(timeIn + 1, taken,2);
     }
 }

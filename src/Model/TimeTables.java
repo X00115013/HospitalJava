@@ -12,7 +12,7 @@ import Model.*;
 */
 public class TimeTables {
 
-    private int time;
+    private int time,appNum;
     private String mon, tues, wed, thur, fri, sat, sun;
     private String week1, week2, week3, week4;
     private ResultSet rset;
@@ -58,7 +58,7 @@ public class TimeTables {
         rset = to.getXRayTT();
         try {
             while (rset.next()) {
-                xRayTimeTable.add(xRayT=new XRayTimeTable(rset.getInt(2), rset.getString(3),rset.getString(4),rset.getInt(5)));
+                xRayTimeTable.add(xRayT=new XRayTimeTable(rset.getInt(2), rset.getString(3),rset.getString(4)));
                 }
             System.out.println("we are getting to xRayTT");
         } catch (SQLException e1) {
@@ -68,7 +68,7 @@ public class TimeTables {
         rset = to.getMRIScanTT();
         try {
             while (rset.next()) {
-                mRITimeTable.add(mriT= new MRITimeTable(rset.getInt(2),rset.getString(3),rset.getString(4),rset.getInt(5)));
+                mRITimeTable.add(mriT= new MRITimeTable(rset.getInt(2),rset.getString(3),rset.getString(4)));
             }
             System.out.println("we are getting to MriTT");
         } catch (SQLException e1) {
@@ -78,7 +78,7 @@ public class TimeTables {
         rset = to.getCTScanTT();
         try {
             while (rset.next()) {
-                cTScanTimeTable.add(ctT =new CTTimeTables( rset.getInt(2),rset.getString(3),rset.getString(4),rset.getInt(5)));
+                cTScanTimeTable.add(ctT =new CTTimeTables( rset.getInt(2),rset.getString(3),rset.getString(4)));
             }
             System.out.println("we are getting to cTTT");
         } catch (SQLException e1) {
@@ -88,7 +88,7 @@ public class TimeTables {
         rset = to.getConsultantTT();
         try {
             while (rset.next()) {
-                consultantTimeTable.add(consultantT= new ConsultantTimeTable(rset.getInt(2),rset.getString(3),rset.getInt(4)));
+                consultantTimeTable.add(consultantT= new ConsultantTimeTable(rset.getInt(2),rset.getString(3)));
             }
             System.out.println("we are getting to conTT");
         } catch (SQLException e1) {
@@ -170,7 +170,7 @@ public class TimeTables {
                     System.out.println("First For");
                     freeCheck = xRayTimeTable.get(i).getTaken();
                     if (freeCheck.equals(free)) {
-                        xRayT = new XRayTimeTable(i, taken, to.getConsultantName(1), i);
+                        xRayT = new XRayTimeTable(i, taken, to.getConsultantName(1));
                         xRayT.setTable();
                         System.out.println("Am I even getting here 1");
                         printTimeTables();
@@ -182,7 +182,7 @@ public class TimeTables {
                     System.out.println("\n\nhas 2");
                     freeCheck = mRITimeTable.get(i).getTaken();
                     if (freeCheck.equals(free)) {
-                        mriT = new MRITimeTable(i, taken, to.getConsultantName(1), i);
+                        mriT = new MRITimeTable(i, taken, to.getConsultantName(1));
                         mriT.setTable();
                         System.out.println("Am I even getting here 2");
                         printTimeTables();
@@ -194,7 +194,7 @@ public class TimeTables {
                     System.out.println("\n\nhas 3");
                     freeCheck = cTScanTimeTable.get(i).getTaken();
                     if (freeCheck.equals(free)) {
-                        ctT = new CTTimeTables(i, taken, to.getConsultantName(1), i);
+                        ctT = new CTTimeTables(i, taken, to.getConsultantName(1));
                         ctT.setTable();
                         System.out.println("Am I even getting here 3");
                         printTimeTables();
@@ -213,7 +213,7 @@ public class TimeTables {
 
     public void setFromConReq(int conRegIn){
         time=consultantTimeTable.size();
-        consultantT=new ConsultantTimeTable(time,to.getConsultantName(conRegIn),99);
+        consultantT=new ConsultantTimeTable(time,to.getConsultantName(conRegIn));
 
         }
 

@@ -12,10 +12,9 @@ public class XRayTimeTable {
     private TimeTableOperations to;
     private ConsultantTimeTable cont;
 
-    public XRayTimeTable(int timeIn,String taken,String consultantNameIn, int appNumIn){
+    public XRayTimeTable(int timeIn,String taken,String consultantNameIn){
         this.timeIn=timeIn;
         this.taken=taken;
-        this.appNum=appNumIn;
         this.consultantNameIn=consultantNameIn;
     }
 
@@ -34,7 +33,7 @@ public class XRayTimeTable {
     public void setTable(){
         System.out.println("Where the fuck");
         to = new TimeTableOperations();
-        cont= new ConsultantTimeTable(timeIn + 1,to.getConsultantName(1), 1);
+        cont= new ConsultantTimeTable(timeIn + 1,to.getConsultantName(1));
         cont.setTable();
         to.setXRayTimeTable(timeIn + 1, taken, 1);
     }

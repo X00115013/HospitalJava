@@ -10,8 +10,7 @@ public class ConsultantTimeTable {
     private String consultantNameIn;
     private TimeTableOperations to;
 
-    public ConsultantTimeTable(int timeIn,String consultantNameIn,int appNumIn){
-        this.appNum=appNumIn;
+    public ConsultantTimeTable(int timeIn,String consultantNameIn){
         this.timeIn=timeIn;
         this.consultantNameIn=consultantNameIn;
     }

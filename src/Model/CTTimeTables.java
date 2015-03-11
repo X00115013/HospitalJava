@@ -12,10 +12,9 @@ public class CTTimeTables {
     private TimeTableOperations to;
     private ConsultantTimeTable cont;
 
-    public CTTimeTables(int timeIn,String taken,String consultantNameIn, int appNumIn){
+    public CTTimeTables(int timeIn,String taken,String consultantNameIn){
         this.timeIn=timeIn;
         this.taken=taken;
-        this.appNum=appNumIn;
         this.consultantNameIn=consultantNameIn;
     }
 
@@ -33,7 +32,7 @@ public class CTTimeTables {
 
     public void setTable(){
         to = new TimeTableOperations();
-        cont= new ConsultantTimeTable(timeIn + 1,to.getConsultantName(3), 1);
+        cont= new ConsultantTimeTable(timeIn + 1,to.getConsultantName(3));
         cont.setTable();
         to.setCTTimeTable(timeIn + 1, taken, 3);
     }
