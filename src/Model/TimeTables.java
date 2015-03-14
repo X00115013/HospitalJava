@@ -1,12 +1,9 @@
 package Model;
 import DataBase.AppointmentOperations;
-import DataBase.HospitalOperations;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import DataBase.HospitalOperations;
 import DataBase.TimeTableOperations;
-import Model.*;
 
 /**
 * Created by Roland on 04/03/2015.

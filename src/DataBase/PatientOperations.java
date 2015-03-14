@@ -12,50 +12,10 @@ public class PatientOperations {
     private ResultSet rset;
     private PreparedStatement pstmt;
     private Statement stmt;
+    private Connect connect= new Connect();
 
-    public PatientOperations() {conn = openDB();
+    public PatientOperations() {conn = connect.openDB();
     }
-
-    // This method opens a connection to the Oracle database
-    public Connection openDB() {
-        try {
-            OracleDataSource ods = new OracleDataSource();
-
-//			// Tallaght
-//			ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
-//            String uName = "X00115013";
-//            ods.setUser(uName);
-//            String uPass = "db02Dec77";
-//            ods.setPassword(uPass);
-
-//			Home Oracle XE
-            ods.setURL("jdbc:oracle:thin:hr/hr@localhost:1521/XE");
-            String uName = "SYSTEM";
-            ods.setUser(uName);
-            String uPass = "30905149";
-            ods.setPassword(uPass);
-
-            conn = ods.getConnection();
-            System.out.println(" Patient connected.");
-        } catch (Exception e) {
-            System.out.print("Unable to load driver " + e);
-            System.exit(1);
-        }
-        return conn;
-    }
-
-    // This method closes the connection to the Oracle database
-    public void closeDB() {
-        try {
-            conn.close();
-            System.out.print("Connection closed");
-        } catch (SQLException e) {
-            System.out.print("Could not close connection ");
-            e.printStackTrace();
-        }
-    }
-
-
 
     public ResultSet getPatientAdminByNum(int id) {
         try {
@@ -113,36 +73,38 @@ public class PatientOperations {
 
 
 
-//
-//    public void addPatient(PatientAdmin pa) {
-//        try {
-//            String sql2 = "INSERT INTO Patient(patientFName, patientLName, patientDOB, patientGender, occupation," +
-//                    " patientPhone) "+ "values(patientNum_seq.nextVal,?,?,?,?,?,?)";
-//            pstmt = conn.prepareStatement(sql2);
-//            pstmt.setString(1, pa.getPatientFName());
-//            pstmt.setString(2, pa.getPatientLName());
-//            pstmt.setString(3,pa.getPatientDOB());
-//            pstmt.setString(4,pa.getPatientGender());
-//            pstmt.setString(5,pa.getPatientPhone());
-//            pstmt.setString(6,pa.getPatientEmail());
-//            pstmt.executeUpdate();
-//        } catch (Exception se) {
-//            System.out.println(se);
-//        }
-//    }
-//
+
+    public void addPatient(String patientFNameIn, String patientLNameIn, String patientAddressIn,String occupationIn, String genderIn, String emailIn, String phoneIn, String DOBIn) {
+        try {
+            String sqlQuery = "INSERT INTO Patient(patient_Number,patientFName, patientLName, patientDOB, patientGender, occupation,PatientEmail," +
+                    " patientPhone,patientAddress) "+ "values(PatientID.nextVal,?,?,?,?,?,?,?,?)";
+            pstmt = conn.prepareStatement(sqlQuery);
+            pstmt.setString(1,patientFNameIn);
+            pstmt.setString(2, patientLNameIn);
+            pstmt.setString(3,DOBIn);
+            pstmt.setString(4,genderIn);
+            pstmt.setString(5,occupationIn);
+            pstmt.setString(6,emailIn);
+            pstmt.setString(7,phoneIn);
+            pstmt.setString(8,patientAddressIn);
+            pstmt.executeUpdate();
+        } catch (Exception se) {
+            System.out.println("Is there to many here 2"+se);
+        }
+    }
 
 
 
 
 
 
-    public void updatePatientAdmin(int patientNumber, String newPFname,String newPLname, String newPaddress, String newPphone, String newEmail)
+
+    public void updatePatientAdmin(int patientNumber, String newPFname,String newPLname, String newPaddress, String occupationIn, String genderIn,String newPphone, String newEmail, String DOBIn)
     {
         try {
             String sql1 = "UPDATE Patient SET patientFName= '" + newPFname +"',patientLName= '" + newPLname + "', " +
                     "patientAddress= '"+newPaddress+ "', patientPhone= '"+newPaddress+"', patientEmail= " +
-                    "'"+newEmail+", where patientNumber=" +patientNumber+"'";
+                    "'"+newEmail+", occupation = '"+occupationIn+"',where patientNumber=" +patientNumber+"'";
             stmt = conn.createStatement();
             stmt.executeUpdate(sql1);
         } catch (Exception se) {

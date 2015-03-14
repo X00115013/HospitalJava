@@ -349,9 +349,9 @@ public class CreateTables {
         try {
             //Patient START creating table
             System.out.println("Creating Patient");
-            String createPatient = "CREATE TABLE Patient (patient_Number NUMBER PRIMARY KEY, patientFName VARCHAR2(30), patientLName VARCHAR2(30)," +
-                    "PatientDOB DATE,PatientGender VARCHAR2(10), BloodType VARCHAR2(5),Symptoms VARCHAR2(255), Diagnoses VARCHAR2(255), RequiredTreatment " +
-                    "VARCHAR2(255),EquipmentNeeded NUMBER, EquipmentUsed NUMBER,Allergies VARCHAR2(255),PrescriptionUsed VARCHAR2(255),PatientEmail VARCHAR2(30),PatientPhone VARCHAR2(15))";
+            String createPatient = "CREATE TABLE Patient (patient_Number NUMBER PRIMARY KEY, patientFName VARCHAR2(60), patientLName VARCHAR2(60),patientAddress VARCHAR2(255)," +
+                    "PatientDOB VARCHAR2(20),PatientGender VARCHAR2(10), occupation VARCHAR2(100), BloodType VARCHAR2(5),Symptoms VARCHAR2(255), Diagnoses VARCHAR2(255), RequiredTreatment " +
+                    "VARCHAR2(255),EquipmentNeeded NUMBER, EquipmentUsed NUMBER,Allergies VARCHAR2(255),PrescriptionUsed VARCHAR2(255),PatientEmail VARCHAR2(60),PatientPhone VARCHAR2(60))";
             pstmt = conn.prepareStatement(createPatient);
             pstmt.executeUpdate(createPatient);
             // creating Sequence
@@ -564,8 +564,8 @@ public class CreateTables {
         try {
             //REFERRAL START creating table
             System.out.println("Creating Referral");
-            String createReferral = "CREATE TABLE Referral (GPNumber NUMBER PRIMARY KEY,GPName VARCHAR2(30),GPLocation VARCHAR2(255),Patient_FName VARCHAR2(30)," +
-                    "Patient_LName VARCHAR2(30),Patient_DOB DATE,Patient_Address VARCHAR2(255),Patient_Phone VARCHAR2(15)," +
+            String createReferral = "CREATE TABLE Referral (Reference NUMBER PRIMARY KEY,GPNumber NUMBER,GPName VARCHAR2(40),GPLocation VARCHAR2(255),Patient_FName VARCHAR2(30)," +
+                    "Patient_LName VARCHAR2(30),Patient_DOB VARCHAR(225),Patient_Address VARCHAR2(255),Patient_Phone VARCHAR2(15)," +
                     "ReasonVisit VARCHAR2(255),Recommendation VARCHAR2(255),Med_Equip_Needed NUMBER,Consultant_Type NUMBER,checked NUMBER,gender VARCHAR2(10),patient_Number NUMBER REFERENCES Patient(patient_Number))";
             pstmt = conn.prepareStatement(createReferral);
             pstmt.executeUpdate(createReferral);

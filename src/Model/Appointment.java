@@ -14,30 +14,39 @@ public class Appointment {
     public int consultantType, appNumber;
     public int medicalEquip, patientNum;
     public String date;
-//    private ArrayList<Appointment> appList = new ArrayList<Appointment>();
     private ResultSet rset = null;
-    private AppointmentOperations ao;
+    private AppointmentOperations ao=new AppointmentOperations();
     private Appointment apt;
+
+
+    public Appointment(int appNumIn ,String reasonForVisitIn, int consultantTypeIn, int medicalEquipIn, int patientNumIn) {
+        appNumber=appNumIn;
+        reasonForVisit = reasonForVisitIn;
+        consultantType = consultantTypeIn;
+        medicalEquip = medicalEquipIn;
+        patientNum=patientNumIn;
+    }
+
+
 
 
     public Appointment(String reasonForVisitIn, int consultantTypeIn, int medicalEquipIn) {
         reasonForVisit = reasonForVisitIn;
         consultantType = consultantTypeIn;
         medicalEquip = medicalEquipIn;
-        setAppointment(reasonForVisit,medicalEquip,consultantType);
-        ao = new AppointmentOperations();
+        setAppointment(reasonForVisit, medicalEquip, consultantType);
+    }
+
+
+    public void printAppointment(){
         try {
             rset = ao.getAppointment();
-            System.out.println("we are getting to here");
             while (rset.next()) {
-//                appList.add(apt = new Appointment(rset.getInt(1),rset.getString(2), rset.getInt(3), rset.getInt(4),rset.getInt(5)));
                 System.out.println("Whats in Appointment\t " + rset.getInt(1) + " \t" + rset.getString(2) + " \t" + rset.getInt(3) + " \t" + rset.getInt(4)+"\t"+rset.getInt(5));
-                appNumber=rset.getInt(1);
             }
         } catch (SQLException e1) {
-            System.out.println("stupid crap");
+            System.out.println(e1);
         }
-        System.out.println("And here");
     }
 
     public int getAppNumber() {
@@ -62,6 +71,10 @@ public class Appointment {
 
     public String getDate() {
         return date;
+    }
+
+    public int getPatientNum() {
+        return patientNum;
     }
 
     public void setTimeTableMED() {

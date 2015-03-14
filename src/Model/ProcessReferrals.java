@@ -14,7 +14,7 @@ public class ProcessReferrals {
     private String gpName;
     private String gpLocation;
     private int patientNumber;
-    private String reasonForVisit;
+    private String reasonForVisit,occupation;
     private String recommendations;
     private int medicalRequired;
     private int consultantRequired, gpNum;
@@ -84,7 +84,7 @@ public class ProcessReferrals {
 
 
     public void referralProcess() {
-        PatientRecord patientRecord = new PatientRecord(patientFNameIn, patientLNameIn, patientAddressIn, genderIn, emailIn, phoneIn, DOBIn);
+        PatientRecord patientRecord = new PatientRecord(patientFNameIn, patientLNameIn, patientAddressIn,occupation,genderIn, emailIn, phoneIn, DOBIn);
 //        MedicalRecord medicalRecord = new MedicalRecord(patientRecord.getPatientNumber(), recommendations, medicalRequired);
         Appointment appointment=new Appointment(reasonForVisit,medicalRequired,consultantRequired);
 
