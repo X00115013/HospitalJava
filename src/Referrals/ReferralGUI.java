@@ -1,21 +1,14 @@
-package GUI;
+package Referrals;
 
-import DataBase.HospitalOperations;
 import DataBase.PatientOperations;
-import DataBase.ReferralOperations;
-import Model.Referrals;
-import com.sun.imageio.plugins.jpeg.JPEG;
-import com.sun.imageio.plugins.jpeg.JPEGImageReader;
+import Referrals.ReferralOperations;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * Created by x00113327 on 27/02/2015.

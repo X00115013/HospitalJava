@@ -40,6 +40,10 @@ public class Appointment {
         System.out.println("And here");
     }
 
+    public int getAppNumber() {
+        return appNumber;
+    }
+
     public int getTime() {
         return time;
     }

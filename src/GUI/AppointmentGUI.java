@@ -193,13 +193,10 @@ public class AppointmentGUI extends JFrame implements ActionListener {
             }catch(InputMismatchException im){
                 System.out.println(im);
             }
-
-//            Appointment app =new Appointment(field2.getText(),catcher2,catcher);
+            Appointment app =new Appointment(field2.getText(),catcher2,catcher);
             System.out.println(field2.getText());
             System.out.println(catcher);
             System.out.println(catcher2);
-
-
 
 
 //            AppointmentOperations ao = new AppointmentOperations();

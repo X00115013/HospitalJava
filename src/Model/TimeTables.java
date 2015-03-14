@@ -1,4 +1,5 @@
 package Model;
+import DataBase.AppointmentOperations;
 import DataBase.HospitalOperations;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,17 +18,20 @@ public class TimeTables {
     private String week1, week2, week3, week4;
     private ResultSet rset;
     private ArrayList<ResultSet> consultantList = new ArrayList<ResultSet>();
+    private ArrayList<Appointment> appList = new ArrayList<Appointment>();
     private ArrayList<XRayTimeTable> xRayTimeTable = new ArrayList<XRayTimeTable>();
     private ArrayList<MRITimeTable> mRITimeTable = new ArrayList<MRITimeTable>();
     private ArrayList<CTTimeTables> cTScanTimeTable = new ArrayList<CTTimeTables>();
     private ArrayList<ConsultantTimeTable> consultantTimeTable = new ArrayList<ConsultantTimeTable>();
-    private TimeTableOperations to;
+    private TimeTableOperations to = new TimeTableOperations();
     private int medEquip,conReq;
     private String free="Free";
     private XRayTimeTable xRayT;
     private MRITimeTable mriT;
     private CTTimeTables ctT;
     private ConsultantTimeTable consultantT;
+    private AppointmentOperations ao;
+    private Appointment apt;
     int ind=0;
 
     public TimeTables() {
@@ -54,7 +58,6 @@ public class TimeTables {
 
 
     public void refreshTimeTables() {
-        to = new TimeTableOperations();
         rset = to.getXRayTT();
         try {
             while (rset.next()) {
@@ -103,41 +106,59 @@ public class TimeTables {
         } catch (SQLException e1) {
             System.out.println(e1);
         }
-
+        ao = new AppointmentOperations();
+        try {
+            rset = ao.getAppointment();
+            System.out.println("we are getting to Appointment list");
+            while (rset.next()) {
+//                appList.add(apt = new Appointment(rset.getString(2), rset.getInt(3), rset.getInt(4)));
+                System.out.println("Whats in Appointment\t " + rset.getInt(1) + " \t" + rset.getString(2) + " \t" + rset.getInt(3) + " \t" + rset.getInt(4)+"\t"+rset.getInt(5));
+            }
+        } catch (SQLException e1) {
+            System.out.println(e1);
+        }
+        System.out.println("And here");
     }
 
-    public void printTimeTables() {
-        to = new TimeTableOperations();
+
+    public void printXRayTimeTables() {
         rset = to.getXRayTT();
         try {
             while (rset.next()) {
-                System.out.println("xray should be here\t" + rset.getInt(1) + "\t" + rset.getInt(2) + "\t" + rset.getString(3)+ "\t" + rset.getString(4) + "\t" + rset.getInt(5));
+                System.out.println("xray should be here\t" + rset.getInt(1) + "\t" + rset.getInt(2) + "\t" + rset.getString(3) + "\t" + rset.getString(4) + "\t" + rset.getInt(5));
             }
             System.out.println("we are getting to xRayTT");
+            printConsulTimeTables();
         } catch (SQLException e1) {
             System.out.println(e1);
         }
-
+    }
+    public void printMRITimeTables() {
         rset = to.getMRIScanTT();
         try {
             while (rset.next()) {
-                System.out.println("MRI should be here\t" + rset.getInt(1) + "\t" + rset.getInt(2) + "\t" + rset.getString(3)+ "\t" + rset.getString(4) + "\t" + rset.getInt(5));
+                System.out.println("MRI should be here\t" + rset.getInt(1) + "\t" + rset.getInt(2) + "\t" + rset.getString(3) + "\t" + rset.getString(4) + "\t" + rset.getInt(5));
             }
             System.out.println("we are getting to MriTT");
+            printConsulTimeTables();
         } catch (SQLException e1) {
             System.out.println(e1);
         }
-
+    }
+    public void printCTTimeTables() {
         rset = to.getCTScanTT();
         try {
             while (rset.next()) {
-                System.out.println("CT should be here\t" + rset.getInt(1) + "\t" + rset.getInt(2) + "\t" + rset.getString(3) + "\t" + rset.getString(4)+ "\t" + rset.getInt(5));
+                System.out.println("CT should be here\t" + rset.getInt(1) + "\t" + rset.getInt(2) + "\t" + rset.getString(3) + "\t" + rset.getString(4) + "\t" + rset.getInt(5));
             }
             System.out.println("we are getting to cTTT");
+            printConsulTimeTables();
         } catch (SQLException e1) {
             System.out.println(e1);
         }
+    }
 
+    public void printConsulTimeTables() {
         rset = to.getConsultantTT();
         try {
             while (rset.next()) {
@@ -164,62 +185,71 @@ public class TimeTables {
         ind=0;
         String taken = "Taken";
         String freeCheck="";
-        System.out.println("start of if");
             if (medType == 1) {
-                for (int i = 0; i < xRayTimeTable.size(); i++) {
-                    System.out.println("First For");
+                for (int i = 0; i < xRayTimeTable.size(); i++){
                     freeCheck = xRayTimeTable.get(i).getTaken();
-                    if (freeCheck.equals(free)) {
+                    if(freeCheck.equals(free)) {
                         xRayT = new XRayTimeTable(i, taken, to.getConsultantName(1));
                         xRayT.setTable();
-                        System.out.println("Am I even getting here 1");
-                        printTimeTables();
+                        printXRayTimeTables();
                         i = xRayTimeTable.size() + 1;
+                    }else{
+                        System.out.println("XRay All booked out: to screen");
                     }
                 }
-            } else if (medType == 2) {
+            } else if(medType == 2){
                 for (int i = 0; i < mRITimeTable.size(); i++) {
-                    System.out.println("\n\nhas 2");
                     freeCheck = mRITimeTable.get(i).getTaken();
                     if (freeCheck.equals(free)) {
-                        mriT = new MRITimeTable(i, taken, to.getConsultantName(1));
+                        mriT = new MRITimeTable(i, taken, to.getConsultantName(2));
                         mriT.setTable();
-                        System.out.println("Am I even getting here 2");
-                        printTimeTables();
+                        printMRITimeTables();
                         i = mRITimeTable.size() + 1;
+                    }else{
+                        System.out.println("MRI All booked out: to screen");
                     }
                 }
-            } else if (medType == 3) {
+            } else if(medType == 3){
                 for (int i = 0; i < cTScanTimeTable.size(); i++) {
-                    System.out.println("\n\nhas 3");
                     freeCheck = cTScanTimeTable.get(i).getTaken();
                     if (freeCheck.equals(free)) {
-                        ctT = new CTTimeTables(i, taken, to.getConsultantName(1));
+                        ctT = new CTTimeTables(i, taken, to.getConsultantName(3));
                         ctT.setTable();
-                        System.out.println("Am I even getting here 3");
-                        printTimeTables();
+                        printCTTimeTables();
                         i = cTScanTimeTable.size() + 1;
+                    }else{
+                        System.out.println("CT Scan All booked out: to screen");
                     }
                 }
             } else {
                 System.out.println("Number did not match");
-
             }
-
-
             System.out.println("You made it this far THE END");
-
     }
 
     public void setFromConReq(int conRegIn){
         time=consultantTimeTable.size();
         consultantT=new ConsultantTimeTable(time,to.getConsultantName(conRegIn));
+    }
 
+    public void cancelTimeTableEntry(int appointmentNumberIn){
+        for (int i = 0; i < appList.size(); i++) {
+            if (appList.get(i).getAppNumber() == appointmentNumberIn) {
+                if (appList.get(i).getMedicalEquip() == 1) {
+                    to.cancelXRayTableEntry(appointmentNumberIn);
+                } else if (appList.get(i).getMedicalEquip() == 2) {
+                    to.cancelMRITableEntry(appointmentNumberIn);
+                } else if (appList.get(i).getMedicalEquip() == 3) {
+                    to.cancelCTTableEntry(appointmentNumberIn);
+                }
+                else{
+                    System.out.println("Error processing time table type: log file");
+                }
+            }else{
+                System.out.println("Appointment does not exist dialog box: to screen");
+            }
         }
-
-
-
-
+    }
 
     public void clearArrays(){
         for (int i= 0; i < xRayTimeTable.size() ; i++) {
@@ -240,7 +270,6 @@ public class TimeTables {
         for (int i= 0; i < consultantTimeTable.size() ; i++) {
             consultantTimeTable.remove(i);
             System.out.println("Array cleared "+i);
-
         }
     }
 
