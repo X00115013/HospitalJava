@@ -40,11 +40,16 @@ public class PatientOperations {
         return rset;
     }
 
-
-
     public ResultSet getPatientMedical(int id) {
         try {
-            String queryString = "SELECT * FROM Patient where patientNumber = "+id;
+            String queryString = "SELECT patient_Number, " +
+                    "patientFName, patientLName " +
+                    ", PatientDOB ,PatientGender," +
+                    " BloodType ,Symptoms, Diagnoses," +
+                    " RequiredTreatment ,EquipmentNeeded ," +
+                    " EquipmentUsed ,Allergies ," +
+                    "PrescriptionUsed " +
+                    "FROM Patient where patientNumber = "+id;
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
         } catch (Exception e) {
