@@ -18,6 +18,14 @@ public class CTTimeTables {
         this.consultantNameIn=consultantNameIn;
     }
 
+
+    public CTTimeTables(TimeTableOperations to,int timeIn,String taken,String consultantNameIn){
+        this.to=to;
+        this.timeIn=timeIn;
+        this.taken=taken;
+        this.consultantNameIn=consultantNameIn;
+    }
+
     public int getTimeIn() {
         return timeIn;
     }
@@ -31,7 +39,6 @@ public class CTTimeTables {
     }
 
     public void setTable(){
-        to = new TimeTableOperations();
         cont= new ConsultantTimeTable(timeIn + 1,to.getConsultantName(3));
         cont.setTable();
         to.setCTTimeTable(timeIn + 1, taken, 3);

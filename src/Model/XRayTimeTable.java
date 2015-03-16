@@ -12,7 +12,15 @@ public class XRayTimeTable {
     private TimeTableOperations to;
     private ConsultantTimeTable cont;
 
+
     public XRayTimeTable(int timeIn,String taken,String consultantNameIn){
+        this.timeIn=timeIn;
+        this.taken=taken;
+        this.consultantNameIn=consultantNameIn;
+    }
+
+    public XRayTimeTable(TimeTableOperations to,int timeIn,String taken,String consultantNameIn){
+        this.to=to;
         this.timeIn=timeIn;
         this.taken=taken;
         this.consultantNameIn=consultantNameIn;

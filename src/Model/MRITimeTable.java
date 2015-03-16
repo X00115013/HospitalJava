@@ -9,10 +9,17 @@ public class MRITimeTable {
     private int timeIn,appNum;
     private String taken;
     private String consultantNameIn;
-    private TimeTableOperations to = new TimeTableOperations();;
+    private TimeTableOperations to;
     private ConsultantTimeTable cont;
 
     public MRITimeTable(int timeIn,String taken,String consultantNameIn){
+        this.timeIn=timeIn;
+        this.taken=taken;
+        this.consultantNameIn=consultantNameIn;
+    }
+
+    public MRITimeTable(TimeTableOperations to,int timeIn,String taken,String consultantNameIn){
+        this.to=to;
         this.timeIn=timeIn;
         this.taken=taken;
         this.consultantNameIn=consultantNameIn;

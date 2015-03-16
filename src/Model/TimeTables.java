@@ -27,7 +27,7 @@ public class TimeTables {
     private MRITimeTable mriT;
     private CTTimeTables ctT;
     private ConsultantTimeTable consultantT;
-    private AppointmentOperations ao;
+    private AppointmentOperations ao= new AppointmentOperations();
     private Appointment apt;
     int ind=0;
 
@@ -60,17 +60,16 @@ public class TimeTables {
             while (rset.next()) {
                 xRayTimeTable.add(xRayT=new XRayTimeTable(rset.getInt(2), rset.getString(3),rset.getString(4)));
                 }
-            System.out.println("we are getting to xRayTT");
         } catch (SQLException e1) {
             System.out.println(e1);
         }
 
         rset = to.getMRIScanTT();
+
         try {
             while (rset.next()) {
                 mRITimeTable.add(mriT= new MRITimeTable(rset.getInt(2),rset.getString(3),rset.getString(4)));
             }
-            System.out.println("we are getting to MriTT");
         } catch (SQLException e1) {
             System.out.println(e1);
         }
@@ -80,7 +79,6 @@ public class TimeTables {
             while (rset.next()) {
                 cTScanTimeTable.add(ctT =new CTTimeTables( rset.getInt(2),rset.getString(3),rset.getString(4)));
             }
-            System.out.println("we are getting to cTTT");
         } catch (SQLException e1) {
             System.out.println(e1);
         }
@@ -90,41 +88,37 @@ public class TimeTables {
             while (rset.next()) {
                 consultantTimeTable.add(consultantT= new ConsultantTimeTable(rset.getInt(2),rset.getString(3)));
             }
-            System.out.println("we are getting to conTT");
         } catch (SQLException e1) {
             System.out.println(e1);
         }
-        rset = to.getConsultant();
-        try {
-            while (rset.next()) {
-                System.out.println("Consultants list should be here\t"+rset.getInt(1)+"\t"+rset.getString(2));
-            }
-            System.out.println("we are getting to Consultant list");
-        } catch (SQLException e1) {
-            System.out.println(e1);
-        }
-        ao = new AppointmentOperations();
+//        rset = to.getConsultant();
+//        try {
+//            while (rset.next()) {
+//                System.out.println("Consultants list should be here\t"+rset.getInt(1)+"\t"+rset.getString(2));
+//            }
+//        } catch (SQLException e1) {
+//            System.out.println(e1);
+//        }
         try {
             rset = ao.getAppointment();
-            System.out.println("we are getting to Appointment list");
+            System.out.println("\n\n\nAppointment list\n");
             while (rset.next()) {
 //                appList.add(apt = new Appointment(rset.getString(2), rset.getInt(3), rset.getInt(4)));
-                System.out.println("Whats in Appointment\t " + rset.getInt(1) + " \t" + rset.getString(2) + " \t" + rset.getInt(3) + " \t" + rset.getInt(4)+"\t"+rset.getInt(5));
+                System.out.println("" + rset.getInt(1) + " \t" + rset.getString(2) + " \t" + rset.getInt(3) + " \t" + rset.getInt(4)+"\t"+rset.getInt(5));
             }
         } catch (SQLException e1) {
             System.out.println(e1);
         }
-        System.out.println("And here");
     }
 
 
     public void printXRayTimeTables() {
         rset = to.getXRayTT();
+        System.out.println("\n\n\nXRay Time Table\n");
         try {
             while (rset.next()) {
-                System.out.println("xray should be here\t" + rset.getInt(1) + "\t" + rset.getInt(2) + "\t" + rset.getString(3) + "\t" + rset.getString(4) + "\t" + rset.getInt(5));
+                System.out.println("" + rset.getInt(1) + "\t" + rset.getInt(2) + "\t" + rset.getString(3) + "\t" + rset.getString(4) + "\t" + rset.getInt(5));
             }
-            System.out.println("we are getting to xRayTT");
             printConsulTimeTables();
         } catch (SQLException e1) {
             System.out.println(e1);
@@ -132,11 +126,11 @@ public class TimeTables {
     }
     public void printMRITimeTables() {
         rset = to.getMRIScanTT();
+        System.out.println("\n\n\nMRI Time Table\n");
         try {
             while (rset.next()) {
-                System.out.println("MRI should be here\t" + rset.getInt(1) + "\t" + rset.getInt(2) + "\t" + rset.getString(3) + "\t" + rset.getString(4) + "\t" + rset.getInt(5));
+                System.out.println("" + rset.getInt(1) + "\t" + rset.getInt(2) + "\t" + rset.getString(3) + "\t" + rset.getString(4) + "\t" + rset.getInt(5));
             }
-            System.out.println("we are getting to MriTT");
             printConsulTimeTables();
         } catch (SQLException e1) {
             System.out.println(e1);
@@ -144,11 +138,11 @@ public class TimeTables {
     }
     public void printCTTimeTables() {
         rset = to.getCTScanTT();
+        System.out.println("\n\n\nCT Scan Time Table\n");
         try {
             while (rset.next()) {
-                System.out.println("CT should be here\t" + rset.getInt(1) + "\t" + rset.getInt(2) + "\t" + rset.getString(3) + "\t" + rset.getString(4) + "\t" + rset.getInt(5));
+                System.out.println("" + rset.getInt(1) + "\t" + rset.getInt(2) + "\t" + rset.getString(3) + "\t" + rset.getString(4) + "\t" + rset.getInt(5));
             }
-            System.out.println("we are getting to cTTT");
             printConsulTimeTables();
         } catch (SQLException e1) {
             System.out.println(e1);
@@ -157,20 +151,20 @@ public class TimeTables {
 
     public void printConsulTimeTables() {
         rset = to.getConsultantTT();
+        System.out.println("\n\n\nConsultants Time Table");
         try {
             while (rset.next()) {
-                System.out.println("ConTT should be here \t"+rset.getInt(1)+"\t"+rset.getInt(2)+"\t"+rset.getString(3)+ "\t" + rset.getInt(4));
+                System.out.println(""+rset.getInt(1)+"\t"+rset.getInt(2)+"\t"+rset.getString(3)+ "\t" + rset.getInt(4));
             }
-            System.out.println("we are getting to conTT");
         } catch (SQLException e1) {
             System.out.println(e1);
         }
         rset = to.getConsultant();
+        System.out.println("\n\n\nConsultants list\n");
         try {
             while (rset.next()) {
-                System.out.println("Consultants list should be here\t"+rset.getInt(1)+"\t"+rset.getString(2));
+                System.out.println(""+rset.getInt(1)+"\t"+rset.getString(2));
             }
-            System.out.println("we are getting to Consultant list");
         } catch (SQLException e1) {
             System.out.println(e1);
         }
@@ -179,14 +173,13 @@ public class TimeTables {
 
 
     public void setFromMedReq(int medType){
-        ind=0;
         String taken = "Taken";
         String freeCheck="";
             if (medType == 1) {
                 for (int i = 0; i < xRayTimeTable.size(); i++){
                     freeCheck = xRayTimeTable.get(i).getTaken();
                     if(freeCheck.equals(free)) {
-                        xRayT = new XRayTimeTable(i, taken, to.getConsultantName(1));
+                        xRayT = new XRayTimeTable(to,i, taken, to.getConsultantName(1));
                         xRayT.setTable();
                         printXRayTimeTables();
                         i = xRayTimeTable.size() + 1;
@@ -198,7 +191,7 @@ public class TimeTables {
                 for (int i = 0; i < mRITimeTable.size(); i++) {
                     freeCheck = mRITimeTable.get(i).getTaken();
                     if (freeCheck.equals(free)) {
-                        mriT = new MRITimeTable(i, taken, to.getConsultantName(2));
+                        mriT = new MRITimeTable(to,i, taken, to.getConsultantName(2));
                         mriT.setTable();
                         printMRITimeTables();
                         i = mRITimeTable.size() + 1;
@@ -210,7 +203,7 @@ public class TimeTables {
                 for (int i = 0; i < cTScanTimeTable.size(); i++) {
                     freeCheck = cTScanTimeTable.get(i).getTaken();
                     if (freeCheck.equals(free)) {
-                        ctT = new CTTimeTables(i, taken, to.getConsultantName(3));
+                        ctT = new CTTimeTables(to,i, taken, to.getConsultantName(3));
                         ctT.setTable();
                         printCTTimeTables();
                         i = cTScanTimeTable.size() + 1;
@@ -271,7 +264,6 @@ public class TimeTables {
     }
 
     public void setFree(){
-        to=new TimeTableOperations();
 //        refreshTimeTables();
         for (int i = 0; i < 1 ; i++) {
             to.setXRayFree(free);

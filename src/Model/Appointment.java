@@ -35,14 +35,16 @@ public class Appointment {
         consultantType = consultantTypeIn;
         medicalEquip = medicalEquipIn;
         setAppointment(reasonForVisit, medicalEquip, consultantType);
+        printAppointment();
     }
 
 
     public void printAppointment(){
         try {
             rset = ao.getAppointment();
+            System.out.println("\nAppointment Table\n");
             while (rset.next()) {
-                System.out.println("Whats in Appointment\t " + rset.getInt(1) + " \t" + rset.getString(2) + " \t" + rset.getInt(3) + " \t" + rset.getInt(4)+"\t"+rset.getInt(5));
+                System.out.println("" + rset.getInt(1) + " \t" + rset.getString(2) + " \t" + rset.getInt(3) + " \t" + rset.getInt(4)+"\t"+rset.getInt(5));
             }
         } catch (SQLException e1) {
             System.out.println(e1);
@@ -87,12 +89,10 @@ public class Appointment {
     }
 
     public void setAppointment(String recIn, int equipIn,int conIn) {
-        ao = new AppointmentOperations();
         ao.addAppointment(recIn, equipIn, conIn);
         if (medicalEquip == -1) {
             setTimeTableCON();
         } else{
-            System.out.println("all the way down here");
             setTimeTableMED();
         }
     }

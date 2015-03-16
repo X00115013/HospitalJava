@@ -26,7 +26,7 @@ public class PatientRecord {
     private AppointmentOperations ao= new AppointmentOperations();
 
 
-    public void refreshTimeTables() {
+    public void refreshAppointments() {
         try {
             rset = ao.getAppointment();
             System.out.println("we are getting to Appointment list");
@@ -59,13 +59,32 @@ public class PatientRecord {
         phone = phoneIn;
         DOB = DOBIn;
         addPatientRecord();
+        patientNumber= po.getPatientNumber(patientFName,patientFName,DOB);
     }
 
-        public void printPatientRecord(){
+
+
+    public void printPatientRecordByPatientNum(){
+        System.out.println("\n\n\nPatient Admin Record By Number\n");
+        rset = po.getPatientAdmin(patientNumber);
+        try {
+            while (rset.next()) {
+                System.out.println("Piece of shit");
+                System.out.println(rset.getInt(1)+"\t"+rset.getString(2)+"\t"+rset.getString(3)+"\t"+rset.getString(4)+"" +
+                        "\t"+rset.getString(5)+"\t"+rset.getString(6)+"\t"+rset.getString(7)+"\t"+rset.getString(8)+"\t"+rset.getString(9));
+            }
+        } catch (SQLException e1) {
+            System.out.println("Patient by num record not working"+e1);
+        }
+    }
+
+    public void printPatientRecord(){
+            System.out.println("\n\n\nPatient Admin Record\n");
         rset = po.getPatientAdmin();
         try {
             while (rset.next()) {
-                System.out.println(rset.getInt(1)+"\t"+rset.getString(2)+"\t"+rset.getString(3)+"\t"+rset.getString(4)+"\t"+rset.getString(5)+"\t"+rset.getString(6)+"\t"+rset.getString(7)+"\t"+rset.getString(16)+"\t"+rset.getString(17));
+                System.out.println(rset.getInt(1)+"\t"+rset.getString(2)+"\t"+rset.getString(3)+"\t"+rset.getString(4)+"" +
+                        "\t"+rset.getString(5)+"\t"+rset.getString(6)+"\t"+rset.getString(7)+"\t"+rset.getString(16)+"\t"+rset.getString(17));
             }
         } catch (SQLException e1) {
             System.out.println("Patient record not working");
@@ -75,14 +94,13 @@ public class PatientRecord {
     public void addPatientRecord(){
         po.addPatient(patientFName,patientLName,patientAddress,occupation,gender,email,phone,DOB);
         printPatientRecord();
+        printPatientRecordByPatientNum();
     }
 
     public void updatePatientRecord(){
         po.updatePatientAdmin(patientNumber,patientFName,patientLName,patientAddress,occupation,gender,email,phone,DOB);
         printPatientRecord();
     }
-
-
 
     public int getPatientNumber() {
         return patientNumber;

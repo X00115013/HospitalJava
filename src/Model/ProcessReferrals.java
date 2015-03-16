@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import DataBase.PatientOperations;
 import Referrals.ReferralOperations;
 import Referrals.Referrals;
 
@@ -24,6 +25,7 @@ public class ProcessReferrals {
     private String genderIn;
     private ReferralOperations ro=new ReferralOperations();
     private ArrayList<Referrals> refList = new ArrayList<Referrals>();
+    private PatientOperations po;
     private ResultSet rset;
     private Referrals ref;
 
@@ -41,11 +43,10 @@ public class ProcessReferrals {
         }
     }
     public void printReferrals () {
-        System.out.println("Here 1");
+        System.out.println("\n\n\nReferral List\n");
         rset = ro.getReferral();
         try {
             while (rset.next()) {
-                System.out.println("Referral print loop");
                 System.out.println("" + rset.getInt(2) + "\t" + rset.getString(3) + "\t" + rset.getString(4) + "\t" + rset.getString(5) + "\t" + rset.getString(6) + "\t" + rset.getString(7) + "\t" + rset.getString(8) + "\t" +
                         "\t" + rset.getString(9) + "\t" + rset.getString(10) + "\t" + rset.getString(11) + "\t" + rset.getInt(12) + "\t" + rset.getInt(13) + "\t" + rset.getInt(14) + "\t" + rset.getString(15) + "\t" + rset.getInt(16));
             }
@@ -59,7 +60,6 @@ public class ProcessReferrals {
     public ProcessReferrals() {
         refreshTables();
             for (int i = 0; i < refList.size(); i++) {
-                System.out.println("Here for loop");
                 if (refList.get(i).isChecked() == 1) {
                     gpName = refList.get(i).getGpName();
                     gpLocation = refList.get(i).getGpLocation();
@@ -84,8 +84,10 @@ public class ProcessReferrals {
 
 
     public void referralProcess() {
+        po=new PatientOperations();
         PatientRecord patientRecord = new PatientRecord(patientFNameIn, patientLNameIn, patientAddressIn,occupation,genderIn, emailIn, phoneIn, DOBIn);
-//        MedicalRecord medicalRecord = new MedicalRecord(patientRecord.getPatientNumber(), recommendations, medicalRequired);
+        patientNumber=po.getPatientNumber(patientFNameIn,patientLNameIn,DOBIn);
+        MedicalRecord medicalRecord = new MedicalRecord(patientNumber,recommendations, medicalRequired);
         Appointment appointment=new Appointment(reasonForVisit,medicalRequired,consultantRequired);
 
     }

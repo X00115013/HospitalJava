@@ -19,8 +19,8 @@ public class PatientOperations {
 
     public ResultSet getPatientAdminByNum(int id) {
         try {
-            String queryString = "SELECT patientNumber, patientFName ,patientLName, " +
-                    "patientAddress, patientPhone, patientEmail FROM Patient where patientNumber = "+id;
+            String queryString = "SELECT patient_Number, patientFName ,patientLName, " +
+                    "patientAddress, patientPhone, patientEmail FROM Patient where patient_Number= "+id;
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
         } catch (Exception e) {
@@ -40,6 +40,27 @@ public class PatientOperations {
         return rset;
     }
 
+    public ResultSet getPatientAdmin(int id) {
+        try {
+            String queryString = "SELECT patient_Number, " +
+                    "patientFName, patientLName " +
+                    ", PatientDOB ,PatientGender," +
+                    "occupation,PatientEmail," +
+                    "patientPhone,patientAddress "+
+                    "FROM Patient WHERE patient_Number= "+id;
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        System.out.println("Returning but bloody empty");
+        return rset;
+    }
+
+
+
+
+
     public ResultSet getPatientMedical(int id) {
         try {
             String queryString = "SELECT patient_Number, " +
@@ -48,8 +69,26 @@ public class PatientOperations {
                     " BloodType ,Symptoms, Diagnoses," +
                     " RequiredTreatment ,EquipmentNeeded ," +
                     " EquipmentUsed ,Allergies ," +
-                    "PrescriptionUsed " +
-                    "FROM Patient where patientNumber = "+id;
+                    "PrescriptionUsed,Recommendation " +
+                    "FROM Patient where patient_Number= "+id;
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rset;
+    }
+
+    public ResultSet getPatientMedical() {
+        try {
+            String queryString = "SELECT patient_Number, " +
+                    "patientFName, patientLName " +
+                    ", PatientDOB ,PatientGender," +
+                    " BloodType ,Symptoms, Diagnoses," +
+                    " RequiredTreatment ,EquipmentNeeded ," +
+                    " EquipmentUsed ,Allergies ," +
+                    "PrescriptionUsed,Recommendation " +
+                    "FROM Patient";
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
         } catch (Exception e) {
@@ -109,7 +148,7 @@ public class PatientOperations {
         try {
             String sql1 = "UPDATE Patient SET patientFName= '" + newPFname +"',patientLName= '" + newPLname + "', " +
                     "patientAddress= '"+newPaddress+ "', patientPhone= '"+newPaddress+"', patientEmail= " +
-                    "'"+newEmail+", occupation = '"+occupationIn+"',where patientNumber=" +patientNumber+"'";
+                    "'"+newEmail+", occupation = '"+occupationIn+"',where patient_Number=" +patientNumber+"'";
             stmt = conn.createStatement();
             stmt.executeUpdate(sql1);
         } catch (Exception se) {
@@ -122,7 +161,7 @@ public class PatientOperations {
         try {
             String sql1 = "UPDATE Patient SET bloodType= '" + newBlood +"',symptoms= '" + newSymptoms + "', " +
                     "requiredTreatment= '"+newReqTreatment+ "', diagnoses= '"+newDiagnoses+"', equipmentNeeded= " +
-                    "'"+newEquipNeed+"', allergies= '"+newAllergies+"', Recommendation ='"+recommendationIn+"' where patientNumber=" +patientNumber+"'";
+                    ""+newEquipNeed+", allergies= '"+newAllergies+"', Recommendation ='"+recommendationIn+"' where patient_Number=" +patientNumber;
             stmt = conn.createStatement();
             stmt.executeUpdate(sql1);
         } catch (Exception se) {
@@ -133,7 +172,7 @@ public class PatientOperations {
     public void refMedUpdate(int patientNumber, int newEquipNeed, String recommendationIn )
     {
         try {
-            String sql1 = "UPDATE Patient SET equipmentNeeded= '"+newEquipNeed+"', Recommendation ='"+recommendationIn+"' where patientNumber=" +patientNumber+"'";
+            String sql1 = "UPDATE Patient SET equipmentNeeded= "+newEquipNeed+", Recommendation = '"+recommendationIn+"' where patient_Number= " +patientNumber;
             stmt = conn.createStatement();
             stmt.executeUpdate(sql1);
         } catch (Exception se) {
@@ -144,7 +183,7 @@ public class PatientOperations {
 
     public void deletePatient(int n) {
         try {
-            String cmd = "DELETE * FROM patient WHERE patientNumber =" + n;
+            String cmd = "DELETE * FROM patient WHERE patient_Number =" + n;
             stmt = conn.createStatement();
             stmt.executeUpdate(cmd);
             archive(n);
@@ -154,7 +193,7 @@ public class PatientOperations {
     }
     public ResultSet getArchive(int n){
         try {
-            String queryString = "SELECT * FROM Patient where patientNumber = "+n;
+            String queryString = "SELECT * FROM Patient where patient_Number = "+n;
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
         } catch (Exception e) {
@@ -177,11 +216,11 @@ public class PatientOperations {
 
 
 
-    public int getPatientNumber(String fName, String lName, int dobIn)
+    public int getPatientNumber(String fName, String lName, String dobIn)
     {
         int id=0;
         try {
-            String sql1 = "SELECT patientNumber FROM Patient WHERE patientFName= '"+fName+"' AND patientLName= '"+lName+"' AND patientDOB= '"+dobIn+"'";
+            String sql1 = "SELECT patient_Number FROM Patient WHERE patientFName= '"+fName+"' AND patientLName= '"+lName+"' AND patientDOB= '"+dobIn+"'";
             stmt = conn.createStatement();
             rset = stmt.executeQuery(sql1);
             if (rset.next()) {
