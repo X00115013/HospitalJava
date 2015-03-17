@@ -53,7 +53,6 @@ public class PatientOperations {
         } catch (Exception e) {
             System.out.println(e);
         }
-        System.out.println("Returning but bloody empty");
         return rset;
     }
 
@@ -133,7 +132,7 @@ public class PatientOperations {
             pstmt.setString(8,patientAddressIn);
             pstmt.executeUpdate();
         } catch (Exception se) {
-            System.out.println("Is there to many here 2"+se);
+            System.out.println(se);
         }
     }
 

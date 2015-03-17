@@ -120,7 +120,6 @@ public class TimeTableOperations {
             while(rset.next()) {
                 catchInt = rset.getInt(1);
             }
-            System.out.println(catchInt);
         } catch (Exception e) {
             System.out.println(e);
         }

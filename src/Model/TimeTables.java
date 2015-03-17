@@ -20,41 +20,41 @@ public class TimeTables {
     private ArrayList<MRITimeTable> mRITimeTable = new ArrayList<MRITimeTable>();
     private ArrayList<CTTimeTables> cTScanTimeTable = new ArrayList<CTTimeTables>();
     private ArrayList<ConsultantTimeTable> consultantTimeTable = new ArrayList<ConsultantTimeTable>();
-    private TimeTableOperations to = new TimeTableOperations();
+    private TimeTableOperations to;
     private int medEquip,conReq;
     private String free="Free";
     private XRayTimeTable xRayT;
     private MRITimeTable mriT;
     private CTTimeTables ctT;
     private ConsultantTimeTable consultantT;
-    private AppointmentOperations ao= new AppointmentOperations();
+    private AppointmentOperations ao;
     private Appointment apt;
     int ind=0;
 
     public TimeTables() {
-
+        to=new TimeTableOperations();
+        ao=new AppointmentOperations();
     }
 
-    public TimeTables(int fake, int conReqIn) {
+    public TimeTables(AppointmentOperations ao,int fake, int conReqIn) {
+        this.ao=ao;
         conReq=conReqIn;
         clearArrays();
         refreshTimeTables();
         setFromConReq(conReq);
-
-
     }
 
-    public TimeTables(int medEquipIn) {
+    public TimeTables(AppointmentOperations ao,int medEquipIn) {
+        this.ao=ao;
         medEquip=medEquipIn;
         clearArrays();
         refreshTimeTables();
        setFromMedReq(medEquip);
-
-
     }
 
 
     public void refreshTimeTables() {
+        to = new TimeTableOperations();
         rset = to.getXRayTT();
         try {
             while (rset.next()) {
@@ -91,20 +91,12 @@ public class TimeTables {
         } catch (SQLException e1) {
             System.out.println(e1);
         }
-//        rset = to.getConsultant();
-//        try {
-//            while (rset.next()) {
-//                System.out.println("Consultants list should be here\t"+rset.getInt(1)+"\t"+rset.getString(2));
-//            }
-//        } catch (SQLException e1) {
-//            System.out.println(e1);
-//        }
+
         try {
             rset = ao.getAppointment();
             System.out.println("\n\n\nAppointment list\n");
             while (rset.next()) {
-//                appList.add(apt = new Appointment(rset.getString(2), rset.getInt(3), rset.getInt(4)));
-                System.out.println("" + rset.getInt(1) + " \t" + rset.getString(2) + " \t" + rset.getInt(3) + " \t" + rset.getInt(4)+"\t"+rset.getInt(5));
+                appList.add(apt = new Appointment(rset.getInt(1), rset.getString(2), rset.getInt(3), rset.getInt(4), rset.getInt(5)));
             }
         } catch (SQLException e1) {
             System.out.println(e1);

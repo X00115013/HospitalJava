@@ -15,7 +15,8 @@ public class Appointment {
     public int medicalEquip, patientNum;
     public String date;
     private ResultSet rset = null;
-    private AppointmentOperations ao=new AppointmentOperations();
+    private ArrayList<Appointment> appList = new ArrayList<Appointment>();
+    private AppointmentOperations ao;
     private Appointment apt;
 
 
@@ -34,10 +35,23 @@ public class Appointment {
         reasonForVisit = reasonForVisitIn;
         consultantType = consultantTypeIn;
         medicalEquip = medicalEquipIn;
+        appointmentArray();
         setAppointment(reasonForVisit, medicalEquip, consultantType);
         printAppointment();
     }
 
+    public void appointmentArray() {
+        ao=new AppointmentOperations();
+        try {
+            rset = ao.getAppointment();
+            System.out.println("\n\n\nAppointment list\n");
+            while (rset.next()) {
+                appList.add(apt = new Appointment(rset.getInt(1),rset.getString(2),rset.getInt(3),rset.getInt(4),rset.getInt(5)));
+            }
+        } catch (SQLException e1) {
+            System.out.println(e1);
+        }
+    }
 
     public void printAppointment(){
         try {
@@ -80,11 +94,11 @@ public class Appointment {
     }
 
     public void setTimeTableMED() {
-        TimeTables timeTableMED = new TimeTables(medicalEquip);
+        TimeTables timeTableMED = new TimeTables(ao,medicalEquip);
 
     }
     public void setTimeTableCON() {
-        TimeTables timeTableCON = new TimeTables(1,consultantType);
+        TimeTables timeTableCON = new TimeTables(ao,1,consultantType);
 
     }
 

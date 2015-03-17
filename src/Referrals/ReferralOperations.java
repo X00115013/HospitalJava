@@ -66,9 +66,16 @@ public class ReferralOperations {
             pstmt.setString(14,genderIn);
             pstmt.executeUpdate();
         } catch (Exception e) {
-            System.out.println("This far for fuck sake"+e);
+            System.out.println(e);
         }
     }
+
+
+
+
+
+
+
     public void setChecked(int refNumIn){
         try {
             String queryString = "UPDATE Referral SET checked = 0 WHERE Reference = "+refNumIn;

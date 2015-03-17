@@ -30,7 +30,7 @@ public class TestHospital {
 
 //       TimeTables tt=new TimeTables();
 //        tt.setFree();
-
-
+//
+//
     }
 }
