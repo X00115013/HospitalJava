@@ -31,7 +31,12 @@ public class PatientOperations {
 
     public ResultSet getPatientAdmin() {
         try {
-            String queryString = "SELECT * FROM Patient";
+            String queryString ="SELECT patient_Number, " +
+            "patientFName, patientLName " +
+                    ", PatientDOB ,PatientGender," +
+                    "occupation,PatientEmail," +
+                    "patientPhone,patientAddress "+
+                    "FROM Patient";
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
         } catch (Exception e) {
@@ -146,8 +151,8 @@ public class PatientOperations {
     {
         try {
             String sql1 = "UPDATE Patient SET patientFName= '" + newPFname +"',patientLName= '" + newPLname + "', " +
-                    "patientAddress= '"+newPaddress+ "', patientPhone= '"+newPaddress+"', patientEmail= " +
-                    "'"+newEmail+", occupation = '"+occupationIn+"',where patient_Number=" +patientNumber+"'";
+                    "patientAddress= '"+newPaddress+ "', patientPhone= '"+newPphone+"', patientEmail= " +
+                    "'"+newEmail+", occupation = '"+occupationIn+"',where patient_Number=" +patientNumber;
             stmt = conn.createStatement();
             stmt.executeUpdate(sql1);
         } catch (Exception se) {

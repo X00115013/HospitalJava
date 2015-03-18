@@ -31,7 +31,7 @@ public class ProcessReferrals {
     private ResultSet rset;
     private ProcessReferrals processReferrals;
     private PatientRecord patientRecord;
-    private ArrayList<PatientRecord> pRecList;
+    private ArrayList<PatientRecord> pRecList=new ArrayList<>();
 
 
     public ProcessReferrals() {
@@ -66,6 +66,7 @@ public class ProcessReferrals {
 
 
     public void refreshTables() {
+        clearArrays();
         rset = ro.getReferral();
         try {
             while (rset.next()) {
@@ -75,14 +76,15 @@ public class ProcessReferrals {
         } catch (SQLException e1) {
             System.out.println(e1);
         }
-//        try {
-//            rset = po.getPatientAdmin();
-//            while (rset.next())
-//                pRecList.add(patientRecord = new PatientRecord(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4),
-//                        rset.getString(5), rset.getString(6), rset.getString(7), rset.getString(8), rset.getString(9)));
-//        } catch (SQLException e1) {
-//            System.out.println(e1);
-//        }
+        try {
+//            po = new PatientOperations();
+            rset = po.getPatientAdmin();
+            while (rset.next())
+                pRecList.add(patientRecord = new PatientRecord(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4),
+                        rset.getString(5), rset.getString(6), rset.getString(7), rset.getString(8), rset.getString(9)));
+        } catch (SQLException e1) {
+            System.out.println(e1);
+        }
     }
 
     public void printProcessRefArray(){
@@ -140,20 +142,27 @@ public class ProcessReferrals {
                 this.medicalRequired = refList.get(i).medicalRequired;
                 this.consultantRequired = refList.get(i).consultantRequired;
                 ro.setChecked(refList.get(i).refNum);
-//                for (int j = 0; j < refList.size(); j++)
-//                    if (patientFName.equalsIgnoreCase(pRecList.get(j).getPatientFName()) && patientLName.equalsIgnoreCase(pRecList.get(j).getPatientLName()) && DOB.equalsIgnoreCase(pRecList.get(j).getDOB())) {
-//                        referralProcessForExistingPatient(pRecList.get(j).getPatientNumber());
-//                    } else {
+                for (int j = 0; j < pRecList.size(); j++) {
+                    if (patientFName.equalsIgnoreCase(pRecList.get(j).getPatientFName())) {
+                        referralProcessForExistingPatient(pRecList.get(j).getPatientNumber());
+                    } else if (pRecList.get(j).getPatientFName().equals("null")){
                         referralProcessForNewPatient();
+                    }else{
+                        System.out.println("This is not working");
                     }
-//            }
-      }
+                }
+            }
+        }
         printProcessRefArray();
         printReferrals();
     }
 
 
+
+
+
     public void referralProcessForExistingPatient(int patientNumIn) {
+        System.out.println("\n\nExisting Patient\n\n");
        PatientRecord patientRecord = new PatientRecord(po,patientNumIn,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
         patientNumber=po.getPatientNumber(patientFName,patientLName,DOB);
         MedicalRecord medicalRecord = new MedicalRecord(po,patientNumber,recommendations, medicalRequired);
@@ -164,10 +173,24 @@ public class ProcessReferrals {
 
 
     public void referralProcessForNewPatient() {
+        System.out.println("\n\nNew Patient\n\n");
         PatientRecord patientRecord = new PatientRecord(po,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
         patientNumber=po.getPatientNumber(patientFName,patientLName,DOB);
         MedicalRecord medicalRecord = new MedicalRecord(po,patientNumber,recommendations, medicalRequired);
         Appointment appointment=new Appointment(reasonForVisit,medicalRequired,consultantRequired);
 
+    }
+
+    public void clearArrays(){
+        for (int i= 0; i < pRecList.size() ; i++) {
+            pRecList.remove(i);
+            System.out.println("Array cleared "+i);
+
+        }
+        for (int i= 0; i < refList.size() ; i++) {
+            refList.remove(i);
+            System.out.println("Array cleared "+i);
+
+        }
     }
 }

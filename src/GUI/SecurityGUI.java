@@ -1,5 +1,7 @@
 package GUI;
 
+import Model.Security;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
@@ -7,11 +9,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Arc2D;
+import java.util.InputMismatchException;
 
 /**
  * Created by Roland on 01/03/2015.
  */
 public class SecurityGUI extends JFrame implements ActionListener{
+    private  int answer=0,selection;
+
     JButton confirm;
     JButton cancel;
 
@@ -29,13 +34,14 @@ public class SecurityGUI extends JFrame implements ActionListener{
     JTextField field3;
     JFrame f;
 
-    public SecurityGUI() {
+    public SecurityGUI(int selectionIn) {
+        selection=selectionIn;
         f = new JFrame("Security");
         f.setLayout(new FlowLayout());
         f.setSize(420, 350);
         f.setResizable(false);
         f.setLocationRelativeTo(null);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 
 
@@ -113,15 +119,34 @@ public class SecurityGUI extends JFrame implements ActionListener{
         c.anchor = anchor;
         return c;
     }
+
+    public int getAnswer() {
+        return answer;
+    }
+
     public void actionPerformed(ActionEvent e)
     {
         if (e.getSource().equals(cancel))
         {
-            System.exit(0);
+           f.setVisible(false);
 
         } else if (e.getSource().equals(confirm))
-        {
-            //unsure of action
+        {boolean test=true;
+            try {
+                while (test) {
+                    Security security = new Security(selection, Integer.parseInt(field2.getText()));
+//            answer= security.getAnswer();
+                    field1.setText("");
+                    field2.setText("");
+                    field3.setText("");
+                    f.setVisible(false);
+                    test = false;
+                }
+                }catch(NumberFormatException im){
+                field2.setText("");
+                System.out.println(im);
+                }
+            }
         }
     }
-}
+

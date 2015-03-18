@@ -39,7 +39,6 @@ public class XRayTimeTable {
     }
 
     public void setTable(){
-        System.out.println("Where the fuck");
         to = new TimeTableOperations();
         cont= new ConsultantTimeTable(timeIn + 1,to.getConsultantName(1));
         cont.setTable();
