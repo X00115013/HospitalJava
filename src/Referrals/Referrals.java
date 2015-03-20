@@ -1,6 +1,6 @@
 package Referrals;
 
-import GUI.ReferralGUI;
+import Referrals.ReferralGUI;
 import Referrals.*;
 import Referrals.ReferralOperations;
 import java.util.Random;

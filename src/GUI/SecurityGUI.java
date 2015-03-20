@@ -38,7 +38,7 @@ public class SecurityGUI extends JFrame implements ActionListener{
         selection=selectionIn;
         f = new JFrame("Security");
         f.setLayout(new FlowLayout());
-        f.setSize(420, 350);
+        f.setSize(420, 310);
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -49,18 +49,7 @@ public class SecurityGUI extends JFrame implements ActionListener{
         f.add(clock,BorderLayout.EAST);
 
 
-        //Patient Phone label
-        label5 = new JLabel("CLOCK");
-        clock.add(label5);
 
-        JPanel top=new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        f.add(top,BorderLayout.WEST);
-        //GO Location label
-        label6 = new JLabel("GP Number");
-        top.add(label6);
-        //text field
-        field3 = new JTextField(5);
-        top.add(field3);
 
         JPanel offTop= new JPanel(new FlowLayout(FlowLayout.CENTER));
         f.add(offTop,BorderLayout.NORTH);
@@ -138,7 +127,7 @@ public class SecurityGUI extends JFrame implements ActionListener{
 //            answer= security.getAnswer();
                     field1.setText("");
                     field2.setText("");
-                    field3.setText("");
+
                     f.setVisible(false);
                     test = false;
                 }

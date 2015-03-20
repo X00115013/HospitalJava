@@ -146,13 +146,16 @@ public class PatientOperations {
 
 
 
-
     public void updatePatientAdmin(int patientNumber, String newPFname,String newPLname, String newPaddress, String occupationIn, String genderIn,String newPphone, String newEmail, String DOBIn)
     {
         try {
-            String sql1 = "UPDATE Patient SET patientFName= '" + newPFname +"',patientLName= '" + newPLname + "', " +
-                    "patientAddress= '"+newPaddress+ "', patientPhone= '"+newPphone+"', patientEmail= " +
-                    "'"+newEmail+", occupation = '"+occupationIn+"',where patient_Number=" +patientNumber;
+            String sql1 = "UPDATE Patient SET patientFName= '" + newPFname +"'," +
+                    "patientLName= '" + newPLname + "'," +
+                    "patientAddress= '"+newPaddress+ "'," +
+                    " patientPhone= '"+newPphone+"'," +
+                    " patientEmail= '"+newEmail+"'," +
+                    " occupation = '"+occupationIn+"'" +
+                    "where patient_Number=" +patientNumber;
             stmt = conn.createStatement();
             stmt.executeUpdate(sql1);
         } catch (Exception se) {
@@ -163,9 +166,14 @@ public class PatientOperations {
     public void updatePatientMedical(int patientNumber,String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment, int newEquipNeed, String recommendationIn, String newAllergies )
     {
         try {
-            String sql1 = "UPDATE Patient SET bloodType= '" + newBlood +"',symptoms= '" + newSymptoms + "', " +
-                    "requiredTreatment= '"+newReqTreatment+ "', diagnoses= '"+newDiagnoses+"', equipmentNeeded= " +
-                    ""+newEquipNeed+", allergies= '"+newAllergies+"', Recommendation ='"+recommendationIn+"' where patient_Number=" +patientNumber;
+            String sql1 = "UPDATE Patient SET bloodType= '" + newBlood +"'," +
+                    "symptoms= '" + newSymptoms + "'," +
+                    "requiredTreatment= '"+newReqTreatment+ "'," +
+                    " diagnoses= '"+newDiagnoses+"'," +
+                    " equipmentNeeded= "+newEquipNeed+"," +
+                    " allergies= '"+newAllergies+"'," +
+                    " Recommendation ='"+recommendationIn+"'" +
+                    " where patient_Number=" +patientNumber;
             stmt = conn.createStatement();
             stmt.executeUpdate(sql1);
         } catch (Exception se) {

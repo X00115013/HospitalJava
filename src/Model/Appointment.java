@@ -29,6 +29,15 @@ public class Appointment {
     }
 
 
+    public Appointment(String reasonForVisitIn, int consultantTypeIn, int medicalEquipIn,int patientNumIn) {
+        reasonForVisit = reasonForVisitIn;
+        consultantType = consultantTypeIn;
+        medicalEquip = medicalEquipIn;
+        patientNum=patientNumIn;
+        appointmentArray();
+        setAppointmentExisting(reasonForVisit, medicalEquip, consultantType, patientNum);
+        printAppointment();
+    }
 
 
     public Appointment(String reasonForVisitIn, int consultantTypeIn, int medicalEquipIn) {
@@ -58,7 +67,7 @@ public class Appointment {
             rset = ao.getAppointment();
             System.out.println("\nAppointment Table\n");
             while (rset.next()) {
-                System.out.println("" + rset.getInt(1) + " \t" + rset.getString(2) + " \t" + rset.getInt(3) + " \t" + rset.getInt(4)+"\t"+rset.getInt(5));
+                System.out.println("Appointment number (" + rset.getInt(1) + ") \nReason for visit (" + rset.getString(2) + ")\nEquipment (" + rset.getInt(3) + ")\nConsultant (" + rset.getInt(4)+")\nPatient Number ("+rset.getInt(5)+")\n");
             }
         } catch (SQLException e1) {
             System.out.println(e1);
@@ -101,6 +110,16 @@ public class Appointment {
         TimeTables timeTableCON = new TimeTables(ao,1,consultantType);
 
     }
+
+    public void setAppointmentExisting(String recIn, int equipIn,int conIn,int patientNumIn) {
+        ao.addAppointmentExisting(recIn, equipIn, conIn,patientNumIn);
+        if (medicalEquip == -1) {
+            setTimeTableCON();
+        } else{
+            setTimeTableMED();
+        }
+    }
+
 
     public void setAppointment(String recIn, int equipIn,int conIn) {
         ao.addAppointment(recIn, equipIn, conIn);

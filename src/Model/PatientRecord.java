@@ -95,31 +95,32 @@ public class PatientRecord {
         System.out.println("\n\n\nPatient Admin Record By Number from Array\n");
         for (int i = 0; i < patientList.size(); i++) {
             if(patientList.get(i).patientNumber == patientNumIn){
-                System.out.print("\n\n" + patientList.get(i).patientNumber);
-                System.out.print("\t" + patientList.get(i).patientFName);
-                System.out.print("\t" + patientList.get(i).patientLName);
-                System.out.print("\t" + patientList.get(i).patientAddress);
-                System.out.print("\t" + patientList.get(i).occupation);
-                System.out.print("\t" + patientList.get(i).gender);
-                System.out.print("\t" + patientList.get(i).email);
-                System.out.print("\t" + patientList.get(i).phone);
-                System.out.print("\t" + patientList.get(i).DOB);
+                System.out.print("\n\nPatient Number (" + patientList.get(i).patientNumber+")");
+                System.out.print("\nPatient First Name (" + patientList.get(i).patientFName+")");
+                System.out.print("\nPatient Last Name (" + patientList.get(i).patientLName+")");
+                System.out.print("\nPatient Address (" + patientList.get(i).patientAddress+")");
+                System.out.print("\nOccupation (" + patientList.get(i).occupation+")");
+                System.out.print("\nGender (" + patientList.get(i).gender+")");
+                System.out.print("\nEmail (" + patientList.get(i).email+")");
+                System.out.print("\nPhone (" + patientList.get(i).phone+")");
+                System.out.print("\nDOB (" + patientList.get(i).DOB+")");
             }
         }
     }
 
     public void printFromArrayMR(){
+        refreshArrays();
         System.out.println("\n\n\nPatient Admin Record from Array\n");
         for (int i = 0; i < patientList.size(); i++) {
-                System.out.print("\n\n" + patientList.get(i).patientNumber);
-                System.out.print("\t" + patientList.get(i).patientFName);
-                System.out.print("\t" + patientList.get(i).patientLName);
-                System.out.print("\t" + patientList.get(i).patientAddress);
-                System.out.print("\t" + patientList.get(i).occupation);
-                System.out.print("\t" + patientList.get(i).gender);
-                System.out.print("\t" + patientList.get(i).email);
-                System.out.print("\t" + patientList.get(i).phone);
-                System.out.print("\t" + patientList.get(i).DOB);
+            System.out.print("\n\nPatient Number (" + patientList.get(i).patientNumber+")");
+            System.out.print("\nPatient First Name (" + patientList.get(i).patientFName+")");
+            System.out.print("\nPatient Last Name (" + patientList.get(i).patientLName+")");
+            System.out.print("\nPatient Address (" + patientList.get(i).patientAddress+")");
+            System.out.print("\nOccupation (" + patientList.get(i).occupation+")");
+            System.out.print("\nGender (" + patientList.get(i).gender+")");
+            System.out.print("\nEmail (" + patientList.get(i).email+")");
+            System.out.print("\nPhone (" + patientList.get(i).phone+")");
+            System.out.print("\nDOB (" + patientList.get(i).DOB+")");
             }
         }
 
@@ -162,6 +163,8 @@ public class PatientRecord {
     public String getDOB() {
         return DOB;
     }
+
+
 }
 
 

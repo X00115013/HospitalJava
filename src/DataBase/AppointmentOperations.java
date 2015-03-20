@@ -71,18 +71,50 @@ public class AppointmentOperations {
         }
     }
 
+    public void addAppointmentExisting(String recIn, int equipIn,int conIn,int patientNum) {
+        try {
+            String sql2 = "INSERT INTO Appointment(AppID, ReasonVisit ,requiredEquipment, requiredConsultant,patient_Number) values(APPID.nextVal,?,?,?,?)";
+            pstmt = conn.prepareStatement(sql2);
+            pstmt.setString(1, recIn);
+            pstmt.setInt(2, equipIn);
+            pstmt.setInt(3, conIn);
+            pstmt.setInt(4,getCurrVal());
+            pstmt.executeUpdate();
+        } catch (Exception se) {
+            System.out.println("addAppointment went wrong"+se);
+        }
+    }
+
+
+
         public void addAppointment(String recIn, int equipIn,int conIn) {
             try {
-                String sql2 = "INSERT INTO Appointment(AppID, ReasonVisit ,requiredEquipment, requiredConsultant) values(APPID.nextVal,?,?,?)";
+                String sql2 = "INSERT INTO Appointment(AppID, ReasonVisit ,requiredEquipment, requiredConsultant,patient_Number) values(APPID.nextVal,?,?,?,?)";
                 pstmt = conn.prepareStatement(sql2);
                 pstmt.setString(1, recIn);
                 pstmt.setInt(2, equipIn);
                 pstmt.setInt(3, conIn);
+                pstmt.setInt(4,getCurrVal());
                 pstmt.executeUpdate();
             } catch (Exception se) {
-                System.out.println(se);
+                System.out.println("addAppointment went wrong"+se);
             }
         }
+
+    public int getCurrVal(){
+        int catchInt=0;
+        try {
+            String queryString = "select max(patient_Number) from Patient";
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+            while(rset.next()) {
+                catchInt = rset.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return catchInt;
+    }
 
 
 //    public void addAppointment(Appointment ap) {

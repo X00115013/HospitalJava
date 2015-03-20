@@ -13,7 +13,6 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
-import javax.swing.text.DateFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,6 +56,8 @@ public class AppointmentGUI extends JFrame implements ActionListener {
 
     public AppointmentGUI() {
 
+
+
         f = new JFrame();
         f.setTitle("Appointment");
         f.setLayout(new GridLayout(5, 1, 1, 1));
@@ -68,8 +69,10 @@ public class AppointmentGUI extends JFrame implements ActionListener {
 
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
 
+
+        Clock.DigitalClock clockD=new Clock.DigitalClock();
         JPanel clock = new JPanel(new GridBagLayout());
-        f.add(clock, BorderLayout.PAGE_START);
+        f.add(clockD, BorderLayout.PAGE_START);
 
 
         //Patient Clock label
