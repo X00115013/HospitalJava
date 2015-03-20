@@ -16,8 +16,8 @@ public class TestHospital {
 //        SecurityGUI su=new SecurityGUI();
 //        su.setVisible(true);
 //          Referrals referrals= new Referrals( "Jim","dublin","mick","jagger","02-Jan-00","Carlow","4591662","sick","help him",1,3,"male",0);
-//          Referrals referrals2= new Referrals( "Joe","cork","paul","Macartey","04-Feb-67","New York","0870973783","Dead","bury him",2,2,"female",1);
-          Referrals referrals3= new Referrals( "Hayden","Dudai","John","Lennon","13-Mar-58","Liverpool","555-555-555","Ghost","Fear him",3,1,"Undead",3);
+          Referrals referrals2= new Referrals( "Joe","cork","paul","Macartey","04-Feb-67","New York","0870973783","Deader","bury him",2,2,"female",1);
+//          Referrals referrals3= new Referrals( "Hayden","Dudai","John","Lennon","13-Mar-58","Liverpool","555-555-555","Ghost","Fear him",3,1,"Undead",3);
 //        ReferralGUI referralGUI= new ReferralGUI();
 //        referralGUI.setVisible(true);
         HomeScreen homeScreen=new HomeScreen();
