@@ -1,7 +1,8 @@
 <component name="libraryTable">
   <library name="ojdbc6">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../Semester 4/SDEV4/Lab6Sol/Lab6Sol/src/lib/ojdbc6.jar!/" />
+      <root url="jar://G:/Semester 4/SDEV4/Lab6Sol/Lab6Sol/src/lib/ojdbc6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ojdbc6.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
