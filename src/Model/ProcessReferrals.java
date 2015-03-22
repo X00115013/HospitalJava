@@ -147,7 +147,7 @@ public class ProcessReferrals {
                 if (pRecList.size()==0) {
                     System.out.println("\n\nEmpty array new Patient (Process Ref)");
                     referralProcessForNewPatient();
-                }else if (pRecList.size() !=0){
+                }else{
                 for (int j = 0; j < pRecList.size(); j++) {
                     System.out.println("This is the name you want to see (Process Ref) " + pRecList.get(j).getPatientFName());
                     String nameTest = (String) pRecList.get(j).getPatientFName();
@@ -156,7 +156,7 @@ public class ProcessReferrals {
                         System.out.println("\n\nUpdate");
                         referralProcessForExistingPatient(pRecList.get(j).getPatientNumber());
                         ro.setChecked(refList.get(i).refNum);
-                    } else if(!patientFName.equalsIgnoreCase(nameTest)){
+                    } else if(!patientFName.equalsIgnoreCase(nameTest)&& pRecList.size() != 0){
                         System.out.println("\n\nNew patient (ref process) ");
                         referralProcessForNewPatient();
                         ro.setChecked(refList.get(i).refNum);

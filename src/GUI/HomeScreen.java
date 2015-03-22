@@ -134,7 +134,7 @@ public class HomeScreen extends JFrame implements ActionListener {
             SecurityGUI securityGUI=new SecurityGUI(2);
 
         } else if (e.getSource().equals(button3)) {
-            SecurityGUI securityGUI=new SecurityGUI(3);
+           AddPatientSecurityGUI addSecurityGUI =new AddPatientSecurityGUI(3);
 
         } else if (e.getSource().equals(button4)) {
             SecurityGUI securityGUI=new SecurityGUI(4);

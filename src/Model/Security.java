@@ -1,6 +1,8 @@
 package Model;
 
+import GUI.AddPatientGUI;
 import GUI.AppointmentGUI;
+import GUI.CheckInGUI;
 
 /**
  * Created by Roland on 14/03/2015.
@@ -42,9 +44,9 @@ public class Security {
         if(selection==1){
         AppointmentGUI appointmentGUI = new AppointmentGUI();
         }else if(selection==2){
-//            CheckInGUI checkInGUI=new CheckInGUI();
+            CheckInGUI checkInGUI=new CheckInGUI();
         }else if(selection==3){
-//            PatientRecordGUI patientRecordGUI = new PatientRecordGUI();
+
         }else if(selection==4){
 //            MedicalRecordGUI medicalRecordGUI =new MedicalRecordGUI();
         }else if(selection==5){

@@ -75,12 +75,6 @@ public class AppointmentGUI extends JFrame implements ActionListener {
         f.add(clockD, BorderLayout.PAGE_START);
 
 
-        //Patient Clock label
-        label5 = new JLabel("CLOCK");
-        clock.add(label5, getConstraints(0, 0, 1, 1, (GridBagConstraints.FIRST_LINE_START)));
-        //app title
-
-        //app no
 
 
         JPanel offTop = new JPanel(new FlowLayout(FlowLayout.CENTER));
