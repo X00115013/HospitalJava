@@ -143,21 +143,27 @@ public class ProcessReferrals {
                 this.recommendations = refList.get(i).recommendations;
                 this.medicalRequired = refList.get(i).medicalRequired;
                 this.consultantRequired = refList.get(i).consultantRequired;
+                refreshTables();
                 if (pRecList.size()==0) {
+                    System.out.println("\n\nEmpty array new Patient (Process Ref)");
                     referralProcessForNewPatient();
-                }else{
+                }else if (pRecList.size() !=0){
                 for (int j = 0; j < pRecList.size(); j++) {
-                    System.out.println("This is the name you want to see "+pRecList.get(j).getPatientFName());
-                    String nameTest= (String)pRecList.get(j).getPatientFName();
-                    if (patientFName.equalsIgnoreCase(nameTest)){
-                        System.out.println(pRecList.get(j).getPatientNumber());
+                    System.out.println("This is the name you want to see (Process Ref) " + pRecList.get(j).getPatientFName());
+                    String nameTest = (String) pRecList.get(j).getPatientFName();
+                    if (patientFName.equalsIgnoreCase(nameTest)) {
+                        System.out.println("This is the patients number (Process Ref) " + pRecList.get(j).getPatientNumber());
+                        System.out.println("\n\nUpdate");
                         referralProcessForExistingPatient(pRecList.get(j).getPatientNumber());
-                    }else{
-                        System.out.println("This is not working");
+                        ro.setChecked(refList.get(i).refNum);
+                    } else if(!patientFName.equalsIgnoreCase(nameTest)){
+                        System.out.println("\n\nNew patient (ref process) ");
+                        referralProcessForNewPatient();
+                        ro.setChecked(refList.get(i).refNum);
                     }
+                }
                 }ro.setChecked(refList.get(i).refNum);
             }
-        }
         }
         refreshTables();
         printProcessRefArray();
