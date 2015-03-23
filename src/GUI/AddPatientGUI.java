@@ -133,24 +133,24 @@ public class AddPatientGUI extends JFrame implements ActionListener
         female.addActionListener(this);
         dobs.add(female, getConstraints(1, 11, 1, 1, (GridBagConstraints.WEST)));
         label12 = new JLabel("Patient Date Of Birth");
-        dobs.add(label12, getConstraints(1, 13, 1, 1, GridBagConstraints.LINE_START));
+        dobs.add(label12, getConstraints(0, 13, 1, 1, GridBagConstraints.LINE_START));
         label13 = new JLabel("Day");
-        dobs.add(label13, getConstraints(1, 14, 1, 1, GridBagConstraints.LINE_START));
+        dobs.add(label13, getConstraints(0, 14, 1, 1, GridBagConstraints.LINE_START));
         label14 = new JLabel("Month");
-        dobs.add(label14, getConstraints(2, 14, 1, 1, GridBagConstraints.LINE_START));
+        dobs.add(label14, getConstraints(1, 14, 1, 1, GridBagConstraints.LINE_START));
         label15 = new JLabel("Year");
-        dobs.add(label15, getConstraints(3, 14, 1, 1, GridBagConstraints.LINE_START));
+        dobs.add(label15, getConstraints(2, 14, 1, 1, GridBagConstraints.LINE_START));
 
         //DOB text fields
         field11 = new JTextField(5);
         field11.setBorder(loweredBorder);
-        dobs.add(field11, getConstraints(1, 15, 1, 1, GridBagConstraints.LINE_START));
+        dobs.add(field11, getConstraints(0, 15, 1, 1, GridBagConstraints.LINE_START));
         field12 = new JTextField(5);
         field12.setBorder(loweredBorder);
-        dobs.add(field12, getConstraints(2, 15, 1, 1, GridBagConstraints.LINE_START));
+        dobs.add(field12, getConstraints(1, 15, 1, 1, GridBagConstraints.LINE_START));
         field13 = new JTextField(5);
         field13.setBorder(loweredBorder);
-        dobs.add(field13, getConstraints(3, 15, 1, 1, GridBagConstraints.LINE_START));
+        dobs.add(field13, getConstraints(2, 15, 1, 1, GridBagConstraints.LINE_START));
         test.add(dobs);
         //bottom
 
