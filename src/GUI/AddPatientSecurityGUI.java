@@ -141,7 +141,7 @@ public class AddPatientSecurityGUI extends JFrame implements ActionListener{
                 System.out.println(im);
             }
         } else if (e.getSource().equals(add)){
-            AddPatientGUI addPatientGUI=new AddPatientGUI();
+            AddPatientGUI addPatientGUI=new AddPatientGUI(1);
         }
     }
 }

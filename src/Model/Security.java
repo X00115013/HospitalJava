@@ -1,8 +1,6 @@
 package Model;
 
-import GUI.AddPatientGUI;
-import GUI.AppointmentGUI;
-import GUI.CheckInGUI;
+import GUI.*;
 
 /**
  * Created by Roland on 14/03/2015.
@@ -46,19 +44,25 @@ public class Security {
         }else if(selection==2){
             CheckInGUI checkInGUI=new CheckInGUI();
         }else if(selection==3){
-
+            PatientAdminRecGUI patientAdminRecGUI=new PatientAdminRecGUI();
         }else if(selection==4){
 //            MedicalRecordGUI medicalRecordGUI =new MedicalRecordGUI();
         }else if(selection==5){
-//            TimeTablesGUI timeTablesGUI =new TimeTablesGUI();
+            TimeTablesGUI timeTablesGUI =new TimeTablesGUI();
         }else if(selection==6){
             ProcessReferrals processReferrals=new ProcessReferrals();
         }else if(selection==7){
 //            PatientChartGUI patientChartGUI=new PatientChartGUI();
         }else if(selection==8){
-//            BillGUI billGUI=new BillGUI();
+//
         }else if(selection==9){
 //            PrescriptionGUI prescriptionGUI=new PrescriptionGUI();
+        }else if(selection==10){
+            if(passed ==1 || passed==3) {
+                AdminCheckOutGUI adminCheckOutGUI = new AdminCheckOutGUI();
+            }else if(passed == 2) {
+                MedCheckOutGUI medCheckOutGUI = new MedCheckOutGUI();
+            }
         }
     }
 }

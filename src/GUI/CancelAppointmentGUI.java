@@ -8,11 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by Lionhart on 20/03/2015.
+ * Created by Roland on 28/03/2015.
  */
-public class CheckInGUI extends JFrame implements ActionListener
+public class CancelAppointmentGUI extends JFrame implements ActionListener
 {
-    JButton confirm,checkOut;
+    JButton confirm;
     JButton cancel;
     JLabel label1;
     JLabel label2;
@@ -32,10 +32,10 @@ public class CheckInGUI extends JFrame implements ActionListener
     JTextField field13;
     JFrame f;
 
-    public CheckInGUI()
+    public CancelAppointmentGUI()
     {
         f = new JFrame();
-        f.setTitle("Check-In");
+        f.setTitle("Cancel Appointment");
         f.setSize(600, 800);
         f.setResizable(false);
         f.setLocationRelativeTo(null);
@@ -47,9 +47,9 @@ public class CheckInGUI extends JFrame implements ActionListener
         Clock.DigitalClock clockD=new Clock.DigitalClock();
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
         clock.add(clockD);
-        label5 = new JLabel("Check-In");
+        label5 = new JLabel("Cancel Appointment");
         clock.add(label5);
-        label5.setFont(new Font("Arial", Font.BOLD, 38));
+        label5.setFont(new Font("Arial", Font.BOLD, 24));
         holder.add(clock);
 
         JPanel test2=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -115,10 +115,6 @@ public class CheckInGUI extends JFrame implements ActionListener
         cancel.addActionListener(this);
         dobs.add(cancel, getConstraints(1, 4, 1, 1, GridBagConstraints.WEST));
 
-        // CheckOut button
-        checkOut = new JButton("Cancel");
-        checkOut.addActionListener(this);
-        dobs.add(checkOut, getConstraints(2, 4, 1, 1, GridBagConstraints.WEST));
 
         f.add(holder);
         f.setVisible(true);
@@ -150,10 +146,6 @@ public class CheckInGUI extends JFrame implements ActionListener
         else if (e.getSource().equals(confirm))
         {
 
-        }
-        else if (e.getSource().equals(checkOut))
-        {
-        SecurityGUI securityGUI=new SecurityGUI(10);
         }
     }
 }

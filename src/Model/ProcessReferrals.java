@@ -74,7 +74,6 @@ public class ProcessReferrals {
                 refList.add(processReferrals = new ProcessReferrals(rset.getInt(1),rset.getInt(2), rset.getString(3), rset.getString(4), rset.getString(5), rset.getString(6), rset.getString(7),
                         rset.getString(8), rset.getString(9), rset.getString(10), rset.getString(11), rset.getInt(12), rset.getInt(13), rset.getInt(14), rset.getString(15), rset.getInt(16)));
             }
-            System.out.println("Referral array is populated in Process referral");
         } catch (SQLException e1) {
             System.out.println(e1);
         }
@@ -84,13 +83,14 @@ public class ProcessReferrals {
             while (rset.next()) {
                 pRecList.add(patientRecord = new PatientRecord(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4),
                         rset.getString(5), rset.getString(6), rset.getString(7), rset.getString(8), rset.getString(9)));
-            }System.out.println("Patient array is populated in Process referral");
+            }
         } catch (SQLException e1) {
             System.out.println(e1);
         }
     }
 
     public void printProcessRefArray(){
+        refreshTables();
         System.out.println("\n\n\nReferral List\n");
         for (int i = 0; i < refList.size(); i++) {
             System.out.print("\nReference Num (" + refList.get(i).refNum+")");
@@ -143,29 +143,36 @@ public class ProcessReferrals {
                 this.recommendations = refList.get(i).recommendations;
                 this.medicalRequired = refList.get(i).medicalRequired;
                 this.consultantRequired = refList.get(i).consultantRequired;
-                refreshTables();
                 if (pRecList.size()==0) {
-                    System.out.println("\n\nEmpty array new Patient (Process Ref)");
                     referralProcessForNewPatient();
-                }else{
+                    ro.setChecked(refList.get(i).refNum);
+                }
+
+                else{
                 for (int j = 0; j < pRecList.size(); j++) {
                     System.out.println("This is the name you want to see (Process Ref) " + pRecList.get(j).getPatientFName());
-                    String nameTest = (String) pRecList.get(j).getPatientFName();
+                    String nameTest = (String)pRecList.get(j).getPatientFName();
+
                     if (patientFName.equalsIgnoreCase(nameTest)) {
                         System.out.println("This is the patients number (Process Ref) " + pRecList.get(j).getPatientNumber());
                         System.out.println("\n\nUpdate");
                         referralProcessForExistingPatient(pRecList.get(j).getPatientNumber());
                         ro.setChecked(refList.get(i).refNum);
-                    } else if(!patientFName.equalsIgnoreCase(nameTest)&& pRecList.size() != 0){
+                        j=pRecList.size()+1;
+                    }
+
+                    if(!patientFName.equalsIgnoreCase(nameTest)){
                         System.out.println("\n\nNew patient (ref process) ");
                         referralProcessForNewPatient();
                         ro.setChecked(refList.get(i).refNum);
+                        j=pRecList.size()+1;
                     }
                 }
-                }ro.setChecked(refList.get(i).refNum);
+              }
             }
+            refreshTables();
         }
-        refreshTables();
+
         printProcessRefArray();
         printReferrals();
     }
@@ -186,7 +193,7 @@ public class ProcessReferrals {
 
 
     public void referralProcessForNewPatient() {
-        System.out.println("\n\nNew Patient\n\n");
+        System.out.println("\n\nNew Patient Method\n\n");
         PatientRecord patientRecord = new PatientRecord(po,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
         patientNumber=po.getPatientNumber(patientFName,patientLName,DOB);
         MedicalRecord medicalRecord = new MedicalRecord(po,patientNumber,recommendations, medicalRequired);
@@ -197,12 +204,12 @@ public class ProcessReferrals {
     public void clearArrays(){
         for (int i= 0; i < pRecList.size() ; i++) {
             pRecList.remove(i);
-            System.out.println("Array cleared "+i);
+//            System.out.println("Array cleared "+i);
 
         }
         for (int i= 0; i < refList.size() ; i++) {
             refList.remove(i);
-            System.out.println("Array cleared "+i);
+//            System.out.println("Array cleared "+i);
 
         }
     }

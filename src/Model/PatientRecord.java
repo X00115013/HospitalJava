@@ -27,8 +27,8 @@ public class PatientRecord {
 
     public void refreshArrays() {
         try {
+            clearArrays();
             rset = po.getPatientAdmin();
-            System.out.println("Patient Admin Record Array");
             while (rset.next()) {
                 patientList.add(patientRecord = new PatientRecord(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4),
                         rset.getString(5),rset.getString(6),rset.getString(7),rset.getString(8),rset.getString(9)));
@@ -108,8 +108,7 @@ public class PatientRecord {
         }
     }
 
-    public void printFromArrayMR(){
-        refreshArrays();
+    public void printFromArrayAR(){
         System.out.println("\n\n\nPatient Admin Record from Array\n");
         for (int i = 0; i < patientList.size(); i++) {
             System.out.print("\n\nPatient Number (" + patientList.get(i).patientNumber+")");
@@ -127,15 +126,18 @@ public class PatientRecord {
 
 
     public void addPatientRecord(){
+        System.out.println("New Patient NEW NEW NEW NEW NEW NEW ");
         po.addPatient(patientFName, patientLName, patientAddress, occupation, gender, email, phone, DOB);
         refreshArrays();
-        printFromArrayMR();
-        printFromArrayARByNumber(2);
+        printFromArrayAR();
     }
 
     public void updatePatientRecord(int patientNumIn){
+        System.out.println("Updated Patient UPDATED UPDATED UPDATED ");
         po.updatePatientAdmin(patientNumIn, patientFName, patientLName, patientAddress, occupation, gender, email, phone, DOB);
-        printFromArrayMR();
+        refreshArrays();
+        printFromArrayAR();
+        printFromArrayARByNumber(2);
     }
 
     public int getPatientNumber() {
@@ -144,7 +146,7 @@ public class PatientRecord {
 
     public void deletePatientRecords(int patientNumIn){
         po.deletePatient(patientNumIn);
-        printFromArrayMR();
+        printFromArrayAR();
     }
 
     public ArrayList<PatientRecord> getPatientList() {
@@ -162,6 +164,13 @@ public class PatientRecord {
 
     public String getDOB() {
         return DOB;
+    }
+
+    public void clearArrays(){
+        for (int i= 0; i < patientList.size() ; i++) {
+            patientList.remove(i);
+            System.out.println("Array cleared "+i);
+        }
     }
 
 

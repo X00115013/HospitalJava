@@ -1,5 +1,8 @@
 package GUI;
 
+import DataBase.PatientOperations;
+import Model.PatientRecord;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
@@ -20,7 +23,7 @@ public class AddPatientGUI extends JFrame implements ActionListener
     JLabel label4;
     JLabel label5;
     JLabel label6;
-    JLabel label7;
+    JLabel patientNum;
     JLabel label8;
     JLabel label11;
     JLabel label12;
@@ -29,7 +32,7 @@ public class AddPatientGUI extends JFrame implements ActionListener
     JLabel label15;
     JRadioButton male;
     JRadioButton female;
-    JTextField field1;
+    JTextField patientText;
     JTextField field2;
     JTextField field3;
     JTextField field4;
@@ -42,11 +45,15 @@ public class AddPatientGUI extends JFrame implements ActionListener
     JTextField field14;
     JFrame f;
 
-    public AddPatientGUI()
+    public AddPatientGUI(int choice)
     {
         f = new JFrame();
-        f.setTitle("Add Patient Admin Record");
-        f.setSize(600, 900);
+        if(choice==1) {
+            f.setTitle("New Patient Admin Record");
+        }else if(choice==2){
+            f.setTitle("Update Patient Admin Record");
+        }
+        f.setSize(790, 975);
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -54,25 +61,45 @@ public class AddPatientGUI extends JFrame implements ActionListener
         f.setLayout(new FlowLayout(FlowLayout.LEFT));
 
 
+        JPanel holder=new JPanel(new GridLayout(1,1));
+        JPanel topSection=new JPanel(new GridLayout(1,3));
+
         Clock.DigitalClock clockD=new Clock.DigitalClock();
-
-
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
         clock.add(clockD);
-        label6 = new JLabel("Patient No.");
-        clock.add(label6);
-        field1 = new JTextField(5);
-        label6.setLayout(new FlowLayout(FlowLayout.TRAILING));
-        field1.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        clock.add(field1);
-        f.add(clock, BorderLayout.PAGE_START);
 
-        JPanel offTop = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        label5 = new JLabel("Add Patient Admin Record");
-        offTop.add(label5);
-        label5.setFont(new Font("Arial", Font.BOLD, 28));
+        JPanel title=new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        f.add(offTop, BorderLayout.NORTH);
+        if(choice==1) {
+            label5 = new JLabel("New Admin Records");
+            title.add(label5);
+            label5.setFont(new Font("Arial", Font.BOLD, 24));
+
+        }else if(choice==2){
+            label5 = new JLabel("Update Admin Records");
+            title.add(label5);
+            label5.setFont(new Font("Arial", Font.BOLD, 24));
+        }
+
+
+        JPanel ID=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        //labels
+        patientNum = new JLabel("\tPatient Number");
+        ID.add(patientNum);
+        //text field
+        patientText = new JTextField(5);
+        patientText.setBorder(loweredBorder);
+        ID.add(patientText);
+
+
+        topSection.add(clock);
+        topSection.add(title);
+        topSection.add(ID);
+
+        holder.add(topSection);
+
+
+        f.add(holder);
 
 
         JPanel test2=new JPanel(new GridLayout(1,1));
@@ -132,7 +159,8 @@ public class AddPatientGUI extends JFrame implements ActionListener
         female = new JRadioButton("Female");
         female.addActionListener(this);
         dobs.add(female, getConstraints(1, 11, 1, 1, (GridBagConstraints.WEST)));
-        label12 = new JLabel("Patient Date Of Birth");
+
+        label12 = new JLabel("Patient DOB");
         dobs.add(label12, getConstraints(0, 13, 1, 1, GridBagConstraints.LINE_START));
         label13 = new JLabel("Day");
         dobs.add(label13, getConstraints(0, 14, 1, 1, GridBagConstraints.LINE_START));
@@ -175,7 +203,7 @@ public class AddPatientGUI extends JFrame implements ActionListener
 
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
-        c.insets = new Insets(5, 5, 5, 5);
+        c.insets = new Insets(10, 5, 10, 10);
         c.ipadx = 0;
         c.ipady = 0;
         c.gridx = gridx;
@@ -188,9 +216,18 @@ public class AddPatientGUI extends JFrame implements ActionListener
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
-            System.exit(0);
+            f.setVisible(false);
 
         } else if (e.getSource().equals(confirm)) {
+            String choice="";
+            PatientOperations po=new PatientOperations();
+            if(male.isSelected()){
+                choice = "Male";
+            }
+            if(female.isSelected()){
+                choice ="Female";
+            }
+            PatientRecord patientRecord=new PatientRecord(po,field2.getText(), field3.getText(), field4.getText(),field6.getText(),choice, field5.getText(), field7.getText(),(field11.getText()+field12.getText()+field14));
         }
     }
 }

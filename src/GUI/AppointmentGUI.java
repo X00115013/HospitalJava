@@ -25,10 +25,10 @@ public class AppointmentGUI extends JFrame implements ActionListener {
     String[] list1 = {"XRay :", "MRI Scan :", "CT Scan :"};
     String[] list2 = {"Radiology :", "Pediatrics :", "Surgery :"};
     JButton confirm;
-    JButton cancel;
+    JButton cancel,cancelApt;
     private Object selectedItem;
 
-    JLabel label1;
+    JLabel aptNum;
     JLabel label2;
     JLabel label3;
     JLabel label4;
@@ -43,12 +43,9 @@ public class AppointmentGUI extends JFrame implements ActionListener {
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     Date date = new Date();
 
-    JTextField field1;
+    JTextField aptNumText;
     JTextField field2;
-    JTextField field3;
-    JTextField field4;
-    JTextField field5;
-    JTextField field6;
+    JTextArea textArea;
     JFrame f;
 
     JComboBox<String> combo1;
@@ -60,9 +57,8 @@ public class AppointmentGUI extends JFrame implements ActionListener {
 
         f = new JFrame();
         f.setTitle("Appointment");
-        f.setLayout(new GridLayout(5, 1, 1, 1));
-
-        f.setSize(600, 700);
+        f.setLayout(new FlowLayout(FlowLayout.LEFT));
+        f.setSize(655, 660);
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -70,64 +66,73 @@ public class AppointmentGUI extends JFrame implements ActionListener {
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
 
 
+
+        JPanel holder=new JPanel(new GridLayout(1,1));
+        JPanel topSection=new JPanel(new GridLayout(1,3));
+
         Clock.DigitalClock clockD=new Clock.DigitalClock();
-        JPanel clock = new JPanel(new GridBagLayout());
-        f.add(clockD, BorderLayout.PAGE_START);
+        JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        clock.add(clockD);
+
+        JPanel title=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        label5 = new JLabel("Appointment");
+        title.add(label5);
+        label5.setFont(new Font("Arial", Font.BOLD, 24));
+
+        JPanel ID=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        //labels
+        aptNum = new JLabel("\tAppointment Number");
+        ID.add(aptNum);
+        //text field
+        aptNumText = new JTextField(5);
+        aptNumText.setBorder(loweredBorder);
+        ID.add(aptNumText);
 
 
+        topSection.add(clock);
+        topSection.add(title);
+        topSection.add(ID);
+//        f.add(topSection);
 
+        holder.add(topSection);
 
-        JPanel offTop = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        f.add(offTop, BorderLayout.NORTH);
-
-        label7 = new JLabel("Appointment");
-        offTop.add(label7, getConstraints(6, 3, 1, 1, (GridBagConstraints.CENTER)));
 
 
         //middle
-        JPanel middle = new JPanel();
+        JPanel holder2=new JPanel(new GridLayout(2,1));
+        JPanel middle = new JPanel(new GridBagLayout());
 
-        label7.setFont(new Font("Arial", Font.BOLD, 38));
-        f.add(middle, BorderLayout.CENTER);
-        middle.setLayout(new GridBagLayout());
+        holder2.add(middle, BorderLayout.CENTER);
 
         //Reason for Visit label
         label2 = new JLabel("Reason for Visit");
-        middle.add(label2, getConstraints(0, 2, 1, 1, GridBagConstraints.LINE_END));
+        middle.add(label2, getConstraints(0, 1, 1, 1, GridBagConstraints.WEST));
 
-        field2 = new JTextField(30);
-        field2.setBorder(loweredBorder);
-        middle.add(field2, getConstraints(2, 2, 1, 1, GridBagConstraints.LINE_START));
-
-        label6 = new JLabel("Appointment Number");
-        middle.add(label6, getConstraints(0, 0, 1, 1, (GridBagConstraints.LINE_END)));
-        //text field
-        field3 = new JTextField(30);
-        field3.setBorder(loweredBorder);
-        middle.add(field3, getConstraints(2, 0, 1, 1, (GridBagConstraints.LINE_START)));
-
+        textArea = new JTextArea(10,50);
+        textArea.setBorder(loweredBorder);
+        middle.add(textArea, getConstraints(0, 2, 2, 1, GridBagConstraints.WEST));
 
         label3 = new JLabel("Medical Equipment Required");
-        middle.add(label3, getConstraints(0, 3, 1, 1, GridBagConstraints.LINE_END));
+        middle.add(label3, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
 
         combo1 = new JComboBox<String>(list1);
         combo1.setSize(30, 1);
-        middle.add(combo1, getConstraints(2, 3, 1, 1, GridBagConstraints.LINE_START));
+        middle.add(combo1, getConstraints(0, 4, 3, 1, GridBagConstraints.WEST));
         combo1.addActionListener(this);
 
 
         label4 = new JLabel("Consultant Type Required");
-        middle.add(label4, getConstraints(0, 5, 1, 1, GridBagConstraints.LINE_END));
+        middle.add(label4, getConstraints(0, 5, 1, 1, GridBagConstraints.WEST));
 
 
         combo2 = new JComboBox<String>(list2);
-        middle.add(combo2, getConstraints(2, 5, 1, 1, GridBagConstraints.LINE_START));
+        middle.add(combo2, getConstraints(0, 6, 3, 1, GridBagConstraints.WEST));
         combo2.addActionListener(this);
 
 
         //bottom
-        JPanel bottom = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        f.add(bottom, BorderLayout.NORTH);
+        JPanel bottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        holder2.add(bottom);
         // Confirm button
         confirm = new JButton("Confirm");
         confirm.addActionListener(this);
@@ -139,6 +144,13 @@ public class AppointmentGUI extends JFrame implements ActionListener {
         cancel.addActionListener(this);
         bottom.add(cancel);
 
+        // Cancel Appointment button
+        cancelApt = new JButton("Cancel Appointment");
+        cancelApt.addActionListener(this);
+        bottom.add(cancelApt);
+
+        f.add(holder);
+        f.add(holder2);
         f.setVisible(true);
     }
 
