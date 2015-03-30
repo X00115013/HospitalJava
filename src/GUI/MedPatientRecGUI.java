@@ -20,10 +20,11 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
     JTextField patientText;
     JTextArea additionalInformation;
     JScrollPane scroll;
-
+    private int patientNumberIn;
     JFrame f;
 
-    public MedPatientRecGUI() {
+    public MedPatientRecGUI(int patientNumIn) {
+        patientNumberIn=patientNumIn;
         f = new JFrame();
         f.setTitle("Medical Records");
         f.setSize(820, 1000);
@@ -51,7 +52,9 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
         ID.add(patientNum);
         //text field
         patientText = new JTextField(5);
+        patientText.setText(Integer.toString(patientNumIn));
         patientText.setBorder(loweredBorder);
+        patientText.setEditable(false);
         ID.add(patientText);
 
 
@@ -115,7 +118,7 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
         if (e.getSource().equals(cancel)) {
             System.exit(0);
         } else if (e.getSource().equals(update)) {
-           UpdateMedRec updateMedRec=new UpdateMedRec();
+           UpdateMedRec updateMedRec=new UpdateMedRec(patientNumberIn);
 
         }
     }

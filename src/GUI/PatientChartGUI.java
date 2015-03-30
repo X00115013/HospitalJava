@@ -23,7 +23,7 @@ public class PatientChartGUI extends JFrame implements ActionListener
 
     JFrame f;
 
-    public PatientChartGUI()
+    public PatientChartGUI(int patientNumIn)
     {
         f = new JFrame();
         f.setTitle("Patient Chart");
@@ -52,7 +52,9 @@ public class PatientChartGUI extends JFrame implements ActionListener
         ID.add(patientNum);
         //text field
         patientText = new JTextField(5);
+        patientText.setText(Integer.toString(patientNumIn));
         patientText.setBorder(loweredBorder);
+        patientText.setEditable(false);
         ID.add(patientText);
 
 

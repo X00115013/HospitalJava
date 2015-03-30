@@ -28,6 +28,7 @@ public class PatientRecord {
     public void refreshArrays() {
         try {
             clearArrays();
+            PatientOperations po=new PatientOperations();
             rset = po.getPatientAdmin();
             while (rset.next()) {
                 patientList.add(patientRecord = new PatientRecord(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4),

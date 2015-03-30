@@ -17,11 +17,13 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener
     JTextField patientText;
     JTextArea additionalInformation;
     JRadioButton checkOutRadio;
+    private int patientNumberIn;
 
     JFrame f;
 
-    public AdminCheckOutGUI()
+    public AdminCheckOutGUI(int patientNumIn)
     {
+        patientNumberIn=patientNumIn;
         f = new JFrame();
         f.setTitle("Admin Check-Out");
         f.setSize(700, 500);
@@ -49,7 +51,9 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener
         ID.add(patientNum);
         //text field
         patientText = new JTextField(5);
+        patientText.setText(Integer.toString(patientNumIn));
         patientText.setBorder(loweredBorder);
+        patientText.setEditable(false);
         ID.add(patientText);
 
 
@@ -124,7 +128,7 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener
         {
 
         }else if (e.getSource().equals(checkOut))
-        {PaymentGUI paymentGUI=new PaymentGUI();
+        {PaymentGUI paymentGUI=new PaymentGUI(patientNumberIn);
         }
     }
 }

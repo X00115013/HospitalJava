@@ -2,22 +2,29 @@ package Model;
 
 import GUI.*;
 
+import java.util.ArrayList;
+
 /**
  * Created by Roland on 14/03/2015.
  */
 public class Security {
     private int password;
-    private int passwordMed;
-    private int passwordHiAdmin;
+    private int patientNum;
     private int passed;
     private int answer,selection;
+    private PatientRecord patientRecord;
+    private ArrayList<PatientRecord> pList=new ArrayList<>();
 
-    public Security(int selectionIn,int passWordIn) {
+    public Security(int selectionIn,int patientNumIn, int passWordIn) {
+        patientNum=patientNumIn;
         selection=selectionIn;
         password = passWordIn;
         answer=passCheck();
-        if(answer != -1){
-            setSelection();
+        if(answer != -1 && patientNumCheck()==true){
+            setSelection(answer);
+        }else if (patientNumCheck()==false){
+            System.out.println("Not a patient match");
+
         }
     }
 
@@ -38,30 +45,48 @@ public class Security {
         }
         return passed;
     }
-    public void setSelection(){
-        if(selection==1){
+
+    public boolean patientNumCheck(){
+        boolean test2=true;
+        patientRecord=new PatientRecord();
+        pList.addAll(patientRecord.getPatientList());
+        for (int i = 0; i < pList.size() ; i++) {
+            System.out.println("Patient Number==============  "+pList.get(i).getPatientNumber());
+            if(patientNum==pList.get(i).getPatientNumber()){
+               test2=true;
+                i=pList.size()+1;
+            }else{
+                test2=false;
+            }
+
+        }return test2;
+
+    }
+
+    public void setSelection(int answerIn){
+        if(selection==1 && (answerIn==1 ||answerIn==2 ||answerIn==3 )){
         AppointmentGUI appointmentGUI = new AppointmentGUI();
-        }else if(selection==2){
+        }else if(selection==2 && (answerIn==1 ||answerIn==2 ||answerIn==3 )){
             CheckInGUI checkInGUI=new CheckInGUI();
-        }else if(selection==3){
-            PatientAdminRecGUI patientAdminRecGUI=new PatientAdminRecGUI();
-        }else if(selection==4){
-            MedPatientRecGUI medPatientRecGUI=new MedPatientRecGUI();
-        }else if(selection==5){
+        }else if(selection==3 && (answerIn==1 ||answerIn==3 )){
+            PatientAdminRecGUI patientAdminRecGUI=new PatientAdminRecGUI(patientNum);
+        }else if(selection==4&& (answerIn==2 ||answerIn==3 )){
+            MedPatientRecGUI medPatientRecGUI=new MedPatientRecGUI(patientNum);
+        }else if(selection==5&& (answerIn==1 ||answerIn==2 ||answerIn==3 )){
             TimeTablesGUI timeTablesGUI =new TimeTablesGUI();
-        }else if(selection==6){
+        }else if(selection==6&& (answerIn==1 ||answerIn==3 )){
             ProcessReferrals processReferrals=new ProcessReferrals();
-        }else if(selection==7){
-            PatientChartGUI patientChartGUI=new PatientChartGUI();
-        }else if(selection==8){
-            PaymentGUI paymentGUI=new PaymentGUI();
-        }else if(selection==9){
-            PrescriptionGUI prescriptionGUI=new PrescriptionGUI();
+        }else if(selection==7&& (answerIn==1 ||answerIn==2 ||answerIn==3 )){
+            PatientChartGUI patientChartGUI=new PatientChartGUI(patientNum);
+        }else if(selection==8&& (answerIn==1 ||answerIn==3 )){
+            PaymentGUI paymentGUI=new PaymentGUI(patientNum);
+        }else if(selection==9&& (answerIn==2 ||answerIn==3 )){
+            PrescriptionGUI prescriptionGUI=new PrescriptionGUI(patientNum);
         }else if(selection==10){
-            if(passed ==1 || passed==3) {
-                AdminCheckOutGUI adminCheckOutGUI = new AdminCheckOutGUI();
-            }else if(passed == 2) {
-                MedCheckOutGUI medCheckOutGUI = new MedCheckOutGUI();
+            if(answerIn ==1 || answerIn==3) {
+                AdminCheckOutGUI adminCheckOutGUI = new AdminCheckOutGUI(patientNum);
+            }else if(answerIn == 2) {
+                MedCheckOutGUI medCheckOutGUI = new MedCheckOutGUI(patientNum);
             }
         }
     }

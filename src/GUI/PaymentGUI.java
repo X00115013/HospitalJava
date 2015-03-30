@@ -26,7 +26,7 @@ public class PaymentGUI extends JFrame implements ActionListener
 
     JFrame f;
 
-    public PaymentGUI()
+    public PaymentGUI(int patientNumIn)
     {
         f = new JFrame();
         f.setTitle("Payment");
@@ -55,7 +55,9 @@ public class PaymentGUI extends JFrame implements ActionListener
         ID.add(patientNum);
         //text field
         patientText = new JTextField(5);
+        patientText.setText(Integer.toString(patientNumIn));
         patientText.setBorder(loweredBorder);
+        patientText.setEditable(false);
         ID.add(patientText);
 
 

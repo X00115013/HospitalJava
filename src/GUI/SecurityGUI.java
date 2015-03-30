@@ -20,18 +20,11 @@ public class SecurityGUI extends JFrame implements ActionListener{
     JButton confirm;
     JButton cancel;
 
-    JLabel label1;
-    JLabel label2;
-    JLabel label3;
-    JLabel label4;
-    JLabel label5;
-    JLabel label6;
-    JLabel label7;
+    JLabel patientNum;
+    JLabel password;
+    JLabel title;
+    JTextField patientNumText,passwordText;
 
-
-    JTextField field1;
-    JTextField field2;
-    JTextField field3;
     JFrame f;
 
     public SecurityGUI(int selectionIn) {
@@ -53,10 +46,11 @@ public class SecurityGUI extends JFrame implements ActionListener{
 
         JPanel offTop= new JPanel(new FlowLayout(FlowLayout.CENTER));
         f.add(offTop,BorderLayout.NORTH);
-        //Reason for Visit label
-        label7 = new JLabel("SECURITY");
-        offTop.add(label7);
-        label7.setFont(new Font("Arial",Font.BOLD, 44));
+
+
+        title = new JLabel("SECURITY");
+        offTop.add(title);
+        title.setFont(new Font("Arial", Font.BOLD, 44));
 
 
 
@@ -65,18 +59,18 @@ public class SecurityGUI extends JFrame implements ActionListener{
         middle.setLayout(new GridBagLayout());
 
         //Patient Number
-        label1 = new JLabel("Patient Number");
-        middle.add(label1, getConstraints(0, 0, 1, 1, GridBagConstraints.WEST));
+        patientNum = new JLabel("Patient Number");
+        middle.add(patientNum, getConstraints(0, 0, 1, 1, GridBagConstraints.WEST));
         //text field
-        field1 = new JTextField(30);
-        middle.add(field1, getConstraints(0, 1, 1, 1, GridBagConstraints.WEST));
+        patientNumText = new JTextField(30);
+        middle.add(patientNumText, getConstraints(0, 1, 1, 1, GridBagConstraints.WEST));
 
         //Password
-        label2 = new JLabel("Admin/Medical Password");
-        middle.add(label2, getConstraints(0, 2, 1, 1, GridBagConstraints.WEST));
+        password = new JLabel("Admin/Medical Password");
+        middle.add(password, getConstraints(0, 2, 1, 1, GridBagConstraints.WEST));
         //text field
-        field2 = new JTextField(30);
-        middle.add(field2, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
+        passwordText = new JTextField(30);
+        middle.add(passwordText, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
 
 
         JPanel bottom= new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -123,16 +117,24 @@ public class SecurityGUI extends JFrame implements ActionListener{
         {boolean test=true;
             try {
                 while (test) {
-                    Security security = new Security(selection, Integer.parseInt(field2.getText()));
-//            answer= security.getAnswer();
-                    field1.setText("");
-                    field2.setText("");
-
-                    f.setVisible(false);
-                    test = false;
+                    Security security = new Security(selection,Integer.parseInt(patientNumText.getText()), Integer.parseInt(passwordText.getText()));
+                    if(security.passCheck()==-1) {
+                        passwordText.setText("");
+                        JOptionPane.showMessageDialog(null,"Password is Incorrect");
+                    }
+                    if(security.patientNumCheck()==false){
+                        patientNumText.setText("");
+                        passwordText.setText("");
+                        JOptionPane.showMessageDialog(null,"Patient Does Not Exist");
+                    }
+                    else{
+                        f.setVisible(false);
+                        test = false;
+                    }
                 }
                 }catch(NumberFormatException im){
-                field2.setText("");
+                patientNumText.setText("");
+                passwordText.setText("");
                 System.out.println(im);
                 }
             }

@@ -31,6 +31,7 @@ public class CheckInGUI extends JFrame implements ActionListener
     JTextField field12;
     JTextField field13;
     JFrame f;
+    private int securityAnsIn;
 
     public CheckInGUI()
     {

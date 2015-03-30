@@ -21,7 +21,7 @@ public class AddPatientGUI extends JFrame implements ActionListener {
     JFrame f;
     int choiceGui;
 
-    public AddPatientGUI(int choiceGUI) {
+    public AddPatientGUI(int choiceGUI,int patientNumIn) {
         choiceGui = choiceGUI;
         f = new JFrame();
         if (choiceGUI == 1) {
@@ -59,12 +59,26 @@ public class AddPatientGUI extends JFrame implements ActionListener {
 
 
         JPanel ID = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        if (choiceGUI == 1) {
+            patientNum = new JLabel("\tNew Patient Number");
+            ID.add(patientNum);
+            //text field
+            patientText = new JTextField(5);
+            patientText.setBorder(loweredBorder);
+
+        } else if (choiceGUI == 2) {
+            patientNum = new JLabel("\tPatient Number");
+            ID.add(patientNum);
+            //text field
+            patientText = new JTextField(5);
+            patientText.setBorder(loweredBorder);
+            System.out.println("This is the new patient number= "+Integer.toString(patientNumIn));
+            patientText.setText(Integer.toString(patientNumIn));
+        }
+        patientText.setEditable(false);
         //labels
-        patientNum = new JLabel("\tPatient Number");
-        ID.add(patientNum);
-        //text field
-        patientText = new JTextField(5);
-        patientText.setBorder(loweredBorder);
+
         ID.add(patientText);
 
 

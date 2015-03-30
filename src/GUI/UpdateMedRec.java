@@ -24,7 +24,7 @@ public class UpdateMedRec extends JFrame implements ActionListener {
     JFrame f;
     String[] list1 = {"XRay :", "MRI Scan :", "CT Scan :"};
 
-    public UpdateMedRec() {
+    public UpdateMedRec(int patientNumIn) {
         f = new JFrame();
         f.setTitle("Update Patient Med Record");
         f.setSize(830, 975);
@@ -54,7 +54,9 @@ public class UpdateMedRec extends JFrame implements ActionListener {
         ID.add(patientNum);
         //text field
         patientText = new JTextField(5);
+        patientText.setText(Integer.toString(patientNumIn));
         patientText.setBorder(loweredBorder);
+        patientText.setEditable(false);
         ID.add(patientText);
 
         topSection.add(clock);

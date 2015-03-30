@@ -43,7 +43,7 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
     JComboBox<String> combo1;
     JComboBox<String> combo2;
 
-    public PrescriptionGUI() {
+    public PrescriptionGUI(int patientNumIn) {
 
 
 
@@ -77,7 +77,9 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
         ID.add(patientNum);
         //text field
         pNumText = new JTextField(5);
+        pNumText.setText(Integer.toString(patientNumIn));
         pNumText.setBorder(loweredBorder);
+        pNumText.setEditable(false);
         ID.add(pNumText);
 
 

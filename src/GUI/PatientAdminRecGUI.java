@@ -17,12 +17,14 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
     JTextField patientText;
     JTextArea additionalInformation;
     JScrollPane scroll;
+    private int patientNumberIn;
 
 
     JFrame f;
 
-    public PatientAdminRecGUI()
+    public PatientAdminRecGUI(int patientNumIn)
     {
+        patientNumberIn=patientNumIn;
         f = new JFrame();
         f.setTitle("Admin Records");
         f.setSize(805, 1000);
@@ -50,7 +52,9 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
         ID.add(patientNum);
         //text field
         patientText = new JTextField(5);
+        patientText.setText(Integer.toString(patientNumIn));
         patientText.setBorder(loweredBorder);
+        patientText.setEditable(false);
         ID.add(patientText);
 
 
@@ -123,7 +127,7 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
         if (e.getSource().equals(cancel)) {
             System.exit(0);
         } else if (e.getSource().equals(update)){
-            AddPatientGUI addPatientGUI=new AddPatientGUI(2);
+            AddPatientGUI addPatientGUI=new AddPatientGUI(2,patientNumberIn);
 
         }else if (e.getSource().equals(delete))
         {
