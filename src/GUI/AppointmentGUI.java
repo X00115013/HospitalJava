@@ -29,9 +29,9 @@ public class AppointmentGUI extends JFrame implements ActionListener {
     private Object selectedItem;
 
     JLabel aptNum;
-    JLabel label2;
-    JLabel label3;
-    JLabel label4;
+    JLabel reason;
+    JLabel medEquip;
+    JLabel conType;
     JLabel label5;
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -99,15 +99,15 @@ public class AppointmentGUI extends JFrame implements ActionListener {
         holder2.add(middle, BorderLayout.CENTER);
 
         //Reason for Visit label
-        label2 = new JLabel("Reason for Visit");
-        middle.add(label2, getConstraints(0, 1, 1, 1, GridBagConstraints.WEST));
+        reason = new JLabel("Reason for Visit");
+        middle.add(reason, getConstraints(0, 1, 1, 1, GridBagConstraints.WEST));
 
         textArea = new JTextArea(10,50);
         textArea.setBorder(loweredBorder);
         middle.add(textArea, getConstraints(0, 2, 2, 1, GridBagConstraints.WEST));
 
-        label3 = new JLabel("Medical Equipment Required");
-        middle.add(label3, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
+        medEquip = new JLabel("Medical Equipment Required");
+        middle.add(medEquip, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
 
         combo1 = new JComboBox<String>(list1);
         combo1.setPreferredSize(new Dimension(300, 20));
@@ -115,8 +115,8 @@ public class AppointmentGUI extends JFrame implements ActionListener {
         combo1.addActionListener(this);
 
 
-        label4 = new JLabel("Consultant Type Required");
-        middle.add(label4, getConstraints(0, 5, 1, 1, GridBagConstraints.WEST));
+        conType = new JLabel("Consultant Type Required");
+        middle.add(conType, getConstraints(0, 5, 1, 1, GridBagConstraints.WEST));
 
 
         combo2 = new JComboBox<String>(list2);

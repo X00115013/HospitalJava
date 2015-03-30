@@ -38,7 +38,7 @@ public class CreditCardGUI extends JFrame implements ActionListener {
 
     JComboBox<String> cardTypeCombo;
 
-    public CreditCardGUI() {
+    public CreditCardGUI(int patientNumIn) {
         f = new JFrame();
         f.setTitle("Credit Cards");
         f.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -70,6 +70,8 @@ public class CreditCardGUI extends JFrame implements ActionListener {
         //text field
         pNumText = new JTextField(5);
         pNumText.setBorder(loweredBorder);
+        pNumText.setText(Integer.toString(patientNumIn));
+        pNumText.setEnabled(false);
         ID.add(pNumText);
 
 

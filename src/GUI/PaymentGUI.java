@@ -23,11 +23,12 @@ public class PaymentGUI extends JFrame implements ActionListener
     JCheckBox cash;
     JRadioButton checkOutRadio;
     JScrollPane scroll;
-
+    private int patientNumberIn;
     JFrame f;
 
     public PaymentGUI(int patientNumIn)
     {
+        patientNumberIn=patientNumIn;
         f = new JFrame();
         f.setTitle("Payment");
         f.setSize(805, 1000);
@@ -153,11 +154,11 @@ public class PaymentGUI extends JFrame implements ActionListener
         }else if (e.getSource().equals(print))
         {
         }else if (e.getSource().equals(debitCredit))
-        {   CreditCardGUI creditCardGUI=new CreditCardGUI();
+        {   CreditCardGUI creditCardGUI=new CreditCardGUI(patientNumberIn);
         }else if (e.getSource().equals(insurance))
-        {   healthInsuranceGUI hInsuranceGUI=new healthInsuranceGUI();
+        {   healthInsuranceGUI hInsuranceGUI=new healthInsuranceGUI(patientNumberIn);
         }else if (e.getSource().equals(medicalCard))
-        {   MedicalCardGUI medicalCardGUI=new MedicalCardGUI();
+        {   MedicalCardGUI medicalCardGUI=new MedicalCardGUI(patientNumberIn);
         }
     }
 }

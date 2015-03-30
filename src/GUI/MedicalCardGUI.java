@@ -33,7 +33,7 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
 
     JComboBox<String> coverageTypeCombo;
 
-    public MedicalCardGUI() {
+    public MedicalCardGUI(int patientNumIn) {
         f = new JFrame();
         f.setTitle("Health Insurance");
         f.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -65,6 +65,8 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
         //text field
         pNumText = new JTextField(5);
         pNumText.setBorder(loweredBorder);
+        pNumText.setText(Integer.toString(patientNumIn));
+        pNumText.setEditable(false);
         ID.add(pNumText);
 
 

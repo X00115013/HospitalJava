@@ -1,20 +1,21 @@
+
 package GUI;
 
-import Model.Security;
+        import Model.Security;
 
-import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.Arc2D;
-import java.util.InputMismatchException;
+        import javax.swing.*;
+        import javax.swing.border.BevelBorder;
+        import javax.swing.border.Border;
+        import java.awt.*;
+        import java.awt.event.ActionEvent;
+        import java.awt.event.ActionListener;
+        import java.awt.geom.Arc2D;
+        import java.util.InputMismatchException;
 
 /**
  * Created by Roland on 01/03/2015.
  */
-public class SecurityGUI extends JFrame implements ActionListener{
+public class SingleSecurityGUI extends JFrame implements ActionListener {
     private  int answer=0,selection;
 
     JButton confirm;
@@ -27,11 +28,11 @@ public class SecurityGUI extends JFrame implements ActionListener{
 
     JFrame f;
 
-    public SecurityGUI(int selectionIn) {
+    public SingleSecurityGUI(int selectionIn) {
         selection=selectionIn;
         f = new JFrame("Security");
         f.setLayout(new FlowLayout());
-        f.setSize(420, 310);
+        f.setSize(420, 220);
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -40,9 +41,6 @@ public class SecurityGUI extends JFrame implements ActionListener{
 
         JPanel clock= new JPanel(new FlowLayout(FlowLayout.LEFT));
         f.add(clock,BorderLayout.EAST);
-
-
-
 
         JPanel offTop= new JPanel(new FlowLayout(FlowLayout.CENTER));
         f.add(offTop,BorderLayout.NORTH);
@@ -57,13 +55,6 @@ public class SecurityGUI extends JFrame implements ActionListener{
         JPanel middle=new JPanel();
         f.add(middle,BorderLayout.CENTER);
         middle.setLayout(new GridBagLayout());
-
-        //Patient Number
-        patientNum = new JLabel("Patient Number");
-        middle.add(patientNum, getConstraints(0, 0, 1, 1, GridBagConstraints.WEST));
-        //text field
-        patientNumText = new JTextField(30);
-        middle.add(patientNumText, getConstraints(0, 1, 1, 1, GridBagConstraints.WEST));
 
         //Password
         password = new JLabel("Admin/Medical Password");
@@ -111,21 +102,16 @@ public class SecurityGUI extends JFrame implements ActionListener{
     {
         if (e.getSource().equals(cancel))
         {
-           f.setVisible(false);
+            f.setVisible(false);
 
         } else if (e.getSource().equals(confirm)) {
             boolean test = true;
             try {
                 while (test) {
-                    Security security = new Security(selection, Integer.parseInt(patientNumText.getText()), Integer.parseInt(passwordText.getText()));
-                    if (security.passCheck() == -1 || passwordText.equals("")) {
+                    Security security = new Security(selection,-1,Integer.parseInt(passwordText.getText()));
+                    if (security.passCheck() == -1) {
                         passwordText.setText("");
                         JOptionPane.showMessageDialog(null, "Password is Incorrect");
-                    }
-                    if (!security.patientNumCheck()||patientNumText.equals("")) {
-                        patientNumText.setText("");
-                        passwordText.setText("");
-                        JOptionPane.showMessageDialog(null, "Patient Does Not Exist");
                     } else {
                         test = false;
                     }
@@ -136,6 +122,5 @@ public class SecurityGUI extends JFrame implements ActionListener{
                 System.out.println(im);
             }
         }
-        }
     }
-
+}

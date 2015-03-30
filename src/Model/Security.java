@@ -51,8 +51,7 @@ public class Security {
         patientRecord=new PatientRecord();
         pList.addAll(patientRecord.getPatientList());
         for (int i = 0; i < pList.size() ; i++) {
-            System.out.println("Patient Number==============  "+pList.get(i).getPatientNumber());
-            if(patientNum==pList.get(i).getPatientNumber()){
+            if(patientNum==pList.get(i).getPatientNumber()||patientNum==-1){
                test2=true;
                 i=pList.size()+1;
             }else{
