@@ -22,6 +22,7 @@ public class PaymentGUI extends JFrame implements ActionListener
     JTextArea billInformation;
     JCheckBox cash;
     JRadioButton checkOutRadio;
+    JScrollPane scroll;
 
     JFrame f;
 
@@ -71,7 +72,9 @@ public class PaymentGUI extends JFrame implements ActionListener
         billInformation = new JTextArea(40,70);
         billInformation.setBorder(loweredBorder);
         billInformation.setEditable(false);
-        textArea.add(billInformation);
+        scroll = new JScrollPane(billInformation);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        textArea.add(scroll);
 
 
         JPanel holder2=new JPanel(new GridLayout(1,1));

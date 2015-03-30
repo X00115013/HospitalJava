@@ -15,10 +15,9 @@ public class TimeTablesGUI extends JFrame implements ActionListener
     JButton print,cancel;
     String[] list1 = {"Consultant :","XRay :", "MRI Scan :", "CT Scan :"};
     JLabel patientNum,label5;
-    JTextField patientText;
     JTextArea additionalInformation;
-    JRadioButton checkOutRadio;
     JComboBox<String> combo1;
+    JScrollPane scroll;
     JFrame f;
 
     public TimeTablesGUI()
@@ -52,8 +51,9 @@ public class TimeTablesGUI extends JFrame implements ActionListener
 
         additionalInformation = new JTextArea(40,70);
         additionalInformation.setBorder(loweredBorder);
-        textArea.add(additionalInformation);
-//        holder.add(textArea);
+        scroll = new JScrollPane(additionalInformation);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        textArea.add(scroll);
 
 
         JPanel holder2=new JPanel(new GridLayout(3,1));

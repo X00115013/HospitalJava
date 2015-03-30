@@ -16,7 +16,8 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
     JLabel patientNum,label5;
     JTextField patientText;
     JTextArea additionalInformation;
-    JRadioButton checkOutRadio;
+    JScrollPane scroll;
+
 
     JFrame f;
 
@@ -66,8 +67,10 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
 
         additionalInformation = new JTextArea(40,70);
         additionalInformation.setBorder(loweredBorder);
-        textArea.add(additionalInformation);
-//        holder.add(textArea);
+        scroll = new JScrollPane(additionalInformation);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        textArea.add(scroll);
+
 
 
         JPanel holder2=new JPanel(new GridLayout(1,1));
