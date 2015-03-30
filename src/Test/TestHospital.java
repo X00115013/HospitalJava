@@ -10,13 +10,13 @@ import Referrals.Referrals;
 public class TestHospital {
     public static void main(String[] args) {
 //        GUI TESTS
-        AppointmentGUI ag=new AppointmentGUI();
+//        AppointmentGUI ag=new AppointmentGUI();
 //        ag.setVisible(true);
 //        SecurityGUI su=new SecurityGUI();
 //        su.setVisible(true);
 //        ReferralGUI referralGUI= new ReferralGUI();
 //        referralGUI.setVisible(true);
-//        HomeScreen homeScreen=new HomeScreen();
+        HomeScreen homeScreen=new HomeScreen();
 //        CheckInGUI checkInGUI=new CheckInGUI();
 //        AddPatientGUI addPatientGUI=new AddPatientGUI();
 //        AdminCheckOutGUI adminCheckOutGUI=new AdminCheckOutGUI();
@@ -24,6 +24,14 @@ public class TestHospital {
 //        PatientAdminRecGUI patientAdminRecGUI=new PatientAdminRecGUI();
 //        TimeTablesGUI timeTablesGUI=new TimeTablesGUI();
 //        CancelAppointmentGUI cancelAppointmentGUI=new CancelAppointmentGUI();
+//        MedPatientRecGUI medPatientRecGUI=new MedPatientRecGUI();
+//        UpdateMedRec updateMedRec=new UpdateMedRec();
+//        PatientChartGUI patientChartGUI=new PatientChartGUI();
+//        PrescriptionGUI prescriptionGUI=new PrescriptionGUI();
+//        PaymentGUI paymentGUI=new PaymentGUI();
+//        CreditCardGUI creditCardGUI=new CreditCardGUI();
+//         HealthInsuranceGUI healthInsuranceGUI=new HealthInsuranceGUI();
+//        MedicalCardGUI medicalCardGUI=new MedicalCardGUI();
 
 
 //        REFERRALS TESTS

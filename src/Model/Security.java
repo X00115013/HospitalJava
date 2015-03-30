@@ -46,17 +46,17 @@ public class Security {
         }else if(selection==3){
             PatientAdminRecGUI patientAdminRecGUI=new PatientAdminRecGUI();
         }else if(selection==4){
-//            MedicalRecordGUI medicalRecordGUI =new MedicalRecordGUI();
+            MedPatientRecGUI medPatientRecGUI=new MedPatientRecGUI();
         }else if(selection==5){
             TimeTablesGUI timeTablesGUI =new TimeTablesGUI();
         }else if(selection==6){
             ProcessReferrals processReferrals=new ProcessReferrals();
         }else if(selection==7){
-//            PatientChartGUI patientChartGUI=new PatientChartGUI();
+            PatientChartGUI patientChartGUI=new PatientChartGUI();
         }else if(selection==8){
-//
+            PaymentGUI paymentGUI=new PaymentGUI();
         }else if(selection==9){
-//            PrescriptionGUI prescriptionGUI=new PrescriptionGUI();
+            PrescriptionGUI prescriptionGUI=new PrescriptionGUI();
         }else if(selection==10){
             if(passed ==1 || passed==3) {
                 AdminCheckOutGUI adminCheckOutGUI = new AdminCheckOutGUI();

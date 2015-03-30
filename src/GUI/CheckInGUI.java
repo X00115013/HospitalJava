@@ -116,7 +116,7 @@ public class CheckInGUI extends JFrame implements ActionListener
         dobs.add(cancel, getConstraints(1, 4, 1, 1, GridBagConstraints.WEST));
 
         // CheckOut button
-        checkOut = new JButton("Cancel");
+        checkOut = new JButton("Check-Out");
         checkOut.addActionListener(this);
         dobs.add(checkOut, getConstraints(2, 4, 1, 1, GridBagConstraints.WEST));
 

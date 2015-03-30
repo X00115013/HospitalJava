@@ -5,30 +5,29 @@ package GUI;
 //import Model.Appointment;
 //import Model.PatientRecord;
 
-import Model.Appointment;
+        import Model.Appointment;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Date;
+        import java.text.DateFormat;
+        import java.text.SimpleDateFormat;
+        import java.util.*;
+        import javax.swing.*;
+        import javax.swing.border.BevelBorder;
+        import javax.swing.border.Border;
+        import java.awt.*;
+        import java.awt.event.ActionEvent;
+        import java.awt.event.ActionListener;
+        import java.util.Date;
 
 /**
  * Created by Thomas Murray on 17/03/2015.
  */
-public class AppointmentGUI extends JFrame implements ActionListener {
+public class PrescriptionGUI extends JFrame implements ActionListener {
     String[] list1 = {"XRay :", "MRI Scan :", "CT Scan :"};
     String[] list2 = {"Radiology :", "Pediatrics :", "Surgery :"};
     JButton confirm;
-    JButton cancel,cancelApt;
-    private Object selectedItem;
+    JButton cancel;
 
-    JLabel aptNum;
+    JLabel patientNum;
     JLabel label2;
     JLabel label3;
     JLabel label4;
@@ -37,22 +36,21 @@ public class AppointmentGUI extends JFrame implements ActionListener {
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     Date date = new Date();
 
-    JTextField aptNumText;
-    JTextField field2;
-    JTextArea textArea;
+    JTextField pNumText;
+    JTextField field2,conNum;
     JFrame f;
 
     JComboBox<String> combo1;
     JComboBox<String> combo2;
 
-    public AppointmentGUI() {
+    public PrescriptionGUI() {
 
 
 
         f = new JFrame();
-        f.setTitle("Appointment");
+        f.setTitle("Prescription");
         f.setLayout(new FlowLayout(FlowLayout.LEFT));
-        f.setSize(655, 660);
+        f.setSize(630,550);
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -69,18 +67,18 @@ public class AppointmentGUI extends JFrame implements ActionListener {
         clock.add(clockD);
 
         JPanel title=new JPanel(new FlowLayout(FlowLayout.CENTER));
-        label5 = new JLabel("Appointment");
+        label5 = new JLabel("Prescription");
         title.add(label5);
-        label5.setFont(new Font("Arial", Font.BOLD, 24));
+        label5.setFont(new Font("Arial", Font.BOLD, 32));
 
         JPanel ID=new JPanel(new FlowLayout(FlowLayout.CENTER));
         //labels
-        aptNum = new JLabel("\tAppointment Number");
-        ID.add(aptNum);
+        patientNum = new JLabel("\tPatient Number");
+        ID.add(patientNum);
         //text field
-        aptNumText = new JTextField(5);
-        aptNumText.setBorder(loweredBorder);
-        ID.add(aptNumText);
+        pNumText = new JTextField(5);
+        pNumText.setBorder(loweredBorder);
+        ID.add(pNumText);
 
 
         topSection.add(clock);
@@ -98,32 +96,31 @@ public class AppointmentGUI extends JFrame implements ActionListener {
 
         holder2.add(middle, BorderLayout.CENTER);
 
-        //Reason for Visit label
-        label2 = new JLabel("Reason for Visit");
-        middle.add(label2, getConstraints(0, 1, 1, 1, GridBagConstraints.WEST));
-
-        textArea = new JTextArea(10,50);
-        textArea.setBorder(loweredBorder);
-        middle.add(textArea, getConstraints(0, 2, 2, 1, GridBagConstraints.WEST));
-
-        label3 = new JLabel("Medical Equipment Required");
-        middle.add(label3, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
+        label3 = new JLabel("Medical Required");
+        middle.add(label3, getConstraints(0, 2, 1, 1, GridBagConstraints.WEST));
 
         combo1 = new JComboBox<String>(list1);
-        combo1.setPreferredSize(new Dimension(300, 20));
-        middle.add(combo1, getConstraints(0, 4, 3, 1, GridBagConstraints.WEST));
+        combo1.setPreferredSize(new Dimension(400, 20));
+        middle.add(combo1, getConstraints(0, 3, 3, 1, GridBagConstraints.WEST));
         combo1.addActionListener(this);
 
 
-        label4 = new JLabel("Consultant Type Required");
-        middle.add(label4, getConstraints(0, 5, 1, 1, GridBagConstraints.WEST));
+        label4 = new JLabel("Dose Required");
+        middle.add(label4, getConstraints(0, 4, 1, 1, GridBagConstraints.WEST));
 
 
         combo2 = new JComboBox<String>(list2);
-        combo2.setPreferredSize(new Dimension(300, 20));
-        middle.add(combo2, getConstraints(0, 6, 3, 1, GridBagConstraints.WEST));
+        combo2.setPreferredSize(new Dimension(400, 20));
+        middle.add(combo2, getConstraints(0, 5, 3, 1, GridBagConstraints.WEST));
         combo2.addActionListener(this);
 
+        //Reason for Visit label
+        label2 = new JLabel("Consultant Number");
+        middle.add(label2, getConstraints(0, 6, 1, 1, GridBagConstraints.WEST));
+
+        conNum = new JTextField(40);
+        conNum.setBorder(loweredBorder);
+        middle.add(conNum, getConstraints(0, 7, 2, 1, GridBagConstraints.WEST));
 
         //bottom
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -139,10 +136,6 @@ public class AppointmentGUI extends JFrame implements ActionListener {
         cancel.addActionListener(this);
         bottom.add(cancel);
 
-        // Cancel Appointment button
-        cancelApt = new JButton("Cancel Appointment");
-        cancelApt.addActionListener(this);
-        bottom.add(cancelApt);
 
         f.add(holder);
         f.add(holder2);
@@ -188,18 +181,6 @@ public class AppointmentGUI extends JFrame implements ActionListener {
             } catch (InputMismatchException im) {
                 System.out.println(im);
             }
-            Appointment app = new Appointment(field2.getText(), catcher2, catcher);
-            System.out.println(field2.getText());
-            System.out.println(catcher);
-            System.out.println(catcher2);
-            field2.setText("");
-            f.setVisible(false);
-
-
-        } else if (e.getSource().equals(cancelApt)) {
-            CancelAppointmentGUI cancelAppointmentGUI=new CancelAppointmentGUI();
         }
     }
 }
-
-
