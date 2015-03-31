@@ -20,6 +20,10 @@ public class Appointment {
     private Appointment apt;
 
 
+    public Appointment(){
+        appointmentArray();
+    }
+
     public Appointment(int appNumIn ,String reasonForVisitIn, int consultantTypeIn, int medicalEquipIn, int patientNumIn) {
         appNumber=appNumIn;
         reasonForVisit = reasonForVisitIn;
@@ -62,24 +66,29 @@ public class Appointment {
         }
     }
 
-    public void printAppointment(){
-        try {
-            rset = ao.getAppointment();
-            System.out.println("\nAppointment Table\n");
-            while (rset.next()) {
-                System.out.println("Appointment number (" + rset.getInt(1) + ") \nReason for visit (" + rset.getString(2) + ")\nEquipment (" + rset.getInt(3) + ")\nConsultant (" + rset.getInt(4)+")\nPatient Number ("+rset.getInt(5)+")\n");
-            }
-        } catch (SQLException e1) {
-            System.out.println(e1);
+    public void printAppointment() {
+        for (int i = 0; i < appList.size(); i++) {
+            System.out.println("\n\nAppointment number (" + appList.get(i).appNumber + ")");
+            System.out.println("Reason for visit (" + appList.get(i).reasonForVisit + ")");
+            System.out.println("Equipment (" + appList.get(i).consultantType + ")");
+            System.out.println("Consultant (" + appList.get(i).medicalEquip + ")");
         }
+    }
+
+
+
+    public ArrayList appArray(){
+        appointmentArray();
+        return appList;
     }
 
     public int getAppNumber() {
         return appNumber;
     }
 
-    public int getTime() {
-        return time;
+
+    public int getSize() {
+        return appList.size()+1;
     }
 
     public int getConsultantType() {

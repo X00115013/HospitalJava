@@ -80,6 +80,9 @@ public class AppointmentGUI extends JFrame implements ActionListener {
         //text field
         aptNumText = new JTextField(5);
         aptNumText.setBorder(loweredBorder);
+        Appointment appointment=new Appointment();
+        aptNumText.setText(Integer.toString(appointment.getSize()));
+        aptNumText.setEditable(false);
         ID.add(aptNumText);
 
 
@@ -188,12 +191,10 @@ public class AppointmentGUI extends JFrame implements ActionListener {
             } catch (InputMismatchException im) {
                 System.out.println(im);
             }
-            Appointment app = new Appointment(field2.getText(), catcher2, catcher);
-            System.out.println(field2.getText());
-            System.out.println(catcher);
-            System.out.println(catcher2);
-            field2.setText("");
+            Appointment app = new Appointment(textArea.getText(), catcher2, catcher);
+            reason.setText("");
             f.setVisible(false);
+            AppointmentDetailsGUI appointmentDetailsGUI=new AppointmentDetailsGUI(app,Integer.parseInt(aptNumText.getText()));
 
 
         } else if (e.getSource().equals(cancelApt)) {

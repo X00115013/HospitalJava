@@ -144,30 +144,30 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         JPanel dobs = new JPanel(new GridBagLayout());
         male = new JRadioButton("Male");
         male.addActionListener(this);
-        dobs.add(male, getConstraints(0, 11, 1, 1, (GridBagConstraints.WEST)));
+        dobs.add(male, getConstraints(0, 1, 1, 1, (GridBagConstraints.WEST)));
         female = new JRadioButton("Female");
         female.addActionListener(this);
-        dobs.add(female, getConstraints(1, 11, 1, 1, (GridBagConstraints.WEST)));
+        dobs.add(female, getConstraints(1, 1, 1, 1, (GridBagConstraints.WEST)));
 
         DOB = new JLabel("Patient DOB");
-        dobs.add(DOB, getConstraints(0, 13, 1, 1, GridBagConstraints.LINE_START));
+        dobs.add(DOB, getConstraints(0, 3, 1, 1, GridBagConstraints.LINE_START));
         day = new JLabel("Day");
-        dobs.add(day, getConstraints(0, 14, 1, 1, GridBagConstraints.LINE_START));
+        dobs.add(day, getConstraints(0, 4, 1, 1, GridBagConstraints.LINE_START));
         month = new JLabel("Month");
-        dobs.add(month, getConstraints(1, 14, 1, 1, GridBagConstraints.LINE_START));
+        dobs.add(month, getConstraints(1, 4, 1, 1, GridBagConstraints.LINE_START));
         year = new JLabel("Year");
-        dobs.add(year, getConstraints(2, 14, 1, 1, GridBagConstraints.LINE_START));
+        dobs.add(year, getConstraints(2, 4, 1, 1, GridBagConstraints.LINE_START));
 
         //DOB text fields
         dayText = new JTextField(5);
         dayText.setBorder(loweredBorder);
-        dobs.add(dayText, getConstraints(0, 15, 1, 1, GridBagConstraints.LINE_START));
+        dobs.add(dayText, getConstraints(0, 6, 1, 1, GridBagConstraints.LINE_START));
         monthText = new JTextField(5);
         monthText.setBorder(loweredBorder);
-        dobs.add(monthText, getConstraints(1, 15, 1, 1, GridBagConstraints.LINE_START));
+        dobs.add(monthText, getConstraints(1, 6, 1, 1, GridBagConstraints.LINE_START));
         yearText = new JTextField(5);
         yearText.setBorder(loweredBorder);
-        dobs.add(yearText, getConstraints(2, 15, 1, 1, GridBagConstraints.LINE_START));
+        dobs.add(yearText, getConstraints(2, 6, 1, 1, GridBagConstraints.LINE_START));
         test.add(dobs);
         //bottom
 
@@ -218,12 +218,12 @@ public class AddPatientGUI extends JFrame implements ActionListener {
             }
             if (choiceGui == 1) {
                 PatientRecord patientRecord = new PatientRecord(po, patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
-                        patientEmailText.getText(), choice, patientOccupationText.getText(), patientPhoneText.getText(), (dayText.getText() + monthText.getText() + yearText));
+                         patientOccupationText.getText(), choice,patientEmailText.getText(),patientPhoneText.getText(), (dayText.getText() + monthText.getText() + yearText.getText()));
             } else if (choiceGui == 2) {
                 PatientRecord patientRecord = new PatientRecord(po,Integer.parseInt(patientText.getText()),patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
-                        patientOccupationText.getText(),choice, patientEmailText.getText(), patientPhoneText.getText(), (dayText.getText() + monthText.getText() + yearText));
+                        patientOccupationText.getText(),choice, patientEmailText.getText(), patientPhoneText.getText(), (dayText.getText() + monthText.getText() + yearText.getText()));
 
-            }
+            }f.setVisible(false);
         }
     }
 }

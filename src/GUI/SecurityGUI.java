@@ -118,21 +118,24 @@ public class SecurityGUI extends JFrame implements ActionListener{
             try {
                 while (test) {
                     Security security = new Security(selection, Integer.parseInt(patientNumText.getText()), Integer.parseInt(passwordText.getText()));
-                    if (security.passCheck() == -1 || passwordText.equals("")) {
+                    if (security.passCheck() == -1) {
                         passwordText.setText("");
                         JOptionPane.showMessageDialog(null, "Password is Incorrect");
+                    }else if(security.patientNumCheck()){
+                        test = false;
                     }
-                    if (!security.patientNumCheck()||patientNumText.equals("")) {
+                    if (!security.patientNumCheck()) {
                         patientNumText.setText("");
                         passwordText.setText("");
                         JOptionPane.showMessageDialog(null, "Patient Does Not Exist");
-                    } else {
+                    } else if(security.patientNumCheck()){
                         test = false;
                     }
                 }f.setVisible(false);
             } catch (NumberFormatException im) {
                 patientNumText.setText("");
                 passwordText.setText("");
+                JOptionPane.showMessageDialog(null, "Both Files Must Be Populated");
                 System.out.println(im);
             }
         }

@@ -350,7 +350,7 @@ public class CreateTables {
             //Patient START creating table
             System.out.println("Creating Patient");
             String createPatient = "CREATE TABLE Patient (patient_Number NUMBER PRIMARY KEY, patientFName VARCHAR2(60), patientLName VARCHAR2(60),patientAddress VARCHAR2(255)," +
-                    "PatientDOB VARCHAR2(20),PatientGender VARCHAR2(10), occupation VARCHAR2(100), BloodType VARCHAR2(5),Symptoms VARCHAR2(255), Diagnoses VARCHAR2(255), RequiredTreatment " +
+                    "PatientDOB VARCHAR2(255),PatientGender VARCHAR2(10), occupation VARCHAR2(100), BloodType VARCHAR2(5),Symptoms VARCHAR2(255), Diagnoses VARCHAR2(255), RequiredTreatment " +
                     "VARCHAR2(255),EquipmentNeeded NUMBER, EquipmentUsed NUMBER,Allergies VARCHAR2(255),PrescriptionUsed VARCHAR2(255),PatientEmail VARCHAR2(60),PatientPhone VARCHAR2(60),Recommendation " +
                     "VARCHAR2(255))";
             pstmt = conn.prepareStatement(createPatient);

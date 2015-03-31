@@ -32,6 +32,7 @@ public class TestHospital {
 //        CreditCardGUI creditCardGUI=new CreditCardGUI();
 //         HealthInsuranceGUI healthInsuranceGUI=new HealthInsuranceGUI();
 //        MedicalCardGUI medicalCardGUI=new MedicalCardGUI();
+//        AppointmentDetailsGUI appointmentDetailsGUI=new AppointmentDetailsGUI(1);
 
 
 //        REFERRALS TESTS

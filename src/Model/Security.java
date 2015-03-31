@@ -29,7 +29,6 @@ public class Security {
     }
 
     public int getAnswer() {
-        System.out.println("security answer "+answer);
         return answer;
     }
 
