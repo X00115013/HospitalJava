@@ -34,6 +34,7 @@ public class TimeTables {
     public TimeTables() {
         to=new TimeTableOperations();
         ao=new AppointmentOperations();
+        refreshTimeTables();
     }
 
     public TimeTables(AppointmentOperations ao,int fake, int conReqIn) {
@@ -103,6 +104,21 @@ public class TimeTables {
         }
     }
 
+    public ArrayList getxRayTimeTable() {
+        return xRayTimeTable;
+    }
+
+    public ArrayList getmRITimeTable() {
+        return mRITimeTable;
+    }
+
+    public ArrayList getcTScanTimeTable() {
+        return cTScanTimeTable;
+    }
+
+    public ArrayList getConsultantTimeTable() {
+        return consultantTimeTable;
+    }
 
     public void printXRayTimeTables() {
         rset = to.getXRayTT();
@@ -162,6 +178,8 @@ public class TimeTables {
         }
 
     }
+
+
 
 
     public void setFromMedReq(int medType){

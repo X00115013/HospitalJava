@@ -1,6 +1,7 @@
 package GUI;
 
         import DataBase.PatientOperations;
+        import Model.MedicalRecord;
         import Model.PatientRecord;
 
         import javax.swing.*;
@@ -9,6 +10,7 @@ package GUI;
         import java.awt.*;
         import java.awt.event.ActionEvent;
         import java.awt.event.ActionListener;
+        import java.util.ArrayList;
 
 /**
  * Created by Thomas Murray on 20/03/2015.
@@ -23,8 +25,12 @@ public class UpdateMedRec extends JFrame implements ActionListener {
     JTextArea symptomsText, diagnosesText, requiredTreatText, allergiesText;
     JFrame f;
     String[] list1 = {"XRay :", "MRI Scan :", "CT Scan :"};
+    private ArrayList<MedicalRecord> mList=new ArrayList<>();
+    private MedicalRecord medicalRecord;
+    private int patientNumberIn;
 
     public UpdateMedRec(int patientNumIn) {
+        patientNumberIn=patientNumIn;
         f = new JFrame();
         f.setTitle("Update Patient Med Record");
         f.setSize(830, 975);
@@ -126,6 +132,24 @@ public class UpdateMedRec extends JFrame implements ActionListener {
         dobs.add(female, getConstraints(1, 1, 1, 4, (GridBagConstraints.WEST)));
 
         test.add(dobs);
+
+        medicalRecord=new MedicalRecord();
+        mList.addAll(medicalRecord.getMedicalRecordArrayList());
+        for (int i = 0; i < mList.size() ; i++) {
+            if(patientNumIn==mList.get(i).getPatientNumber()){
+                bloodText.setText(mList.get(i).getBlood());
+                symptomsText.setText(mList.get(i).getSymptoms());
+                requiredTreatText.setText(mList.get(i).getReqTreatment());
+                allergiesText.setText(mList.get(i).getAllergies());
+                diagnosesText.setText(mList.get(i).getDiagnoses());
+                if(mList.get(i).getPatientGender().equalsIgnoreCase("male")){
+                    male.setSelected(true);
+                }else if(mList.get(i).getPatientGender().equalsIgnoreCase("female")){
+                    female.setSelected(true);
+                }
+            }
+        }
+
         //bottom
 
 
@@ -168,15 +192,32 @@ public class UpdateMedRec extends JFrame implements ActionListener {
         if (e.getSource().equals(cancel)) {
             f.setVisible(false);
 
+        }else if (e.getSource()==(male)) {
+            female.setSelected(false);
+
+        }else if (e.getSource()==(female)) {
+           male.setSelected(false);
+
         } else if (e.getSource().equals(confirm)) {
             String choice = "";
-            PatientOperations po = new PatientOperations();
             if (male.isSelected()) {
                 choice = "Male";
             }
             if (female.isSelected()) {
                 choice = "Female";
             }
+            int catcher = 0;
+                String medEquip = (String) reqEquipCombo.getSelectedItem();
+                if (medEquip.equals("XRay :")) {
+                    catcher = 1;
+                } else if (medEquip.equals("MRI Scan :")) {
+                    catcher = 2;
+                } else if (medEquip.equals("CT Scan :")) {
+                    catcher = 3;
+                }
+
+            MedicalRecord medicalRecord1=new MedicalRecord(patientNumberIn,bloodText.getText(),symptomsText.getText(),diagnosesText.getText(),requiredTreatText.getText(),catcher,allergiesText.getText());
+
 
 
         }

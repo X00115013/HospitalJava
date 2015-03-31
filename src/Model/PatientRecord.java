@@ -48,7 +48,7 @@ public class PatientRecord {
         phone = "";
         DOB = "";
     }
-    public PatientRecord(int patientNumIn,String patientFNameIn, String patientLNameIn, String patientAddressIn, String occupationIn,String genderIn, String emailIn, String phoneIn, String DOBIn) {
+    public PatientRecord(int patientNumIn,String patientFNameIn, String patientLNameIn, String patientAddressIn,String DOBIn,String genderIn, String occupationIn, String emailIn, String phoneIn ) {
         patientNumber=patientNumIn;
         patientFName = patientFNameIn;
         patientLName = patientLNameIn;
@@ -167,6 +167,42 @@ public class PatientRecord {
         return DOB;
     }
 
+    public PatientOperations getPo() {
+        return po;
+    }
+
+    public ResultSet getRset() {
+        return rset;
+    }
+
+    public PatientRecord getPatientRecord() {
+        return patientRecord;
+    }
+
+    public Appointment getAppointment() {
+        return appointment;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPatientAddress() {
+        return patientAddress;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
     public void clearArrays(){
         for (int i= 0; i < patientList.size() ; i++) {
             patientList.remove(i);
@@ -176,33 +212,3 @@ public class PatientRecord {
 
 
 }
-
-
-
-
-
-//    public void printPatientRecordByPatientNum(int patientNumIn){
-//        System.out.println("\n\n\nPatient Admin Record By Number\n");
-//        rset = po.getPatientAdmin(patientNumIn);
-//        try {
-//            while (rset.next()) {
-//                System.out.println(rset.getInt(1)+"\t"+rset.getString(2)+"\t"+rset.getString(3)+"\t"+rset.getString(4)+"" +
-//                        "\t"+rset.getString(5)+"\t"+rset.getString(6)+"\t"+rset.getString(7)+"\t"+rset.getString(8)+"\t"+rset.getString(9));
-//            }
-//        } catch (SQLException e1) {
-//            System.out.println(e1);
-//        }
-//    }
-//
-//    public void printPatientRecord(){
-//        System.out.println("\n\n\nPatient Admin Record\n");
-//        rset = po.getPatientAdmin();
-//        try {
-//            while (rset.next()) {
-//                System.out.println(rset.getInt(1)+"\t"+rset.getString(2)+"\t"+rset.getString(3)+"\t"+rset.getString(4)+"" +
-//                        "\t"+rset.getString(5)+"\t"+rset.getString(6)+"\t"+rset.getString(7)+"\t"+rset.getString(16)+"\t"+rset.getString(17));
-//            }
-//        } catch (SQLException e1) {
-//            System.out.println(e1);
-//        }
-//    }

@@ -29,13 +29,15 @@ public class PatientOperations {
         return rset;
     }
 
+
+
     public ResultSet getPatientAdmin() {
         try {
             String queryString ="SELECT patient_Number, " +
-            "patientFName, patientLName " +
+            "patientFName, patientLName,patientAddress " +
                     ", PatientDOB ,PatientGender," +
                     "occupation,PatientEmail," +
-                    "patientPhone,patientAddress "+
+                    "patientPhone "+
                     "FROM Patient";
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);

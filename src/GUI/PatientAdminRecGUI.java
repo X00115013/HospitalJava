@@ -1,11 +1,14 @@
 package GUI;
 
+import Model.PatientRecord;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Created by Thomas Murray on 20/03/2015.
@@ -15,9 +18,12 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
     JButton update,delete,cancel;
     JLabel patientNum,label5;
     JTextField patientText;
-    JTextArea additionalInformation;
+    JTextArea patientAdminInformation;
     JScrollPane scroll;
     private int patientNumberIn;
+    private ArrayList<PatientRecord>pList=new ArrayList<>();
+    private PatientRecord patientRecord;
+    private String record="This is meant to be the patient Admin Record";
 
 
     JFrame f;
@@ -65,13 +71,38 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
 
         holder.add(topSection);
 
+        patientRecord=new PatientRecord();
+
+        pList.addAll(patientRecord.getPatientList());
+        for (int i = 0; i <pList.size() ; i++) {
+            if(pList.get(i).getPatientNumber()==patientNumIn) {
+                record = "\n\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n   Patient Number is      \t" + pList.get(i).getPatientNumber() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n   Patient Name is         \t" + pList.get(i).getPatientFName() + " " + pList.get(i).getPatientLName() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n   Patient Address is     \t" + pList.get(i).getPatientAddress() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n   Patient Occupation is \t" + pList.get(i).getOccupation() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n   Patient Gender is       \t" + pList.get(i).getGender() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n   Patient DOB is          \t" + pList.get(i).getDOB() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n   Patient Email is        \t" + pList.get(i).getEmail() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n   Patient Phone is        \t" + pList.get(i).getPhone() + "\n"+
+                        "\n--------------------------------------------------------------------------------------------------------------------\n";
+            }
+        }
 
 
         JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        additionalInformation = new JTextArea(40,70);
-        additionalInformation.setBorder(loweredBorder);
-        scroll = new JScrollPane(additionalInformation);
+        patientAdminInformation = new JTextArea(40,70);
+        patientAdminInformation.setBorder(loweredBorder);
+        patientAdminInformation.setText(record);
+        scroll = new JScrollPane(patientAdminInformation);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         textArea.add(scroll);
 

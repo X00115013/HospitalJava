@@ -33,7 +33,7 @@ public class MRITimeTable {
         return taken;
     }
 
-    public String getConsultantNumIn() {
+    public String getConsultantNameIn() {
         return consultantNameIn;
     }
 

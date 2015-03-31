@@ -9,6 +9,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Created by Thomas Murray on 20/03/2015.
@@ -19,7 +20,11 @@ public class AddPatientGUI extends JFrame implements ActionListener {
     JRadioButton male, female;
     JTextField patientText, patientFNameText, patientSNameText, patientAddressText, patientEmailText, patientOccupationText, patientPhoneText, dayText, monthText, yearText;
     JFrame f;
-    int choiceGui;
+    private int choiceGui;
+    private ArrayList<PatientRecord> pList=new ArrayList<>();
+    private PatientRecord patientRecord;
+
+
 
     public AddPatientGUI(int choiceGUI,int patientNumIn) {
         choiceGui = choiceGUI;
@@ -149,6 +154,7 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         female.addActionListener(this);
         dobs.add(female, getConstraints(1, 1, 1, 1, (GridBagConstraints.WEST)));
 
+
         DOB = new JLabel("Patient DOB");
         dobs.add(DOB, getConstraints(0, 3, 1, 1, GridBagConstraints.LINE_START));
         day = new JLabel("Day");
@@ -169,7 +175,31 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         yearText.setBorder(loweredBorder);
         dobs.add(yearText, getConstraints(2, 6, 1, 1, GridBagConstraints.LINE_START));
         test.add(dobs);
-        //bottom
+
+        if(choiceGUI==2){
+            patientRecord=new PatientRecord();
+            pList.addAll(patientRecord.getPatientList());
+            for (int i = 0; i < pList.size() ; i++) {
+                if(patientNumIn==pList.get(i).getPatientNumber()){
+                    patientFNameText.setText(pList.get(i).getPatientFName());
+                    patientSNameText.setText(pList.get(i).getPatientLName());
+                    patientAddressText.setText(pList.get(i).getPatientAddress());
+                    patientEmailText.setText(pList.get(i).getEmail());
+                    patientOccupationText.setText(pList.get(i).getOccupation());
+                    patientPhoneText.setText(pList.get(i).getPhone());
+                    dayText.setText(pList.get(i).getDOB().charAt(0)+""+pList.get(i).getDOB().charAt(1));
+                    monthText.setText(pList.get(i).getDOB().charAt(2)+""+pList.get(i).getDOB().charAt(3)+""+pList.get(i).getDOB().charAt(4));
+                    yearText.setText(pList.get(i).getDOB().charAt(5)+""+pList.get(i).getDOB().charAt(6));
+                    if(pList.get(i).getGender().equalsIgnoreCase("male")){
+                        male.setSelected(true);
+                    }else if(pList.get(i).getGender().equalsIgnoreCase("female")){
+                        female.setSelected(true);
+                    }
+                }
+            }
+        }
+
+       //bottom
 
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
         test.add(bottom);
@@ -207,7 +237,13 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         if (e.getSource().equals(cancel)) {
             f.setVisible(false);
 
-        } else if (e.getSource().equals(confirm)) {
+        } else if (e.getSource() == (male)) {
+            female.setSelected(false);
+
+        }else if (e.getSource() == (female)) {
+            male.setSelected(false);
+
+        }else if (e.getSource().equals(confirm)) {
             String choice = "";
             PatientOperations po = new PatientOperations();
             if (male.isSelected()) {

@@ -17,6 +17,11 @@ public class MedicalRecord {
     private PatientOperations po;
     private ResultSet rset;
 
+    public MedicalRecord(){
+        po=new PatientOperations();
+        refreshArray();
+    }
+
     public MedicalRecord(PatientOperations po,int patientNumberIn,String recommendationsIn, int requiredEquipment){
         this.po=po;
         patientNumber=patientNumberIn;
@@ -26,7 +31,7 @@ public class MedicalRecord {
         updateMedicalRecord();
 
     }
-    public MedicalRecord(int patientNumberIn,String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment, int newEquipNeed, String recommendations,String newAllergies){
+    public MedicalRecord(int patientNumberIn,String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment, int newEquipNeed,String newAllergies){
         patientNumber=patientNumberIn;
         blood=newBlood;
         symptoms=newSymptoms;
@@ -110,7 +115,72 @@ public class MedicalRecord {
         }
 
 
+    public ArrayList<MedicalRecord> getMedicalRecordArrayList() {
+        return medicalRecordArrayList;
+    }
+
+    public String getPatientDOB() {
+        return patientDOB;
+    }
+
+    public String getPatientGender() {
+        return patientGender;
+    }
+
+    public String getPatientLName() {
+        return patientLName;
+    }
+
+    public String getPatientFName() {
+        return patientFName;
+    }
+
+    public String getRecommendations() {
+        return recommendations;
+    }
+
+    public String getAllergies() {
+        return allergies;
+    }
+
+    public String getReqTreatment() {
+        return reqTreatment;
+    }
+
+    public String getDiagnoses() {
+        return diagnoses;
+    }
+
+    public String getSymptoms() {
+        return symptoms;
+    }
+
+    public String getBlood() {
+        return blood;
+    }
+
+    public int getPrescriptionUsed() {
+        return prescriptionUsed;
+    }
+
+    public int getGetEquipUsed() {
+        return getEquipUsed;
+    }
+
+    public int getConsultantNeed() {
+        return consultantNeed;
+    }
+
+    public int getEquipNeed() {
+        return equipNeed;
+    }
+
+    public int getPatientNumber() {
+        return patientNumber;
+    }
+
     public void updateMedicalRecord(){
+        po=new PatientOperations();
         po.updatePatientMedical(patientNumber,blood,symptoms,diagnoses,reqTreatment,equipNeed,recommendations,allergies);
         refreshArray();
         printAllArrayMR();
@@ -119,82 +189,4 @@ public class MedicalRecord {
 //        printMedicalRecordByPatientNum();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    public void printMedicalRecordByPatientNum(){
-//        System.out.println("\n\n\nPatient Med Record By Number\n");
-//        rset = po.getPatientMedical(patientNumber);
-//        try {
-//            while (rset.next()) {
-//                System.out.println(rset.getInt(1)+"\t"+rset.getString(2)+"\t"+rset.getString(3)+"\t"+rset.getString(4)+"\t"+rset.getString(5)+"" +
-//                        "\t"+rset.getString(6)+"\t"+rset.getString(7)+"\t"+rset.getString(8)+"\t"+rset.getString(9)+rset.getInt(10)+"" +
-//                        "\t"+rset.getInt(11)+"\t"+rset.getString(12)+"\t"+rset.getInt(13)+"\t"+rset.getString(14));
-//            }
-//        } catch (SQLException e1) {
-//            System.out.println("Patient record not working"+e1);
-//        }
-//
-//    }
-//
-//    public void printMedicalRecord(){
-//        System.out.println("\n\n\nAll Medical Records\n");
-//        rset = po.getPatientMedical();
-//        try {
-//            while (rset.next()) {
-//                System.out.println(rset.getInt(1)+"\t"+rset.getString(2)+"\t"+rset.getString(3)+"\t"+rset.getString(4)+"\t"+rset.getString(5)+"" +
-//                        "\t"+rset.getString(6)+"\t"+rset.getString(7)+"\t"+rset.getString(8)+"\t"+rset.getString(9)+rset.getInt(10)+"" +
-//                        "\t"+rset.getInt(11)+"\t"+rset.getString(12)+"\t"+rset.getInt(13)+"\t"+rset.getString(14));
-//            }
-//        } catch (SQLException e1) {
-//            System.out.println("Patient record not working"+e1);
-//        }
-//    }
-
-//    public void printMedicalRecord(){
-//        System.out.println("\n\n\nPatient Medical Records\n");
-//        rset = po.getPatientAdmin();
-//        try {
-//            while (rset.next()) {
-//                System.out.println(rset.getInt(1)+"\t"+rset.getString(2)+"\t"+rset.getString(3)+"\t"+rset.getString(5)+"" +
-//                        "\t"+rset.getString(6)+"\t"+rset.getString(8)+"\t"+rset.getString(9)+"\t"+rset.getString(10)+rset.getInt(11)+"" +
-//                        "\t"+rset.getInt(12)+"\t"+rset.getInt(13)+"\t"+rset.getString(14)+"\t"+rset.getInt(15)+rset.getString(18));
-//            }
-//        } catch (SQLException e1) {
-//            System.out.println("Patient record not working");
-//        }
-//    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

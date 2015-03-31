@@ -34,6 +34,10 @@ public class XRayTimeTable {
         return taken;
     }
 
+    public String getConsultantNameIn() {
+        return consultantNameIn;
+    }
+
     public String getConsultantNumIn() {
         return consultantNameIn;
     }

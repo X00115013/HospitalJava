@@ -34,6 +34,10 @@ public class CTTimeTables {
         return taken;
     }
 
+    public String getConsultantNameIn() {
+        return consultantNameIn;
+    }
+
     public String getConsultantNumIn() {
         return consultantNameIn;
     }

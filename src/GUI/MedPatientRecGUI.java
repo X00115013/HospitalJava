@@ -2,6 +2,7 @@
 package GUI;
 
         import DataBase.PatientOperations;
+        import Model.MedicalRecord;
         import Model.PatientRecord;
 
         import javax.swing.*;
@@ -10,6 +11,7 @@ package GUI;
         import java.awt.*;
         import java.awt.event.ActionEvent;
         import java.awt.event.ActionListener;
+        import java.util.ArrayList;
 
 /**
  * Created by Thomas Murray on 20/03/2015.
@@ -18,9 +20,12 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
     JButton update, cancel;
     JLabel patientNum, label5;
     JTextField patientText;
-    JTextArea additionalInformation;
+    JTextArea medicalInformation;
     JScrollPane scroll;
     private int patientNumberIn;
+    private ArrayList<MedicalRecord>mList=new ArrayList<>();
+    private MedicalRecord medicalRecord;
+    private String record="This is meant to be the patient Medical Record";
     JFrame f;
 
     public MedPatientRecGUI(int patientNumIn) {
@@ -66,11 +71,41 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
         holder.add(topSection);
 
 
+        medicalRecord=new MedicalRecord();
+        mList.addAll(medicalRecord.getMedicalRecordArrayList());
+        for (int i = 0; i < mList.size(); i++) {
+            if(patientNumIn==mList.get(i).getPatientNumber()){
+                record="\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n   Patient Number is      \t" + mList.get(i).getPatientNumber() + "\n" +
+                        "\n   Patient Name is         \t" + mList.get(i).getPatientFName() + " " + mList.get(i).getPatientLName() + "\n" +
+                        "\n   Patient DOB is          \t" + mList.get(i).getPatientDOB() + "\n" +
+                        "\n   Patient Blood Type is   \t" + mList.get(i).getBlood() + "\n" +
+                        "\n   Patient Gender is       \t" + mList.get(i).getPatientGender() + "\n" +
+                        "\n   Patient Allergies are   \t" + mList.get(i).getAllergies()+ "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n\n   Patient Symptoms          \n\n   " + mList.get(i).getSymptoms() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n\n   Patient Diagnoses         \n\n   " + mList.get(i).getDiagnoses() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n\n   Patient Recommendations   \n\n   " + mList.get(i).getRecommendations() + "\n"+
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n\n   Patient Required Treatment\n\n   " + mList.get(i).getReqTreatment() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n\n   Patient Prescriptions Used\n\n   " + mList.get(i).getPrescriptionUsed() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n\n   Patient Equipment Needed  \n\n   " + mList.get(i).getEquipNeed() + "\n"+
+                        "\n--------------------------------------------------------------------------------------------------------------------\n";
+            }
+
+        }
+
+
         JPanel textArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        additionalInformation = new JTextArea(40, 70);
-        additionalInformation.setBorder(loweredBorder);
-        scroll = new JScrollPane(additionalInformation);
+        medicalInformation = new JTextArea(40, 70);
+        medicalInformation.setBorder(loweredBorder);
+        medicalInformation.setText(record);
+        scroll = new JScrollPane(medicalInformation);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         textArea.add(scroll);
 

@@ -1,11 +1,14 @@
 package GUI;
 
+import Model.*;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Created by Thomas Murray on 20/03/2015.
@@ -15,10 +18,18 @@ public class TimeTablesGUI extends JFrame implements ActionListener
     JButton print,cancel;
     String[] list1 = {"Consultant :","XRay :", "MRI Scan :", "CT Scan :"};
     JLabel patientNum,label5;
-    JTextArea additionalInformation;
+    JTextArea timeTableInformation;
     JComboBox<String> combo1;
     JScrollPane scroll;
     JFrame f;
+    private ArrayList<XRayTimeTable> xRayTimeTables=new ArrayList<>();
+    private ArrayList<CTTimeTables> cTTimeTables=new ArrayList<>();
+    private ArrayList<MRITimeTable> mRITimeTables=new ArrayList<>();
+    private ArrayList<ConsultantTimeTable> conTimeTables=new ArrayList<>();
+    private String contable="This table should be working con Time Tables ";
+    private String xraytable="This table should be working xray Time Tables ";
+    private String cttable="This table should be working ct Time Tables ";
+    private String mritable="This table should be working mri Time Tables ";
 
     public TimeTablesGUI()
     {
@@ -47,11 +58,18 @@ public class TimeTablesGUI extends JFrame implements ActionListener
         topSection.add(title);
         holder.add(topSection);
 
+        TimeTables timeTables=new TimeTables();
+        conTimeTables.addAll(timeTables.getConsultantTimeTable());
+        xRayTimeTables.addAll(timeTables.getxRayTimeTable());
+        mRITimeTables.addAll(timeTables.getmRITimeTable());
+        cTTimeTables.addAll(timeTables.getcTScanTimeTable());
+
         JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        additionalInformation = new JTextArea(40,70);
-        additionalInformation.setBorder(loweredBorder);
-        scroll = new JScrollPane(additionalInformation);
+        timeTableInformation = new JTextArea(40,70);
+        timeTableInformation.setBorder(loweredBorder);
+        timeTableInformation.setEditable(false);
+        scroll = new JScrollPane(timeTableInformation);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         textArea.add(scroll);
 
@@ -88,8 +106,6 @@ public class TimeTablesGUI extends JFrame implements ActionListener
     }
 
 
-
-
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5, 5, 10, 10);
@@ -109,6 +125,132 @@ public class TimeTablesGUI extends JFrame implements ActionListener
             System.exit(0);
         } else if (e.getSource().equals(print)){
 
+        }else if (e.getSource().equals(combo1)){
+            String tableSelection = (String) combo1.getSelectedItem();
+            if(tableSelection.equals("Consultant :")){
+                contable="";
+                contable="\n\n\tMon\tTues\tWed\tThur\tFri\tSat\tSun\n" +
+                        "---------------------------------------------------------------------------------------------------" +
+                        "---------------------------------------------------------------------------------------------";
+                for (int i = 0; i < conTimeTables.size(); i++) {
+                    if (i < 6) {
+                        contable += contable = "\n"+ conTimeTables.get(i).getTimeIn() + "\t" + conTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<12){
+                        contable += contable = "\n" +
+                                "\t\t" + conTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<18){
+                        contable += contable = "\n" +
+                                "\t\t\t" + conTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<24){
+                        contable += contable = "\n" +
+                                "\t\t\t\t" + conTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<30){
+                        contable += contable = "\n" +
+                                "\t\t\t\t\t" + conTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<36){
+                        contable += contable = "\n" +
+                                "\t\t\t\t\t\t" + conTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<42){
+                        contable += contable = "\n" +
+                                "\t\t\t\t\t\t\t" + conTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }
+                }
+                timeTableInformation.setText(contable);
+                contable="";
+
+            }else if(tableSelection.equals("XRay :")){
+                xraytable="";
+                xraytable="\n\n\tMon\tTues\tWed\tThur\tFri\tSat\tSun\n" +
+                        "---------------------------------------------------------------------------------------------------" +
+                        "---------------------------------------------------------------------------------------------";
+                for (int i = 0; i < xRayTimeTables.size(); i++) {
+                    if (i < 24) {
+                        xraytable += xraytable = "\n"+ xRayTimeTables.get(i).getTimeIn() + "\t" + xRayTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<48){
+                        xraytable += xraytable = "\n" +
+                                "\t\t" +xRayTimeTables.get(i).getTaken()+"\n\t\t"+ xRayTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<72){
+                        xraytable += xraytable = "\n" +
+                                "\t\t\t" +xRayTimeTables.get(i).getTaken()+"\n\t\t\t" + xRayTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<96){
+                        xraytable += xraytable = "\n" +
+                                "\t\t\t\t" +xRayTimeTables.get(i).getTaken()+"\n\t\t\t\t"+  xRayTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<120){
+                        xraytable += xraytable = "\n" +
+                                "\t\t\t\t\t" + xRayTimeTables.get(i).getTaken()+"\n\t\t\t\t\t"+ xRayTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<144){
+                        xraytable += xraytable = "\n" +
+                                "\t\t\t\t\t\t" + xRayTimeTables.get(i).getTaken()+"\n\t\t\t\t\t\t"+ xRayTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<168){
+                        xraytable += xraytable = "\n" +
+                                "\t\t\t\t\t\t\t" +xRayTimeTables.get(i).getTaken()+"\n\t\t\t\t\t\t\t"+  xRayTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }
+                }
+                timeTableInformation.setText(xraytable);
+                xraytable="";
+
+            }else if(tableSelection.equals("MRI Scan :")){
+                mritable="";
+                mritable="\n\n\tMon\tTues\tWed\tThur\tFri\tSat\tSun\n" +
+                        "---------------------------------------------------------------------------------------------------" +
+                        "---------------------------------------------------------------------------------------------";
+                for (int i = 0; i < mRITimeTables.size(); i++) {
+                    if (i < 24) {
+                        mritable += mritable = "\n"+ mRITimeTables.get(i).getTimeIn() + "\t" + mRITimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<48){
+                        mritable += mritable = "\n" +
+                                "\t\t" +mRITimeTables.get(i).getTaken()+"\n\t\t"+ mRITimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<72){
+                        mritable += mritable = "\n" +
+                                "\t\t\t" +mRITimeTables.get(i).getTaken()+"\n\t\t\t" + mRITimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<96){
+                        mritable += mritable = "\n" +
+                                "\t\t\t\t" +mRITimeTables.get(i).getTaken()+"\n\t\t\t\t"+  mRITimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<120){
+                        mritable += mritable = "\n" +
+                                "\t\t\t\t\t" + mRITimeTables.get(i).getTaken()+"\n\t\t\t\t\t"+ mRITimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<144){
+                        mritable += mritable = "\n" +
+                                "\t\t\t\t\t\t" + mRITimeTables.get(i).getTaken()+"\n\t\t\t\t\t\t"+ mRITimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<168){
+                        mritable += mritable = "\n" +
+                                "\t\t\t\t\t\t\t" +mRITimeTables.get(i).getTaken()+"\n\t\t\t\t\t\t\t"+  mRITimeTables.get(i).getConsultantNameIn() + "\n";
+                    }
+                }
+                timeTableInformation.setText(mritable);
+                mritable="";
+
+            }else if(tableSelection.equals("CT Scan :")){
+                cttable="";
+                cttable="\n\n\tMon\tTues\tWed\tThur\tFri\tSat\tSun\n" +
+                        "---------------------------------------------------------------------------------------------------" +
+                        "---------------------------------------------------------------------------------------------";
+                for (int i = 0; i < cTTimeTables.size(); i++) {
+                    if (i < 24) {
+                        cttable += cttable = "\n"+ cTTimeTables.get(i).getTimeIn() + "\t" + cTTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<48){
+                        cttable += cttable = "\n" +
+                                "\t\t" +cTTimeTables.get(i).getTaken()+"\n\t\t"+ cTTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<72){
+                        cttable += cttable = "\n" +
+                                "\t\t\t" +cTTimeTables.get(i).getTaken()+"\n\t\t\t" + cTTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<96){
+                        cttable += cttable = "\n" +
+                                "\t\t\t\t" +cTTimeTables.get(i).getTaken()+"\n\t\t\t\t"+  cTTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<120){
+                        cttable += cttable = "\n" +
+                                "\t\t\t\t\t" + cTTimeTables.get(i).getTaken()+"\n\t\t\t\t\t"+ cTTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<144){
+                        cttable += cttable = "\n" +
+                                "\t\t\t\t\t\t" + cTTimeTables.get(i).getTaken()+"\n\t\t\t\t\t\t"+ cTTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }else if(i<168){
+                        cttable += cttable = "\n" +
+                                "\t\t\t\t\t\t\t" +cTTimeTables.get(i).getTaken()+"\n\t\t\t\t\t\t\t"+  cTTimeTables.get(i).getConsultantNameIn() + "\n";
+                    }
+                }
+                timeTableInformation.setText(cttable);
+                cttable="";
+            }
         }
     }
 }
