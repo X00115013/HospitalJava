@@ -217,7 +217,7 @@ public class UpdateMedRec extends JFrame implements ActionListener {
                 }
 
             MedicalRecord medicalRecord1=new MedicalRecord(patientNumberIn,bloodText.getText(),symptomsText.getText(),diagnosesText.getText(),requiredTreatText.getText(),catcher,allergiesText.getText());
-
+            f.setVisible(false);
 
 
         }

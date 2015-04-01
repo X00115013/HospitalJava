@@ -8,6 +8,9 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -122,8 +125,16 @@ public class TimeTablesGUI extends JFrame implements ActionListener
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
-            System.exit(0);
+           f.setVisible(false);
         } else if (e.getSource().equals(print)){
+            File Files = new File("files");
+            File textFile = new File(Files, "timeTables.txt");
+            try (FileWriter input = new FileWriter(textFile)) {
+                //Input text
+                input.write(timeTableInformation.getText());
+            } catch (IOException io) {
+                System.out.println(io);
+            }
 
         }else if (e.getSource().equals(combo1)){
             String tableSelection = (String) combo1.getSelectedItem();

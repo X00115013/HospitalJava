@@ -8,6 +8,9 @@ package GUI;
         import java.awt.*;
         import java.awt.event.ActionEvent;
         import java.awt.event.ActionListener;
+        import java.io.File;
+        import java.io.FileWriter;
+        import java.io.IOException;
         import java.util.ArrayList;
 
 /**
@@ -21,7 +24,7 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
     JTextArea additionalInformation;
     JScrollPane scroll;
     ArrayList<Appointment>appointments=new ArrayList<>();
-    private int patientNumberIn;
+    private int appNumberIn;
     private Appointment appointment;
     private String appDetails="should be working";
 
@@ -30,6 +33,7 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
 
     public AppointmentDetailsGUI(Appointment app,int appointmentNumIn)
     {
+        appNumberIn=appointmentNumIn;
         appointment=app;
         f = new JFrame();
         f.setTitle("Appointment Details");
@@ -152,6 +156,14 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
 
         }else if (e.getSource().equals(print))
         {
+            File Files = new File("files");
+            File textFile = new File(Files, ""+appNumberIn+"_APPOINTMENT.txt");
+            try (FileWriter input = new FileWriter(textFile)) {
+                //Input text
+                input.write(additionalInformation.getText());
+            } catch (IOException io) {
+                System.out.println(io);
+            }
         }
     }
 }

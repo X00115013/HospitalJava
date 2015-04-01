@@ -68,9 +68,11 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         if (choiceGUI == 1) {
             patientNum = new JLabel("\tNew Patient Number");
             ID.add(patientNum);
+
             //text field
             patientText = new JTextField(5);
             patientText.setBorder(loweredBorder);
+            patientText.setText(Integer.toString(patientNumIn));
 
         } else if (choiceGUI == 2) {
             patientNum = new JLabel("\tPatient Number");
@@ -78,7 +80,6 @@ public class AddPatientGUI extends JFrame implements ActionListener {
             //text field
             patientText = new JTextField(5);
             patientText.setBorder(loweredBorder);
-            System.out.println("This is the new patient number= "+Integer.toString(patientNumIn));
             patientText.setText(Integer.toString(patientNumIn));
         }
         patientText.setEditable(false);
@@ -246,20 +247,26 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         }else if (e.getSource().equals(confirm)) {
             String choice = "";
             PatientOperations po = new PatientOperations();
-            if (male.isSelected()) {
-                choice = "Male";
-            }
-            if (female.isSelected()) {
-                choice = "Female";
-            }
-            if (choiceGui == 1) {
-                PatientRecord patientRecord = new PatientRecord(po, patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
-                         patientOccupationText.getText(), choice,patientEmailText.getText(),patientPhoneText.getText(), (dayText.getText() + monthText.getText() + yearText.getText()));
-            } else if (choiceGui == 2) {
-                PatientRecord patientRecord = new PatientRecord(po,Integer.parseInt(patientText.getText()),patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
-                        patientOccupationText.getText(),choice, patientEmailText.getText(), patientPhoneText.getText(), (dayText.getText() + monthText.getText() + yearText.getText()));
+            if ((patientFNameText.getText().equals("")) || (patientSNameText.getText().equals("")) || (patientAddressText.getText().equals("")) ||
+                    (dayText.getText().equals("")) || (monthText.getText().equals("")) || (yearText.getText().equals("")) || (patientPhoneText.getText().equals(""))) {
+                JOptionPane.showMessageDialog(null, " First Name, Surname, Address\n DOB, Phone are required fields  ");
+            } else {
+                if (male.isSelected()) {
+                    choice = "Male";
+                }
+                if (female.isSelected()) {
+                    choice = "Female";
+                }
+                if (choiceGui == 1) {
+                    PatientRecord patientRecord = new PatientRecord(po, patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
+                            patientOccupationText.getText(), choice, patientEmailText.getText(), patientPhoneText.getText(), (dayText.getText() + monthText.getText() + yearText.getText()));
+                } else if (choiceGui == 2) {
+                    PatientRecord patientRecord = new PatientRecord(po, Integer.parseInt(patientText.getText()), patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
+                            patientOccupationText.getText(), choice, patientEmailText.getText(), patientPhoneText.getText(), (dayText.getText() + monthText.getText() + yearText.getText()));
 
-            }f.setVisible(false);
+                }
+                f.setVisible(false);
+            }
         }
     }
 }

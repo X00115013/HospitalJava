@@ -1,5 +1,6 @@
 package GUI;
 
+import Model.Appointment;
 import Model.PatientRecord;
 
 import javax.swing.*;
@@ -22,7 +23,9 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
     JScrollPane scroll;
     private int patientNumberIn;
     private ArrayList<PatientRecord>pList=new ArrayList<>();
+    private ArrayList<Appointment> appList=new ArrayList<>();
     private PatientRecord patientRecord;
+    private Appointment apt;
     private String record="This is meant to be the patient Admin Record";
 
 
@@ -72,6 +75,7 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
         holder.add(topSection);
 
         patientRecord=new PatientRecord();
+        apt=new Appointment();
 
         pList.addAll(patientRecord.getPatientList());
         for (int i = 0; i <pList.size() ; i++) {
@@ -93,6 +97,16 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
                         "\n--------------------------------------------------------------------------------------------------------------------\n"+
                         "\n   Patient Phone is        \t" + pList.get(i).getPhone() + "\n"+
                         "\n--------------------------------------------------------------------------------------------------------------------\n";
+            }
+        }
+        appList.addAll(apt.appArray());
+        for (int i = 0; i < appList.size(); i++) {
+            if (appList.get(i).getPatientNum() == patientNumIn) {
+                record +=record = "\n\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n   Patient Appointment Number\t" + appList.get(i).getPatientNum() + "\n" +
+                        "\n   Booked Medical Equip      \t" + appList.get(i).getMedicalEquip() + "\n" +
+                        "\n   Booked Consultant         \t" + appList.get(i).getConsultantType()+ "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n\n";
             }
         }
 
@@ -156,7 +170,7 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
-            System.exit(0);
+           f.setVisible(false);
         } else if (e.getSource().equals(update)){
             AddPatientGUI addPatientGUI=new AddPatientGUI(2,patientNumberIn);
 

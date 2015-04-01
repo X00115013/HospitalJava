@@ -1,11 +1,18 @@
 package GUI;
 
+import DataBase.PatientOperations;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Created by Roland on 29/03/2015.
@@ -18,13 +25,18 @@ public class PatientChartGUI extends JFrame implements ActionListener
     JButton edit,print,cancel;
     JLabel patientNum,label5;
     JTextField patientText;
-    JTextArea additionalInformation;
+    JTextArea chartInformation;
     JRadioButton checkOutRadio;
+    JScrollPane scroll;
+    private ResultSet rset;
+    private String chart="This should work chart";
+    private int patientNumberIn;
 
     JFrame f;
 
     public PatientChartGUI(int patientNumIn)
     {
+        patientNumberIn=patientNumIn;
         f = new JFrame();
         f.setTitle("Patient Chart");
         f.setSize(805, 1000);
@@ -65,14 +77,61 @@ public class PatientChartGUI extends JFrame implements ActionListener
 
         holder.add(topSection);
 
+//        SELECT patient_Number, " +
+//        "patientFName, patientLName " +
+//                ", PatientDOB ,PatientGender," +
+//                " BloodType ,Symptoms, Diagnoses," +
+//                " RequiredTreatment,Allergies ," +
+//                "PrescriptionUsed,Recommendation " +
+//                "FROM Patient WHERE patient_Number = "+patientNumIn;
+
+
+
+        try {
+            PatientOperations po=new PatientOperations();
+            rset = po.getPatientChart(patientNumIn);
+            while (rset.next()) {
+                chart+=chart= "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n  Patient \n  Number \t"+rset.getInt(1)+"\n\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "  Patient \n  First Name \t"+rset.getString(2)+"\n\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "  Patient \n  Surname \t"+rset.getString(3)+"\n\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "  Patient \n  DOB \t"+rset.getString(4)+"\n\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "  Patient \n  Gender \t"+rset.getString(5)+"\n\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "  Patient \n  Blood Type \t"+rset.getString(6)+"\n\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "  Patient \n  Symptoms \t"+rset.getString(7)+"\n\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "  Patient \n  Diagnoses \t"+rset.getString(8)+"\n\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "  Required \n  Treatment \t"+rset.getString(9)+"\n\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "  Patient \n  Allergies \t"+rset.getString(10)+"\n\n"+
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "  Prescriptions \n  Used \t"+rset.getInt(11)+"\n\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "  GP \n  Recommendations \t"+rset.getString(12)+"\n\n"+
+                        "\n--------------------------------------------------------------------------------------------------------------------\n";
+            }
+        } catch (SQLException e1) {
+            System.out.println(e1);
+        }
 
 
         JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        additionalInformation = new JTextArea(40,70);
-        additionalInformation.setBorder(loweredBorder);
-        additionalInformation.setEditable(false);
-        textArea.add(additionalInformation);
+        chartInformation = new JTextArea(40,70);
+        chartInformation.setBorder(loweredBorder);
+        chartInformation.setText(chart);
+        chartInformation.setEditable(false);
+        scroll = new JScrollPane(chartInformation);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        textArea.add(scroll);
+
 //        holder.add(textArea);
 
 
@@ -124,12 +183,19 @@ public class PatientChartGUI extends JFrame implements ActionListener
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
-            System.exit(0);
+            f.setVisible(false);
         } else if (e.getSource().equals(edit)){
-            additionalInformation.setEditable(true);
+            chartInformation.setEditable(true);
 
-        }else if (e.getSource().equals(print))
-        {
+        }else if (e.getSource().equals(print)){
+            File Files = new File("files");
+            File textFile = new File(Files, ""+patientNumberIn+"_CHART.txt");
+            try (FileWriter input = new FileWriter(textFile)) {
+                //Input text
+                input.write(chartInformation.getText());
+            } catch (IOException io) {
+                System.out.println(io);
+            }
         }
     }
 }

@@ -17,20 +17,6 @@ public class PatientOperations {
     public PatientOperations() {conn = connect.openDB();
     }
 
-    public ResultSet getPatientAdminByNum(int id) {
-        try {
-            String queryString = "SELECT patient_Number, patientFName ,patientLName, " +
-                    "patientAddress, patientPhone, patientEmail FROM Patient where patient_Number= "+id;
-            stmt = conn.createStatement();
-            rset = stmt.executeQuery(queryString);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return rset;
-    }
-
-
-
     public ResultSet getPatientAdmin() {
         try {
             String queryString ="SELECT patient_Number, " +
@@ -120,6 +106,28 @@ public class PatientOperations {
         }
         return num;
     }
+
+
+    public ResultSet getPatientChart(int patientNumIn){
+        try {
+            String queryString = "SELECT patient_Number, " +
+                    "patientFName, patientLName " +
+                    ", PatientDOB ,PatientGender," +
+                    " BloodType ,Symptoms, Diagnoses," +
+                    " RequiredTreatment,Allergies ," +
+                    "PrescriptionUsed,Recommendation " +
+                    "FROM Patient WHERE patient_Number = "+patientNumIn;
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rset;
+    }
+
+
+
+
 
 
 

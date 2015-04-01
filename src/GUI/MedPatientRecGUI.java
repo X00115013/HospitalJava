@@ -151,7 +151,7 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
-            System.exit(0);
+           f.setVisible(false);
         } else if (e.getSource().equals(update)) {
            UpdateMedRec updateMedRec=new UpdateMedRec(patientNumberIn);
 
