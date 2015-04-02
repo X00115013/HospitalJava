@@ -10,7 +10,7 @@ import Referrals.ReferralOperations;
 import Referrals.Referrals;
 
 /**
- * Created by Roland on 07/03/2015.
+ * Created by Thomas Murray on 07/03/2015.
  */
 public class ProcessReferrals {
     private String gpName;
@@ -41,6 +41,9 @@ public class ProcessReferrals {
         process();
 
     }
+
+//    public PatientRecord(PatientOperations po,int patientNumIn,String patientFNameIn, String patientLNameIn,
+//                         String patientAddressIn, String occupationIn,String genderIn, String emailIn, String phoneIn, String DOBIn)
 
 
     public ProcessReferrals(int refNumIn,int gpNumIn,String gpNameIn,String gpLocationIn,
@@ -89,41 +92,41 @@ public class ProcessReferrals {
         }
     }
 
-    public void printProcessRefArray(){
-        refreshTables();
-        System.out.println("\n\n\nReferral List\n");
-        for (int i = 0; i < refList.size(); i++) {
-            System.out.print("\nReference Num (" + refList.get(i).refNum+")");
-            System.out.print("\nGP Num ("+refList.get(i).gpNum+")");
-            System.out.print("\nGP Name ("+refList.get(i).gpName+")");
-            System.out.print("\nGP Location ("+refList.get(i).gpLocation+")");
-            System.out.print("\nPatient First Name ("+refList.get(i).patientFName+")");
-            System.out.print("\nPatient Surname ("+refList.get(i).patientLName+")");
-            System.out.print("\nPatient DOB"+refList.get(i).DOB+")");
-            System.out.print("\nPatient Address ("+refList.get(i).patientAddress+")");
-            System.out.print("\nPhone ("+refList.get(i).phoneIn+")");
-            System.out.print("\nReason ("+refList.get(i).reasonForVisit+")");
-            System.out.print("\nGender ("+refList.get(i).gender+")");
-            System.out.print("\nRecommendations ("+refList.get(i).recommendations+")");
-            System.out.print("\nMed Required ("+refList.get(i).medicalRequired+")");
-            System.out.print("\nCon Required ("+refList.get(i).consultantRequired+")");
-            System.out.print("\nPatient Number ("+refList.get(i).patientNumber+")");
-            System.out.print("\nChecked Already Flag (" + refList.get(i).isChecked+")\n\n");
-        }
-    }
+//    public void printProcessRefArray(){
+//        refreshTables();
+//        System.out.println("\n\n\nReferral List\n");
+//        for (int i = 0; i < refList.size(); i++) {
+//            System.out.print("\nReference Num (" + refList.get(i).refNum+")");
+//            System.out.print("\nGP Num ("+refList.get(i).gpNum+")");
+//            System.out.print("\nGP Name ("+refList.get(i).gpName+")");
+//            System.out.print("\nGP Location ("+refList.get(i).gpLocation+")");
+//            System.out.print("\nPatient First Name ("+refList.get(i).patientFName+")");
+//            System.out.print("\nPatient Surname ("+refList.get(i).patientLName+")");
+//            System.out.print("\nPatient DOB"+refList.get(i).DOB+")");
+//            System.out.print("\nPatient Address ("+refList.get(i).patientAddress+")");
+//            System.out.print("\nPhone ("+refList.get(i).phoneIn+")");
+//            System.out.print("\nReason ("+refList.get(i).reasonForVisit+")");
+//            System.out.print("\nGender ("+refList.get(i).gender+")");
+//            System.out.print("\nRecommendations ("+refList.get(i).recommendations+")");
+//            System.out.print("\nMed Required ("+refList.get(i).medicalRequired+")");
+//            System.out.print("\nCon Required ("+refList.get(i).consultantRequired+")");
+//            System.out.print("\nPatient Number ("+refList.get(i).patientNumber+")");
+//            System.out.print("\nChecked Already Flag (" + refList.get(i).isChecked+")\n\n");
+//        }
+//    }
 
-    public void printReferrals () {
-        System.out.println("\n\n\nReferral List\n");
-        rset = ro.getReferral();
-        try {
-            while (rset.next()) {
-                System.out.println("" + rset.getInt(2) + "\t" + rset.getString(3) + "\t" + rset.getString(4) + "\t" + rset.getString(5) + "\t" + rset.getString(6) + "\t" + rset.getString(7) + "\t" + rset.getString(8) + "\t" +
-                        "\t" + rset.getString(9) + "\t" + rset.getString(10) + "\t" + rset.getString(11) + "\t" + rset.getInt(12) + "\t" + rset.getInt(13) + "\t" + rset.getInt(14) + "\t" + rset.getString(15) + "\t" + rset.getInt(16));
-            }
-        } catch (SQLException e1) {
-            System.out.println(e1);
-        }
-    }
+//    public void printReferrals () {
+//        System.out.println("\n\n\nReferral List\n");
+//        rset = ro.getReferral();
+//        try {
+//            while (rset.next()) {
+//                System.out.println("" + rset.getInt(2) + "\t" + rset.getString(3) + "\t" + rset.getString(4) + "\t" + rset.getString(5) + "\t" + rset.getString(6) + "\t" + rset.getString(7) + "\t" + rset.getString(8) + "\t" +
+//                        "\t" + rset.getString(9) + "\t" + rset.getString(10) + "\t" + rset.getString(11) + "\t" + rset.getInt(12) + "\t" + rset.getInt(13) + "\t" + rset.getInt(14) + "\t" + rset.getString(15) + "\t" + rset.getInt(16));
+//            }
+//        } catch (SQLException e1) {
+//            System.out.println(e1);
+//        }
+//    }
 
     public void process() {
         for (int i = 0; i < refList.size(); i++) {
@@ -161,7 +164,7 @@ public class ProcessReferrals {
                         j=pRecList.size()+1;
                     }
 
-                    if(!patientFName.equalsIgnoreCase(nameTest)){
+                    else if(!patientFName.equalsIgnoreCase(nameTest)){
                         System.out.println("\n\nNew patient (ref process) ");
                         referralProcessForNewPatient();
                         ro.setChecked(refList.get(i).refNum);
@@ -170,11 +173,9 @@ public class ProcessReferrals {
                 }
               }
             }
-            refreshTables();
-        }
-
-        printProcessRefArray();
-        printReferrals();
+        }ro.referralOperationsClose();
+//        printProcessRefArray();
+//        printReferrals();
     }
 
 
@@ -185,18 +186,17 @@ public class ProcessReferrals {
         System.out.println("\n\nExisting Patient\n\n");
        PatientRecord patientRecord = new PatientRecord(po,patientNumIn,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
         patientNumber=po.getPatientNumber(patientFName,patientLName,DOB);
-        MedicalRecord medicalRecord = new MedicalRecord(po,patientNumber,recommendations, medicalRequired);
+        MedicalRecord medicalRecord = new MedicalRecord(po,patientNumber,recommendations);
         Appointment appointment=new Appointment(reasonForVisit,medicalRequired,consultantRequired);
 
     }
-
 
 
     public void referralProcessForNewPatient() {
         System.out.println("\n\nNew Patient Method\n\n");
         PatientRecord patientRecord = new PatientRecord(po,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
         patientNumber=po.getPatientNumber(patientFName,patientLName,DOB);
-        MedicalRecord medicalRecord = new MedicalRecord(po,patientNumber,recommendations, medicalRequired);
+        MedicalRecord medicalRecord = new MedicalRecord(po,patientNumber,recommendations);
         Appointment appointment=new Appointment(reasonForVisit,medicalRequired,consultantRequired);
 
     }

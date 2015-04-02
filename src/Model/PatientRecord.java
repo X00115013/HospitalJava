@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import DataBase.AppointmentOperations;
 import DataBase.PatientOperations;
 /**
- * Created by College on 04/03/2015.
+ * Created by Thomas Murray on 04/03/2015.
  */
 public class PatientRecord {
     private String patientFName;
@@ -92,62 +92,60 @@ public class PatientRecord {
     }
 
 
-    public void printFromArrayARByNumber(int patientNumIn){
-        System.out.println("\n\n\nPatient Admin Record By Number from Array\n");
-        for (int i = 0; i < patientList.size(); i++) {
-            if(patientList.get(i).patientNumber == patientNumIn){
-                System.out.print("\n\nPatient Number (" + patientList.get(i).patientNumber+")");
-                System.out.print("\nPatient First Name (" + patientList.get(i).patientFName+")");
-                System.out.print("\nPatient Last Name (" + patientList.get(i).patientLName+")");
-                System.out.print("\nPatient Address (" + patientList.get(i).patientAddress+")");
-                System.out.print("\nOccupation (" + patientList.get(i).occupation+")");
-                System.out.print("\nGender (" + patientList.get(i).gender+")");
-                System.out.print("\nEmail (" + patientList.get(i).email+")");
-                System.out.print("\nPhone (" + patientList.get(i).phone+")");
-                System.out.print("\nDOB (" + patientList.get(i).DOB+")");
-            }
-        }
-    }
-
-    public void printFromArrayAR(){
-        System.out.println("\n\n\nPatient Admin Record from Array\n");
-        for (int i = 0; i < patientList.size(); i++) {
-            System.out.print("\n\nPatient Number (" + patientList.get(i).patientNumber+")");
-            System.out.print("\nPatient First Name (" + patientList.get(i).patientFName+")");
-            System.out.print("\nPatient Last Name (" + patientList.get(i).patientLName+")");
-            System.out.print("\nPatient Address (" + patientList.get(i).patientAddress+")");
-            System.out.print("\nOccupation (" + patientList.get(i).occupation+")");
-            System.out.print("\nGender (" + patientList.get(i).gender+")");
-            System.out.print("\nEmail (" + patientList.get(i).email+")");
-            System.out.print("\nPhone (" + patientList.get(i).phone+")");
-            System.out.print("\nDOB (" + patientList.get(i).DOB+")");
-            }
-        }
+//    public void printFromArrayARByNumber(int patientNumIn){
+//        System.out.println("\n\n\nPatient Admin Record By Number from Array\n");
+//        for (int i = 0; i < patientList.size(); i++) {
+//            if(patientList.get(i).patientNumber == patientNumIn){
+//                System.out.print("\n\nPatient Number (" + patientList.get(i).patientNumber+")");
+//                System.out.print("\nPatient First Name (" + patientList.get(i).patientFName+")");
+//                System.out.print("\nPatient Last Name (" + patientList.get(i).patientLName+")");
+//                System.out.print("\nPatient Address (" + patientList.get(i).patientAddress+")");
+//                System.out.print("\nOccupation (" + patientList.get(i).occupation+")");
+//                System.out.print("\nGender (" + patientList.get(i).gender+")");
+//                System.out.print("\nEmail (" + patientList.get(i).email+")");
+//                System.out.print("\nPhone (" + patientList.get(i).phone+")");
+//                System.out.print("\nDOB (" + patientList.get(i).DOB+")");
+//            }
+//        }
+//    }
+//
+//    public void printFromArrayAR(){
+//        System.out.println("\n\n\nPatient Admin Record from Array\n");
+//        for (int i = 0; i < patientList.size(); i++) {
+//            System.out.print("\n\nPatient Number (" + patientList.get(i).patientNumber+")");
+//            System.out.print("\nPatient First Name (" + patientList.get(i).patientFName+")");
+//            System.out.print("\nPatient Last Name (" + patientList.get(i).patientLName+")");
+//            System.out.print("\nPatient Address (" + patientList.get(i).patientAddress+")");
+//            System.out.print("\nOccupation (" + patientList.get(i).occupation+")");
+//            System.out.print("\nGender (" + patientList.get(i).gender+")");
+//            System.out.print("\nEmail (" + patientList.get(i).email+")");
+//            System.out.print("\nPhone (" + patientList.get(i).phone+")");
+//            System.out.print("\nDOB (" + patientList.get(i).DOB+")");
+//            }
+//        }
 
 
 
     public void addPatientRecord(){
         System.out.println("New Patient NEW NEW NEW NEW NEW NEW ");
         po.addPatient(patientFName, patientLName, patientAddress, occupation, gender, email, phone, DOB);
-        refreshArrays();
-        printFromArrayAR();
+//        printFromArrayAR();
     }
 
     public void updatePatientRecord(int patientNumIn){
         System.out.println("Updated Patient UPDATED UPDATED UPDATED ");
         po.updatePatientAdmin(patientNumIn, patientFName, patientLName, patientAddress, occupation, gender, email, phone, DOB);
-        refreshArrays();
-        printFromArrayAR();
-        printFromArrayARByNumber(2);
+//        printFromArrayAR();
+//        printFromArrayARByNumber(2);
     }
 
     public int getPatientNumber() {
         return patientNumber;
     }
 
-    public void deletePatientRecords(int patientNumIn){
-        po.deletePatient(patientNumIn);
-        printFromArrayAR();
+    public void deletePatientRecords(int patientNumIn,String reason){
+        po=new PatientOperations();
+        po.deletePatient(patientNumIn,reason);
     }
 
     public ArrayList<PatientRecord> getPatientList() {

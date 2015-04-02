@@ -12,7 +12,7 @@ import java.awt.geom.Arc2D;
 import java.util.InputMismatchException;
 
 /**
- * Created by Roland on 01/03/2015.
+ * Created by Thomas Murray on 01/03/2015.
  */
 public class SecurityGUI extends JFrame implements ActionListener{
     private  int answer=0,selection;

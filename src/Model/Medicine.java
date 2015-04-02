@@ -1,74 +1,83 @@
 package Model;
 
+import DataBase.PatientOperations;
+import DataBase.StockOperations;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 /**
- * Created by David on 15/03/2015.
+ * Created by David and Thomas Murray on 15/03/2015.
  */
 public class Medicine {
-    private int medId;
-    private String medName1, medName2, medName3;
-    private double medCost1=7.50, medCost2=3.99, medCost3=2;
+    private int medId,dosage,stockLevel;
+    private String medName;
+    private double price;
+    private ResultSet rset;
+    private ArrayList<Medicine>medicines=new ArrayList<>();
+    StockOperations so;
 
-    public Medicine(){}
 
-    public Medicine(double medCost1, double medCost2, double medCost3) {
-        this.medCost1 = medCost1;
-        this.medCost2 = medCost2;
-        this.medCost3 = medCost3;
+    public Medicine(){
+
     }
 
-    public double getMedCost1() {
-        return medCost1;
+    public Medicine(int med_ID,String med_Name,int dosageIn, int stockLevelIn,double priceIn) {
+        medId=med_ID;
+        medName=med_Name;
+        dosage=dosageIn;
+        stockLevel=stockLevelIn;
+        price=priceIn;
+
     }
 
-    public void setMedCost1(double medCost1) {
-        this.medCost1 = medCost1;
+    public void refreshArrays() {
+        try {
+            so=new StockOperations();
+            rset = so.getMedicine();
+            while (rset.next()) {
+                medicines.add(new Medicine(rset.getInt(1),rset.getString(2),rset.getInt(3),rset.getInt(4),rset.getDouble(5)));
+            }so.stockOperationsClose();
+        } catch (SQLException e1) {
+            System.out.println(e1);
+        }
     }
 
-    public double getMedCost2() {
-        return medCost2;
+    public void addMedicine(String nameIn,int dosage,int amount,double price){
+        so.addMedicine(nameIn,dosage,amount,price);
     }
 
-    public void setMedCost2(double medCost2) {
-        this.medCost2 = medCost2;
+    public void updateStock(int id,int stockIn){
+        so.updateMedStock(id,stockIn);
     }
 
-    public double getMedCost3() {
-        return medCost3;
+    public void deleteMedicine(int medIdIn){
+        so.deleteMedicine(medIdIn);
     }
 
-    public void setMedCost3(double medCost3) {
-        this.medCost3 = medCost3;
+    public ArrayList<Medicine> getMedicines() {
+        refreshArrays();
+        return medicines;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getMedName() {
+        return medName;
+    }
+
+    public int getStockLevel() {
+        return stockLevel;
+    }
+
+    public int getDosage() {
+        return dosage;
     }
 
     public int getMedId() {
         return medId;
-    }
-
-    public void setMedId(int medId) {
-        this.medId = medId;
-    }
-
-    public String getMedName1() {
-        return medName1;
-    }
-
-    public void setMedName1(String medName1) {
-        this.medName1 = medName1;
-    }
-
-    public String getMedName2() {
-        return medName2;
-    }
-
-    public void setMedName2(String medName2) {
-        this.medName2 = medName2;
-    }
-
-    public String getMedName3() {
-        return medName3;
-    }
-
-    public void setMedName3(String medName3) {
-        this.medName3 = medName3;
     }
 }

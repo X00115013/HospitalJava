@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Roland on 29/03/2015.
+ * Created by Thomas Murray on 29/03/2015.
  */
 
 
@@ -77,16 +77,6 @@ public class PatientChartGUI extends JFrame implements ActionListener
 
         holder.add(topSection);
 
-//        SELECT patient_Number, " +
-//        "patientFName, patientLName " +
-//                ", PatientDOB ,PatientGender," +
-//                " BloodType ,Symptoms, Diagnoses," +
-//                " RequiredTreatment,Allergies ," +
-//                "PrescriptionUsed,Recommendation " +
-//                "FROM Patient WHERE patient_Number = "+patientNumIn;
-
-
-
         try {
             PatientOperations po=new PatientOperations();
             rset = po.getPatientChart(patientNumIn);
@@ -112,9 +102,7 @@ public class PatientChartGUI extends JFrame implements ActionListener
                         "\n--------------------------------------------------------------------------------------------------------------------\n"+
                         "  Patient \n  Allergies \t"+rset.getString(10)+"\n\n"+
                         "\n--------------------------------------------------------------------------------------------------------------------\n"+
-                        "  Prescriptions \n  Used \t"+rset.getInt(11)+"\n\n" +
-                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
-                        "  GP \n  Recommendations \t"+rset.getString(12)+"\n\n"+
+                        "  GP \n  Recommendations \t"+rset.getString(11)+"\n\n"+
                         "\n--------------------------------------------------------------------------------------------------------------------\n";
             }
         } catch (SQLException e1) {

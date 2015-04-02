@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Created by College on 04/03/2015.
+ * Created by Thomas Murray on 04/03/2015.
  */
 public class MedicalRecord {
 
@@ -22,28 +22,26 @@ public class MedicalRecord {
         refreshArray();
     }
 
-    public MedicalRecord(PatientOperations po,int patientNumberIn,String recommendationsIn, int requiredEquipment){
+    public MedicalRecord(PatientOperations po,int patientNumberIn,String recommendationsIn){
         this.po=po;
         patientNumber=patientNumberIn;
         recommendations=recommendationsIn;
-        equipNeed=requiredEquipment;
-        po.refMedUpdate(patientNumber,equipNeed,recommendations);
+        po.refMedUpdate(patientNumber,recommendations);
         updateMedicalRecord();
 
     }
-    public MedicalRecord(int patientNumberIn,String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment, int newEquipNeed,String newAllergies){
+    public MedicalRecord(int patientNumberIn,String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment,String newAllergies){
         patientNumber=patientNumberIn;
         blood=newBlood;
         symptoms=newSymptoms;
         diagnoses=newDiagnoses;
         reqTreatment=newReqTreatment;
-        equipNeed=newEquipNeed;
         allergies=newAllergies;
         updateMedicalRecord();
     }
 
     public MedicalRecord(int patientNumberIn,String patientFNameIn, String patientLNameIn, String patientDOBIn,
-                         String patientGenderIn, String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment, int newEquipNeed, int newEquipUsedIn,String newAllergies,int prescriptionUsedIn, String recommendationsIn){
+                         String patientGenderIn, String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment,String newAllergies, String recommendationsIn){
         patientNumber=patientNumberIn;
         patientFName=patientFNameIn;
         patientLName=patientLNameIn;
@@ -53,9 +51,6 @@ public class MedicalRecord {
         symptoms=newSymptoms;
         diagnoses=newDiagnoses;
         reqTreatment=newReqTreatment;
-        getEquipUsed=newEquipUsedIn;
-        equipNeed=newEquipNeed;
-        prescriptionUsed=prescriptionUsedIn;
         allergies=newAllergies;
         recommendations=recommendationsIn;
     }
@@ -65,8 +60,7 @@ public class MedicalRecord {
         try {
             while (rset.next()) {
                 medicalRecordArrayList.add(medicalRecord=new MedicalRecord(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getString(5),
-                        rset.getString(6),rset.getString(7),rset.getString(8),rset.getString(9),rset.getInt(10),
-                        rset.getInt(11),rset.getString(12),rset.getInt(13),rset.getString(14)));
+                        rset.getString(6),rset.getString(7),rset.getString(8),rset.getString(9),rset.getString(10),rset.getString(11)));
             }
         } catch (SQLException e1) {
             System.out.println("Patient record not working"+e1);
@@ -86,10 +80,7 @@ public class MedicalRecord {
                 System.out.print("\nSymptoms ("+medicalRecordArrayList.get(i).symptoms+")");
                 System.out.print("\nDiagnoses ("+medicalRecordArrayList.get(i).diagnoses+")");
                 System.out.print("\nReq Treatment ("+medicalRecordArrayList.get(i).reqTreatment+")");
-                System.out.print("\nEquip Needed ("+medicalRecordArrayList.get(i).equipNeed+")");
-                System.out.print("\nEquip Used ("+medicalRecordArrayList.get(i).getEquipUsed+")");
                 System.out.print("\nAllergies ("+medicalRecordArrayList.get(i).allergies+")");
-                System.out.print("\nPrescription ("+medicalRecordArrayList.get(i).prescriptionUsed+")");
                 System.out.print("\nRecommendations ("+medicalRecordArrayList.get(i).recommendations+")\n");
             }
         }
@@ -106,10 +97,7 @@ public class MedicalRecord {
                 System.out.print("\nSymptoms ("+medicalRecordArrayList.get(i).symptoms+")");
                 System.out.print("\nDiagnoses ("+medicalRecordArrayList.get(i).diagnoses+")");
                 System.out.print("\nReq Treatment ("+medicalRecordArrayList.get(i).reqTreatment+")");
-                System.out.print("\nEquip Needed ("+medicalRecordArrayList.get(i).equipNeed+")");
-                System.out.print("\nEquip Used ("+medicalRecordArrayList.get(i).getEquipUsed+")");
                 System.out.print("\nAllergies ("+medicalRecordArrayList.get(i).allergies+")");
-                System.out.print("\nPrescription ("+medicalRecordArrayList.get(i).prescriptionUsed+")");
                 System.out.print("\nRecommendations ("+medicalRecordArrayList.get(i).recommendations+")\n");
             }
         }
@@ -181,7 +169,7 @@ public class MedicalRecord {
 
     public void updateMedicalRecord(){
         po=new PatientOperations();
-        po.updatePatientMedical(patientNumber,blood,symptoms,diagnoses,reqTreatment,equipNeed,recommendations,allergies);
+        po.updatePatientMedical(patientNumber,blood,symptoms,diagnoses,reqTreatment,recommendations,allergies);
         refreshArray();
         printAllArrayMR();
         printFromArrayMR(2);

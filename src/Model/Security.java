@@ -5,7 +5,7 @@ import GUI.*;
 import java.util.ArrayList;
 
 /**
- * Created by Roland on 14/03/2015.
+ * Created by Thomas Murray on 14/03/2015.
  */
 public class Security {
     private int password;

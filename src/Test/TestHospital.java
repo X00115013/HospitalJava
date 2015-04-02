@@ -5,7 +5,7 @@ import Referrals.ReferralGUI;
 import Referrals.Referrals;
 
 /**
- * Created by Roland on 01/03/2015.
+ * Created by Thomas Murray on 01/03/2015.
  */
 public class TestHospital {
     public static void main(String[] args) {
@@ -33,12 +33,13 @@ public class TestHospital {
 //         HealthInsuranceGUI healthInsuranceGUI=new HealthInsuranceGUI();
 //        MedicalCardGUI medicalCardGUI=new MedicalCardGUI();
 //        AppointmentDetailsGUI appointmentDetailsGUI=new AppointmentDetailsGUI(1);
+//        DeletePatient deletePatient=new DeletePatient(2);
 
 
 //        REFERRALS TESTS
-//        Referrals referrals= new Referrals( "Jim","dublin","mick","jagger","02-Jan-00","Carlow","4591662","sick","help him",1,3,"male",0);
-//        Referrals referrals2= new Referrals( "Joe","cork","paul","Macartey","04-Feb-67","New York","0870973783","Deader","bury him",2,2,"female",1);
-//        Referrals referrals3= new Referrals( "Hayden","Dudai","John","Lennon","13-Mar-58","Liverpool","555-555-555","Ghost","Fear him",3,1,"Undead",3);
+//        Referrals referrals= new Referrals( "Jim","dublin","mick","jagger","Carlow","02-Jan-00","4591662","sick","help him",1,3,"male",0);
+//        Referrals referrals2= new Referrals( "Joe","cork","paul","Macartey","New York","04-Feb-67","0870973783","Deader","bury him",2,2,"female",1);
+//        Referrals referrals3= new Referrals( "Hayden","Dudai","John","Lennon","Liverpool","13-Mar-58","555-555-555","Ghost","Fear him",3,1,"Undead",3);
 //        ProcessReferrals processReferrals = new ProcessReferrals();
 
 

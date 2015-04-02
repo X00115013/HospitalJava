@@ -189,8 +189,8 @@ public class AddPatientGUI extends JFrame implements ActionListener {
                     patientOccupationText.setText(pList.get(i).getOccupation());
                     patientPhoneText.setText(pList.get(i).getPhone());
                     dayText.setText(pList.get(i).getDOB().charAt(0)+""+pList.get(i).getDOB().charAt(1));
-                    monthText.setText(pList.get(i).getDOB().charAt(2)+""+pList.get(i).getDOB().charAt(3)+""+pList.get(i).getDOB().charAt(4));
-                    yearText.setText(pList.get(i).getDOB().charAt(5)+""+pList.get(i).getDOB().charAt(6));
+                    monthText.setText(pList.get(i).getDOB().charAt(3)+""+pList.get(i).getDOB().charAt(4)+""+pList.get(i).getDOB().charAt(5));
+                    yearText.setText(pList.get(i).getDOB().charAt(7)+""+pList.get(i).getDOB().charAt(8));
                     if(pList.get(i).getGender().equalsIgnoreCase("male")){
                         male.setSelected(true);
                     }else if(pList.get(i).getGender().equalsIgnoreCase("female")){
@@ -259,10 +259,10 @@ public class AddPatientGUI extends JFrame implements ActionListener {
                 }
                 if (choiceGui == 1) {
                     PatientRecord patientRecord = new PatientRecord(po, patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
-                            patientOccupationText.getText(), choice, patientEmailText.getText(), patientPhoneText.getText(), (dayText.getText() + monthText.getText() + yearText.getText()));
+                            patientOccupationText.getText(), choice, patientEmailText.getText(), patientPhoneText.getText(), (dayText.getText() +"-"+ monthText.getText() +"-"+ yearText.getText()));
                 } else if (choiceGui == 2) {
                     PatientRecord patientRecord = new PatientRecord(po, Integer.parseInt(patientText.getText()), patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
-                            patientOccupationText.getText(), choice, patientEmailText.getText(), patientPhoneText.getText(), (dayText.getText() + monthText.getText() + yearText.getText()));
+                            patientOccupationText.getText(), choice, patientEmailText.getText(), patientPhoneText.getText(), (dayText.getText()  +"-"+ monthText.getText()  +"-"+ yearText.getText()));
 
                 }
                 f.setVisible(false);

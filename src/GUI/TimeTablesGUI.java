@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class TimeTablesGUI extends JFrame implements ActionListener
 {
     JButton print,cancel;
-    String[] list1 = {"Consultant :","XRay :", "MRI Scan :", "CT Scan :"};
+    String[] list1 = {"Consultant","XRay", "MRI Scan", "CT Scan"};
     JLabel patientNum,label5;
     JTextArea timeTableInformation;
     JComboBox<String> combo1;
@@ -128,7 +128,8 @@ public class TimeTablesGUI extends JFrame implements ActionListener
            f.setVisible(false);
         } else if (e.getSource().equals(print)){
             File Files = new File("files");
-            File textFile = new File(Files, "timeTables.txt");
+            String tableSelection = (String) combo1.getSelectedItem();
+            File textFile = new File(Files, ""+tableSelection+"_timeTables.txt");
             try (FileWriter input = new FileWriter(textFile)) {
                 //Input text
                 input.write(timeTableInformation.getText());
@@ -138,7 +139,7 @@ public class TimeTablesGUI extends JFrame implements ActionListener
 
         }else if (e.getSource().equals(combo1)){
             String tableSelection = (String) combo1.getSelectedItem();
-            if(tableSelection.equals("Consultant :")){
+            if(tableSelection.equals("Consultant")){
                 contable="";
                 contable="\n\n\tMon\tTues\tWed\tThur\tFri\tSat\tSun\n" +
                         "---------------------------------------------------------------------------------------------------" +
@@ -169,7 +170,7 @@ public class TimeTablesGUI extends JFrame implements ActionListener
                 timeTableInformation.setText(contable);
                 contable="";
 
-            }else if(tableSelection.equals("XRay :")){
+            }else if(tableSelection.equals("XRay")){
                 xraytable="";
                 xraytable="\n\n\tMon\tTues\tWed\tThur\tFri\tSat\tSun\n" +
                         "---------------------------------------------------------------------------------------------------" +
@@ -200,7 +201,7 @@ public class TimeTablesGUI extends JFrame implements ActionListener
                 timeTableInformation.setText(xraytable);
                 xraytable="";
 
-            }else if(tableSelection.equals("MRI Scan :")){
+            }else if(tableSelection.equals("MRI Scan")){
                 mritable="";
                 mritable="\n\n\tMon\tTues\tWed\tThur\tFri\tSat\tSun\n" +
                         "---------------------------------------------------------------------------------------------------" +
@@ -231,7 +232,7 @@ public class TimeTablesGUI extends JFrame implements ActionListener
                 timeTableInformation.setText(mritable);
                 mritable="";
 
-            }else if(tableSelection.equals("CT Scan :")){
+            }else if(tableSelection.equals("CT Scan")){
                 cttable="";
                 cttable="\n\n\tMon\tTues\tWed\tThur\tFri\tSat\tSun\n" +
                         "---------------------------------------------------------------------------------------------------" +

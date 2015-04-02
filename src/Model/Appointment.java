@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import DataBase.AppointmentOperations;
 /**
- * Created by x00115013 on 02/03/2015.
+ * Created by Thomas Murray on 02/03/2015.
  */
 public class Appointment {
     public int time;

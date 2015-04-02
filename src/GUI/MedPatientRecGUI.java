@@ -90,10 +90,6 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
                         "\n\n   Patient Recommendations   \n\n   " + mList.get(i).getRecommendations() + "\n"+
                         "\n--------------------------------------------------------------------------------------------------------------------\n"+
                         "\n\n   Patient Required Treatment\n\n   " + mList.get(i).getReqTreatment() + "\n" +
-                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
-                        "\n\n   Patient Prescriptions Used\n\n   " + mList.get(i).getPrescriptionUsed() + "\n" +
-                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
-                        "\n\n   Patient Equipment Needed  \n\n   " + mList.get(i).getEquipNeed() + "\n"+
                         "\n--------------------------------------------------------------------------------------------------------------------\n";
             }
 

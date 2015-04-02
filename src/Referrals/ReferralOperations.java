@@ -6,7 +6,7 @@ import oracle.jdbc.pool.OracleDataSource;
 import java.sql.*;
 
 /**
- * Created by Roland on 08/03/2015.
+ * Created by Thomas Murray on 08/03/2015.
  */
 public class ReferralOperations {
     private Connection conn;
@@ -16,6 +16,10 @@ public class ReferralOperations {
     private Connect connect= new Connect();
 
     public ReferralOperations() {conn = connect.openDB();
+    }
+
+    public void referralOperationsClose(){
+        connect.closeDB();
     }
 
     public ResultSet getReferralByID(int id) {
@@ -69,13 +73,6 @@ public class ReferralOperations {
             System.out.println(e);
         }
     }
-
-
-
-
-
-
-
     public void setChecked(int refNumIn){
         try {
             String queryString = "UPDATE Referral SET checked = 0 WHERE Reference = "+refNumIn;

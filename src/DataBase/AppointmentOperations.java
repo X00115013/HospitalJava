@@ -6,7 +6,7 @@ import java.sql.*;
 import Model.Appointment;
 
 /**
- * Created by Roland on 08/03/2015.
+ * Created by Thomas Murray on 08/03/2015.
  */
 public class AppointmentOperations {
     private Connection conn;

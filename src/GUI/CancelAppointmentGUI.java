@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by Roland on 28/03/2015.
+ * Created by Thomas Murray on 28/03/2015.
  */
 public class CancelAppointmentGUI extends JFrame implements ActionListener
 {

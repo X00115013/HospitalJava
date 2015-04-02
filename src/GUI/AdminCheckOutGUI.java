@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by Lionhart on 20/03/2015.
+ * Created by Lionhart and Thomas Murray on 20/03/2015.
  */
 public class AdminCheckOutGUI extends JFrame implements ActionListener
 {

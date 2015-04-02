@@ -3,7 +3,7 @@ package Model;
 import DataBase.TimeTableOperations;
 
 /**
- * Created by x00115013 on 09/03/2015.
+ * Created by Thomas Murray on 09/03/2015.
  */
 public class MRITimeTable {
     private int timeIn,appNum;

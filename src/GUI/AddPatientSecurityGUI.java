@@ -14,7 +14,7 @@ import java.awt.geom.Arc2D;
 import java.util.InputMismatchException;
 
 /**
- * Created by Roland on 01/03/2015.
+ * Created by Thomas Murray on 01/03/2015.
  */
 public class AddPatientSecurityGUI extends JFrame implements ActionListener{
     private  int answer=0,selection;
@@ -124,16 +124,28 @@ public class AddPatientSecurityGUI extends JFrame implements ActionListener{
             f.setVisible(false);
 
         } else if (e.getSource().equals(confirm))
-        {boolean test=true;
+        {boolean test = true;
             try {
                 while (test) {
                     Security security = new Security(selection, Integer.parseInt(patientNumText.getText()), Integer.parseInt(passwordText.getText()));
-                    passwordText.setText("");
-                    test = false;
-                }
-            }catch(NumberFormatException im){
+                    if (security.passCheck() == -1) {
+                        passwordText.setText("");
+                        JOptionPane.showMessageDialog(null, "Password is Incorrect");
+                    }else if(security.patientNumCheck()){
+                        test = false;
+                    }
+                    if (!security.patientNumCheck()) {
+                        patientNumText.setText("");
+                        passwordText.setText("");
+                        JOptionPane.showMessageDialog(null, "Patient Does Not Exist");
+                    } else if(security.patientNumCheck()){
+                        test = false;
+                    }
+                }f.setVisible(false);
+            } catch (NumberFormatException im) {
                 patientNumText.setText("");
                 passwordText.setText("");
+                JOptionPane.showMessageDialog(null, "Both Files Must Be Populated");
                 System.out.println(im);
             }
         } else if (e.getSource().equals(add)){

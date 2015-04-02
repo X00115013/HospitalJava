@@ -5,7 +5,7 @@ import oracle.jdbc.pool.OracleDataSource;
 import java.sql.*;
 
 /**
- * Created by Roland on 08/03/2015.
+ * Created by Thomas Murray on 08/03/2015.
  */
 public class PatientOperations {
     private Connection conn;
@@ -14,7 +14,12 @@ public class PatientOperations {
     private Statement stmt;
     private Connect connect= new Connect();
 
-    public PatientOperations() {conn = connect.openDB();
+    public PatientOperations() {
+        conn = connect.openDB();
+    }
+
+    public void patientOperationsClose(){
+        connect.closeDB();
     }
 
     public ResultSet getPatientAdmin() {
@@ -32,7 +37,6 @@ public class PatientOperations {
         }
         return rset;
     }
-
     public ResultSet getPatientAdmin(int id) {
         try {
             String queryString = "SELECT patient_Number, " +
@@ -48,20 +52,15 @@ public class PatientOperations {
         }
         return rset;
     }
-
-
-
-
-
     public ResultSet getPatientMedical(int id) {
         try {
             String queryString = "SELECT patient_Number, " +
                     "patientFName, patientLName " +
                     ", PatientDOB ,PatientGender," +
                     " BloodType ,Symptoms, Diagnoses," +
-                    " RequiredTreatment ,EquipmentNeeded ," +
-                    " EquipmentUsed ,Allergies ," +
-                    "PrescriptionUsed,Recommendation " +
+                    " RequiredTreatment ," +
+                    " Allergies ," +
+                    "Recommendation " +
                     "FROM Patient where patient_Number= "+id;
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
@@ -70,16 +69,15 @@ public class PatientOperations {
         }
         return rset;
     }
-
     public ResultSet getPatientMedical() {
         try {
             String queryString = "SELECT patient_Number, " +
                     "patientFName, patientLName " +
                     ", PatientDOB ,PatientGender," +
                     " BloodType ,Symptoms, Diagnoses," +
-                    " RequiredTreatment ,EquipmentNeeded ," +
-                    " EquipmentUsed ,Allergies ," +
-                    "PrescriptionUsed,Recommendation " +
+                    " RequiredTreatment ," +
+                    " Allergies ," +
+                    "Recommendation " +
                     "FROM Patient";
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
@@ -88,8 +86,6 @@ public class PatientOperations {
         }
         return rset;
     }
-
-
     public int getNumPatients()
     {
         int num=0;
@@ -106,8 +102,6 @@ public class PatientOperations {
         }
         return num;
     }
-
-
     public ResultSet getPatientChart(int patientNumIn){
         try {
             String queryString = "SELECT patient_Number, " +
@@ -115,7 +109,7 @@ public class PatientOperations {
                     ", PatientDOB ,PatientGender," +
                     " BloodType ,Symptoms, Diagnoses," +
                     " RequiredTreatment,Allergies ," +
-                    "PrescriptionUsed,Recommendation " +
+                    "Recommendation " +
                     "FROM Patient WHERE patient_Number = "+patientNumIn;
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
@@ -124,14 +118,6 @@ public class PatientOperations {
         }
         return rset;
     }
-
-
-
-
-
-
-
-
     public void addPatient(String patientFNameIn, String patientLNameIn, String patientAddressIn,String occupationIn, String genderIn, String emailIn, String phoneIn, String DOBIn) {
         try {
             String sqlQuery = "INSERT INTO Patient(patient_Number,patientFName, patientLName, patientDOB, patientGender, occupation,PatientEmail," +
@@ -150,13 +136,7 @@ public class PatientOperations {
             System.out.println(se);
         }
     }
-
-
-
-
-
-
-    public void updatePatientAdmin(int patientNumber, String newPFname,String newPLname, String newPaddress, String occupationIn, String genderIn,String newPphone, String newEmail, String DOBIn)
+    public void updatePatientAdmin(int patientNumber, String newPFname,String newPLname, String newPaddress, String occupationIn, String genderIn, String newEmail,String newPphone, String DOBIn)
     {
         try {
             String sql1 = "UPDATE Patient SET patientFName= '" + newPFname +"'," +
@@ -172,15 +152,13 @@ public class PatientOperations {
             System.out.println(se);
         }
     }
-
-    public void updatePatientMedical(int patientNumber,String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment, int newEquipNeed, String recommendationIn, String newAllergies )
+    public void updatePatientMedical(int patientNumber,String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment, String recommendationIn, String newAllergies )
     {
         try {
             String sql1 = "UPDATE Patient SET bloodType= '" + newBlood +"'," +
                     "symptoms= '" + newSymptoms + "'," +
                     "requiredTreatment= '"+newReqTreatment+ "'," +
                     " diagnoses= '"+newDiagnoses+"'," +
-                    " equipmentNeeded= "+newEquipNeed+"," +
                     " allergies= '"+newAllergies+"'," +
                     " Recommendation ='"+recommendationIn+"'" +
                     " where patient_Number=" +patientNumber;
@@ -190,27 +168,39 @@ public class PatientOperations {
             System.out.println(se);
         }
     }
-
-    public void refMedUpdate(int patientNumber, int newEquipNeed, String recommendationIn )
+    public void deletePatient(int n,String reason) {
+        try {
+            archive(n,reason);
+            String sql1 = "UPDATE Patient SET " +
+                    "patientFName= 'Archived'," +
+                    "patientLName= 'Archived'," +
+                    "patientAddress= 'Archived'," +
+                    "patientPhone= 'Archived'," +
+                    "patientEmail= 'Archived'," +
+                    "occupation = 'Archived'," +
+                    "bloodType= 'Archived'," +
+                    "symptoms= 'Archived'," +
+                    "requiredTreatment= 'Archived'," +
+                    "diagnoses= 'Archived'," +
+                    "allergies= 'Archived'," +
+                    "Recommendation ='Archived'," +
+                    "patientDOB ='Archive',"+
+                    "patientGender= 'Archive'"+
+                    "where patient_Number=" +n;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql1);
+        } catch (Exception se) {
+            System.out.println("delete patient "+se);
+        }
+    }
+    public void refMedUpdate(int patientNumber, String recommendationIn )
     {
         try {
-            String sql1 = "UPDATE Patient SET equipmentNeeded= "+newEquipNeed+", Recommendation = '"+recommendationIn+"' where patient_Number= " +patientNumber;
+            String sql1 = "UPDATE Patient SET Recommendation = '"+recommendationIn+"' where patient_Number= " +patientNumber;
             stmt = conn.createStatement();
             stmt.executeUpdate(sql1);
         } catch (Exception se) {
             System.out.println(se);
-        }
-    }
-
-
-    public void deletePatient(int n) {
-        try {
-            String cmd = "DELETE * FROM patient WHERE patient_Number =" + n;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(cmd);
-            archive(n);
-        } catch (Exception e) {
-            System.out.println(e);
         }
     }
     public ResultSet getArchive(int n){
@@ -219,25 +209,22 @@ public class PatientOperations {
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("2 delete"+e);
         }
         return rset;
     }
-
-    public void archive(int n) {
+    public void archive(int n,String reason) {
         try {
-            String queryString1 = "INSERT INTO archive(archiveId,patientInformation)VALUES(?,?)";
+            String queryString1 = "INSERT INTO Archive(archiveID,patient_numIn,reasonForDeletion,archiveFile )VALUES(archive_seq.nexTVal,?,?,?)";
             pstmt = conn.prepareStatement(queryString1);
-            pstmt.setString(1, ""+n+"");
-            pstmt.setString(2, ""+getArchive(n));
+            pstmt.setString(1, ""+n);
+            pstmt.setString(2, reason);
+            pstmt.setString(3, ""+getArchive(n));
             pstmt.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("3 delete"+e);
         }
     }
-
-
-
     public int getPatientNumber(String fName, String lName, String dobIn)
     {
         int id=0;

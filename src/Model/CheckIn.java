@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Created by Roland on 20/03/2015.
+ * Created by Thomas Murray on 20/03/2015.
  */
 public class CheckIn {
     private int appointmentNumber;

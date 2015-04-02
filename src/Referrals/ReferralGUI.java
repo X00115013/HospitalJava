@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.InputMismatchException;
 
 /**
- * Created by Lionhart on 17/03/2015.
+ * Created by Lionhart and  Thomas Murray on 17/03/2015.
  */
 public class ReferralGUI extends JFrame implements ActionListener {
     String[] list1 = {"XRay :", "MRI Scan :", "CT Scan :"};

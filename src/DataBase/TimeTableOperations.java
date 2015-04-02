@@ -5,7 +5,7 @@ import oracle.jdbc.pool.OracleDataSource;
 import java.sql.*;
 
 /**
- * Created by Roland on 08/03/2015.
+ * Created by Thomas Murray on 08/03/2015.
  */
 public class TimeTableOperations {
     private Connection conn;

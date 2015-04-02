@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import DataBase.TimeTableOperations;
 
 /**
-* Created by Roland on 04/03/2015.
+* Created by Thomas Murray on 04/03/2015.
 */
 public class TimeTables {
 

@@ -175,7 +175,7 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
             AddPatientGUI addPatientGUI=new AddPatientGUI(2,patientNumberIn);
 
         }else if (e.getSource().equals(delete))
-        {
+        {DeletePatient deletePatient=new DeletePatient(patientRecord,patientNumberIn);
         }
     }
 }

@@ -6,7 +6,7 @@ import Referrals.ReferralOperations;
 import java.util.Random;
 
 /**
- * Created by x00115013 on 02/03/2015.
+ * Created by Thomas Murray on 02/03/2015.
  */
 public class Referrals {
     private String gpName;

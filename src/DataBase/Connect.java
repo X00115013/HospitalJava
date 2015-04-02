@@ -5,7 +5,7 @@ import oracle.jdbc.pool.OracleDataSource;
 import java.sql.*;
 
 /**
- * Created by Roland on 14/03/2015.
+ * Created by Thomas Murray on 14/03/2015.
  */
 public class Connect {
     private Connection conn;

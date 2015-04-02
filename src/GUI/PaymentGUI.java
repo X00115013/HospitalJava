@@ -9,7 +9,7 @@ package GUI;
         import java.awt.event.ActionListener;
 
 /**
- * Created by Roland on 29/03/2015.
+ * Created by Thomas Murray on 29/03/2015.
  */
 
 

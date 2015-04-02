@@ -13,7 +13,7 @@ package GUI;
         import java.util.InputMismatchException;
 
 /**
- * Created by Roland on 01/03/2015.
+ * Created by Thomas Murray on 01/03/2015.
  */
 public class SingleSecurityGUI extends JFrame implements ActionListener {
     private  int answer=0,selection;
