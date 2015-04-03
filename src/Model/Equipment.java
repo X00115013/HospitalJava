@@ -18,6 +18,9 @@ public class Equipment {
     StockOperations so;
 
 
+    public Equipment(){
+
+    }
 
     public Equipment(int eq_ID,String eq_Name,double priceIn) {
         eqId=eq_ID;

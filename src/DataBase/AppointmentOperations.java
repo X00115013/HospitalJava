@@ -15,8 +15,14 @@ public class AppointmentOperations {
     private Statement stmt;
     private Connect connect=new Connect();
 
-    public AppointmentOperations() {conn = connect.openDB();
+    public AppointmentOperations() {
+        conn = connect.openDB();
     }
+
+    public void appointmentOperationsClose(){
+        connect.closeDB();
+    }
+
 
     public ResultSet getAppointment() {
         try {
@@ -73,17 +79,32 @@ public class AppointmentOperations {
 
     public void addAppointmentExisting(String recIn, int equipIn,int conIn,int patientNum) {
         try {
-            String sql2 = "INSERT INTO Appointment(AppID, ReasonVisit ,requiredEquipment, requiredConsultant,patient_Number) values(APPID.nextVal,?,?,?,?)";
-            pstmt = conn.prepareStatement(sql2);
-            pstmt.setString(1, recIn);
-            pstmt.setInt(2, equipIn);
-            pstmt.setInt(3, conIn);
-            pstmt.setInt(4,getCurrVal());
-            pstmt.executeUpdate();
+            String sql1 = "UPDATE Patient SET " +
+                    "AppID= APPID.nextVal," +
+                    "ReasonVisit= '" + recIn+ "'," +
+                    "requiredEquipment= "+equipIn+ "," +
+                    "requiredConsultant= "+conIn+ "" +
+                    "where patientNum=" +patientNum;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql1);
         } catch (Exception se) {
-            System.out.println("addAppointment went wrong"+se);
+            System.out.println(se);
         }
     }
+
+//    public void addAppointmentExisting(String recIn, int equipIn,int conIn,int patientNum) {
+//        try {
+//            String sql2 = "INSERT INTO Appointment(AppID, ReasonVisit ,requiredEquipment, requiredConsultant,patient_Number) values(APPID.nextVal,?,?,?,?)";
+//            pstmt = conn.prepareStatement(sql2);
+//            pstmt.setString(1, recIn);
+//            pstmt.setInt(2, equipIn);
+//            pstmt.setInt(3, conIn);
+//            pstmt.setInt(4,getCurrVal());
+//            pstmt.executeUpdate();
+//        } catch (Exception se) {
+//            System.out.println("addAppointment went wrong"+se);
+//        }
+//    }
 
 
 

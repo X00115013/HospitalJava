@@ -111,21 +111,13 @@ public class Appointment {
         return patientNum;
     }
 
-    public void setTimeTableMED() {
-        TimeTables timeTableMED = new TimeTables(ao,medicalEquip);
-
-    }
-    public void setTimeTableCON() {
-        TimeTables timeTableCON = new TimeTables(ao,1,consultantType);
-
-    }
 
     public void setAppointmentExisting(String recIn, int equipIn,int conIn,int patientNumIn) {
         ao.addAppointmentExisting(recIn, equipIn, conIn,patientNumIn);
         if (medicalEquip == -1) {
-            setTimeTableCON();
+            TimeTables timeTableCON = new TimeTables(ao,conIn,consultantType);
         } else{
-            setTimeTableMED();
+            TimeTables timeTableMED = new TimeTables(ao,equipIn,medicalEquip);
         }
     }
 
@@ -133,9 +125,9 @@ public class Appointment {
     public void setAppointment(String recIn, int equipIn,int conIn) {
         ao.addAppointment(recIn, equipIn, conIn);
         if (medicalEquip == -1) {
-            setTimeTableCON();
+            TimeTables timeTableCON = new TimeTables(ao,conIn,consultantType);
         } else{
-            setTimeTableMED();
+            TimeTables timeTableMED = new TimeTables(ao,equipIn,medicalEquip);
         }
     }
 

@@ -5,7 +5,7 @@ package GUI;
 //import Model.Appointment;
 //import Model.PatientRecord;
 
-import Model.Appointment;
+import Model.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,11 +22,15 @@ import java.util.Date;
  * Created by Thomas Murray on 17/03/2015.
  */
 public class AppointmentGUI extends JFrame implements ActionListener {
-    String[] list1 = {"XRay :", "MRI Scan :", "CT Scan :"};
-    String[] list2 = {"Radiology :", "Pediatrics :", "Surgery :"};
+    String[] list1;
+    String[] list2;
     JButton confirm;
     JButton cancel,cancelApt;
     private Object selectedItem;
+    private ArrayList<Equipment> eqList=new ArrayList<>();
+    private ArrayList<Consultants>conList=new ArrayList<>();
+    private Equipment equipment;
+    private Consultants consultants;
 
     JLabel aptNum;
     JLabel reason;
@@ -94,6 +98,19 @@ public class AppointmentGUI extends JFrame implements ActionListener {
         holder.add(topSection);
 
 
+        equipment=new Equipment();
+        eqList.addAll(equipment.getEquipments());
+        list1 = new String[eqList.size()];
+        for (int i = 0; i < eqList.size(); i++) {
+            list1[i] = eqList.get(i).getEqName();
+        }
+
+        consultants=new Consultants();
+        conList.addAll(consultants.getConsultants());
+        list2 = new String[conList.size()];
+        for (int i = 0; i < conList.size(); i++) {
+            list2[i] = conList.get(i).getConSpeciality();
+        }
 
         //middle
         JPanel holder2=new JPanel(new GridLayout(2,1));
@@ -170,26 +187,18 @@ public class AppointmentGUI extends JFrame implements ActionListener {
             f.setVisible(false);
 
         } else if (e.getSource().equals(confirm)) {
-            int catcher = 0, catcher2 = 0;
-            try {
-                String medEquip = (String) combo1.getSelectedItem();
-                if (medEquip.equals("XRay :")) {
-                    catcher = 1;
-                } else if (medEquip.equals("MRI Scan :")) {
-                    catcher = 2;
-                } else if (medEquip.equals("CT Scan :")) {
-                    catcher = 3;
+            int catcher = 0,catcher2 = 0;
+            String med = (String) combo1.getSelectedItem();
+            for (int i = 0; i < eqList.size(); i++) {
+                if (med.equals(eqList.get(i).getEqName())){
+                    catcher =eqList.get(i).getEqId();
                 }
-                String conEquip = (String) combo2.getSelectedItem();
-                if (conEquip.equals("Radiology :")) {
-                    catcher2 = 1;
-                } else if (conEquip.equals("Pediatrics :")) {
-                    catcher2 = 2;
-                } else if (conEquip.equals("Surgery :")) {
-                    catcher2 = 3;
+            }
+            String con = (String) combo2.getSelectedItem();
+            for (int j = 0; j < conList.size(); j++) {
+                if (con.equals(conList.get(j).getConSpeciality())) {
+                    catcher2 = conList.get(j).getConId();;
                 }
-            } catch (InputMismatchException im) {
-                System.out.println(im);
             }
             Appointment app = new Appointment(textArea.getText(), catcher2, catcher);
             reason.setText("");

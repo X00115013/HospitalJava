@@ -336,10 +336,12 @@ public class CreateTables {
             System.out.print("SQL Exception " + e);
             System.exit(1);
         } // END ADMIN
+
+
         try {
             //CONSULTANT START creating table
             System.out.println("Creating Consultant");
-            String createCon = "CREATE TABLE Consultant (con_ID NUMBER PRIMARY KEY, con_Name VARCHAR2(255), speciality VARCHAR2(50))";
+            String createCon = "CREATE TABLE Consultant (con_ID NUMBER PRIMARY KEY, con_Name VARCHAR2(255), speciality VARCHAR2(50),machineSkill NUMBER)";
             pstmt = conn.prepareStatement(createCon);
             pstmt.executeUpdate(createCon);
             // creating Sequence
@@ -347,22 +349,38 @@ public class CreateTables {
             pstmt = conn.prepareStatement(createConSeq);
             pstmt.executeUpdate(createConSeq);
             // Insert data into table
-            String insertCon = "INSERT INTO Consultant (con_ID,con_Name,speciality) Values(ConID.nextVal,?,?)";
+            String insertCon = "INSERT INTO Consultant (con_ID,con_Name,speciality,machineSkill) Values(ConID.nextVal,?,?,?)";
+
             pstmt = conn.prepareStatement(insertCon);
             pstmt.setString(1, "Dr John Doe ");
-            pstmt.setString(2, "Pediatrics");
-            System.out.println("Consultant inserted");
+            pstmt.setString(2, "Radiology");
+            pstmt.setInt(3,1);
             pstmt.executeUpdate();
+
             pstmt = conn.prepareStatement(insertCon);
             pstmt.setString(1, "Dr Jane Doe ");
-            pstmt.setString(2, "Radiology");
-            System.out.println("Consultant inserted");
+            pstmt.setString(2, "Pediatrics");
+            pstmt.setInt(3,2);
             pstmt.executeUpdate();
+
             pstmt = conn.prepareStatement(insertCon);
             pstmt.setString(1, "Dr Jack Smith ");
-            pstmt.setString(2, "Neurology");
-            System.out.println("Consultant inserted");
+            pstmt.setString(2, "Neurologist");
+            pstmt.setInt(3,3);
             pstmt.executeUpdate();
+
+            pstmt = conn.prepareStatement(insertCon);
+            pstmt.setString(1, "Dr Sarah Johns ");
+            pstmt.setString(2, "Dermatologist");
+            pstmt.setInt(3,4);
+            pstmt.executeUpdate();
+
+            pstmt = conn.prepareStatement(insertCon);
+            pstmt.setString(1, "Dr Xanu Starburner ");
+            pstmt.setString(2, "Psychiatrist");
+            pstmt.setInt(3,5);
+            pstmt.executeUpdate();
+
         } catch (SQLException e) {
             System.out.print("SQL Exception " + e);
             System.exit(1);
@@ -529,13 +547,89 @@ public class CreateTables {
         try {
             //MEDICINE START creating table
             System.out.println("Creating Medicine");
-            String createMedicine = "CREATE TABLE Medicine (Med_ID NUMBER PRIMARY KEY, Med_Name VARCHAR2(50),Dosage NUMBER, StockLevel NUMBER, price NUMBER)";
+            String createMedicine = "CREATE TABLE Medicine (Med_ID NUMBER PRIMARY KEY, Med_Name VARCHAR2(50), StockLevel NUMBER, price NUMBER)";
             pstmt = conn.prepareStatement(createMedicine);
             pstmt.executeUpdate(createMedicine);
             // creating Sequence
             String createMedSeq = " CREATE SEQUENCE MedID increment by 1 start with 1";
             pstmt = conn.prepareStatement(createMedSeq);
             pstmt.executeUpdate(createMedSeq);
+
+
+            // Insert Medicine into Medicine table
+
+            String insertString1 = "INSERT INTO Medicine(Med_ID , Med_Name , StockLevel, price)values(MedID.nextVal,?,?,?)";
+            pstmt = conn.prepareStatement(insertString1);
+            pstmt.setString(1, "Acetylsalicylic acid");
+            pstmt.setInt(2, 200);
+            pstmt.setDouble(3, 1.20);
+            pstmt.execute();
+
+            String insertString2 = "INSERT INTO Medicine(Med_ID , Med_Name , StockLevel, price)values(MedID.nextVal,?,?,?)";
+            pstmt = conn.prepareStatement(insertString2);
+            pstmt.setString(1, "Ibuprofen");
+            pstmt.setInt(2, 200);
+            pstmt.setDouble(3, 1.50);
+            pstmt.execute();
+
+
+            String insertString3 = "INSERT INTO Medicine(Med_ID , Med_Name , StockLevel, price)values(MedID.nextVal,?,?,?)";
+            pstmt = conn.prepareStatement(insertString3);
+            pstmt.setString(1, "Codeine");
+            pstmt.setInt(2, 200);
+            pstmt.setDouble(3, 1.70);
+            pstmt.execute();
+
+            String insertString4 = "INSERT INTO Medicine(Med_ID , Med_Name , StockLevel, price)values(MedID.nextVal,?,?,?)";
+            pstmt = conn.prepareStatement(insertString4);
+            pstmt.setString(1, "Morphine");
+            pstmt.setInt(2, 200);
+            pstmt.setDouble(3, 2.20);
+            pstmt.execute();
+
+            String insertString5 = "INSERT INTO Medicine(Med_ID , Med_Name , StockLevel, price)values(MedID.nextVal,?,?,?)";
+            pstmt = conn.prepareStatement(insertString5);
+            pstmt.setString(1, "Amitriptyline");
+            pstmt.setInt(2, 200);
+            pstmt.setDouble(3, 2.30);
+            pstmt.execute();
+
+            String insertString6 = "INSERT INTO Medicine(Med_ID , Med_Name , StockLevel, price)values(MedID.nextVal,?,?,?)";
+            pstmt = conn.prepareStatement(insertString6);
+            pstmt.setString(1, "Docusate sodium");
+            pstmt.setInt(2, 200);
+            pstmt.setDouble(3, 4.20);
+            pstmt.execute();
+
+            String insertString7 = "INSERT INTO Medicine(Med_ID , Med_Name , StockLevel, price)values(MedID.nextVal,?,?,?)";
+            pstmt = conn.prepareStatement(insertString7);
+            pstmt.setString(1, "Hyoscine butylbromide");
+            pstmt.setInt(2, 200);
+            pstmt.setDouble(3, 10.20);
+            pstmt.execute();
+
+
+            String insertString8 = "INSERT INTO Medicine(Med_ID , Med_Name , StockLevel, price)values(MedID.nextVal,?,?,?)";
+            pstmt = conn.prepareStatement(insertString8);
+            pstmt.setString(1, "Metoclopramide");
+            pstmt.setInt(2, 200);
+            pstmt.setDouble(3, 31.20);
+            pstmt.execute();
+
+            String insertString9 = "INSERT INTO Medicine(Med_ID , Med_Name , StockLevel, price)values(MedID.nextVal,?,?,?)";
+            pstmt = conn.prepareStatement(insertString9);
+            pstmt.setString(1, "Sodium nitrite");
+            pstmt.setInt(2, 200);
+            pstmt.setDouble(3, 1.80);
+            pstmt.execute();
+
+            String insertString10 = "INSERT INTO Medicine(Med_ID , Med_Name , StockLevel, price)values(MedID.nextVal,?,?,?)";
+            pstmt = conn.prepareStatement(insertString10);
+            pstmt.setString(1, "Deferoxamine");
+            pstmt.setInt(2, 200);
+            pstmt.setDouble(3, 22.20);
+            pstmt.execute();
+
         } catch (SQLException e) {
             System.out.print("SQL Exception Meds " + e);
             System.exit(1);
@@ -544,7 +638,7 @@ public class CreateTables {
         try {
             //PRESCRIPTION START creating table
             System.out.println("Creating PrescriptionsUsed");
-            String createMedicine = "CREATE TABLE Prescriptions (PrescriptionID NUMBER PRIMARY KEY, Pat_NumIn NUMBER, Drug_name VARCHAR2(200), Med_Amount NUMBER, This_Visit NUMBER)";
+            String createMedicine = "CREATE TABLE Prescriptions (PrescriptionID NUMBER PRIMARY KEY, Pat_NumIn NUMBER, Drug_name VARCHAR2(200), Med_Amount NUMBER,conName VARCHAR2(50), This_Visit NUMBER)";
             pstmt = conn.prepareStatement(createMedicine);
             System.out.println("Even getting here"+createMedicine);
             pstmt.executeUpdate(createMedicine);
@@ -568,6 +662,41 @@ public class CreateTables {
             String createMEquipSeq = " CREATE SEQUENCE EquipID increment by 1 start with 1";
             pstmt = conn.prepareStatement(createMEquipSeq);
             pstmt.executeUpdate(createMEquipSeq);
+
+            // Insert record 1 into University table
+
+            String insertString1 = "INSERT INTO MedicalEquipment(Equipment_ID , Equipment_name, price )values(EquipID.nextVal,?,?)";
+            pstmt = conn.prepareStatement(insertString1);
+            pstmt.setString(1, "XRay");
+            pstmt.setDouble(2, 100.20);
+            pstmt.execute();
+
+            String insertString2 = "INSERT INTO MedicalEquipment(Equipment_ID , Equipment_name, price )values(EquipID.nextVal,?,?)";
+            pstmt = conn.prepareStatement(insertString2);
+            pstmt.setString(1, "MRI");
+            pstmt.setDouble(2, 150.50);
+            pstmt.execute();
+
+
+            String insertString3 = "INSERT INTO MedicalEquipment(Equipment_ID , Equipment_name, price )values(EquipID.nextVal,?,?)";
+            pstmt = conn.prepareStatement(insertString3);
+            pstmt.setString(1, "CT Scan");
+            pstmt.setDouble(2, 170.70);
+            pstmt.execute();
+
+            String insertString4 = "INSERT INTO MedicalEquipment(Equipment_ID , Equipment_name, price )values(EquipID.nextVal,?,?)";
+            pstmt = conn.prepareStatement(insertString4);
+            pstmt.setString(1, "Ultrasound");
+            pstmt.setDouble(2, 80.20);
+            pstmt.execute();
+
+            String insertString5 = "INSERT INTO MedicalEquipment(Equipment_ID , Equipment_name, price )values(EquipID.nextVal,?,?)";
+            pstmt = conn.prepareStatement(insertString5);
+            pstmt.setString(1, "Laparoscopy");
+            pstmt.setDouble(2, 122.30);
+            pstmt.execute();
+
+
         } catch (SQLException e) {
             System.out.print("SQL Exception med Equip" + e);
             System.exit(1);
@@ -600,14 +729,30 @@ public class CreateTables {
 //            System.exit(1);
 //        }
 
+//        try {
+//            //TIME TABLE START creating table
+//            System.out.println("Creating Time Tables");
+//            String createTimeDetails = "CREATE TABLE Timetable(Equipment_ID  NUMBER PRIMARY KEY REFERENCES MedicalEquipment(Equipment_ID) , " +
+//                    "con_ID NUMBER REFERENCES Consultant(con_ID), " +
+//                    "Bed_ID REFERENCES Bed(Bed_ID))";
+//            pstmt = conn.prepareStatement(createTimeDetails);
+//            pstmt.executeUpdate(createTimeDetails);
+//        } catch (SQLException e) {
+//            System.out.print("SQL Exception " + e);
+//            System.exit(1);
+//        }
+
+
         try {
             //TIME TABLE START creating table
-            System.out.println("Creating Time Tables");
-            String createTimeDetails = "CREATE TABLE Timetable(Equipment_ID  NUMBER PRIMARY KEY REFERENCES MedicalEquipment(Equipment_ID) , " +
-                    "con_ID NUMBER REFERENCES Consultant(con_ID), " +
-                    "Bed_ID REFERENCES Bed(Bed_ID))";
-            pstmt = conn.prepareStatement(createTimeDetails);
-            pstmt.executeUpdate(createTimeDetails);
+            System.out.println("Creating TimeTable");
+            String create = "CREATE TABLE TimeTable(tt_ID  NUMBER PRIMARY KEY,machineName VARCHAR2(100), time NUMBER, taken VARCHAR2(10),con_Name VARCHAR2(50), AppID NUMBER REFERENCES Appointment(AppID))";
+            pstmt = conn.prepareStatement(create);
+            pstmt.executeUpdate(create);
+            // creating Sequence
+            create = " CREATE SEQUENCE tt_seq increment by 1 start with 1";
+            pstmt = conn.prepareStatement(create);
+            pstmt.executeUpdate(create);
         } catch (SQLException e) {
             System.out.print("SQL Exception " + e);
             System.exit(1);

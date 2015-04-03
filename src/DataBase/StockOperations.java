@@ -34,7 +34,7 @@ public class StockOperations {
         return rset;
     }
 
-    public ResultSet deleteMedicine(int medIDIn){
+    public void deleteMedicine(int medIDIn){
         try {
             String queryString = "DELETE * FROM Medicine WHERE Med_ID= "+medIDIn;
             stmt = conn.createStatement();
@@ -42,17 +42,15 @@ public class StockOperations {
         } catch (Exception e) {
             System.out.println(e);
         }
-        return rset;
     }
 
-    public void addMedicine(String nameIn,int dosage,int amount,double price) {
+    public void addMedicine(String nameIn,int amount,double price) {
         try {
-            String sqlQuery = "INSERT INTO Medicine(Med_ID , Med_Name,Dosage , StockLevel , price ) "+ "values(MedID.nextVal,?,?,?,?)";
+            String sqlQuery = "INSERT INTO Medicine(Med_ID , Med_Name , StockLevel , price ) "+ "values(MedID.nextVal,?,?,?)";
             pstmt = conn.prepareStatement(sqlQuery);
             pstmt.setString(1,nameIn);
-            pstmt.setInt(2, dosage);
-            pstmt.setInt(3, amount);
-            pstmt.setDouble(4,price);
+            pstmt.setInt(2, amount);
+            pstmt.setDouble(3,price);
             pstmt.executeUpdate();
         } catch (Exception se) {
             System.out.println(se);
@@ -83,7 +81,7 @@ public class StockOperations {
         return rset;
     }
 
-    public ResultSet deleteEquipment(int eqIDIn){
+    public void deleteEquipment(int eqIDIn){
         try {
             String queryString = "DELETE * FROM MedicalEquipment WHERE Equipment_ID= "+eqIDIn;
             stmt = conn.createStatement();
@@ -91,7 +89,6 @@ public class StockOperations {
         } catch (Exception e) {
             System.out.println(e);
         }
-        return rset;
     }
 
     public void addEquipment(String nameIn,double price) {
@@ -117,14 +114,15 @@ public class StockOperations {
         return rset;
     }
 
-    public void addPrescription(int pNumIn,String medNameIn,int amount) {
+    public void addPrescription(int pNumIn,String medNameIn,int amount,String conManeIn) {
         try {
-            String sqlQuery = "INSERT INTO Prescriptions(PrescriptionID, Pat_NumIn, Drug_name , Med_Amount, This_Visit) "+ "values(prescription_seq.nextVal,?,?,?,?)";
+            String sqlQuery = "INSERT INTO Prescriptions(PrescriptionID, Pat_NumIn, Drug_name , Med_Amount,conName, This_Visit) "+ "values(prescription_seq.nextVal,?,?,?,?,?)";
             pstmt = conn.prepareStatement(sqlQuery);
             pstmt.setInt(1,pNumIn);
-            pstmt.setString(2,medNameIn );
+            pstmt.setString(2, medNameIn);
             pstmt.setInt(3, amount);
-            pstmt.setInt(4,1);
+            pstmt.setString(4,conManeIn);
+            pstmt.setInt(5,1);
             pstmt.executeUpdate();
         } catch (Exception se) {
             System.out.println(se);
@@ -142,5 +140,44 @@ public class StockOperations {
             System.out.println(se);
         }
     }
+
+    public void deleteConsultant(int conIDIn){
+        try {
+            String queryString = "DELETE * FROM Consultant WHERE con_ID= "+conIDIn;
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+
+    public ResultSet getConsultant(){
+        try {
+            String queryString = "SELECT * FROM Consultant";
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rset;
+    }
+
+    public void addConsultant(String conNameIn,String conSpecialIn,int equip) {
+        try {
+            String sqlQuery = "INSERT INTO Consultant(con_ID , con_Name, speciality,machineSkill) "+ "values(conID.nextVal,?,?,?)";
+            pstmt = conn.prepareStatement(sqlQuery);
+            pstmt.setString(1, conNameIn );
+            pstmt.setString(2, conSpecialIn);
+            pstmt.setInt(3,equip);
+            pstmt.executeUpdate();
+        } catch (Exception se) {
+            System.out.println(se);
+        }
+    }
+
+
+
+
 
 }

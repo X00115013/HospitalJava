@@ -27,6 +27,54 @@ public class TimeTableOperations {
         }
         return rset;
     }
+    public ResultSet getTT(String machineIn) {
+        try {
+            String queryString = "SELECT * FROM TimeTable WHERE machineName ='"+machineIn+"' ORDER BY time";
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rset;
+    }
+    public void timeTable(int timeIn, String machineNameIn, String taken, int consultantNumIn ){
+        try {
+            String queryString1 = "INSERT INTO TimeTable(tt_ID, machineName, time, taken,con_Name,AppID)VALUES(tt_seq.nextval,?,?,?,?,?)";
+            pstmt = conn.prepareStatement(queryString1);
+            pstmt.setString(1, machineNameIn);
+            pstmt.setInt(2, timeIn);
+            pstmt.setString(2, "taken");
+            pstmt.setString(3,getConsultantName(consultantNumIn));
+            pstmt.setInt(4,getCurrVal());
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void cancelTableEntry(int appNumIn){
+        try {
+            String queryString = "UPDATE TimeTable SET machineName = null, time = null, con_Name = null, taken = 'Free' WHERE AppID = "+appNumIn;
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+    public void setTTFree(String taken){
+        try {
+            String queryString1 = "INSERT INTO TimeTable(tt_ID,taken)VALUES(tt_seq.nextval,?)";
+            pstmt = conn.prepareStatement(queryString1);
+            pstmt.setString(1,taken);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+
     public ResultSet getXRayTT() {
         try {
             String queryString = "SELECT * FROM XRayTimeTable ORDER BY time";
@@ -63,8 +111,8 @@ public class TimeTableOperations {
         try {
             String queryString1 = "INSERT INTO XRayTimeTable(xRay_ID, time, taken,con_Name,AppID)VALUES(xRay_seq.nextval,?,?,?,?)";
             pstmt = conn.prepareStatement(queryString1);
-            pstmt.setInt(1,timeIn-1);
-            pstmt.setString(2, "taken");
+            pstmt.setInt(1,timeIn);
+            pstmt.setString(2, taken);
             pstmt.setString(3,getConsultantName(consultantNumIn));
             pstmt.setInt(4,getCurrVal());
             pstmt.executeUpdate();
@@ -154,7 +202,6 @@ public class TimeTableOperations {
         }
         return temp;
     }
-
 
     public void setXRayFree(String taken){
         try {

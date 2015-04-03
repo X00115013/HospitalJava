@@ -81,7 +81,6 @@ public class ProcessReferrals {
             System.out.println(e1);
         }
         try {
-//            po = new PatientOperations();
             rset = po.getPatientAdmin();
             while (rset.next()) {
                 pRecList.add(patientRecord = new PatientRecord(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4),
@@ -91,6 +90,87 @@ public class ProcessReferrals {
             System.out.println(e1);
         }
     }
+
+
+    public void process() {
+        for (int i = 0; i < refList.size(); i++) {
+            if (refList.get(i).isChecked == 1) {
+                System.out.println("This is the check "+refList.get(i).isChecked);
+                this.refNum = refList.get(i).refNum;
+                this.gpNum = refList.get(i).gpNum;
+                this.gpName = refList.get(i).gpName;
+                this.gpLocation = refList.get(i).gpLocation;
+                this.patientFName = refList.get(i).patientFName;
+                this.patientLName = refList.get(i).patientLName;
+                this.DOB = refList.get(i).DOB;
+                this.patientAddress = refList.get(i).patientAddress;
+                this.phoneIn = refList.get(i).phoneIn;
+                this.reasonForVisit = refList.get(i).reasonForVisit;
+                this.gender = refList.get(i).gender;
+                this.recommendations = refList.get(i).recommendations;
+                this.medicalRequired = refList.get(i).medicalRequired;
+                this.consultantRequired = refList.get(i).consultantRequired;
+                if (pRecList.size()==0) {
+                    referralProcessForNewPatient();
+                    ro.setChecked(refList.get(i).refNum);
+                }
+                else{
+                for (int j = 0; j < pRecList.size(); j++) {
+                    String nameTest = pRecList.get(j).getPatientFName();
+
+                    if (patientFName.equalsIgnoreCase(nameTest)) {
+                        referralProcessForExistingPatient(pRecList.get(j).getPatientNumber());
+                        ro.setChecked(refList.get(i).refNum);
+                        j=pRecList.size()+1;
+                    }
+
+                    else {
+                        referralProcessForNewPatient();
+                        ro.setChecked(refList.get(i).refNum);
+                        j=pRecList.size()+1;
+                    }
+                }
+              }
+            }
+        }ro.referralOperationsClose();
+    }
+
+
+    public void referralProcessForExistingPatient(int patientNumIn) {
+        System.out.println("\n\nExisting Patient\n\n");
+       PatientRecord patientRecord = new PatientRecord(po,patientNumIn,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
+        MedicalRecord medicalRecord = new MedicalRecord(po,patientNumIn,recommendations);
+        Appointment appointment=new Appointment(reasonForVisit,medicalRequired,consultantRequired,patientNumIn);
+
+    }
+
+
+    public void referralProcessForNewPatient() {
+        System.out.println("\n\nNew Patient Method\n\n");
+        PatientRecord patientRecord = new PatientRecord(po,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
+        patientNumber=po.getPatientNumber(patientFName,patientLName,DOB);
+        MedicalRecord medicalRecord = new MedicalRecord(po,patientNumber,recommendations);
+        Appointment appointment=new Appointment(reasonForVisit,medicalRequired,consultantRequired);
+
+    }
+
+    public void clearArrays(){
+        for (int i= 0; i < pRecList.size() ; i++) {
+            pRecList.remove(i);
+        }
+        for (int i= 0; i < refList.size() ; i++) {
+            refList.remove(i);
+        }
+    }
+}
+
+
+
+
+
+
+
+
 
 //    public void printProcessRefArray(){
 //        refreshTables();
@@ -127,90 +207,3 @@ public class ProcessReferrals {
 //            System.out.println(e1);
 //        }
 //    }
-
-    public void process() {
-        for (int i = 0; i < refList.size(); i++) {
-            if (refList.get(i).isChecked == 1) {
-                System.out.println("This is the check "+refList.get(i).isChecked);
-                this.refNum = refList.get(i).refNum;
-                this.gpNum = refList.get(i).gpNum;
-                this.gpName = refList.get(i).gpName;
-                this.gpLocation = refList.get(i).gpLocation;
-                this.patientFName = refList.get(i).patientFName;
-                this.patientLName = refList.get(i).patientLName;
-                this.DOB = refList.get(i).DOB;
-                this.patientAddress = refList.get(i).patientAddress;
-                this.phoneIn = refList.get(i).phoneIn;
-                this.reasonForVisit = refList.get(i).reasonForVisit;
-                this.gender = refList.get(i).gender;
-                this.recommendations = refList.get(i).recommendations;
-                this.medicalRequired = refList.get(i).medicalRequired;
-                this.consultantRequired = refList.get(i).consultantRequired;
-                if (pRecList.size()==0) {
-                    referralProcessForNewPatient();
-                    ro.setChecked(refList.get(i).refNum);
-                }
-
-                else{
-                for (int j = 0; j < pRecList.size(); j++) {
-                    System.out.println("This is the name you want to see (Process Ref) " + pRecList.get(j).getPatientFName());
-                    String nameTest = (String)pRecList.get(j).getPatientFName();
-
-                    if (patientFName.equalsIgnoreCase(nameTest)) {
-                        System.out.println("This is the patients number (Process Ref) " + pRecList.get(j).getPatientNumber());
-                        System.out.println("\n\nUpdate");
-                        referralProcessForExistingPatient(pRecList.get(j).getPatientNumber());
-                        ro.setChecked(refList.get(i).refNum);
-                        j=pRecList.size()+1;
-                    }
-
-                    else if(!patientFName.equalsIgnoreCase(nameTest)){
-                        System.out.println("\n\nNew patient (ref process) ");
-                        referralProcessForNewPatient();
-                        ro.setChecked(refList.get(i).refNum);
-                        j=pRecList.size()+1;
-                    }
-                }
-              }
-            }
-        }ro.referralOperationsClose();
-//        printProcessRefArray();
-//        printReferrals();
-    }
-
-
-
-
-
-    public void referralProcessForExistingPatient(int patientNumIn) {
-        System.out.println("\n\nExisting Patient\n\n");
-       PatientRecord patientRecord = new PatientRecord(po,patientNumIn,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
-        patientNumber=po.getPatientNumber(patientFName,patientLName,DOB);
-        MedicalRecord medicalRecord = new MedicalRecord(po,patientNumber,recommendations);
-        Appointment appointment=new Appointment(reasonForVisit,medicalRequired,consultantRequired);
-
-    }
-
-
-    public void referralProcessForNewPatient() {
-        System.out.println("\n\nNew Patient Method\n\n");
-        PatientRecord patientRecord = new PatientRecord(po,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
-        patientNumber=po.getPatientNumber(patientFName,patientLName,DOB);
-        MedicalRecord medicalRecord = new MedicalRecord(po,patientNumber,recommendations);
-        Appointment appointment=new Appointment(reasonForVisit,medicalRequired,consultantRequired);
-
-    }
-
-    public void clearArrays(){
-        for (int i= 0; i < pRecList.size() ; i++) {
-            pRecList.remove(i);
-//            System.out.println("Array cleared "+i);
-
-        }
-        for (int i= 0; i < refList.size() ; i++) {
-            refList.remove(i);
-//            System.out.println("Array cleared "+i);
-
-        }
-    }
-}

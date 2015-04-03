@@ -6,6 +6,8 @@ package GUI;
 //import Model.PatientRecord;
 
         import Model.Appointment;
+        import Model.Medicine;
+        import Model.Prescription;
 
         import java.text.DateFormat;
         import java.text.SimpleDateFormat;
@@ -22,8 +24,12 @@ package GUI;
  * Created by Thomas Murray on 17/03/2015.
  */
 public class PrescriptionGUI extends JFrame implements ActionListener {
-    String[] list1 = {"XRay :", "MRI Scan :", "CT Scan :"};
-    String[] list2 = {"Radiology :", "Pediatrics :", "Surgery :"};
+
+    String[] list2 = {"10mg", "20mg", "40mg", "50mg", "60mg", "70mg", "80mg", "90mg", "100mg", "110mg", "120mg", "130mg", "140mg", "150mg", "160mg", "170mg", "180mg", "190mg", "200mg"};
+    private ArrayList<Medicine> medList = new ArrayList<>();
+    String[] list1;
+    private Medicine medicine;
+    private int patientNumberIn;
     JButton confirm;
     JButton cancel;
 
@@ -37,7 +43,7 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
     Date date = new Date();
 
     JTextField pNumText;
-    JTextField field2,conNum;
+    JTextField field2, conNum;
     JFrame f;
 
     JComboBox<String> combo1;
@@ -45,12 +51,11 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
 
     public PrescriptionGUI(int patientNumIn) {
 
-
-
+        patientNumberIn = patientNumIn;
         f = new JFrame();
         f.setTitle("Prescription");
         f.setLayout(new FlowLayout(FlowLayout.LEFT));
-        f.setSize(630,550);
+        f.setSize(630, 550);
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -58,20 +63,19 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
 
 
+        JPanel holder = new JPanel(new GridLayout(1, 1));
+        JPanel topSection = new JPanel(new GridLayout(1, 3));
 
-        JPanel holder=new JPanel(new GridLayout(1,1));
-        JPanel topSection=new JPanel(new GridLayout(1,3));
-
-        Clock.DigitalClock clockD=new Clock.DigitalClock();
+        Clock.DigitalClock clockD = new Clock.DigitalClock();
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
         clock.add(clockD);
 
-        JPanel title=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel title = new JPanel(new FlowLayout(FlowLayout.CENTER));
         label5 = new JLabel("Prescription");
         title.add(label5);
         label5.setFont(new Font("Arial", Font.BOLD, 32));
 
-        JPanel ID=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel ID = new JPanel(new FlowLayout(FlowLayout.CENTER));
         //labels
         patientNum = new JLabel("\tPatient Number");
         ID.add(patientNum);
@@ -90,10 +94,16 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
 
         holder.add(topSection);
 
+        medicine = new Medicine();
+        medList.addAll(medicine.getMedicines());
+        list1 = new String[medList.size()];
+        for (int i = 0; i < medList.size(); i++) {
+            list1[i] = medList.get(i).getMedName();
+        }
 
 
         //middle
-        JPanel holder2=new JPanel(new GridLayout(2,1));
+        JPanel holder2 = new JPanel(new GridLayout(2, 1));
         JPanel middle = new JPanel(new GridBagLayout());
 
         holder2.add(middle, BorderLayout.CENTER);
@@ -162,27 +172,29 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
             f.setVisible(false);
 
         } else if (e.getSource().equals(confirm)) {
-            int catcher = 0, catcher2 = 0;
-            try {
-                String medEquip = (String) combo1.getSelectedItem();
-                if (medEquip.equals("XRay :")) {
-                    catcher = 1;
-                } else if (medEquip.equals("MRI Scan :")) {
-                    catcher = 2;
-                } else if (medEquip.equals("CT Scan :")) {
-                    catcher = 3;
+            String catcher = "";
+            int catcher2 = 0;
+            try{
+            String med = (String) combo1.getSelectedItem();
+            for (int i = 0; i < medList.size(); i++) {
+                if (med.equals(medList.get(i).getMedName())) {
+                    catcher =(String) medList.get(i).getMedName();
                 }
-                String conEquip = (String) combo2.getSelectedItem();
-                if (conEquip.equals("Radiology :")) {
-                    catcher2 = 1;
-                } else if (conEquip.equals("Pediatrics :")) {
-                    catcher2 = 2;
-                } else if (conEquip.equals("Surgery :")) {
-                    catcher2 = 3;
+            }
+            String conEquip = (String) combo2.getSelectedItem();
+            for (int j = 0; j < list2.length; j++) {
+                String temp = list2[j];
+                if (conEquip.equals(temp)) {
+                    catcher2 = j+1;
                 }
-            } catch (InputMismatchException im) {
+            }
+                Prescription prescription=new Prescription(patientNumberIn,catcher,catcher2,conNum.getText());
+                f.setVisible(false);
+
+        }catch(InputMismatchException im){
                 System.out.println(im);
             }
+
         }
     }
 }

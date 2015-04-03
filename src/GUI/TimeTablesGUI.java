@@ -63,9 +63,9 @@ public class TimeTablesGUI extends JFrame implements ActionListener
 
         TimeTables timeTables=new TimeTables();
         conTimeTables.addAll(timeTables.getConsultantTimeTable());
-        xRayTimeTables.addAll(timeTables.getxRayTimeTable());
-        mRITimeTables.addAll(timeTables.getmRITimeTable());
-        cTTimeTables.addAll(timeTables.getcTScanTimeTable());
+//        xRayTimeTables.addAll(timeTables.getxRayTimeTable());
+//        mRITimeTables.addAll(timeTables.getmRITimeTable());
+//        cTTimeTables.addAll(timeTables.getcTScanTimeTable());
 
         JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
 
