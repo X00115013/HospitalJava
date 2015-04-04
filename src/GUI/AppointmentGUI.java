@@ -187,17 +187,17 @@ public class AppointmentGUI extends JFrame implements ActionListener {
             f.setVisible(false);
 
         } else if (e.getSource().equals(confirm)) {
-            int catcher = 0,catcher2 = 0;
+            String catcher = "",catcher2 = "";
             String med = (String) combo1.getSelectedItem();
             for (int i = 0; i < eqList.size(); i++) {
                 if (med.equals(eqList.get(i).getEqName())){
-                    catcher =eqList.get(i).getEqId();
+                    catcher =eqList.get(i).getEqName();
                 }
             }
             String con = (String) combo2.getSelectedItem();
             for (int j = 0; j < conList.size(); j++) {
                 if (con.equals(conList.get(j).getConSpeciality())) {
-                    catcher2 = conList.get(j).getConId();;
+                    catcher2 = conList.get(j).getConName();;
                 }
             }
             Appointment app = new Appointment(textArea.getText(), catcher2, catcher);

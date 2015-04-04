@@ -93,8 +93,17 @@ public class CreateTables {
             }
 
 
+            try{
+                stmt.execute("DROP SEQUENCE tt_seq");
+                System.out.println("Time Table Sequence dropped.");
+            }catch (SQLException ex) {
+                // If in here then the Sequence did not exist
+            }
+
+
+
             try {
-                stmt.execute("DROP TABLE Timetable");
+                stmt.execute("DROP TABLE TimeTable");
                 System.out.println("Timetable Table dropped");
             } catch (SQLException ex) {
                 // The table doesn't exist
@@ -341,7 +350,7 @@ public class CreateTables {
         try {
             //CONSULTANT START creating table
             System.out.println("Creating Consultant");
-            String createCon = "CREATE TABLE Consultant (con_ID NUMBER PRIMARY KEY, con_Name VARCHAR2(255), speciality VARCHAR2(50),machineSkill NUMBER)";
+            String createCon = "CREATE TABLE Consultant (con_ID NUMBER PRIMARY KEY, con_Name VARCHAR2(255), speciality VARCHAR2(50),machineSkill VARCHAR2(30))";
             pstmt = conn.prepareStatement(createCon);
             pstmt.executeUpdate(createCon);
             // creating Sequence
@@ -354,31 +363,31 @@ public class CreateTables {
             pstmt = conn.prepareStatement(insertCon);
             pstmt.setString(1, "Dr John Doe ");
             pstmt.setString(2, "Radiology");
-            pstmt.setInt(3,1);
+            pstmt.setString(3, "XRay");
             pstmt.executeUpdate();
 
             pstmt = conn.prepareStatement(insertCon);
             pstmt.setString(1, "Dr Jane Doe ");
             pstmt.setString(2, "Pediatrics");
-            pstmt.setInt(3,2);
+            pstmt.setString(3, "Ultrasound");
             pstmt.executeUpdate();
 
             pstmt = conn.prepareStatement(insertCon);
             pstmt.setString(1, "Dr Jack Smith ");
             pstmt.setString(2, "Neurologist");
-            pstmt.setInt(3,3);
+            pstmt.setString(3,"CT Scan");
             pstmt.executeUpdate();
 
             pstmt = conn.prepareStatement(insertCon);
             pstmt.setString(1, "Dr Sarah Johns ");
             pstmt.setString(2, "Dermatologist");
-            pstmt.setInt(3,4);
+            pstmt.setString(3,"Laparoscopy");
             pstmt.executeUpdate();
 
             pstmt = conn.prepareStatement(insertCon);
             pstmt.setString(1, "Dr Xanu Starburner ");
             pstmt.setString(2, "Psychiatrist");
-            pstmt.setInt(3,5);
+            pstmt.setString(3,"MRI");
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -469,7 +478,7 @@ public class CreateTables {
             System.out.println("Creating Referral");
             String createReferral = "CREATE TABLE Referral (Reference NUMBER PRIMARY KEY,GPNumber NUMBER,GPName VARCHAR2(40),GPLocation VARCHAR2(255),Patient_FName VARCHAR2(30)," +
                     "Patient_LName VARCHAR2(30),Patient_DOB VARCHAR(225),Patient_Address VARCHAR2(255),Patient_Phone VARCHAR2(15)," +
-                    "ReasonVisit VARCHAR2(255),Recommendation VARCHAR2(255),Med_Equip_Needed NUMBER,Consultant_Type NUMBER,checked NUMBER,gender VARCHAR2(10),patient_Number NUMBER REFERENCES Patient(patient_Number))";
+                    "ReasonVisit VARCHAR2(255),Recommendation VARCHAR2(255),Med_Equip_Needed VARCHAR2(50),Consultant_Type VARCHAR2(50),checked NUMBER,gender VARCHAR2(10))";
             pstmt = conn.prepareStatement(createReferral);
             pstmt.executeUpdate(createReferral);
             // creating Sequence
@@ -518,7 +527,7 @@ public class CreateTables {
         try {
             //APPOINTMENT START creating table
             System.out.println("Creating Appointment");
-            String createApp = "CREATE TABLE Appointment (AppID NUMBER PRIMARY KEY,ReasonVisit VARCHAR2(255),requiredEquipment NUMBER, requiredConsultant NUMBER,patient_Number NUMBER REFERENCES Patient(patient_Number))";
+            String createApp = "CREATE TABLE Appointment (AppID NUMBER PRIMARY KEY,ReasonVisit VARCHAR2(255),requiredEquipment VARCHAR2(50), requiredConsultant VARCHAR2(50),patient_Number NUMBER REFERENCES Patient(patient_Number))";
             pstmt = conn.prepareStatement(createApp);
             pstmt.executeUpdate(createApp);
             // creating Sequence
@@ -754,7 +763,7 @@ public class CreateTables {
             pstmt = conn.prepareStatement(create);
             pstmt.executeUpdate(create);
         } catch (SQLException e) {
-            System.out.print("SQL Exception " + e);
+            System.out.print("Bloody timetable SQL Exception " + e);
             System.exit(1);
         }
 

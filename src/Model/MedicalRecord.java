@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class MedicalRecord {
 
-    private int patientNumber,equipNeed,consultantNeed, getEquipUsed,prescriptionUsed;
+    private int patientNumber;
     private String blood,symptoms,diagnoses,reqTreatment,allergies,recommendations,patientFName,patientLName,patientGender,patientDOB;
     private MedicalRecord medicalRecord;
     private ArrayList<MedicalRecord> medicalRecordArrayList=new ArrayList<MedicalRecord>();
@@ -61,7 +61,7 @@ public class MedicalRecord {
             while (rset.next()) {
                 medicalRecordArrayList.add(medicalRecord=new MedicalRecord(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getString(5),
                         rset.getString(6),rset.getString(7),rset.getString(8),rset.getString(9),rset.getString(10),rset.getString(11)));
-            }
+            }po.patientOperationsClose();
         } catch (SQLException e1) {
             System.out.println("Patient record not working"+e1);
         }
@@ -145,22 +145,6 @@ public class MedicalRecord {
 
     public String getBlood() {
         return blood;
-    }
-
-    public int getPrescriptionUsed() {
-        return prescriptionUsed;
-    }
-
-    public int getGetEquipUsed() {
-        return getEquipUsed;
-    }
-
-    public int getConsultantNeed() {
-        return consultantNeed;
-    }
-
-    public int getEquipNeed() {
-        return equipNeed;
     }
 
     public int getPatientNumber() {

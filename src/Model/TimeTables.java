@@ -12,46 +12,43 @@ public class TimeTables {
 
     private int time,appNum;
     private ResultSet rset;
-    private ArrayList<ResultSet> consultantList = new ArrayList<ResultSet>();
-    private ArrayList<Appointment> appList = new ArrayList<Appointment>();
     private ArrayList<AllTimeTables>allTimeTables=new ArrayList<>();
     private ArrayList<ConsultantTimeTable> consultantTimeTable = new ArrayList<ConsultantTimeTable>();
+    private Consultants consultants;
+    private ArrayList<Consultants>conList=new ArrayList<>();
     private TimeTableOperations to;
-    private int req;
+    private String req,selection;
     private String free="Free";
     private ConsultantTimeTable consultantT;
-    private AppointmentOperations ao;
     private Appointment apt;
     int ind=0;
     private AllTimeTables allT;
 
     public TimeTables() {
         to=new TimeTableOperations();
-        ao=new AppointmentOperations();
-        refreshTimeTables();
     }
 
-    public TimeTables(AppointmentOperations ao,int selection, int reqIn) {
-        this.ao=ao;
+    public TimeTables(String selectionIn, String reqIn) {
+        to=new TimeTableOperations();
         req=reqIn;
-        if(selection==-1) {
+        selection=selectionIn;
+        refreshTimeTables();
+        if(selection.equals("")) {
             setFromConReq(req);
         }else{
-            setFromMedReq(req);
+            System.out.println("setFrom Constructor tt set");
+            setFromMedReq(selection);
         }
     }
 
     public void refreshTimeTables() {
-        try {
             clearArrays();
-            rset = ao.getAppointment();
-            System.out.println("\n\n\nAppointment list\n");
-            while (rset.next()) {
-                appList.add(apt = new Appointment(rset.getInt(1), rset.getString(2), rset.getInt(3), rset.getInt(4), rset.getInt(5)));
-            }ao.appointmentOperationsClose();
-        } catch (SQLException e1) {
-            System.out.println(e1);
-        }
+
+            allT=new AllTimeTables(selection);
+            allTimeTables.addAll(allT.getList(selection));
+
+            consultants= new Consultants();
+            conList.addAll(consultants.getConsultants());
     }
 
     public ArrayList getConsultantTimeTable() {
@@ -59,77 +56,75 @@ public class TimeTables {
     }
 
 
-
-
-    public void setFromMedReq(int equipType){
+    public void setFromMedReq(String equipType){
         String taken = "Taken";
         String freeCheck="";
-        for (int i = 0; i < allTimeTables.size(); i++){
-            freeCheck = allTimeTables.get(i).getTaken();
-            if(freeCheck.equals(free)) {
-                allT = new AllTimeTables(to,equipType,i, taken, to.getConsultantName(equipType));
-                allT.setTable(equipType);
-                i = allTimeTables.size() + 1;
-            }else{
-                System.out.println("All booked out: to screen");
+        System.out.println("Before for setFrom "+equipType);
+        for (int i = 0; i < allTimeTables.size(); i++) {
+            System.out.println("after for ");
+                freeCheck = (String)allTimeTables.get(i).getTaken();
+                if (freeCheck.equals(free)) {
+                    System.out.println("In the belly");
+                    allT = new AllTimeTables(to, equipType, i, taken, to.getConsultantName(equipType));
+                    i = allTimeTables.size() + 1;
+                } else {
+                    System.out.println("All booked out: to screen");
+                }
             }
         }
-    }
 
 
-    public void setFromConReq(int conRegIn){
+
+
+    public void setFromConReq(String conRegIn){
         time=consultantTimeTable.size();
-        consultantT=new ConsultantTimeTable(time,to.getConsultantName(conRegIn));
+        consultantT=new ConsultantTimeTable(to,time,to.getConsultantName(conRegIn));
+
+
     }
 
 
 
     public void cancelTimeTableEntry(int appointmentNumberIn){
-        for (int i = 0; i < appList.size(); i++) {
-            if (appList.get(i).getAppNumber() == appointmentNumberIn) {
-                if (appList.get(i).getMedicalEquip() == 1) {
-                    to.cancelXRayTableEntry(appointmentNumberIn);
-                } else if (appList.get(i).getMedicalEquip() == 2) {
-                    to.cancelMRITableEntry(appointmentNumberIn);
-                } else if (appList.get(i).getMedicalEquip() == 3) {
-                    to.cancelCTTableEntry(appointmentNumberIn);
-                }
-                else{
-                    System.out.println("Error processing time table type: log file");
-                }
-            }else{
-                System.out.println("Appointment does not exist dialog box: to screen");
-            }
-        }
+//        for (int i = 0; i < appList.size(); i++) {
+//            if (appList.get(i).getAppNumber() == appointmentNumberIn) {
+//                if (appList.get(i).getMedicalEquip() == 1) {
+//                    to.cancelXRayTableEntry(appointmentNumberIn);
+//                } else if (appList.get(i).getMedicalEquip() == 2) {
+//                    to.cancelMRITableEntry(appointmentNumberIn);
+//                } else if (appList.get(i).getMedicalEquip() == 3) {
+//                    to.cancelCTTableEntry(appointmentNumberIn);
+//                }
+//                else{
+//                    System.out.println("Error processing time table type: log file");
+//                }
+//            }else{
+//                System.out.println("Appointment does not exist dialog box: to screen");
+//            }
+//        }
     }
 
     public void clearArrays(){
         for (int i= 0; i < allTimeTables.size() ; i++) {
             allTimeTables.remove(i);
-            System.out.println("Array cleared "+i);
-
         }
         for (int i= 0; i < consultantTimeTable.size() ; i++) {
             consultantTimeTable.remove(i);
-            System.out.println("Array cleared "+i);
         }
+        for (int i= 0; i < conList.size() ; i++) {
+            conList.remove(i);
+        }
+
     }
 
     public void setFree(){
-//        refreshTimeTables();
-        for (int i = 0; i < 1 ; i++) {
-            to.setXRayFree(free);
-            System.out.println(i+" XRay is free");
-        }
-        for (int i = 0; i < 1 ; i++) {
-            to.setMRIFree(free);
-            System.out.println(i+" MRI is free");
-        }
-        for (int i = 0; i < 1 ; i++) {
-            to.setCTFree(free);
-            System.out.println(i+" CT is free");
-        }
         refreshTimeTables();
+        for (int i = 0; i < conList.size() ; i++) {
+            System.out.println("Con Equip skills "+conList.get(i).getEquipSill());
+            to.setTTFree(conList.get(i).getEquipSill(),free);
+            System.out.println(i+" TT is free");
+            to.TimeTableOperationsClose();
+        }
     }
 }
 

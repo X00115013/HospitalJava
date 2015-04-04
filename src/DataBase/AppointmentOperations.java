@@ -77,13 +77,13 @@ public class AppointmentOperations {
         }
     }
 
-    public void addAppointmentExisting(String recIn, int equipIn,int conIn,int patientNum) {
+    public void addAppointmentExisting(String recIn, String equipIn,String conIn,int patientNum) {
         try {
             String sql1 = "UPDATE Patient SET " +
                     "AppID= APPID.nextVal," +
                     "ReasonVisit= '" + recIn+ "'," +
-                    "requiredEquipment= "+equipIn+ "," +
-                    "requiredConsultant= "+conIn+ "" +
+                    "requiredEquipment= '"+equipIn+ "'," +
+                    "requiredConsultant= '"+conIn+ "'" +
                     "where patientNum=" +patientNum;
             stmt = conn.createStatement();
             stmt.executeUpdate(sql1);
@@ -108,13 +108,13 @@ public class AppointmentOperations {
 
 
 
-        public void addAppointment(String recIn, int equipIn,int conIn) {
+        public void addAppointment(String recIn, String equipIn,String conIn) {
             try {
                 String sql2 = "INSERT INTO Appointment(AppID, ReasonVisit ,requiredEquipment, requiredConsultant,patient_Number) values(APPID.nextVal,?,?,?,?)";
                 pstmt = conn.prepareStatement(sql2);
                 pstmt.setString(1, recIn);
-                pstmt.setInt(2, equipIn);
-                pstmt.setInt(3, conIn);
+                pstmt.setString(2, equipIn);
+                pstmt.setString(3, conIn);
                 pstmt.setInt(4,getCurrVal());
                 pstmt.executeUpdate();
             } catch (Exception se) {

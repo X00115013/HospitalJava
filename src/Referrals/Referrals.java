@@ -9,18 +9,10 @@ import java.util.Random;
  * Created by Thomas Murray on 02/03/2015.
  */
 public class Referrals {
-    private String gpName;
-    private String gpLocation;
-    private String patientFName;
-    private String patientSurname;
+    private String gpName,medicalRequired, consultantRequired,gpLocation, patientFName,patientSurname;
     private int patientNumber,referenceNum;
-    private String patientAddress;
-    private String dob,gender;
-    private String patientPhone;
-    private String reasonForVisit;
-    private String recommendations;
-    private int medicalRequired;
-    private int consultantRequired,gpNum;
+    private String patientAddress, dob,gender, patientPhone,reasonForVisit,recommendations;
+    private int gpNum;
     private ReferralOperations ro;
     private int checked= 1;
     Random random= new Random();
@@ -39,13 +31,13 @@ public class Referrals {
         patientPhone="";
         reasonForVisit="";
         recommendations="";
-        medicalRequired=0;
-        consultantRequired=0;
+        medicalRequired="";
+        consultantRequired="";
 
     }
 
     public Referrals(int referenceIn,int gpNumIn,String gpNameIn,String gpLocationIn,String patientFNameIn,String patientSurnameIn,String patientAddressIn,String dobIn,String patientPhoneIn,String reasonForVisitIn,
-                     String recommendationsIn,int medicalRequiredIn,int consultantRequiredIn,int checkedIn,String genderIn,int patientNumberIn){
+                     String recommendationsIn,String medicalRequiredIn,String consultantRequiredIn,int checkedIn,String genderIn){
 
 
         referenceNum=referenceIn;
@@ -53,7 +45,6 @@ public class Referrals {
         gpLocation=gpLocationIn;
         patientFName=patientFNameIn;
         patientSurname=patientSurnameIn;
-        patientNumber=patientNumberIn;
         patientAddress=patientAddressIn;
         dob=dobIn;
         patientPhone=patientPhoneIn;
@@ -68,13 +59,12 @@ public class Referrals {
     }
 
     public Referrals(String gpNameIn,String gpLocationIn,String patientFNameIn,String patientSurnameIn,String patientAddressIn,String dobIn,String patientPhoneIn,String reasonForVisitIn,
-                    String recommendationsIn,int medicalRequiredIn,int consultantRequiredIn,String genderIn,int patientNumberIn){
+                    String recommendationsIn,String medicalRequiredIn,String consultantRequiredIn,int checkIn,String genderIn){
 
         gpName=gpNameIn;
         gpLocation=gpLocationIn;
         patientFName=patientFNameIn;
         patientSurname=patientSurnameIn;
-        patientNumber=patientNumberIn;
         patientAddress=patientAddressIn;
         dob=dobIn;
         patientPhone=patientPhoneIn;
@@ -83,6 +73,7 @@ public class Referrals {
         medicalRequired=medicalRequiredIn;
         consultantRequired=consultantRequiredIn;
         gender=genderIn;
+        checked=checkIn;
         if(gpNum ==0){
             gpNum = random.nextInt(1000000);
         }

@@ -16,7 +16,7 @@ public class TestHospital {
 //        su.setVisible(true);
 //        ReferralGUI referralGUI= new ReferralGUI();
 //        referralGUI.setVisible(true);
-        HomeScreen homeScreen=new HomeScreen();
+//        HomeScreen homeScreen=new HomeScreen();
 //        CheckInGUI checkInGUI=new CheckInGUI();
 //        AddPatientGUI addPatientGUI=new AddPatientGUI();
 //        AdminCheckOutGUI adminCheckOutGUI=new AdminCheckOutGUI();
@@ -37,15 +37,14 @@ public class TestHospital {
 
 
 //        REFERRALS TESTS
-//        Referrals referrals= new Referrals( "Jim","dublin","mick","jagger","Carlow","02-Jan-00","4591662","sick","help him",1,3,"male",0);
-//        Referrals referrals2= new Referrals( "Joe","cork","paul","Macartey","New York","04-Feb-67","0870973783","Deader","bury him",2,2,"female",1);
-//        Referrals referrals3= new Referrals( "Hayden","Dudai","John","Lennon","Liverpool","13-Mar-58","555-555-555","Ghost","Fear him",3,1,"Undead",3);
+//        Referrals referrals= new Referrals( "Jim","dublin","mick","jagger","Carlow","02-Jan-00","4591662","sick","help him","XRay","Radiology",1,"male");
+//        Referrals referrals2= new Referrals( "Joe","cork","paul","Macartey","New York","04-Feb-67","0870973783","Deader","bury him","MRI","Pediatrics",1,"female");
+//        Referrals referrals3= new Referrals( "Hayden","Dudai","John","Lennon","Liverpool","13-Mar-58","555-555-555","Ghost","Fear him","CT Scan","Neurologist",1,"male");
 //        ProcessReferrals processReferrals = new ProcessReferrals();
 
 
-
 //        APPOINTMENT TESTS
-//        Appointment ap=new Appointment("Tom",3,1);
+        Appointment ap=new Appointment("Tom","XRay","Radiology");
 //        Appointment ap1=new Appointment("Ava",2,2);
 //        Appointment ap2=new Appointment("Cain",1,3);
 

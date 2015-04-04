@@ -18,9 +18,8 @@ public class ProcessReferrals {
     private int patientNumber;
     private int refNum,isChecked;
     private String reasonForVisit,occupation;
-    private String recommendations;
-    private int medicalRequired;
-    private int consultantRequired, gpNum,k;
+    private String recommendations,consultantRequired,medicalRequired;
+    private int  gpNum;
     private String patientFName;
     private String patientLName;
     private String patientAddress, emailIn, phoneIn, DOB;
@@ -49,7 +48,7 @@ public class ProcessReferrals {
     public ProcessReferrals(int refNumIn,int gpNumIn,String gpNameIn,String gpLocationIn,
                             String patientFNameIn,String patientSurnameIn,String patientAddressIn,
                             String dobIn,String patientPhoneIn,String reasonForVisitIn, String recommendationsIn,
-                            int medicalRequiredIn,int consultantRequiredIn,int isCheckedIn,String genderIn,int patientNumberIn){
+                            String medicalRequiredIn,String consultantRequiredIn,int isCheckedIn,String genderIn){
         refNum=refNumIn;
         gpNum=gpNumIn;
         gpName = gpNameIn;
@@ -64,7 +63,6 @@ public class ProcessReferrals {
         recommendations = recommendationsIn;
         medicalRequired = medicalRequiredIn;
         consultantRequired= consultantRequiredIn;
-        patientNumber=patientNumberIn;
         isChecked=isCheckedIn;
     }
 
@@ -75,8 +73,8 @@ public class ProcessReferrals {
         try {
             while (rset.next()) {
                 refList.add(processReferrals = new ProcessReferrals(rset.getInt(1),rset.getInt(2), rset.getString(3), rset.getString(4), rset.getString(5), rset.getString(6), rset.getString(7),
-                        rset.getString(8), rset.getString(9), rset.getString(10), rset.getString(11), rset.getInt(12), rset.getInt(13), rset.getInt(14), rset.getString(15), rset.getInt(16)));
-            }
+                        rset.getString(8), rset.getString(9), rset.getString(10), rset.getString(11), rset.getString(12), rset.getString(13), rset.getInt(14), rset.getString(15)));
+            }ro.referralOperationsClose();
         } catch (SQLException e1) {
             System.out.println(e1);
         }
@@ -132,7 +130,7 @@ public class ProcessReferrals {
                 }
               }
             }
-        }ro.referralOperationsClose();
+        }
     }
 
 

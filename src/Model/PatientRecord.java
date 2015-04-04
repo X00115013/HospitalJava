@@ -28,12 +28,12 @@ public class PatientRecord {
     public void refreshArrays() {
         try {
             clearArrays();
-            PatientOperations po=new PatientOperations();
+            po=new PatientOperations();
             rset = po.getPatientAdmin();
             while (rset.next()) {
                 patientList.add(patientRecord = new PatientRecord(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4),
                         rset.getString(5),rset.getString(6),rset.getString(7),rset.getString(8),rset.getString(9)));
-            }
+            }po.patientOperationsClose();
         } catch (SQLException e1) {
             System.out.println(e1);
         }
@@ -130,11 +130,13 @@ public class PatientRecord {
         System.out.println("New Patient NEW NEW NEW NEW NEW NEW ");
         po.addPatient(patientFName, patientLName, patientAddress, occupation, gender, email, phone, DOB);
 //        printFromArrayAR();
+        po.patientOperationsClose();
     }
 
     public void updatePatientRecord(int patientNumIn){
         System.out.println("Updated Patient UPDATED UPDATED UPDATED ");
         po.updatePatientAdmin(patientNumIn, patientFName, patientLName, patientAddress, occupation, gender, email, phone, DOB);
+        po.patientOperationsClose();
 //        printFromArrayAR();
 //        printFromArrayARByNumber(2);
     }
@@ -146,6 +148,7 @@ public class PatientRecord {
     public void deletePatientRecords(int patientNumIn,String reason){
         po=new PatientOperations();
         po.deletePatient(patientNumIn,reason);
+        po.patientOperationsClose();
     }
 
     public ArrayList<PatientRecord> getPatientList() {

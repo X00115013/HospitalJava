@@ -2,6 +2,8 @@ package Referrals;
 
 import DataBase.PatientOperations;
 import GUI.Clock;
+import Model.Consultants;
+import Model.Equipment;
 import Referrals.ReferralOperations;
 
 import javax.swing.*;
@@ -10,14 +12,19 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 /**
  * Created by Lionhart and  Thomas Murray on 17/03/2015.
  */
 public class ReferralGUI extends JFrame implements ActionListener {
-    String[] list1 = {"XRay :", "MRI Scan :", "CT Scan :"};
-    String[] list2 = {"Radiology :", "Pediatrics :", "Surgery :"};
+    String[] list1;
+    String[] list2;
+    private ArrayList<Equipment> eqList=new ArrayList<>();
+    private ArrayList<Consultants>conList=new ArrayList<>();
+    private Equipment equipment;
+    private Consultants consultants;
     JButton confirm;
     JButton cancel;
 
@@ -68,6 +75,7 @@ public class ReferralGUI extends JFrame implements ActionListener {
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
 
 
@@ -102,6 +110,19 @@ public class ReferralGUI extends JFrame implements ActionListener {
 
 
 
+        equipment=new Equipment();
+        eqList.addAll(equipment.getEquipments());
+        list1 = new String[eqList.size()];
+        for (int i = 0; i < eqList.size(); i++) {
+            list1[i] = eqList.get(i).getEqName();
+        }
+
+        consultants=new Consultants();
+        conList.addAll(consultants.getConsultants());
+        list2 = new String[conList.size()];
+        for (int i = 0; i < conList.size(); i++) {
+            list2[i] = conList.get(i).getConSpeciality();
+        }
 
 
         JPanel body=new JPanel(new GridBagLayout());
@@ -256,29 +277,21 @@ public class ReferralGUI extends JFrame implements ActionListener {
             System.exit(0);
 
         } else if (e.getSource().equals(confirm)) {
-            int catcher = 0, catcher2 = 0;
-            try {
-                String medEquip = (String) combo1.getSelectedItem();
-                if (medEquip.equals("XRay :")) {
-                    catcher = 1;
-                } else if (medEquip.equals("MRI Scan :")) {
-                    catcher = 2;
-                } else if (medEquip.equals("CT Scan :")) {
-                    catcher = 3;
+            String catcher = "",catcher2 = "";
+            String med = (String) combo1.getSelectedItem();
+            for (int i = 0; i < eqList.size(); i++) {
+                if (med.equals(eqList.get(i).getEqName())){
+                    catcher =eqList.get(i).getEqName();
                 }
-                String conEquip = (String) combo2.getSelectedItem();
-                if (conEquip.equals("Radiology :")) {
-                    catcher2 = 1;
-                } else if (conEquip.equals("Pediatrics :")) {
-                    catcher2 = 2;
-                } else if (conEquip.equals("Surgery :")) {
-                    catcher2 = 3;
+            }
+            String con = (String) combo2.getSelectedItem();
+            for (int j = 0; j < conList.size(); j++) {
+                if (con.equals(conList.get(j).getConSpeciality())) {
+                    catcher2 = conList.get(j).getConName();;
                 }
-            } catch (InputMismatchException im) {
-                System.out.println(im);
             }
             Referrals referrals=new Referrals(gpName.getText(), gpLocation.getText(), pFname.getText(), pLname.getText(), pAddress.getText(),(day.getText() + "-" + month.getText() + "-" + year.getText()),pPhone.getText(),reasonVisit.getText(),
-                    recommendations.getText(),catcher,catcher2,"male",Integer.valueOf(pNum.getText()));
+                    recommendations.getText(),catcher,catcher2,1,"male");
 
             }
         }
