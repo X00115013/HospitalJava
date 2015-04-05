@@ -130,13 +130,11 @@ public class PatientRecord {
         System.out.println("New Patient NEW NEW NEW NEW NEW NEW ");
         po.addPatient(patientFName, patientLName, patientAddress, occupation, gender, email, phone, DOB);
 //        printFromArrayAR();
-        po.patientOperationsClose();
     }
 
     public void updatePatientRecord(int patientNumIn){
         System.out.println("Updated Patient UPDATED UPDATED UPDATED ");
         po.updatePatientAdmin(patientNumIn, patientFName, patientLName, patientAddress, occupation, gender, email, phone, DOB);
-        po.patientOperationsClose();
 //        printFromArrayAR();
 //        printFromArrayARByNumber(2);
     }
@@ -151,7 +149,7 @@ public class PatientRecord {
         po.patientOperationsClose();
     }
 
-    public ArrayList<PatientRecord> getPatientList() {
+    public ArrayList getPatientList() {
         refreshArrays();
         return patientList;
     }

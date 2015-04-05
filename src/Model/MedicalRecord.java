@@ -12,7 +12,6 @@ public class MedicalRecord {
 
     private int patientNumber;
     private String blood,symptoms,diagnoses,reqTreatment,allergies,recommendations,patientFName,patientLName,patientGender,patientDOB;
-    private MedicalRecord medicalRecord;
     private ArrayList<MedicalRecord> medicalRecordArrayList=new ArrayList<MedicalRecord>();
     private PatientOperations po;
     private ResultSet rset;
@@ -59,7 +58,7 @@ public class MedicalRecord {
         rset = po.getPatientMedical();
         try {
             while (rset.next()) {
-                medicalRecordArrayList.add(medicalRecord=new MedicalRecord(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getString(5),
+                medicalRecordArrayList.add(new MedicalRecord(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getString(5),
                         rset.getString(6),rset.getString(7),rset.getString(8),rset.getString(9),rset.getString(10),rset.getString(11)));
             }po.patientOperationsClose();
         } catch (SQLException e1) {
@@ -103,7 +102,7 @@ public class MedicalRecord {
         }
 
 
-    public ArrayList<MedicalRecord> getMedicalRecordArrayList() {
+    public ArrayList getMedicalRecordArrayList() {
         return medicalRecordArrayList;
     }
 
@@ -156,7 +155,7 @@ public class MedicalRecord {
         po.updatePatientMedical(patientNumber,blood,symptoms,diagnoses,reqTreatment,recommendations,allergies);
         refreshArray();
         printAllArrayMR();
-        printFromArrayMR(2);
+//        printFromArrayMR(2);
 //        printMedicalRecord();
 //        printMedicalRecordByPatientNum();
     }

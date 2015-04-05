@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class PatientAdminRecGUI extends JFrame implements ActionListener
 {
-    JButton update,delete,cancel;
+    JButton update,delete,cancel,refresh;
     JLabel patientNum,label5;
     JTextField patientText;
     JTextArea patientAdminInformation;
@@ -141,6 +141,13 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
         cancel.addActionListener(this);
         dobs.add(cancel, getConstraints(2, 4, 1, 1, GridBagConstraints.WEST));
 
+
+        // Refresh button
+        refresh = new JButton("Refresh Record");
+        refresh.addActionListener(this);
+        dobs.add(refresh, getConstraints(7, 4, 1, 1, GridBagConstraints.WEST));
+
+
         test.add(dobs);
         holder2.add(test);
 
@@ -176,6 +183,43 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
 
         }else if (e.getSource().equals(delete))
         {DeletePatient deletePatient=new DeletePatient(patientRecord,patientNumberIn);
+        }else if (e.getSource().equals(refresh)) {
+            patientRecord=new PatientRecord();
+            apt=new Appointment();
+
+            pList.addAll(patientRecord.getPatientList());
+            for (int i = 0; i <pList.size() ; i++) {
+                if(pList.get(i).getPatientNumber()==patientNumberIn) {
+                    record = "\n\n--------------------------------------------------------------------------------------------------------------------\n"+
+                            "\n   Patient Number is      \t" + pList.get(i).getPatientNumber() + "\n" +
+                            "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                            "\n   Patient Name is         \t" + pList.get(i).getPatientFName() + " " + pList.get(i).getPatientLName() + "\n" +
+                            "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                            "\n   Patient Address is     \t" + pList.get(i).getPatientAddress() + "\n" +
+                            "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                            "\n   Patient Occupation is \t" + pList.get(i).getOccupation() + "\n" +
+                            "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                            "\n   Patient Gender is       \t" + pList.get(i).getGender() + "\n" +
+                            "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                            "\n   Patient DOB is          \t" + pList.get(i).getDOB() + "\n" +
+                            "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                            "\n   Patient Email is        \t" + pList.get(i).getEmail() + "\n" +
+                            "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                            "\n   Patient Phone is        \t" + pList.get(i).getPhone() + "\n"+
+                            "\n--------------------------------------------------------------------------------------------------------------------\n";
+                }
+            }
+            appList.addAll(apt.appArray());
+            for (int i = 0; i < appList.size(); i++) {
+                if (appList.get(i).getPatientNum() == patientNumberIn) {
+                    record +=record = "\n\n--------------------------------------------------------------------------------------------------------------------\n"+
+                            "\n   Patient Appointment Number\t" + appList.get(i).getPatientNum() + "\n" +
+                            "\n   Booked Medical Equip      \t" + appList.get(i).getMedicalEquip() + "\n" +
+                            "\n   Booked Consultant         \t" + appList.get(i).getConsultantType()+ "\n" +
+                            "\n--------------------------------------------------------------------------------------------------------------------\n\n";
+                }
+            }patientAdminInformation.setText(record);
+
         }
     }
 }

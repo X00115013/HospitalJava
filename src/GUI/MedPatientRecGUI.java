@@ -17,7 +17,7 @@ package GUI;
  * Created by Thomas Murray on 20/03/2015.
  */
 public class MedPatientRecGUI extends JFrame implements ActionListener {
-    JButton update, cancel;
+    JButton update, cancel,refresh;
     JLabel patientNum, label5;
     JTextField patientText;
     JTextArea medicalInformation;
@@ -120,6 +120,11 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
         cancel.addActionListener(this);
         dobs.add(cancel, getConstraints(1, 4, 1, 1, GridBagConstraints.WEST));
 
+        // Refresh button
+        refresh = new JButton("Refresh Record");
+        refresh.addActionListener(this);
+        dobs.add(refresh, getConstraints(7, 4, 1, 1, GridBagConstraints.WEST));
+
         test.add(dobs);
         holder2.add(test);
 
@@ -151,6 +156,31 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
         } else if (e.getSource().equals(update)) {
            UpdateMedRec updateMedRec=new UpdateMedRec(patientNumberIn);
 
+        }else if (e.getSource().equals(refresh)) {
+
+            medicalRecord=new MedicalRecord();
+            mList.addAll(medicalRecord.getMedicalRecordArrayList());
+            for (int i = 0; i < mList.size(); i++) {
+                if(patientNumberIn==mList.get(i).getPatientNumber()){
+                    record="\n--------------------------------------------------------------------------------------------------------------------\n"+
+                            "\n   Patient Number is      \t" + mList.get(i).getPatientNumber() + "\n" +
+                            "\n   Patient Name is         \t" + mList.get(i).getPatientFName() + " " + mList.get(i).getPatientLName() + "\n" +
+                            "\n   Patient DOB is          \t" + mList.get(i).getPatientDOB() + "\n" +
+                            "\n   Patient Blood Type is   \t" + mList.get(i).getBlood() + "\n" +
+                            "\n   Patient Gender is       \t" + mList.get(i).getPatientGender() + "\n" +
+                            "\n   Patient Allergies are   \t" + mList.get(i).getAllergies()+ "\n" +
+                            "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                            "\n\n   Patient Symptoms          \n\n   " + mList.get(i).getSymptoms() + "\n" +
+                            "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                            "\n\n   Patient Diagnoses         \n\n   " + mList.get(i).getDiagnoses() + "\n" +
+                            "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                            "\n\n   Patient Recommendations   \n\n   " + mList.get(i).getRecommendations() + "\n"+
+                            "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                            "\n\n   Patient Required Treatment\n\n   " + mList.get(i).getReqTreatment() + "\n" +
+                            "\n--------------------------------------------------------------------------------------------------------------------\n";
+                }
+
+            }medicalInformation.setText(record);
         }
     }
 }

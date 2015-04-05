@@ -26,6 +26,7 @@ public class TimeTables {
 
     public TimeTables() {
         to=new TimeTableOperations();
+        refreshTimeTables();
     }
 
     public TimeTables(String selectionIn, String reqIn) {
@@ -37,26 +38,22 @@ public class TimeTables {
             setFromConReq(req);
         }else{
             System.out.println("setFrom Constructor tt set");
-            setFromMedReq(selection);
+            setFromMedReq(selection,req);
         }
     }
 
     public void refreshTimeTables() {
             clearArrays();
 
-            allT=new AllTimeTables(selection);
+            allT=new AllTimeTables();
             allTimeTables.addAll(allT.getList(selection));
 
             consultants= new Consultants();
             conList.addAll(consultants.getConsultants());
     }
 
-    public ArrayList getConsultantTimeTable() {
-        return consultantTimeTable;
-    }
 
-
-    public void setFromMedReq(String equipType){
+    public void setFromMedReq(String equipType ,String conIn){
         String taken = "Taken";
         String freeCheck="";
         System.out.println("Before for setFrom "+equipType);
@@ -65,7 +62,7 @@ public class TimeTables {
                 freeCheck = (String)allTimeTables.get(i).getTaken();
                 if (freeCheck.equals(free)) {
                     System.out.println("In the belly");
-                    allT = new AllTimeTables(to, equipType, i, taken, to.getConsultantName(equipType));
+                    allT = new AllTimeTables( equipType, i, taken, conIn);
                     i = allTimeTables.size() + 1;
                 } else {
                     System.out.println("All booked out: to screen");
@@ -77,12 +74,10 @@ public class TimeTables {
 
 
     public void setFromConReq(String conRegIn){
-        time=consultantTimeTable.size();
-        consultantT=new ConsultantTimeTable(to,time,to.getConsultantName(conRegIn));
+        consultantT=new ConsultantTimeTable(time,conRegIn);
 
 
     }
-
 
 
     public void cancelTimeTableEntry(int appointmentNumberIn){
@@ -118,12 +113,10 @@ public class TimeTables {
     }
 
     public void setFree(){
-        refreshTimeTables();
         for (int i = 0; i < conList.size() ; i++) {
             System.out.println("Con Equip skills "+conList.get(i).getEquipSill());
             to.setTTFree(conList.get(i).getEquipSill(),free);
             System.out.println(i+" TT is free");
-            to.TimeTableOperationsClose();
         }
     }
 }

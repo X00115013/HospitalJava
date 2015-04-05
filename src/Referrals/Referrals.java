@@ -13,7 +13,7 @@ public class Referrals {
     private int patientNumber,referenceNum;
     private String patientAddress, dob,gender, patientPhone,reasonForVisit,recommendations;
     private int gpNum;
-    private ReferralOperations ro;
+    private ReferralOperations ro=new ReferralOperations();
     private int checked= 1;
     Random random= new Random();
 
@@ -85,7 +85,7 @@ public class Referrals {
     public void setReferral(){
         ro=new ReferralOperations();
         ro.setReferral(gpNum,gpName,gpLocation,patientFName,patientSurname,dob,patientAddress,patientPhone,reasonForVisit,recommendations,medicalRequired,consultantRequired,checked,gender);
-
+        ro.referralOperationsClose();
     }
 
 

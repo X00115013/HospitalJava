@@ -163,13 +163,13 @@ public class StockOperations {
         return rset;
     }
 
-    public void addConsultant(String conNameIn,String conSpecialIn,int equip) {
+    public void addConsultant(String conNameIn,String conSpecialIn,String equip) {
         try {
             String sqlQuery = "INSERT INTO Consultant(con_ID , con_Name, speciality,machineSkill) "+ "values(conID.nextVal,?,?,?)";
             pstmt = conn.prepareStatement(sqlQuery);
             pstmt.setString(1, conNameIn );
             pstmt.setString(2, conSpecialIn);
-            pstmt.setInt(3,equip);
+            pstmt.setString(3,equip);
             pstmt.executeUpdate();
         } catch (Exception se) {
             System.out.println(se);

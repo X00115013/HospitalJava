@@ -74,9 +74,9 @@ public class ProcessReferrals {
             while (rset.next()) {
                 refList.add(processReferrals = new ProcessReferrals(rset.getInt(1),rset.getInt(2), rset.getString(3), rset.getString(4), rset.getString(5), rset.getString(6), rset.getString(7),
                         rset.getString(8), rset.getString(9), rset.getString(10), rset.getString(11), rset.getString(12), rset.getString(13), rset.getInt(14), rset.getString(15)));
-            }ro.referralOperationsClose();
+            }
         } catch (SQLException e1) {
-            System.out.println(e1);
+            System.out.println("Referral connection trouble process referral "+e1);
         }
         try {
             rset = po.getPatientAdmin();
@@ -85,7 +85,7 @@ public class ProcessReferrals {
                         rset.getString(5), rset.getString(6), rset.getString(7), rset.getString(8), rset.getString(9)));
             }
         } catch (SQLException e1) {
-            System.out.println(e1);
+            System.out.println("patient record connection trouble process referral "+e1);
         }
     }
 
@@ -130,7 +130,7 @@ public class ProcessReferrals {
                 }
               }
             }
-        }
+        }ro.referralOperationsClose();
     }
 
 

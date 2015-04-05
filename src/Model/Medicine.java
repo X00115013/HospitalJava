@@ -24,10 +24,11 @@ public class Medicine {
     }
 
     public Medicine(String med_Name, int stockLevelIn,double priceIn) {
+        so=new StockOperations();
         medName=med_Name;
         stockLevel=stockLevelIn;
         price=priceIn;
-
+        addMedicine(med_Name,stockLevelIn,priceIn);
     }
 
     public Medicine(int med_ID,String med_Name, int stockLevelIn,double priceIn) {
@@ -40,6 +41,7 @@ public class Medicine {
 
     public void refreshArrays() {
         try {
+
             so=new StockOperations();
             rset = so.getMedicine();
             while (rset.next()) {
@@ -52,6 +54,7 @@ public class Medicine {
 
     public void addMedicine(String nameIn,int amount,double price){
         so.addMedicine(nameIn,amount,price);
+        so.stockOperationsClose();
     }
 
     public void updateStock(int id,int stockIn){
@@ -62,7 +65,8 @@ public class Medicine {
         so.deleteMedicine(medIdIn);
     }
 
-    public ArrayList<Medicine> getMedicines() {
+    public ArrayList getMedicines() {
+        medicines.removeAll(medicines);
         refreshArrays();
         return medicines;
     }

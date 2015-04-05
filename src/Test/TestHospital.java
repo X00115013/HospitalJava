@@ -16,7 +16,7 @@ public class TestHospital {
 //        su.setVisible(true);
 //        ReferralGUI referralGUI= new ReferralGUI();
 //        referralGUI.setVisible(true);
-//        HomeScreen homeScreen=new HomeScreen();
+        HomeScreen homeScreen=new HomeScreen();
 //        CheckInGUI checkInGUI=new CheckInGUI();
 //        AddPatientGUI addPatientGUI=new AddPatientGUI();
 //        AdminCheckOutGUI adminCheckOutGUI=new AdminCheckOutGUI();
@@ -34,6 +34,13 @@ public class TestHospital {
 //        MedicalCardGUI medicalCardGUI=new MedicalCardGUI();
 //        AppointmentDetailsGUI appointmentDetailsGUI=new AppointmentDetailsGUI(1);
 //        DeletePatient deletePatient=new DeletePatient(2);
+//        AddEquipmentGUI addEquipmentGUI=new AddEquipmentGUI();
+//        AddMedicineGUI addMedicineGUI=new AddMedicineGUI();
+//        AddConsultantGUI addConsultantGUI=new AddConsultantGUI();
+
+
+
+
 
 
 //        REFERRALS TESTS
@@ -44,9 +51,9 @@ public class TestHospital {
 
 
 //        APPOINTMENT TESTS
-        Appointment ap=new Appointment("Tom","XRay","Radiology");
-//        Appointment ap1=new Appointment("Ava",2,2);
-//        Appointment ap2=new Appointment("Cain",1,3);
+//        Appointment ap=new Appointment("Tom","XRay","Radiology");
+//        Appointment ap1=new Appointment("Ava","MRI","Pediatrics");
+//        Appointment ap2=new Appointment("Cain","CT Scan","Neurologist");
 
 
 

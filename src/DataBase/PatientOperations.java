@@ -143,7 +143,9 @@ public class PatientOperations {
                     "patientLName= '" + newPLname + "'," +
                     "patientAddress= '"+newPaddress+ "'," +
                     " patientPhone= '"+newPphone+"'," +
+                    "patientDOB ='"+DOBIn+"',"+
                     " patientEmail= '"+newEmail+"'," +
+                    "patientGender= '"+genderIn+"',"+
                     " occupation = '"+occupationIn+"'" +
                     "where patient_Number=" +patientNumber;
             stmt = conn.createStatement();
@@ -165,7 +167,7 @@ public class PatientOperations {
             stmt = conn.createStatement();
             stmt.executeUpdate(sql1);
         } catch (Exception se) {
-            System.out.println(se);
+            System.out.println("The error might be here po update medical "+se);
         }
     }
     public void deletePatient(int n,String reason) {

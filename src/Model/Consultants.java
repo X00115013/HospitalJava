@@ -18,13 +18,15 @@ public class Consultants {
 
 
     public Consultants() {
-
+        refreshArrays();
     }
 
     public Consultants(String con_Name, String specialityIn,String equipSkillIn) {
+        so=new StockOperations();
         conName = con_Name;
         conSpeciality = specialityIn;
         equipSill=equipSkillIn;
+        addConsultant(con_Name,specialityIn,equipSkillIn);
     }
 
 
@@ -49,16 +51,16 @@ public class Consultants {
         }
     }
 
-    public void addConsultant(String nameIn, String conSpecialityIn,int equipSkill) {
+    public void addConsultant(String nameIn, String conSpecialityIn,String equipSkill) {
         so.addConsultant(nameIn, conSpecialityIn,equipSkill);
+        so.stockOperationsClose();
     }
 
     public void deleteMedicine(int conIdIn) {
         so.deleteConsultant(conIdIn);
     }
 
-    public ArrayList<Consultants> getConsultants() {
-        refreshArrays();
+    public ArrayList getConsultants() {
         return consultants;
     }
 

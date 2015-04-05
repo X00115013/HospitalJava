@@ -22,6 +22,14 @@ public class Equipment {
 
     }
 
+    public Equipment(String eq_Name,double priceIn) {
+        so=new StockOperations();
+        eqName=eq_Name;
+        price=priceIn;
+        addEquipment(eq_Name,priceIn);
+    }
+
+
     public Equipment(int eq_ID,String eq_Name,double priceIn) {
         eqId=eq_ID;
         eqName=eq_Name;
@@ -42,6 +50,7 @@ public class Equipment {
 
     public void addEquipment(String nameIn,double price){
         so.addEquipment(nameIn, price);
+        so.stockOperationsClose();
     }
 
 
@@ -61,7 +70,7 @@ public class Equipment {
         return price;
     }
 
-    public ArrayList<Equipment> getEquipments() {
+    public ArrayList getEquipments() {
         refreshArrays();
         return equipments;
     }

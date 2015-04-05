@@ -18,21 +18,19 @@ import java.util.ArrayList;
  */
 public class TimeTablesGUI extends JFrame implements ActionListener {
     JButton print, cancel;
-    String[] list1 = {"Consultant", "XRay", "MRI Scan", "CT Scan"};
+    String[] list1;
     JLabel patientNum, label5;
     JTextArea timeTableInformation;
     JComboBox<String> combo1;
     JScrollPane scroll;
+    private Equipment equipment;
+    private ArrayList<Equipment> eqList=new ArrayList<>();
     JFrame f;
     private ArrayList<AllTimeTables> allTimeTables = new ArrayList<>();
-    //    private ArrayList<XRayTimeTable> xRayTimeTables=new ArrayList<>();
-//    private ArrayList<CTTimeTables> cTTimeTables=new ArrayList<>();
-//    private ArrayList<MRITimeTable> mRITimeTables=new ArrayList<>();
     private ArrayList<ConsultantTimeTable> conTimeTables = new ArrayList<>();
     private String contable = "This table should be working con Time Tables ";
     private String tTable = "This table should be working Time Tables ";
-    private String cttable = "This table should be working ct Time Tables ";
-    private String mritable = "This table should be working mri Time Tables ";
+
 
     public TimeTablesGUI() {
         f = new JFrame();
@@ -61,6 +59,14 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
         holder.add(topSection);
 
 
+        equipment=new Equipment();
+        eqList.addAll(equipment.getEquipments());
+        list1 = new String[eqList.size()+2];
+        list1[0]="";
+        list1[1]="Consultant";
+        for (int i = 0; i < eqList.size(); i++) {
+            list1[i+2] = eqList.get(i).getEqName();
+        }
 
 
         JPanel textArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -117,6 +123,10 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
         return c;
     }
 
+    public void clearArrays(){
+        allTimeTables.removeAll(allTimeTables);
+        conTimeTables.removeAll(conTimeTables);
+    }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
@@ -139,17 +149,50 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
 
         else if (e.getSource().equals(combo1)) {
             String tableSelection = (String) combo1.getSelectedItem();
-            AllTimeTables allTimeTables1 = new AllTimeTables(tableSelection);
+            clearArrays();
+            AllTimeTables allTimeTables1 = new AllTimeTables();
             allTimeTables.addAll(allTimeTables1.getList(tableSelection));
-            TimeTables timeTables = new TimeTables();
-            conTimeTables.addAll(timeTables.getConsultantTimeTable());
-            for (int i = 0; i < allTimeTables.size(); i++) {
-                if (tableSelection.equals("XRay")) {
+
+           ConsultantTimeTable consultantTimeTable=new ConsultantTimeTable();
+            conTimeTables.addAll(consultantTimeTable.getConsultantTimeTable());
+
+                if (tableSelection.equals("Consultant")) {
+                    contable = "";
+                    contable = "\n\n\tMon\tTues\tWed\tThur\tFri\tSat\tSun\n" +
+                            "---------------------------------------------------------------------------------------------------" +
+                            "---------------------------------------------------------------------------------------------";
+                    for (int k = 0; k < conTimeTables.size(); k++) {
+                        if (k < 6) {
+                            contable += contable = "\n" + conTimeTables.get(k).getTimeIn() + "\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
+                        } else if (k < 12) {
+                            contable += contable = "\n" +
+                                    "\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
+                        } else if (k < 18) {
+                            contable += contable = "\n" +
+                                    "\t\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
+                        } else if (k < 24) {
+                            contable += contable = "\n" +
+                                    "\t\t\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
+                        } else if (k < 30) {
+                            contable += contable = "\n" +
+                                    "\t\t\t\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
+                        } else if (k < 36) {
+                            contable += contable = "\n" +
+                                    "\t\t\t\t\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
+                        } else if (k < 42) {
+                            contable += contable = "\n" +
+                                    "\t\t\t\t\t\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
+                        }
+                    }
+                    timeTableInformation.setText(contable);
+                    contable = "";
+
+                }else{
                     tTable = "";
                     tTable = "\n\n\tMon\tTues\tWed\tThur\tFri\tSat\tSun\n" +
                             "---------------------------------------------------------------------------------------------------" +
                             "---------------------------------------------------------------------------------------------";
-                    for (int j = 0; j < allTimeTables.size(); j++) {
+                    for (int i = 0; i < allTimeTables.size(); i++) {
                         if (i < 24) {
                             tTable += tTable = "\n" + allTimeTables.get(i).getTimeIn() + "\t" + allTimeTables.get(i).getConsultantNameIn() + "\n";
                         } else if (i < 48) {
@@ -176,39 +219,8 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
                     tTable = "";
 
                 }
-                if (tableSelection.equals("Consultant")) {
-                    contable = "";
-                    contable = "\n\n\tMon\tTues\tWed\tThur\tFri\tSat\tSun\n" +
-                            "---------------------------------------------------------------------------------------------------" +
-                            "---------------------------------------------------------------------------------------------";
-                    for (int k = 0; i < conTimeTables.size(); i++) {
-                        if (k < 6) {
-                            contable += contable = "\n" + conTimeTables.get(k).getTimeIn() + "\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
-                        } else if (k < 12) {
-                            contable += contable = "\n" +
-                                    "\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
-                        } else if (k < 18) {
-                            contable += contable = "\n" +
-                                    "\t\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
-                        } else if (k < 24) {
-                            contable += contable = "\n" +
-                                    "\t\t\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
-                        } else if (k < 30) {
-                            contable += contable = "\n" +
-                                    "\t\t\t\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
-                        } else if (k < 36) {
-                            contable += contable = "\n" +
-                                    "\t\t\t\t\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
-                        } else if (k < 42) {
-                            contable += contable = "\n" +
-                                    "\t\t\t\t\t\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
-                        }
-                    }
-                    timeTableInformation.setText(contable);
-                    contable = "";
 
-                }
             }
         }
     }
-}
+

@@ -41,7 +41,7 @@ public class TimeTableOperations {
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("getTT error "+e);
         }
         return rset;
     }
@@ -51,12 +51,12 @@ public class TimeTableOperations {
             pstmt = conn.prepareStatement(queryString1);
             pstmt.setString(1, machineNameIn);
             pstmt.setInt(2, timeIn);
-            pstmt.setString(2, "taken");
-            pstmt.setString(3,consultantNameIn);
-            pstmt.setInt(4,getCurrVal());
+            pstmt.setString(3, taken);
+            pstmt.setString(4,consultantNameIn);
+            pstmt.setInt(5,getCurrVal());
             pstmt.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Insert tt error "+e);
         }
     }
 

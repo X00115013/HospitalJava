@@ -49,7 +49,7 @@ public class Connect {
     public void closeDB() {
         try {
             conn.close();
-            System.out.print("Connection closed");
+            System.out.println("Connection closed");
         } catch (SQLException e) {
             System.out.print("Could not close connection ");
             e.printStackTrace();
