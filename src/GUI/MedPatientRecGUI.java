@@ -4,6 +4,7 @@ package GUI;
         import DataBase.PatientOperations;
         import Model.MedicalRecord;
         import Model.PatientRecord;
+        import Model.Prescription;
 
         import javax.swing.*;
         import javax.swing.border.BevelBorder;
@@ -24,7 +25,9 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
     JScrollPane scroll;
     private int patientNumberIn;
     private ArrayList<MedicalRecord>mList=new ArrayList<>();
+    private ArrayList<Prescription>presList=new ArrayList<>();
     private MedicalRecord medicalRecord;
+    private Prescription prescription;
     private String record="This is meant to be the patient Medical Record";
     JFrame f;
 
@@ -69,38 +72,11 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
 //        f.add(topSection);
 
         holder.add(topSection);
-
-
-        medicalRecord=new MedicalRecord();
-        mList.addAll(medicalRecord.getMedicalRecordArrayList());
-        for (int i = 0; i < mList.size(); i++) {
-            if(patientNumIn==mList.get(i).getPatientNumber()){
-                record="\n--------------------------------------------------------------------------------------------------------------------\n"+
-                        "\n   Patient Number is      \t" + mList.get(i).getPatientNumber() + "\n" +
-                        "\n   Patient Name is         \t" + mList.get(i).getPatientFName() + " " + mList.get(i).getPatientLName() + "\n" +
-                        "\n   Patient DOB is          \t" + mList.get(i).getPatientDOB() + "\n" +
-                        "\n   Patient Blood Type is   \t" + mList.get(i).getBlood() + "\n" +
-                        "\n   Patient Gender is       \t" + mList.get(i).getPatientGender() + "\n" +
-                        "\n   Patient Allergies are   \t" + mList.get(i).getAllergies()+ "\n" +
-                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
-                        "\n\n   Patient Symptoms          \n\n   " + mList.get(i).getSymptoms() + "\n" +
-                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
-                        "\n\n   Patient Diagnoses         \n\n   " + mList.get(i).getDiagnoses() + "\n" +
-                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
-                        "\n\n   Patient Recommendations   \n\n   " + mList.get(i).getRecommendations() + "\n"+
-                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
-                        "\n\n   Patient Required Treatment\n\n   " + mList.get(i).getReqTreatment() + "\n" +
-                        "\n--------------------------------------------------------------------------------------------------------------------\n";
-            }
-
-        }
-
-
         JPanel textArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         medicalInformation = new JTextArea(40, 70);
         medicalInformation.setBorder(loweredBorder);
-        medicalInformation.setText(record);
+        medicalInformation.setText(setTextArea());
         scroll = new JScrollPane(medicalInformation);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         textArea.add(scroll);
@@ -150,6 +126,45 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
     }
 
 
+    public String setTextArea(){
+        mList.removeAll(mList);
+        presList.removeAll(presList);
+        medicalRecord=new MedicalRecord();
+        mList.addAll(medicalRecord.getMedicalRecordArrayList());
+        prescription=new Prescription();
+        presList.addAll(prescription.getPresList());
+        for (int i = 0; i < mList.size(); i++) {
+            if(patientNumberIn==mList.get(i).getPatientNumber()){
+                record="\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n   Patient Number is      \t" + mList.get(i).getPatientNumber() + "\n" +
+                        "\n   Patient Name is         \t" + mList.get(i).getPatientFName() + " " + mList.get(i).getPatientLName() + "\n" +
+                        "\n   Patient DOB is          \t" + mList.get(i).getPatientDOB() + "\n" +
+                        "\n   Patient Blood Type is   \t" + mList.get(i).getBlood() + "\n" +
+                        "\n   Patient Gender is       \t" + mList.get(i).getPatientGender() + "\n" +
+                        "\n   Patient Allergies are   \t" + mList.get(i).getAllergies()+ "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n\n   Patient Symptoms          \n\n   " + mList.get(i).getSymptoms() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n\n   Patient Diagnoses         \n\n   " + mList.get(i).getDiagnoses() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n\n   Patient Recommendations   \n\n   " + mList.get(i).getRecommendations() + "\n"+
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n\n   Patient Required Treatment\n\n   " + mList.get(i).getReqTreatment() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n" +
+                        "\n\n   List of Prescriptions this Visit \n\n";
+                for (int j = 0; j <presList.size() ; j++) {
+                    if(patientNumberIn==presList.get(i).getpNum()&& presList.get(j).getPaid()==1) {
+                        record += record = "\n   Drug type:\t" + presList.get(j).getMedName() + "\t  Drug Amount:\t" + presList.get(j).getDose()+"\n";
+                    }
+
+                }
+            }
+
+        }
+
+        return record;
+    }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
            f.setVisible(false);
@@ -157,30 +172,8 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
            UpdateMedRec updateMedRec=new UpdateMedRec(patientNumberIn);
 
         }else if (e.getSource().equals(refresh)) {
+            medicalInformation.setText(setTextArea());
 
-            medicalRecord=new MedicalRecord();
-            mList.addAll(medicalRecord.getMedicalRecordArrayList());
-            for (int i = 0; i < mList.size(); i++) {
-                if(patientNumberIn==mList.get(i).getPatientNumber()){
-                    record="\n--------------------------------------------------------------------------------------------------------------------\n"+
-                            "\n   Patient Number is      \t" + mList.get(i).getPatientNumber() + "\n" +
-                            "\n   Patient Name is         \t" + mList.get(i).getPatientFName() + " " + mList.get(i).getPatientLName() + "\n" +
-                            "\n   Patient DOB is          \t" + mList.get(i).getPatientDOB() + "\n" +
-                            "\n   Patient Blood Type is   \t" + mList.get(i).getBlood() + "\n" +
-                            "\n   Patient Gender is       \t" + mList.get(i).getPatientGender() + "\n" +
-                            "\n   Patient Allergies are   \t" + mList.get(i).getAllergies()+ "\n" +
-                            "\n--------------------------------------------------------------------------------------------------------------------\n"+
-                            "\n\n   Patient Symptoms          \n\n   " + mList.get(i).getSymptoms() + "\n" +
-                            "\n--------------------------------------------------------------------------------------------------------------------\n"+
-                            "\n\n   Patient Diagnoses         \n\n   " + mList.get(i).getDiagnoses() + "\n" +
-                            "\n--------------------------------------------------------------------------------------------------------------------\n"+
-                            "\n\n   Patient Recommendations   \n\n   " + mList.get(i).getRecommendations() + "\n"+
-                            "\n--------------------------------------------------------------------------------------------------------------------\n"+
-                            "\n\n   Patient Required Treatment\n\n   " + mList.get(i).getReqTreatment() + "\n" +
-                            "\n--------------------------------------------------------------------------------------------------------------------\n";
-                }
-
-            }medicalInformation.setText(record);
         }
     }
 }

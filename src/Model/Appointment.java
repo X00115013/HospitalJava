@@ -52,6 +52,7 @@ public class Appointment {
     }
 
     public void appointmentArray() {
+        appList.removeAll(appList);
         ao=new AppointmentOperations();
         try {
             rset = ao.getAppointment();

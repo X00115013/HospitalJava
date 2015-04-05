@@ -176,7 +176,22 @@ public class StockOperations {
         }
     }
 
+    String createMedicine = "CREATE TABLE EquipmentUsed (machineID NUMBER PRIMARY KEY,patient_NumIn NUMBER, machine_name VARCHAR2(255), this_Visit NUMBER)";
 
+
+    public void addEquipUsed(int machineIn,int patientNumIn, String medNameIn,int conManeIn) {
+        try {
+            String sqlQuery = "INSERT INTO EquipmentUsed(machineID,patient_NumIn, machine_name , this_Visit) "+ "values(machine_seq.nextVal,?,?,?,?)";
+            pstmt = conn.prepareStatement(sqlQuery);
+            pstmt.setInt(1,machineIn);
+            pstmt.setInt(2, patientNumIn);
+            pstmt.setString(3, medNameIn);
+            pstmt.setInt(4,1);
+            pstmt.executeUpdate();
+        } catch (Exception se) {
+            System.out.println(se);
+        }
+    }
 
 
 

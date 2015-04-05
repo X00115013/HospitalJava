@@ -1,6 +1,7 @@
 package GUI;
 
         import DataBase.PatientOperations;
+        import Model.Equipment;
         import Model.MedicalRecord;
         import Model.PatientRecord;
 
@@ -24,8 +25,10 @@ public class UpdateMedRec extends JFrame implements ActionListener {
     JComboBox<String> reqEquipCombo;
     JTextArea symptomsText, diagnosesText, requiredTreatText, allergiesText;
     JFrame f;
-    String[] list1 = {"XRay :", "MRI Scan :", "CT Scan :"};
+    String[] list1;
     private ArrayList<MedicalRecord> mList=new ArrayList<>();
+    private ArrayList<Equipment>epList=new ArrayList<>();
+    private Equipment equipment;
     private MedicalRecord medicalRecord;
     private int patientNumberIn;
 
@@ -70,6 +73,16 @@ public class UpdateMedRec extends JFrame implements ActionListener {
         topSection.add(ID);
         holder.add(topSection);
         f.add(holder);
+
+
+        equipment=new Equipment();
+        epList.addAll(equipment.getEquipments());
+        list1 = new String[epList.size()];
+        for (int i = 0; i < epList.size(); i++) {
+            list1[i]=epList.get(i).getEqName();
+
+        }
+
 
 
         JPanel test2 = new JPanel(new GridLayout(1, 1));
@@ -217,6 +230,7 @@ public class UpdateMedRec extends JFrame implements ActionListener {
                 }
 
             MedicalRecord medicalRecord1=new MedicalRecord(patientNumberIn,bloodText.getText(),symptomsText.getText(),diagnosesText.getText(),requiredTreatText.getText(),allergiesText.getText());
+
             f.setVisible(false);
 
 

@@ -96,7 +96,7 @@ package GUI;
             JPanel test =new JPanel(new FlowLayout(FlowLayout.LEFT));
             JPanel dobs = new JPanel(new GridBagLayout());
 
-            medName=new JLabel("Equipment Name ");
+            medName=new JLabel("Medicine Name ");
             dobs.add(medName, getConstraints(0, 3, 2, 1, GridBagConstraints.WEST));
 
             medNameText=new JTextField(50);
@@ -104,7 +104,7 @@ package GUI;
             medNameText.setEditable(true);
             dobs.add(medNameText, getConstraints(0, 4, 5, 1, GridBagConstraints.WEST));
 
-            medPrice=new JLabel("Equipment Cost Per Usage ");
+            medPrice=new JLabel("Consultant Speciality ");
             dobs.add(medPrice, getConstraints(0, 5, 2, 1, GridBagConstraints.WEST));
 
             medPriceText=new JTextField(50);

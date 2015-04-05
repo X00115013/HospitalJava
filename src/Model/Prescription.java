@@ -15,6 +15,10 @@ public class Prescription {
     private ArrayList<Prescription> presList = new ArrayList<>();
     private StockOperations so;
 
+    public  Prescription(){
+
+    }
+
     public Prescription(int pNumberIn, String medNameIn, int dosageIn,String conNameIn){
         pNum=pNumberIn;
         medName=medNameIn;
@@ -75,6 +79,7 @@ public class Prescription {
     }
 
     public ArrayList<Prescription> getPresList() {
+        presList.removeAll(presList);
         refreshArrays();
         return presList;
     }

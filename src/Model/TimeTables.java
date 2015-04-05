@@ -56,21 +56,14 @@ public class TimeTables {
     public void setFromMedReq(String equipType ,String conIn){
         String taken = "Taken";
         String freeCheck="";
-        System.out.println("Before for setFrom "+equipType);
         for (int i = 0; i < allTimeTables.size(); i++) {
-            System.out.println("after for ");
                 freeCheck = (String)allTimeTables.get(i).getTaken();
                 if (freeCheck.equals(free)) {
-                    System.out.println("In the belly");
                     allT = new AllTimeTables( equipType, i, taken, conIn);
                     i = allTimeTables.size() + 1;
-                } else {
-                    System.out.println("All booked out: to screen");
                 }
             }
         }
-
-
 
 
     public void setFromConReq(String conRegIn){
@@ -120,6 +113,45 @@ public class TimeTables {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //    public void printConsulTimeTables() {

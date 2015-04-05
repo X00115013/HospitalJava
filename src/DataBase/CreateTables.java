@@ -644,6 +644,8 @@ public class CreateTables {
             System.exit(1);
         }
 
+
+
         try {
             //PRESCRIPTION START creating table
             System.out.println("Creating PrescriptionsUsed");
