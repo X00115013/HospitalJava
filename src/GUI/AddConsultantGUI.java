@@ -75,20 +75,10 @@ package GUI;
             topSection.add(ID);
 
             holder.add(topSection);
-
-            list ="\t\tLIST AND SKILLS OF CONSULTANTS IN THIS HOSPITAL\n\n" +
-                    "_________________________________________________________________________________________" +
-                    "\n\n";
-            for (int i = 0; i < conList.size(); i++) {
-                list +=list="\tCon ID:"+conList.get(i).getConId()+"\t\tName: "+conList.get(i).getConName()+"\t\tSkill: "+conList.get(i).getConSpeciality()+"\t\tEquip Skill: "+conList.get(i).getEquipSill()+"\n\n";
-
-            }
-
-
             JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
             additionalInformation = new JTextArea(30,75);
             additionalInformation.setBorder(loweredBorder);
-            additionalInformation.setText(list);
+            additionalInformation.setText(setTextArea());
             scroll = new JScrollPane(additionalInformation);
             scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
             textArea.add(scroll);
@@ -165,6 +155,20 @@ package GUI;
         }
 
 
+        public String setTextArea() {
+            list="";
+            additionalInformation.setText("");
+            conList.removeAll(conList);
+            conList.addAll(consultants.getConsultants());
+            list = "\t\tLIST AND SKILLS OF CONSULTANTS IN THIS HOSPITAL\n\n" +
+                    "___________________________________________________________________________________________________" +
+                    "_______________________________\n\n";
+            for (int i = 0; i < conList.size(); i++) {
+                list += list = "\tCon ID:" + conList.get(i).getConId() + "\t\tName: " + conList.get(i).getConName() + "\t\tSkill: " + conList.get(i).getConSpeciality() + "\t\tEquip Skill: " + conList.get(i).getEquipSill() + "\n\n";
+
+            }return list;
+        }
+
         public void actionPerformed(ActionEvent e)
         {
             if (e.getSource().equals(cancel))
@@ -179,20 +183,9 @@ package GUI;
                 conSkillText.setText("");
 
             }else if(e.getSource().equals(refresh)){
-                conList.removeAll(conList);
-                conList.addAll(consultants.getConsultants());
-                list ="\t\tLIST AND SKILLS OF CONSULTANTS IN THIS HOSPITAL\n\n" +
-                        "___________________________________________________________________________________________________" +
-                        "_______________________________\n\n";
-                for (int i = 0; i < conList.size(); i++) {
-                    list +=list="\tCon ID:"+conList.get(i).getConId()+"\t\tName: "+conList.get(i).getConName()+"\t\tSkill: "+conList.get(i).getConSpeciality()+"\t\tEquip Skill: "+conList.get(i).getEquipSill()+"\n\n";
-                    additionalInformation.setText("");
-                    additionalInformation.setText(list);
-                    conNameText.setText("");
-                    conEquipText.setText("");
-                    conSkillText.setText("");
+                    additionalInformation.setText(setTextArea());
 
                 }
             }
         }
-    }
+

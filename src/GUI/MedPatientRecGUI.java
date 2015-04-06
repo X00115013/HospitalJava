@@ -2,6 +2,7 @@
 package GUI;
 
         import DataBase.PatientOperations;
+        import Model.EquipmentUsed;
         import Model.MedicalRecord;
         import Model.PatientRecord;
         import Model.Prescription;
@@ -26,8 +27,10 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
     private int patientNumberIn;
     private ArrayList<MedicalRecord>mList=new ArrayList<>();
     private ArrayList<Prescription>presList=new ArrayList<>();
+    private ArrayList<EquipmentUsed>eqUsedList=new ArrayList<>();
     private MedicalRecord medicalRecord;
     private Prescription prescription;
+    private EquipmentUsed equipmentUsed;
     private String record="This is meant to be the patient Medical Record";
     JFrame f;
 
@@ -129,10 +132,13 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
     public String setTextArea(){
         mList.removeAll(mList);
         presList.removeAll(presList);
+        eqUsedList.removeAll(eqUsedList);
         medicalRecord=new MedicalRecord();
         mList.addAll(medicalRecord.getMedicalRecordArrayList());
         prescription=new Prescription();
         presList.addAll(prescription.getPresList());
+        equipmentUsed=new EquipmentUsed(patientNumberIn);
+        eqUsedList.addAll(equipmentUsed.getUsedList());
         for (int i = 0; i < mList.size(); i++) {
             if(patientNumberIn==mList.get(i).getPatientNumber()){
                 record="\n--------------------------------------------------------------------------------------------------------------------\n"+
@@ -153,8 +159,16 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
                         "\n--------------------------------------------------------------------------------------------------------------------\n" +
                         "\n\n   List of Prescriptions this Visit \n\n";
                 for (int j = 0; j <presList.size() ; j++) {
-                    if(patientNumberIn==presList.get(i).getpNum()&& presList.get(j).getPaid()==1) {
+                    if(patientNumberIn==presList.get(j).getpNum()&& presList.get(j).getPaid()==1) {
                         record += record = "\n   Drug type:\t" + presList.get(j).getMedName() + "\t  Drug Amount:\t" + presList.get(j).getDose()+"\n";
+                    }
+
+                }
+                record+=record="\n--------------------------------------------------------------------------------------------------------------------\n" +
+                        "\n\n   List of Equipment Used this Visit \n\n";
+                for (int k = 0; k <eqUsedList.size() ; k++) {
+                    if(patientNumberIn==eqUsedList.get(k).getpNum()&& eqUsedList.get(k).getThisVisit()==1) {
+                        record += record = "\n   Equip type:\t" + eqUsedList.get(k).getEqName() + "\n";
                     }
 
                 }

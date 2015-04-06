@@ -14,12 +14,12 @@ public class TimeTables {
     private ResultSet rset;
     private ArrayList<AllTimeTables>allTimeTables=new ArrayList<>();
     private ArrayList<ConsultantTimeTable> consultantTimeTable = new ArrayList<ConsultantTimeTable>();
-    private Consultants consultants;
-    private ArrayList<Consultants>conList=new ArrayList<>();
+    private ArrayList<Equipment>equipments=new ArrayList<>();
     private TimeTableOperations to;
     private String req,selection;
     private String free="Free";
     private ConsultantTimeTable consultantT;
+    private Equipment equipment;
     private Appointment apt;
     int ind=0;
     private AllTimeTables allT;
@@ -48,8 +48,8 @@ public class TimeTables {
             allT=new AllTimeTables();
             allTimeTables.addAll(allT.getList(selection));
 
-            consultants= new Consultants();
-            conList.addAll(consultants.getConsultants());
+            equipment= new Equipment();
+            equipments.addAll(equipment.getEquipments());
     }
 
 
@@ -99,16 +99,16 @@ public class TimeTables {
         for (int i= 0; i < consultantTimeTable.size() ; i++) {
             consultantTimeTable.remove(i);
         }
-        for (int i= 0; i < conList.size() ; i++) {
-            conList.remove(i);
+        for (int i= 0; i < equipments.size() ; i++) {
+            equipments.remove(i);
         }
 
     }
 
     public void setFree(){
-        for (int i = 0; i < conList.size() ; i++) {
-            System.out.println("Con Equip skills "+conList.get(i).getEquipSill());
-            to.setTTFree(conList.get(i).getEquipSill(),free);
+        for (int i = 0; i < equipments.size() ; i++) {
+            System.out.println("Equipment "+equipments.get(i).getEqName());
+            to.setTTFree(equipments.get(i).getEqName(),free);
             System.out.println(i+" TT is free");
         }
     }

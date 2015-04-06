@@ -1,19 +1,18 @@
 package GUI;
 
-
-
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-import javax.imageio.*;
-
+import java.io.File;
+import java.io.IOException;
 
 /**
- * Created by Lionhart on 17/03/2015.
+ * Created by Roland on 06/04/2015.
  */
-public class HomeScreen extends JFrame implements ActionListener {
+
+    public class StockHomeScreen extends JFrame implements ActionListener {
     private JButton button1;
     private JButton button2;
     private JButton button3;
@@ -31,20 +30,19 @@ public class HomeScreen extends JFrame implements ActionListener {
     JFrame f, g;
     private JTabbedPane tabbedPane = new JTabbedPane(2);
 
-    public HomeScreen() {
+    public StockHomeScreen() {
         f = new JFrame();
         f.setTitle("Appointment");
         f.setLayout(new GridLayout(3, 2));
+        f.getContentPane().setBackground(Color.LIGHT_GRAY);
 
         f.setSize(1200, 800);
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        f.getContentPane().setBackground(Color.LIGHT_GRAY);
         Clock.DigitalClock clock1 = new Clock.DigitalClock();
         CalendarPane calendarPane=new CalendarPane();
-
 
         JPanel top = new JPanel(new GridLayout(1, 3));
         top.setOpaque(true);
@@ -73,42 +71,18 @@ public class HomeScreen extends JFrame implements ActionListener {
         //buttons
         JPanel buttons = new JPanel(new GridBagLayout());
 
-        button1 = new JButton("Appointments");
+        button1 = new JButton("Equipment");
         button1.addActionListener(this);
         button1.setPreferredSize(new Dimension(200, 50));
         buttons.add(button1, getConstraints(0, 0, 1, 1, GridBagConstraints.SOUTH));
-        button2 = new JButton("Check-In");
+        button2 = new JButton("Medicine");
         button2.addActionListener(this);
         button2.setPreferredSize(new Dimension(200, 50));
         buttons.add(button2, getConstraints(1, 0, 1, 1, GridBagConstraints.SOUTH));
-        button3 = new JButton("Admin Records");
+        button3 = new JButton("Consultants");
         button3.addActionListener(this);
         button3.setPreferredSize(new Dimension(200, 50));
         buttons.add(button3, getConstraints(2, 0, 1, 1, GridBagConstraints.SOUTH));
-        button4 = new JButton("Medical Records");
-        button4.addActionListener(this);
-        button4.setPreferredSize(new Dimension(200, 50));
-        buttons.add(button4, getConstraints(0, 1, 1, 1, GridBagConstraints.SOUTH));
-        button5 = new JButton("Timetables");
-        button5.addActionListener(this);
-        button5.setPreferredSize(new Dimension(200, 50));
-        buttons.add(button5, getConstraints(1, 1, 1, 1, GridBagConstraints.SOUTH));
-        button6 = new JButton("Process Referrals");
-        button6.addActionListener(this);
-        button6.setPreferredSize(new Dimension(200, 50));
-        buttons.add(button6, getConstraints(2, 1, 1, 1, GridBagConstraints.SOUTH));
-        button7 = new JButton("Patient Charts");
-        button7.addActionListener(this);
-        button7.setPreferredSize(new Dimension(200, 50));
-        buttons.add(button7, getConstraints(0, 2, 1, 1, GridBagConstraints.SOUTH));
-        button8 = new JButton("Payment");
-        button8.addActionListener(this);
-        button8.setPreferredSize(new Dimension(200, 50));
-        buttons.add(button8, getConstraints(1, 2, 1, 1, GridBagConstraints.SOUTH));
-        button9 = new JButton("Prescriptions");
-        button9.addActionListener(this);
-        button9.setPreferredSize(new Dimension(200, 50));
-        buttons.add(button9, getConstraints(2, 2, 1, 1, GridBagConstraints.SOUTH));
 
         f.add(buttons, getConstraints(1, 1, 0, 1, GridBagConstraints.SOUTH));
         f.setVisible(true);
@@ -132,37 +106,16 @@ public class HomeScreen extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(button1)) {
-            SecurityGUI securityGUI = new SecurityGUI(1);
+            AddEquipmentGUI equipmentGUI=new AddEquipmentGUI();
 
         } else if (e.getSource().equals(button2)) {
-            SecurityGUI securityGUI = new SecurityGUI(2);
+            AddMedicineGUI addMedicineGUI=new AddMedicineGUI();
+
 
         } else if (e.getSource().equals(button3)) {
-            AddPatientSecurityGUI addSecurityGUI = new AddPatientSecurityGUI(3);
-
-        } else if (e.getSource().equals(button4)) {
-            SecurityGUI securityGUI = new SecurityGUI(4);
-
-        } else if (e.getSource().equals(button5)) {
-            SingleSecurityGUI securityGUI = new SingleSecurityGUI(5);
-
-        } else if (e.getSource().equals(button6)) {
-            SingleSecurityGUI securityGUI = new SingleSecurityGUI(6);
-
-        } else if (e.getSource().equals(button7)) {
-            SecurityGUI securityGUI = new SecurityGUI(7);
-
-        } else if (e.getSource().equals(button8)) {
-            SecurityGUI securityGUI = new SecurityGUI(8);
-
-        } else if (e.getSource().equals(button9)) {
-            SecurityGUI securityGUI = new SecurityGUI(9);
-
-        } else if (e.getSource().equals(calendar)) {
-
+            AddConsultantGUI addConsultantGUI=new AddConsultantGUI();
 
         }
 
     }
 }
-

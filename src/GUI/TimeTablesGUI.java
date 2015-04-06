@@ -189,30 +189,31 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
 
                 }else{
                     tTable = "";
-                    tTable = "\n\n\tMon\tTues\tWed\tThur\tFri\tSat\tSun\n" +
+                    tTable = "\n\n\tMonday\tTuesday\tWednesday\tThursday\tFriday\tSaturday\tSunday\n" +
                             "---------------------------------------------------------------------------------------------------" +
                             "---------------------------------------------------------------------------------------------";
                     for (int i = 0; i < allTimeTables.size(); i++) {
-                        if (i < 24) {
-                            tTable += tTable = "\n" + allTimeTables.get(i).getTimeIn() + "\t" + allTimeTables.get(i).getConsultantNameIn() + "\n";
-                        } else if (i < 48) {
-                            tTable += tTable = "\n" +
-                                    "\t\t" + allTimeTables.get(i).getTaken() + "\n\t\t" + allTimeTables.get(i).getConsultantNameIn() + "\n";
-                        } else if (i < 72) {
-                            tTable += tTable = "\n" +
-                                    "\t\t\t" + allTimeTables.get(i).getTaken() + "\n\t\t\t" + allTimeTables.get(i).getConsultantNameIn() + "\n";
-                        } else if (i < 96) {
-                            tTable += tTable = "\n" +
-                                    "\t\t\t\t" + allTimeTables.get(i).getTaken() + "\n\t\t\t\t" + allTimeTables.get(i).getConsultantNameIn() + "\n";
-                        } else if (i < 120) {
-                            tTable += tTable = "\n" +
-                                    "\t\t\t\t\t" + allTimeTables.get(i).getTaken() + "\n\t\t\t\t\t" + allTimeTables.get(i).getConsultantNameIn() + "\n";
-                        } else if (i < 144) {
-                            tTable += tTable = "\n" +
-                                    "\t\t\t\t\t\t" + allTimeTables.get(i).getTaken() + "\n\t\t\t\t\t\t" + allTimeTables.get(i).getConsultantNameIn() + "\n";
-                        } else if (i < 168) {
-                            tTable += tTable = "\n" +
-                                    "\t\t\t\t\t\t\t" + allTimeTables.get(i).getTaken() + "\n\t\t\t\t\t\t\t" + allTimeTables.get(i).getConsultantNameIn() + "\n";
+                        if (i < 6) {
+                            tTable += tTable = "\n\n" +
+                                    " " + i + "\n";
+                            tTable += tTable = " TO\t" + allTimeTables.get(i).getConsultantNameIn() + "\t" + allTimeTables.get(i).getConsultantNameIn()  + "\t"+ allTimeTables.get(i).getConsultantNameIn() + "\t" + allTimeTables.get(i).getConsultantNameIn() + "\t" + allTimeTables.get(i).getConsultantNameIn() + "\t" + allTimeTables.get(i).getConsultantNameIn() + "\t" + allTimeTables.get(i).getConsultantNameIn() + "\n";
+                            tTable += tTable = " " + (i + 4) + "\t" + allTimeTables.get(i).getTaken() + "\t" + allTimeTables.get(i).getTaken()  + "\t"+ allTimeTables.get(i).getTaken() + "\t" + allTimeTables.get(i).getTaken() + "\t" + allTimeTables.get(i).getTaken() + "\t" + allTimeTables.get(i).getTaken() + "\t" + allTimeTables.get(i).getTaken() + "\t" + "\n\n\n";
+//                        } else if (i < 12) {
+//                            tTable += tTable = "\n\n" +
+//                                    " "+i+"\n";
+//                            tTable += tTable = " TO\t" + allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn() +allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\n";
+//                            tTable += tTable = " "+(i+4)+"\t" + allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getConsultantNameIn() +allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+"\n\n\n";
+//                        } else if (i < 18) {
+//                            tTable += tTable = "\n\n" +
+//                                    " "+i+"\n";
+//                            tTable += tTable = " TO\t" + allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn() +allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\n";
+//                            tTable += tTable = " "+(i+4)+"\t" + allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getConsultantNameIn() +allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+"\n\n\n";
+//                        } else if (i < 24) {
+//                            tTable += tTable = "\n\n" +
+//                                    " "+i+"\n";
+//                            tTable += tTable = " TO\t" + allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn() +allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\n";
+//                            tTable += tTable = " "+(i+4)+"\t" + allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getConsultantNameIn() +allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+"\n\n\n";
+//                        }
                         }
                     }
                     timeTableInformation.setText(tTable);

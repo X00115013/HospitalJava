@@ -39,7 +39,7 @@ public class Consultants {
 
     public void refreshArrays() {
         try {
-            clearArray();
+           consultants.removeAll(consultants);
             so = new StockOperations();
             rset = so.getConsultant();
             while (rset.next()) {
@@ -61,6 +61,7 @@ public class Consultants {
     }
 
     public ArrayList getConsultants() {
+        refreshArrays();
         return consultants;
     }
 

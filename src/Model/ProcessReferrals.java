@@ -139,7 +139,7 @@ public class ProcessReferrals {
        PatientRecord patientRecord = new PatientRecord(po,patientNumIn,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
         MedicalRecord medicalRecord = new MedicalRecord(po,patientNumIn,recommendations);
         Appointment appointment=new Appointment(reasonForVisit,medicalRequired,consultantRequired,patientNumIn);
-
+        EquipmentUsed equipmentUsed=new EquipmentUsed(patientNumIn,medicalRequired);
     }
 
 
@@ -149,6 +149,7 @@ public class ProcessReferrals {
         patientNumber=po.getPatientNumber(patientFName,patientLName,DOB);
         MedicalRecord medicalRecord = new MedicalRecord(po,patientNumber,recommendations);
         Appointment appointment=new Appointment(reasonForVisit,medicalRequired,consultantRequired);
+        EquipmentUsed equipmentUsed=new EquipmentUsed(patientNumber,medicalRequired);
 
     }
 

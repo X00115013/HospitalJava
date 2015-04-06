@@ -1,7 +1,9 @@
 package GUI;
 
         import DataBase.PatientOperations;
+        import DataBase.StockOperations;
         import Model.Equipment;
+        import Model.EquipmentUsed;
         import Model.MedicalRecord;
         import Model.PatientRecord;
 
@@ -77,9 +79,10 @@ public class UpdateMedRec extends JFrame implements ActionListener {
 
         equipment=new Equipment();
         epList.addAll(equipment.getEquipments());
-        list1 = new String[epList.size()];
+        list1 = new String[epList.size()+1];
+        list1[0]="";
         for (int i = 0; i < epList.size(); i++) {
-            list1[i]=epList.get(i).getEqName();
+            list1[i+1]=epList.get(i).getEqName();
 
         }
 
@@ -220,14 +223,10 @@ public class UpdateMedRec extends JFrame implements ActionListener {
                 choice = "Female";
             }
             int catcher = 0;
-                String medEquip = (String) reqEquipCombo.getSelectedItem();
-                if (medEquip.equals("XRay :")) {
-                    catcher = 1;
-                } else if (medEquip.equals("MRI Scan :")) {
-                    catcher = 2;
-                } else if (medEquip.equals("CT Scan :")) {
-                    catcher = 3;
-                }
+            String medEquip = (String) reqEquipCombo.getSelectedItem();
+
+            EquipmentUsed equipmentUsed = new EquipmentUsed(patientNumberIn, medEquip);
+
 
             MedicalRecord medicalRecord1=new MedicalRecord(patientNumberIn,bloodText.getText(),symptomsText.getText(),diagnosesText.getText(),requiredTreatText.getText(),allergiesText.getText());
 

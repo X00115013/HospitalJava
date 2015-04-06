@@ -38,6 +38,7 @@ public class Equipment {
 
     public void refreshArrays() {
         try {
+            equipments.removeAll(equipments);
             so=new StockOperations();
             rset = so.getEquipment();
             while (rset.next()) {

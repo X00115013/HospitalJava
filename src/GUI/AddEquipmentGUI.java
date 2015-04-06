@@ -73,20 +73,10 @@ import java.util.ArrayList;
             topSection.add(ID);
 
             holder.add(topSection);
-
-            list ="\t\tLIST AND PRICE OF EQUIPMENT IN THIS HOSPITAL\n\n" +
-                    "_________________________________________________________________________________________" +
-                    "\n\n";
-            for (int i = 0; i < eqList.size(); i++) {
-                list +=list="\tMachine ID:"+eqList.get(i).getEqId()+"\t\tName: "+eqList.get(i).getEqName()+"\t\tCost: "+eqList.get(i).getPrice()+"\n\n";
-
-            }
-
-
             JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
             additionalInformation = new JTextArea(30,65);
             additionalInformation.setBorder(loweredBorder);
-            additionalInformation.setText(list);
+            additionalInformation.setText(setTextArea());
             scroll = new JScrollPane(additionalInformation);
             scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
             textArea.add(scroll);
@@ -154,6 +144,20 @@ import java.util.ArrayList;
             return c;
         }
 
+        public String setTextArea() {
+            list="";
+            additionalInformation.setText("");
+            eqList.removeAll(eqList);
+            eqList.addAll(equipment.getEquipments());
+            list = "\t\tLIST AND PRICE OF EQUIPMENT IN THIS HOSPITAL\n\n" +
+                    "___________________________________________________________________________________________________" +
+                    "_______________________________\n\n";
+            for (int i = 0; i < eqList.size(); i++) {
+                list += list = "\tMachine ID:" + eqList.get(i).getEqId() + "\t\tName: " + eqList.get(i).getEqName() + "\t\tCost: " + eqList.get(i).getPrice() + "\n\n";
+
+            }
+            return list;
+        }
 
         public void actionPerformed(ActionEvent e)
         {
@@ -168,19 +172,10 @@ import java.util.ArrayList;
                 equipPriceText.setText("");
 
             }else if(e.getSource().equals(refresh)){
-                eqList.removeAll(eqList);
-                eqList.addAll(equipment.getEquipments());
-                list ="\t\tLIST AND PRICE OF EQUIPMENT IN THIS HOSPITAL\n\n" +
-                        "___________________________________________________________________________________________________" +
-                        "_______________________________\n\n";
-                for (int i = 0; i < eqList.size(); i++) {
-                    list +=list="\tMachine ID:"+eqList.get(i).getEqId()+"\t\tName: "+eqList.get(i).getEqName()+"\t\tCost: "+eqList.get(i).getPrice()+"\n\n";
-                    additionalInformation.setText("");
-                    additionalInformation.setText(list);
-                    equipNameText.setText("");
-                    equipPriceText.setText("");
+                additionalInformation.setText(setTextArea());
+
 
                 }
             }
         }
-    }
+

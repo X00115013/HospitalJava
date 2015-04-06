@@ -71,6 +71,18 @@ public class TimeTableOperations {
 
     }
 
+    public void setAllFree(){
+        try {
+            String free="Free";
+            String queryString1 = "INSERT INTO TimeTable(tt_ID,taken)VALUES(tt_seq.nextval,?)";
+            pstmt = conn.prepareStatement(queryString1);
+            pstmt.setString(1,free);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     public void setTTFree(String equipIn,String taken){
         try {
             String queryString1 = "INSERT INTO TimeTable(tt_ID,machineName,taken)VALUES(tt_seq.nextval,?,?)";
