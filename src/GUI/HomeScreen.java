@@ -8,10 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import javax.imageio.*;
+import javax.swing.border.EmptyBorder;
 
 
 /**
- * Created by Lionhart on 17/03/2015.
+ * Created by Lionhart and Thomas Murray on 17/03/2015.
  */
 public class HomeScreen extends JFrame implements ActionListener {
     private JButton button1;
@@ -37,7 +38,7 @@ public class HomeScreen extends JFrame implements ActionListener {
         f.setLayout(new GridLayout(3, 2));
 
         f.setSize(1200, 800);
-        f.setResizable(false);
+        f.setResizable(true);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -54,6 +55,7 @@ public class HomeScreen extends JFrame implements ActionListener {
         top.add(label1);
         calender = new JLabel("Calender goes here");
         top.add(calendarPane);
+        top.setBorder(new EmptyBorder(20, 20, 20, 20));
 //        calendar=new JButton("Press for Calendar!!!");
 //        top.add(calendar);
         f.add(top);
@@ -135,7 +137,7 @@ public class HomeScreen extends JFrame implements ActionListener {
             SecurityGUI securityGUI = new SecurityGUI(1);
 
         } else if (e.getSource().equals(button2)) {
-            SecurityGUI securityGUI = new SecurityGUI(2);
+            SingleSecurityGUI securityGUI = new SingleSecurityGUI(2);
 
         } else if (e.getSource().equals(button3)) {
             AddPatientSecurityGUI addSecurityGUI = new AddPatientSecurityGUI(3);

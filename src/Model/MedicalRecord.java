@@ -152,7 +152,7 @@ public class MedicalRecord {
 
     public void updateMedicalRecord(){
         po=new PatientOperations();
-        po.updatePatientMedical(patientNumber,blood,symptoms,diagnoses,reqTreatment,recommendations,allergies);
+        po.updatePatientMedical(patientNumber,blood,symptoms,diagnoses,reqTreatment,allergies);
         refreshArray();
         printAllArrayMR();
 //        printFromArrayMR(2);

@@ -154,15 +154,14 @@ public class PatientOperations {
             System.out.println(se);
         }
     }
-    public void updatePatientMedical(int patientNumber,String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment, String recommendationIn, String newAllergies )
+    public void updatePatientMedical(int patientNumber,String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment, String newAllergies )
     {
         try {
-            String sql1 = "UPDATE Patient SET bloodType= '" + newBlood +"'," +
-                    "symptoms= '" + newSymptoms + "'," +
+            String sql1 = "UPDATE Patient SET bloodType= '"+newBlood+"'," +
+                    "symptoms= '" +newSymptoms+ "'," +
                     "requiredTreatment= '"+newReqTreatment+ "'," +
                     " diagnoses= '"+newDiagnoses+"'," +
-                    " allergies= '"+newAllergies+"'," +
-                    " Recommendation ='"+recommendationIn+"'" +
+                    " allergies= '"+newAllergies+"'" +
                     " where patient_Number=" +patientNumber;
             stmt = conn.createStatement();
             stmt.executeUpdate(sql1);

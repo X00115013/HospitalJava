@@ -63,7 +63,7 @@ public class Security {
 
     public void setSelection(int answerIn){
         if(selection==1 && (answerIn==1 ||answerIn==2 ||answerIn==3 )){
-        AppointmentGUI appointmentGUI = new AppointmentGUI();
+        AppointmentGUI appointmentGUI = new AppointmentGUI(patientNum);
         }else if(selection==2 && (answerIn==1 ||answerIn==2 ||answerIn==3 )){
             CheckInGUI checkInGUI=new CheckInGUI();
         }else if(selection==3 && (answerIn==1 ||answerIn==3 )){

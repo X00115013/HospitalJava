@@ -14,8 +14,10 @@ public class Appointment {
     public String consultantType,medicalEquip;
     public int  patientNum, appNumber;
     public String date;
+    private Consultants consultants;
     private ResultSet rset = null;
     private ArrayList<Appointment> appList = new ArrayList<Appointment>();
+    private ArrayList<Consultants>conList=new ArrayList<>();
     private AppointmentOperations ao;
     private Appointment apt;
 
@@ -24,7 +26,7 @@ public class Appointment {
         appointmentArray();
     }
 
-    public Appointment(int appNumIn ,String reasonForVisitIn, String consultantTypeIn, String medicalEquipIn, int patientNumIn) {
+    public Appointment(int appNumIn ,String reasonForVisitIn,  String medicalEquipIn,String consultantTypeIn, int patientNumIn) {
         appNumber=appNumIn;
         reasonForVisit = reasonForVisitIn;
         consultantType = consultantTypeIn;
@@ -33,21 +35,12 @@ public class Appointment {
     }
 
 
-    public Appointment(String reasonForVisitIn, String consultantTypeIn, String medicalEquipIn,int patientNumIn) {
+    public Appointment(String reasonForVisitIn,  String medicalEquipIn,String consultantTypeIn,int patientNumIn) {
         reasonForVisit = reasonForVisitIn;
         consultantType = consultantTypeIn;
         medicalEquip = medicalEquipIn;
         patientNum=patientNumIn;
-        setAppointmentExisting(reasonForVisit,consultantType, medicalEquip,  patientNum);
-        printAppointment();
-    }
-
-
-    public Appointment(String reasonForVisitIn, String consultantTypeIn, String medicalEquipIn) {
-        reasonForVisit = reasonForVisitIn;
-        consultantType = consultantTypeIn;
-        medicalEquip = medicalEquipIn;
-        setAppointment(reasonForVisit, consultantType, medicalEquip);
+        setAppointmentExisting(reasonForVisit, medicalEquip, consultantType, patientNum);
         printAppointment();
     }
 
@@ -110,30 +103,27 @@ public class Appointment {
         return patientNum;
     }
 
+    public String getConNameFromSkill(String skillIn){
+        String swap="";
+        conList.removeAll(conList);
+        consultants=new Consultants();
+        conList.addAll(consultants.getConsultants());
+        for (int i = 0; i <conList.size() ; i++) {
+            if(conList.get(i).getEquipSill().equals(skillIn)){
+                swap=conList.get(i).getConName();
+            }
+        }return swap;
+    }
+
+
 
     public void setAppointmentExisting(String recIn, String equipIn,String conIn,int patientNumIn) {
         ao=new AppointmentOperations();
         ao.addAppointmentExisting(recIn, equipIn, conIn,patientNumIn);
         if (equipIn.equals("")) {
-            TimeTables timeTableCON = new TimeTables(conIn,consultantType);
+            TimeTables timeTableCON = new TimeTables(conIn);
             ao.appointmentOperationsClose();
         } else{
-            System.out.println("Existing app:tt set");
-            TimeTables timeTableMED = new TimeTables(equipIn,conIn);
-            ao.appointmentOperationsClose();
-        }
-    }
-
-
-    public void setAppointment(String recIn, String equipIn,String conIn) {
-        ao=new AppointmentOperations();
-        ao.addAppointment(recIn, equipIn, conIn);
-        if (equipIn.equals("")) {
-            System.out.println("should not be here con new app");
-            TimeTables timeTableCON = new TimeTables(equipIn,conIn);
-            ao.appointmentOperationsClose();
-        } else{
-            System.out.println("New app:tt set eq: "+equipIn+"  con: "+conIn);
             TimeTables timeTableMED = new TimeTables(equipIn,conIn);
             ao.appointmentOperationsClose();
         }

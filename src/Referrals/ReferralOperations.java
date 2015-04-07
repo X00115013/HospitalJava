@@ -13,10 +13,9 @@ public class ReferralOperations {
     private ResultSet rset;
     private PreparedStatement pstmt;
     private Statement stmt;
-    private Connect connect;
+    private Connect connect= new Connect();
 
     public ReferralOperations() {
-        connect= new Connect();
         conn = connect.openDB();
     }
 

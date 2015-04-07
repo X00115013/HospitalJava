@@ -9,106 +9,82 @@ import Model.*;
  * Created by David on 04/03/2015.
  */
 public class Bill {
-//    private final double VAT = 1.21;
-//    private String type;
-//    private double equipCost,medCost=0,cost, amount;
-//    private int paid = 0, typeH=0;  // typeH Is THE TYPE OF HEALTH INSURANCE
-//    private ArrayList<Equipment> equipment = new ArrayList<Equipment>();
-//    private ArrayList<Medicine> medicine = new ArrayList<Medicine>();
-//    private Equipment e = new Equipment();
-//    private Medicine m = new Medicine();
-//
-//
-//    public Bill(){}
-//
-////    public void fillEquipCost(Equipment equip){
-////        equipment.add(equip);
-////    }
-//
-//    // filling Epuipment for cost per piece of equipment NOT WORKING may be because nothing has been added
-////   public void equipmentCost(){
-////       double ecost=0;
-////       for (int i = 0; i < equipment.size(); i++){
-////           ecost = equipment.get(i).getEquipCost1()+equipment.get(i).getEquipCost2()+equipment.get(i).getEquipCost3();
-////      }
-////       equipCost = ecost;
-////      // return equipCost;
-////   }
-//
-//
-////public void print(){
-////    for (int i = 0; i< equipment.size(); i++){
-////        System.out.println(equipment.get(i).getEquipCost1());
-////    }
-////}
-//    public void calcEquipCost(){
-//        equipCost = e.getEquipCost1()+e.getEquipCost2()+e.getEquipCost3();
-//        //return equipCost;
-//    }
-//
-//    public void calcMedCost(){
-//        medCost = m.getMedCost1()+m.getMedCost2()+m.getMedCost3();
-//    }
-//    public void calBill(String type){
-//        if(type.equalsIgnoreCase("MedCard")){
-//            amount = 0;
-//            paid=1;
-//
-//        }
-//        else if (type.equalsIgnoreCase("CreditCard")|| type.equalsIgnoreCase("DebitCard")){
-//            amount = (equipCost + medCost)*VAT;
-//            //amount = (e.getEquipCost1()+medCost)*VAT;
-//            paid=1;
-//        }
-//        else if (type.equalsIgnoreCase("Health")){
-//            if (typeH == 1){
-//                double discount = 0.25;
-//                cost = equipCost + medCost;
-//                amount = cost -(cost*discount);
-//                amount*= VAT;
-//                paid=1;
-//            }
-//            else if (typeH == 2){
-//                double discount = 0.50;
-//                cost = equipCost + medCost;
-//                amount = cost -(cost*discount);
-//                amount*= VAT;
-//                paid=1;
-//            }
-//            else if (typeH == 3){
-//                double discount = 0.75;
-//                cost = equipCost + medCost;
-//                amount = cost -(cost*discount);
-//                amount*= VAT;
-//                paid=1;
-//            }
-//        }
-//    }
-//
-//    public double getAmount() {
-//        return amount;
-//    }
-//
-//    public static void main(String[] args) {
-//        Scanner in = new Scanner(System.in);
-//        int to;
-//        String tt;
-//        Bill t = new Bill();
-//
-//        System.out.println("enter the payment type");
-//        t.type = in.next();
-//       // t.setType(tt);
-//        if(t.type.equalsIgnoreCase("Health")){
-//            System.out.println("enter the type of hI");
-//            //to = in.nextInt();
-//            t.typeH= in.nextInt();
-//        }
-//
-//        t.calcEquipCost();
-//        t.calcMedCost();
-//        t.calBill(t.type);
-//        System.out.printf("Test € %.2f%n ", t.getAmount());
-//
-//    }
+    private final double VAT = 0.27;
+    private final double FLAT_CHARGE = 150.00;
+    private String type;
+    private double equipCost,medCost=0,cost, totalBeforeVAT=0.00,totalAfterVAT=0.00,totalVAT=0.00;
+    private int paid = 0, typeH=0,patientNumberIn;  // typeH Is THE TYPE OF HEALTH INSURANCE
+    private ArrayList<Equipment> equipment = new ArrayList<Equipment>();
+    private ArrayList<Medicine> medicine = new ArrayList<Medicine>();
+    private ArrayList<Prescription>presList=new ArrayList<>();
+    private ArrayList<EquipmentUsed>eqUsedList=new ArrayList<>();
+    private Prescription prescription;
+    private EquipmentUsed equipmentUsed;
+    private Equipment e;
+    private Medicine m;
+
+
+    public Bill(int patientNumIn){
+        patientNumberIn=patientNumIn;
+        arrays();
+        totalBeforeVAT=calcMedCost()+calcEquipCost()+FLAT_CHARGE;
+        totalVAT=totalBeforeVAT*VAT;
+        totalAfterVAT=totalBeforeVAT+totalVAT;
+    }
+
+    public double calcEquipCost(){
+        double equipTotal=0.00;
+        for (int i = 0; i <eqUsedList.size() ; i++) {
+            if((patientNumberIn == eqUsedList.get(i).getpNum())&& (eqUsedList.get(i).getThisVisit()==1)){
+                for (int j = 0; j < equipment.size(); j++) {
+                    if(eqUsedList.get(i).getEqName().equals(equipment.get(j).getEqName())){
+                        equipTotal+=equipment.get(j).getPrice();
+                    }
+                }
+            }
+        }return equipTotal;
+    }
+
+
+    public double calcMedCost(){
+        double medTotal=0.00;
+        for (int i = 0; i <presList.size() ; i++) {
+            if((patientNumberIn == presList.get(i).getpNum())&& (presList.get(i).getPaid()==1)){
+                for (int j = 0; j < medicine.size(); j++) {
+                    if(presList.get(i).getMedName().equals(medicine.get(j).getMedName())){
+                        medTotal+=medicine.get(j).getPrice()* presList.get(i).getDose();
+                    }
+                }
+            }
+        }return medTotal;
+    }
+
+    public void arrays(){
+        presList.removeAll(presList);
+        eqUsedList.removeAll(eqUsedList);
+        equipment.removeAll(eqUsedList);
+        medicine.removeAll(medicine);
+        prescription=new Prescription();
+        presList.addAll(prescription.getPresList());
+        equipmentUsed=new EquipmentUsed(patientNumberIn);
+        eqUsedList.addAll(equipmentUsed.getUsedList());
+        e= new Equipment();
+        equipment.addAll(e.getEquipments());
+        m= new Medicine();
+        medicine.addAll(m.getMedicines());
+    }
+
+    public double getTotalBeforeVAT() {
+        return totalBeforeVAT;
+    }
+
+    public double getTotalAfterVAT() {
+        return totalAfterVAT;
+    }
+
+    public double getTotalVAT() {
+        return totalVAT;
+    }
 }
+
 

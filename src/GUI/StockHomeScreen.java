@@ -2,6 +2,7 @@ package GUI;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,13 +17,6 @@ import java.io.IOException;
     private JButton button1;
     private JButton button2;
     private JButton button3;
-    private JButton button4;
-    private JButton button5;
-    private JButton button6;
-    private JButton button7;
-    private JButton button8;
-    private JButton button9;
-    private JButton calendar;
 
 
     private JLabel label1, calender;
@@ -37,7 +31,7 @@ import java.io.IOException;
         f.getContentPane().setBackground(Color.LIGHT_GRAY);
 
         f.setSize(1200, 800);
-        f.setResizable(false);
+        f.setResizable(true);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -52,6 +46,7 @@ import java.io.IOException;
         top.add(label1);
         calender = new JLabel("Calender goes here");
         top.add(calendarPane);
+        top.setBorder(new EmptyBorder(20, 20, 20, 20));
 //        calendar=new JButton("Press for Calendar!!!");
 //        top.add(calendar);
         f.add(top);

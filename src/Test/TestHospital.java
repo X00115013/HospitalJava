@@ -17,7 +17,7 @@ public class TestHospital {
 //        ReferralGUI referralGUI= new ReferralGUI();
 //        referralGUI.setVisible(true);
         HomeScreen homeScreen=new HomeScreen();
-//        StockHomeScreen stockHomeScreen=new StockHomeScreen();
+        StockHomeScreen stockHomeScreen=new StockHomeScreen();
 //        CheckInGUI checkInGUI=new CheckInGUI();
 //        AddPatientGUI addPatientGUI=new AddPatientGUI();
 //        AdminCheckOutGUI adminCheckOutGUI=new AdminCheckOutGUI();

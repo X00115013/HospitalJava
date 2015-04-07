@@ -26,11 +26,11 @@ public class AppointmentGUI extends JFrame implements ActionListener {
     String[] list2;
     JButton confirm;
     JButton cancel,cancelApt;
-    private Object selectedItem;
     private ArrayList<Equipment> eqList=new ArrayList<>();
     private ArrayList<Consultants>conList=new ArrayList<>();
     private Equipment equipment;
     private Consultants consultants;
+    private int patientNumberIn;
 
     JLabel aptNum;
     JLabel reason;
@@ -49,10 +49,8 @@ public class AppointmentGUI extends JFrame implements ActionListener {
     JComboBox<String> combo1;
     JComboBox<String> combo2;
 
-    public AppointmentGUI() {
-
-
-
+    public AppointmentGUI(int patientNumIn) {
+        patientNumberIn=patientNumIn;
         f = new JFrame();
         f.setTitle("Appointment");
         f.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -200,7 +198,7 @@ public class AppointmentGUI extends JFrame implements ActionListener {
                     catcher2 = conList.get(j).getConName();;
                 }
             }
-            Appointment app = new Appointment(textArea.getText(), catcher2, catcher);
+            Appointment app = new Appointment(textArea.getText(), catcher, catcher2,patientNumberIn);
             reason.setText("");
             f.setVisible(false);
             AppointmentDetailsGUI appointmentDetailsGUI=new AppointmentDetailsGUI(app,Integer.parseInt(aptNumText.getText()));

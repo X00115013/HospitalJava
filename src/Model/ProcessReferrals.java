@@ -68,25 +68,19 @@ public class ProcessReferrals {
 
 
     public void refreshTables() {
-        clearArrays();
+        refList.removeAll(refList);
         rset = ro.getReferral();
         try {
             while (rset.next()) {
-                refList.add(processReferrals = new ProcessReferrals(rset.getInt(1),rset.getInt(2), rset.getString(3), rset.getString(4), rset.getString(5), rset.getString(6), rset.getString(7),
+                refList.add(processReferrals = new ProcessReferrals(rset.getInt(1), rset.getInt(2), rset.getString(3), rset.getString(4), rset.getString(5), rset.getString(6), rset.getString(7),
                         rset.getString(8), rset.getString(9), rset.getString(10), rset.getString(11), rset.getString(12), rset.getString(13), rset.getInt(14), rset.getString(15)));
             }
         } catch (SQLException e1) {
-            System.out.println("Referral connection trouble process referral "+e1);
+            System.out.println("Referral connection trouble process referral " + e1);
         }
-        try {
-            rset = po.getPatientAdmin();
-            while (rset.next()) {
-                pRecList.add(patientRecord = new PatientRecord(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4),
-                        rset.getString(5), rset.getString(6), rset.getString(7), rset.getString(8), rset.getString(9)));
-            }
-        } catch (SQLException e1) {
-            System.out.println("patient record connection trouble process referral "+e1);
-        }
+        pRecList.removeAll(pRecList);
+        patientRecord=new PatientRecord();
+        pRecList.addAll(patientRecord.getPatientList());
     }
 
 
@@ -114,9 +108,7 @@ public class ProcessReferrals {
                 }
                 else{
                 for (int j = 0; j < pRecList.size(); j++) {
-                    String nameTest = pRecList.get(j).getPatientFName();
-
-                    if (patientFName.equalsIgnoreCase(nameTest)) {
+                    if (patientFName.equalsIgnoreCase(pRecList.get(j).getPatientFName())) {
                         referralProcessForExistingPatient(pRecList.get(j).getPatientNumber());
                         ro.setChecked(refList.get(i).refNum);
                         j=pRecList.size()+1;
@@ -129,8 +121,9 @@ public class ProcessReferrals {
                     }
                 }
               }
-            }
-        }ro.referralOperationsClose();
+            }refreshTables();
+        }
+        ro.referralOperationsClose();
     }
 
 
@@ -148,7 +141,7 @@ public class ProcessReferrals {
         PatientRecord patientRecord = new PatientRecord(po,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
         patientNumber=po.getPatientNumber(patientFName,patientLName,DOB);
         MedicalRecord medicalRecord = new MedicalRecord(po,patientNumber,recommendations);
-        Appointment appointment=new Appointment(reasonForVisit,medicalRequired,consultantRequired);
+        Appointment appointment=new Appointment(reasonForVisit,medicalRequired,consultantRequired,patientNumber);
         EquipmentUsed equipmentUsed=new EquipmentUsed(patientNumber,medicalRequired);
 
     }

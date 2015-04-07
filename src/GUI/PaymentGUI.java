@@ -1,12 +1,15 @@
 
 package GUI;
 
+        import Model.*;
+
         import javax.swing.*;
         import javax.swing.border.BevelBorder;
         import javax.swing.border.Border;
         import java.awt.*;
         import java.awt.event.ActionEvent;
         import java.awt.event.ActionListener;
+        import java.util.ArrayList;
 
 /**
  * Created by Thomas Murray on 29/03/2015.
@@ -24,7 +27,15 @@ public class PaymentGUI extends JFrame implements ActionListener
     JRadioButton checkOutRadio;
     JScrollPane scroll;
     private int patientNumberIn;
-    JFrame f;
+    private ArrayList<PatientRecord>patList=new ArrayList<>();
+    private ArrayList<Prescription> presList=new ArrayList<>();
+    private ArrayList<EquipmentUsed>eqUsedList=new ArrayList<>();
+    private PatientRecord patientRecord;
+    private Prescription prescription;
+    private EquipmentUsed equipmentUsed;
+    private String record="This is meant to be the patient Bill";
+    private Bill bill;
+    private JFrame f;
 
     public PaymentGUI(int patientNumIn)
     {
@@ -75,6 +86,7 @@ public class PaymentGUI extends JFrame implements ActionListener
         billInformation = new JTextArea(40,70);
         billInformation.setBorder(loweredBorder);
         billInformation.setEditable(false);
+        billInformation.setText(setTextArea());
         scroll = new JScrollPane(billInformation);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         textArea.add(scroll);
@@ -129,7 +141,52 @@ public class PaymentGUI extends JFrame implements ActionListener
         f.setVisible(true);
     }
 
+    public String setTextArea(){
+        bill=new Bill(patientNumberIn);
+        patList.removeAll(patList);
+        presList.removeAll(presList);
+        eqUsedList.removeAll(eqUsedList);
+        patientRecord=new PatientRecord();
+        patList.addAll(patientRecord.getPatientList());
+        prescription=new Prescription();
+        presList.addAll(prescription.getPresList());
+        equipmentUsed=new EquipmentUsed(patientNumberIn);
+        eqUsedList.addAll(equipmentUsed.getUsedList());
+        for (int i = 0; i < patList.size(); i++) {
+            if(patientNumberIn==patList.get(i).getPatientNumber()){
+                record="\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n   Patient Number is      \t" + patList.get(i).getPatientNumber() + "\n" +
+                        "\n   Patient Name is         \t" + patList.get(i).getPatientFName() + " " + patList.get(i).getPatientLName() + "\n" +
+                        "\n   Patient Phone is          \t" + patList.get(i).getPhone() + "\n" +
+                        "\n   Patient Email is   \t" + patList.get(i).getEmail() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n\n   List of Prescriptions this Visit \n\n";
+                for (int j = 0; j <presList.size() ; j++) {
+                    if(patientNumberIn==presList.get(j).getpNum()&& presList.get(j).getPaid()==1) {
+                        record += record = "\n   Drug type:\t" + presList.get(j).getMedName() + "\t  Drug Amount:\t" + presList.get(j).getDose()*10+" mg\tTotal:  "+bill.calcMedCost()+"\n";
+                    }
 
+                }
+                record+=record="\n--------------------------------------------------------------------------------------------------------------------\n" +
+                        "\n\n   List of Equipment Used this Visit \n\n";
+                for (int k = 0; k <eqUsedList.size() ; k++) {
+                    if(patientNumberIn==eqUsedList.get(k).getpNum()&& eqUsedList.get(k).getThisVisit()==1) {
+                        record += record = "\n   Equip type:\t" + eqUsedList.get(k).getEqName() + "\tTotal:  "+bill.calcEquipCost()+"\n";
+                    }
+
+                }
+                record+=record="\n--------------------------------------------------------------------------------------------------------------------\n" +
+                        "\n\n   Total before VAT\t\t"+bill.getTotalBeforeVAT()+"\n";
+                record+=record="\n--------------------------------------------------------------------------------------------------------------------\n" +
+                        "\n\n   Total After VAT \t\t"+bill.getTotalAfterVAT()+"\n";
+                record+=record="\n--------------------------------------------------------------------------------------------------------------------\n" +
+                        "\n\n   Total VAT Paid\t\t"+bill.getTotalVAT()+"\n";
+            }
+
+        }
+
+        return record;
+    }
 
 
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {

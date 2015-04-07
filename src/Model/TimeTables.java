@@ -29,36 +29,37 @@ public class TimeTables {
         refreshTimeTables();
     }
 
+    public TimeTables(String reqIn) {
+        to=new TimeTableOperations();
+        req=reqIn;
+        refreshTimeTables();
+        setFromConReq(req);
+    }
+
     public TimeTables(String selectionIn, String reqIn) {
         to=new TimeTableOperations();
         req=reqIn;
         selection=selectionIn;
         refreshTimeTables();
-        if(selection.equals("")) {
-            setFromConReq(req);
-        }else{
-            System.out.println("setFrom Constructor tt set");
-            setFromMedReq(selection,req);
+        setFromMedReq(selection,req);
         }
-    }
+
+
 
     public void refreshTimeTables() {
-            clearArrays();
-
-            allT=new AllTimeTables();
-            allTimeTables.addAll(allT.getList(selection));
-
-            equipment= new Equipment();
-            equipments.addAll(equipment.getEquipments());
+        allTimeTables.removeAll(allTimeTables);
+        equipments.removeAll(equipments);
+        allT=new AllTimeTables();
+        allTimeTables.addAll(allT.getList(selection));
+        equipment= new Equipment();
+        equipments.addAll(equipment.getEquipments());
     }
 
 
     public void setFromMedReq(String equipType ,String conIn){
         String taken = "Taken";
-        String freeCheck="";
         for (int i = 0; i < allTimeTables.size(); i++) {
-                freeCheck = (String)allTimeTables.get(i).getTaken();
-                if (freeCheck.equals(free)) {
+                if (allTimeTables.get(i).getTaken().equals(free)) {
                     allT = new AllTimeTables( equipType, i, taken, conIn);
                     i = allTimeTables.size() + 1;
                 }
@@ -92,25 +93,34 @@ public class TimeTables {
 //        }
     }
 
-    public void clearArrays(){
-        for (int i= 0; i < allTimeTables.size() ; i++) {
-            allTimeTables.remove(i);
-        }
-        for (int i= 0; i < consultantTimeTable.size() ; i++) {
-            consultantTimeTable.remove(i);
-        }
-        for (int i= 0; i < equipments.size() ; i++) {
-            equipments.remove(i);
-        }
-
-    }
-
     public void setFree(){
-        for (int i = 0; i < equipments.size() ; i++) {
-            System.out.println("Equipment "+equipments.get(i).getEqName());
-            to.setTTFree(equipments.get(i).getEqName(),free);
+        int spinner=0;
+        for (int i = 0; i < 297; i++) {
+            to.setTTFree(equipments.get(spinner).getEqName(), free);
+            spinner++;
+            if(spinner==equipments.size()){
+                spinner=0;
+            }
             System.out.println(i+" TT is free");
-        }
+        }to.TimeTableOperationsClose();
+        to=new TimeTableOperations();
+        for (int i = 0; i < 297; i++) {
+            to.setTTFree(equipments.get(spinner).getEqName(),free);
+            spinner++;
+            if(spinner==equipments.size()){
+                spinner=0;
+            }
+            System.out.println(i+" TT is free");
+        }to.TimeTableOperationsClose();
+        to=new TimeTableOperations();
+        for (int i = 0; i < 297; i++) {
+            to.setTTFree(equipments.get(spinner).getEqName(),free);
+            spinner++;
+            if(spinner==equipments.size()){
+                spinner=0;
+            }
+            System.out.println(i+" TT is free");
+        }to.TimeTableOperationsClose();
     }
 }
 

@@ -188,17 +188,19 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
                     contable = "";
 
                 }else{
+                    int spinner=0,time=0;
                     tTable = "";
-                    tTable = "\n\n\tMonday\tTuesday\tWednesday\tThursday\tFriday\tSaturday\tSunday\n" +
+                    tTable = "\n\n\t\tMon\t\tTues\t\tWed\t\tThur\t\tFri\t\tSat\t\tSun\n" +
                             "---------------------------------------------------------------------------------------------------" +
                             "---------------------------------------------------------------------------------------------";
                     for (int i = 0; i < allTimeTables.size(); i++) {
-                        if (i < 6) {
+                        if (spinner < 6) {
                             tTable += tTable = "\n\n" +
-                                    " " + i + "\n";
-                            tTable += tTable = " TO\t" + allTimeTables.get(i).getConsultantNameIn() + "\t" + allTimeTables.get(i).getConsultantNameIn()  + "\t"+ allTimeTables.get(i).getConsultantNameIn() + "\t" + allTimeTables.get(i).getConsultantNameIn() + "\t" + allTimeTables.get(i).getConsultantNameIn() + "\t" + allTimeTables.get(i).getConsultantNameIn() + "\t" + allTimeTables.get(i).getConsultantNameIn() + "\n";
-                            tTable += tTable = " " + (i + 4) + "\t" + allTimeTables.get(i).getTaken() + "\t" + allTimeTables.get(i).getTaken()  + "\t"+ allTimeTables.get(i).getTaken() + "\t" + allTimeTables.get(i).getTaken() + "\t" + allTimeTables.get(i).getTaken() + "\t" + allTimeTables.get(i).getTaken() + "\t" + allTimeTables.get(i).getTaken() + "\t" + "\n\n\n";
-//                        } else if (i < 12) {
+                                    " " + time + "\n";
+                            tTable += tTable = " TO\t\t" + allTimeTables.get(i).getConsultantNameIn() + "\t\t" + allTimeTables.get(i+6).getConsultantNameIn()  + "\t\t"+ allTimeTables.get(i+12).getConsultantNameIn() + "\t\t" + allTimeTables.get(i+18).getConsultantNameIn() + "\t\t" + allTimeTables.get(i+24).getConsultantNameIn() + "\t\t" + allTimeTables.get(i+30).getConsultantNameIn() + "\t\t" + allTimeTables.get(i+36).getConsultantNameIn() + "\n";
+                            tTable += tTable = " " + (time + 4) + "\t\t" + allTimeTables.get(i).getTaken() + "\t\t" + allTimeTables.get(i+6).getTaken()  + "\t\t"+ allTimeTables.get(i+12).getTaken() + "\t\t" + allTimeTables.get(i+18).getTaken() + "\t\t" + allTimeTables.get(i+24).getTaken() + "\t\t" + allTimeTables.get(i+30).getTaken() + "\t\t" + allTimeTables.get(i+36).getTaken() + "\t\t" + "\n\n\n";
+                        } else if (spinner ==6) {
+                            i = allTimeTables.size() + 1;
 //                            tTable += tTable = "\n\n" +
 //                                    " "+i+"\n";
 //                            tTable += tTable = " TO\t" + allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn() +allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\t"+ allTimeTables.get(i).getConsultantNameIn()+"\n";
@@ -215,13 +217,17 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
 //                            tTable += tTable = " "+(i+4)+"\t" + allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getConsultantNameIn() +allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+ allTimeTables.get(i).getTaken()+"\t"+"\n\n\n";
 //                        }
                         }
-                    }
+                            spinner++;
+                        time +=4;
+                        }
                     timeTableInformation.setText(tTable);
                     tTable = "";
+                    }
+
 
                 }
 
             }
         }
-    }
+
 

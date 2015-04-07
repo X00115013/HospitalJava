@@ -1,6 +1,7 @@
 package Model;
 
 import DataBase.StockOperations;
+import DataBase.TimeTableOperations;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,12 +12,12 @@ import java.util.ArrayList;
  */
 public class Equipment {
     private int eqId;
-    private String eqName;
+    private String eqName,free="Free";
     private double price;
     private ResultSet rset;
     private ArrayList<Equipment> equipments=new ArrayList<>();
-    StockOperations so;
-
+    private StockOperations so;
+    private TimeTableOperations to;
 
     public Equipment(){
 
@@ -52,6 +53,11 @@ public class Equipment {
     public void addEquipment(String nameIn,double price){
         so.addEquipment(nameIn, price);
         so.stockOperationsClose();
+        to=new TimeTableOperations();
+        for (int i = 0; i < 200; i++) {
+            to.setTTFree(nameIn, free);
+            System.out.println(i+" TT is free");
+        }to.TimeTableOperationsClose();
     }
 
 

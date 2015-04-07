@@ -225,7 +225,9 @@ public class UpdateMedRec extends JFrame implements ActionListener {
             int catcher = 0;
             String medEquip = (String) reqEquipCombo.getSelectedItem();
 
-            EquipmentUsed equipmentUsed = new EquipmentUsed(patientNumberIn, medEquip);
+            if(!medEquip.equals("")){
+                EquipmentUsed equipmentUsed = new EquipmentUsed(patientNumberIn, medEquip);
+            }
 
 
             MedicalRecord medicalRecord1=new MedicalRecord(patientNumberIn,bloodText.getText(),symptomsText.getText(),diagnosesText.getText(),requiredTreatText.getText(),allergiesText.getText());
