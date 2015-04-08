@@ -160,7 +160,8 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
                     contable = "";
                     contable = "\n\n\tMon\tTues\tWed\tThur\tFri\tSat\tSun\n" +
                             "---------------------------------------------------------------------------------------------------" +
-                            "---------------------------------------------------------------------------------------------";
+                            "----------------------------------------------------------------------------------------------------------------------------" +
+                            "------------------------------------------------------";
                     for (int k = 0; k < conTimeTables.size(); k++) {
                         if (k < 6) {
                             contable += contable = "\n" + conTimeTables.get(k).getTimeIn() + "\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";

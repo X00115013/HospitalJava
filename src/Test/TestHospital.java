@@ -17,9 +17,9 @@ public class TestHospital {
 //        ReferralGUI referralGUI= new ReferralGUI();
 //        referralGUI.setVisible(true);
         HomeScreen homeScreen=new HomeScreen();
-        StockHomeScreen stockHomeScreen=new StockHomeScreen();
+//        StockHomeScreen stockHomeScreen=new StockHomeScreen();
 //        CheckInGUI checkInGUI=new CheckInGUI();
-//        AddPatientGUI addPatientGUI=new AddPatientGUI();
+//        AddPatientGUI addPatientGUI=new AddPatientGUI(1,1);
 //        AdminCheckOutGUI adminCheckOutGUI=new AdminCheckOutGUI();
 //        MedCheckOutGUI medCheckOutGUI=new MedCheckOutGUI();
 //        PatientAdminRecGUI patientAdminRecGUI=new PatientAdminRecGUI();
@@ -45,9 +45,9 @@ public class TestHospital {
 
 
 //        REFERRALS TESTS
-//        Referrals referrals= new Referrals( "Jim","dublin","mick","jagger","Carlow","02-Jan-00","4591662","sick","help him","XRay","Radiology",1,"male");
-//        Referrals referrals2= new Referrals( "Joe","cork","paul","Macartey","New York","04-Feb-67","0870973783","Deader","bury him","MRI","Pediatrics",1,"female");
-//        Referrals referrals3= new Referrals( "Hayden","Dudai","John","Lennon","Liverpool","13-Mar-58","555-555-555","Ghost","Fear him","CT Scan","Neurologist",1,"male");
+//        Referrals referrals= new Referrals( "Jim","dublin","mick","jagger","Carlow","02-Jan-2000","4591662","sick","help him","XRay","Radiology",1,"male");
+//        Referrals referrals2= new Referrals( "Joe","cork","paul","Macartey","New York","04-Feb-1967","0870973783","Deader","bury him","MRI","Pediatrics",1,"female");
+//        Referrals referrals3= new Referrals( "Hayden","Dudai","John","Lennon","Liverpool","13-Mar-1958","555-555-555","Ghost","Fear him","CT Scan","Neurologist",1,"male");
 //        ProcessReferrals processReferrals = new ProcessReferrals();
 
 

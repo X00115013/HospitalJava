@@ -81,7 +81,7 @@ public class PatientChartGUI extends JFrame implements ActionListener
             PatientOperations po=new PatientOperations();
             rset = po.getPatientChart(patientNumIn);
             while (rset.next()) {
-                chart+=chart= "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                chart= "\n--------------------------------------------------------------------------------------------------------------------\n"+
                         "\n  Patient \n  Number \t"+rset.getInt(1)+"\n\n" +
                         "\n--------------------------------------------------------------------------------------------------------------------\n"+
                         "  Patient \n  First Name \t"+rset.getString(2)+"\n\n" +

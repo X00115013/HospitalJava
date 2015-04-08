@@ -6,53 +6,85 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
- * Created by David on 17/03/2015.
+ * Created by David and Thomas Murray on 17/03/2015.
  */
 public class MedicalCard {
-    private AllCardOperations medicalCard = new AllCardOperations();
+    private AllCardOperations cd;
     private ArrayList<MedicalCard> medCardList = new ArrayList<>();
     private ResultSet rset;
-    private int PPSN, GMSNumber;
+    private int PPS, GMSNumber,patientNum,ID;
 
-    private String gender, DOB, validTo, HolderName;
+    private String gender, validTo, HolderName;
 
     public MedicalCard(){
-
+        refreshMedCardList();
     }
 
-    public MedicalCard(int GMSNumber,int PPSN,String gender,String DOB ,String validTo, String holderName) {
+    public MedicalCard(int patientNumIn,int GMSNumber,int PPS,String gender,String validTo, String holderName) {
+        cd=new AllCardOperations();
+        patientNum=patientNumIn;
         this.GMSNumber = GMSNumber;
-        this.PPSN = PPSN;
+        this.PPS = PPS;
         this.gender = gender;
-        this.DOB = DOB;
+        this.validTo = validTo;
+        HolderName = holderName;
+        addMedCard();
+
+    }
+    public MedicalCard(int ID, int patientNumIn, int GMSNumber,int PPS,String gender,String validTo, String holderName) {
+        patientNum=patientNumIn;
+        this.ID=ID;
+        this.GMSNumber = GMSNumber;
+        this.PPS = PPS;
+        this.gender = gender;
         this.validTo = validTo;
         HolderName = holderName;
 
     }
     public void refreshMedCardList() {
-        System.out.println("This will delete all all in this list");
-        rset = medicalCard.getMedCardDetails();
-        if (medCardList.size() > 0) {  //THIS WILL DELETE ALL IN CARDLIST
-            for (int i = medCardList.size() - 1; i >= 0; i--) {
-                medCardList.remove(i);
-            }
-        }
-        try { //THIS WILL ADD IT BACK IN WITH ANY UPDATES
-            System.out.println("Start of Try");
+        cd=new AllCardOperations();
+       medCardList.removeAll(medCardList);
+        rset=cd.getMedCardDetails();
+        try {
             while (rset.next()) {
-                System.out.println("Refresh Method Card Details");
-                MedicalCard mCard = new MedicalCard(rset.getInt(1), rset.getInt(2), rset.getString(3), rset.getString(4), rset.getString(5),rset.getString(6));
-                medCardList.add(mCard);
-                System.out.println("ID: "+rset.getInt(1)+" PPSN: " +rset.getInt(2)+" Gender: " + rset.getString(3)+" DOB: " +rset.getString(4)+" Expiry Date " +rset.getString(5) + " Name "+ rset.getString(6));
-
-            }
+                medCardList.add(new MedicalCard(rset.getInt(1), rset.getInt(2),  rset.getInt(3),rset.getInt(4),rset.getString(5), rset.getString(6), rset.getString(7)));
+            }cd.allCardOperationsClose();
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-    public static void main(String[] args) {
-        MedicalCard cd = new MedicalCard();
-        cd.refreshMedCardList();
 
+    public void addMedCard(){
+        cd.addMedCard(patientNum,GMSNumber,PPS,gender,validTo,HolderName);
+        cd.allCardOperationsClose();
+    }
+
+    public ArrayList getMedCardList() {
+        refreshMedCardList();
+        return medCardList;
+    }
+
+    public int getPPS() {
+        return PPS;
+    }
+
+    public int getGMSNumber() {
+        return GMSNumber;
+    }
+
+    public int getPatientNum() {
+        return patientNum;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getValidTo() {
+        return validTo;
+    }
+
+    public String getHolderName() {
+        return HolderName;
     }
 }

@@ -30,6 +30,10 @@ package GUI;
         private int patientNumberIn;
         private Consultants consultants;
         private String list="This should work";
+        private ArrayList<Equipment> eqList=new ArrayList<>();
+        private Equipment equipment;
+        private String[]list1;
+        private JComboBox<String>equipCombo;
 
         JFrame f;
 
@@ -75,6 +79,16 @@ package GUI;
             topSection.add(ID);
 
             holder.add(topSection);
+
+            equipment=new Equipment();
+            eqList.addAll(equipment.getEquipments());
+            list1 = new String[eqList.size()];
+            for (int i = 0; i < eqList.size(); i++) {
+                list1[i] = eqList.get(i).getEqName();
+            }
+
+
+
             JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
             additionalInformation = new JTextArea(30,75);
             additionalInformation.setBorder(loweredBorder);
@@ -106,10 +120,8 @@ package GUI;
             conEquip=new JLabel("Consultant Equip Skill");
             dobs.add(conEquip, getConstraints(0, 7, 2, 1, GridBagConstraints.WEST));
 
-            conEquipText=new JTextField(50);
-            conEquipText.setBorder(loweredBorder);
-            conEquipText.setEditable(true);
-            dobs.add(conEquipText, getConstraints(0, 8, 5, 1, GridBagConstraints.WEST));
+            equipCombo=new JComboBox<>(list1);
+            dobs.add(equipCombo, getConstraints(0, 8, 5, 1, GridBagConstraints.WEST));
 
 
 
@@ -177,9 +189,9 @@ package GUI;
             }
             else if (e.getSource().equals(confirm))
             {
-                consultants=new Consultants(conNameText.getText(), conSkillText.getText(),conEquipText.getText());
+                String equipIn=(String)equipCombo.getSelectedItem();
+                consultants=new Consultants(conNameText.getText(), conSkillText.getText(),equipIn);
                 conNameText.setText("");
-                conEquipText.setText("");
                 conSkillText.setText("");
 
             }else if(e.getSource().equals(refresh)){

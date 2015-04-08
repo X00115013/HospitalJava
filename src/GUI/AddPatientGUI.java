@@ -20,13 +20,20 @@ public class AddPatientGUI extends JFrame implements ActionListener {
     JRadioButton male, female;
     JTextField patientText, patientFNameText, patientSNameText, patientAddressText, patientEmailText, patientOccupationText, patientPhoneText, dayText, monthText, yearText;
     JFrame f;
-    private int choiceGui;
+    private int choiceGui ,setter=1940;;
     private ArrayList<PatientRecord> pList=new ArrayList<>();
     private PatientRecord patientRecord;
-
-
+    private String[] dayArray=new String[31];
+    private String[] daysIn={"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
+    private String[] months={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+    private String[] years=new String[76];
+    JComboBox<String> dayCombo,monthCombo,yearCombo;
 
     public AddPatientGUI(int choiceGUI,int patientNumIn) {
+        for (int i = 0; i < 76; i++) {
+            years[i]= Integer.toString(setter);
+            setter++;
+        }
         choiceGui = choiceGUI;
         f = new JFrame();
         if (choiceGUI == 1) {
@@ -166,15 +173,14 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         dobs.add(year, getConstraints(2, 4, 1, 1, GridBagConstraints.LINE_START));
 
         //DOB text fields
-        dayText = new JTextField(5);
-        dayText.setBorder(loweredBorder);
-        dobs.add(dayText, getConstraints(0, 6, 1, 1, GridBagConstraints.LINE_START));
-        monthText = new JTextField(5);
-        monthText.setBorder(loweredBorder);
-        dobs.add(monthText, getConstraints(1, 6, 1, 1, GridBagConstraints.LINE_START));
-        yearText = new JTextField(5);
-        yearText.setBorder(loweredBorder);
-        dobs.add(yearText, getConstraints(2, 6, 1, 1, GridBagConstraints.LINE_START));
+
+        monthCombo = new JComboBox<String>(months);
+        monthCombo.addActionListener(this);
+        dayCombo = new JComboBox<String>(daysIn);
+        dobs.add(dayCombo, getConstraints(0, 6, 1, 1, GridBagConstraints.LINE_START));
+        dobs.add(monthCombo, getConstraints(1, 6, 1, 1, GridBagConstraints.LINE_START));
+        yearCombo = new JComboBox<String>(years);
+        dobs.add(yearCombo, getConstraints(2, 6, 1, 1, GridBagConstraints.LINE_START));
         test.add(dobs);
 
         if(choiceGUI==2){
@@ -188,9 +194,9 @@ public class AddPatientGUI extends JFrame implements ActionListener {
                     patientEmailText.setText(pList.get(i).getEmail());
                     patientOccupationText.setText(pList.get(i).getOccupation());
                     patientPhoneText.setText(pList.get(i).getPhone());
-                    dayText.setText(pList.get(i).getDOB().charAt(0)+""+pList.get(i).getDOB().charAt(1));
-                    monthText.setText(pList.get(i).getDOB().charAt(3)+""+pList.get(i).getDOB().charAt(4)+""+pList.get(i).getDOB().charAt(5));
-                    yearText.setText(pList.get(i).getDOB().charAt(7)+""+pList.get(i).getDOB().charAt(8));
+                    dayCombo.setSelectedItem(pList.get(i).getDOB().charAt(0) + "" + pList.get(i).getDOB().charAt(1));
+                    monthCombo.setSelectedItem(pList.get(i).getDOB().charAt(3)+""+pList.get(i).getDOB().charAt(4)+""+pList.get(i).getDOB().charAt(5));
+                    yearCombo.setSelectedItem(pList.get(i).getDOB().charAt(7)+""+pList.get(i).getDOB().charAt(8)+""+pList.get(i).getDOB().charAt(9)+""+pList.get(i).getDOB().charAt(10));
                     if(pList.get(i).getGender().equalsIgnoreCase("male")){
                         male.setSelected(true);
                     }else if(pList.get(i).getGender().equalsIgnoreCase("female")){
@@ -220,6 +226,29 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         f.setVisible(true);
     }
 
+    public String[] setCombo(){
+        int setter=1;
+        String catcher= (String)monthCombo.getSelectedItem();
+        if(catcher.equals("Apr")||catcher.equals("Jun")||catcher.equals("Sep")||catcher.equals("Nov")){
+            setter=1;
+            for (int i = 0; i < 30; i++) {
+                dayArray[i]= Integer.toString(setter);
+                setter++;
+            }
+        }else if(catcher.equals("Feb")){
+            setter=1;
+            for (int i = 0; i < 31; i++) {
+                dayArray[i]= Integer.toString(setter);
+                setter++;
+            }
+        }else {
+            setter=1;
+            for (int i = 0; i < 31; i++) {
+                dayArray[i] = Integer.toString(setter);
+                setter++;
+            }
+        }return dayArray;
+    }
 
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
@@ -244,11 +273,15 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         }else if (e.getSource() == (female)) {
             male.setSelected(false);
 
+        }else if (e.getSource() == (monthCombo)) {
+            dayCombo.revalidate();
+
         }else if (e.getSource().equals(confirm)) {
             String choice = "";
             PatientOperations po = new PatientOperations();
             if ((patientFNameText.getText().equals("")) || (patientSNameText.getText().equals("")) || (patientAddressText.getText().equals("")) ||
-                    (dayText.getText().equals("")) || (monthText.getText().equals("")) || (yearText.getText().equals("")) || (patientPhoneText.getText().equals(""))) {
+                    (dayCombo.getSelectedItem().equals("")) || (monthCombo.getSelectedItem().equals("")) || (yearCombo.getSelectedItem().equals("")) || (patientPhoneText.getText().equals(""))) {
+
                 JOptionPane.showMessageDialog(null, " First Name, Surname, Address\n DOB, Phone are required fields  ");
             } else {
                 if (male.isSelected()) {
@@ -258,11 +291,17 @@ public class AddPatientGUI extends JFrame implements ActionListener {
                     choice = "Female";
                 }
                 if (choiceGui == 1) {
+                    String dayCon=(String)dayCombo.getSelectedItem();
+                    String monthCon=(String)monthCombo.getSelectedItem();
+                    String yearCon=(String)yearCombo.getSelectedItem();
                     PatientRecord patientRecord = new PatientRecord(po, patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
-                            patientOccupationText.getText(), choice, patientEmailText.getText(), patientPhoneText.getText(), (dayText.getText() +"-"+ monthText.getText() +"-"+ yearText.getText()));
+                            patientOccupationText.getText(), choice, patientEmailText.getText(), patientPhoneText.getText(), ( dayCon+"-"+ monthCon +"-"+ yearCon));
                 } else if (choiceGui == 2) {
+                    String dayCon=(String)dayCombo.getSelectedItem();
+                    String monthCon=(String)monthCombo.getSelectedItem();
+                    String yearCon=(String)yearCombo.getSelectedItem();
                     PatientRecord patientRecord = new PatientRecord(po, Integer.parseInt(patientText.getText()), patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
-                            patientOccupationText.getText(), choice, patientEmailText.getText(), patientPhoneText.getText(), (dayText.getText()  +"-"+ monthText.getText()  +"-"+ yearText.getText()));
+                            patientOccupationText.getText(), choice, patientEmailText.getText(), patientPhoneText.getText(), ( dayCon+"-"+ monthCon +"-"+ yearCon));
 
                 }
                 f.setVisible(false);

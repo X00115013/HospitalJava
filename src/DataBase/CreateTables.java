@@ -415,8 +415,8 @@ public class CreateTables {
         try {
             //CARD DETAILS START creating table
             System.out.println("Creating Card Details");
-            String createCardDetails = "CREATE TABLE CardDetails (Card_ID NUMBER PRIMARY KEY, cardType VARCHAR2(30)" +
-                    ",SecurityCode NUMBER,CardHolder VARCHAR2(70),ExpiryDate DATE)";
+            String createCardDetails = "CREATE TABLE CardDetails (Card_ID NUMBER PRIMARY KEY, patient_Num NUMBER, cardNumber NUMBER, cardType VARCHAR2(30)" +
+                    ",SecurityCode NUMBER,CardHolder VARCHAR2(70),ExpiryDate VARCHAR2(30))";
             pstmt = conn.prepareStatement(createCardDetails);
             pstmt.executeUpdate(createCardDetails);
             // creating Sequence
@@ -430,8 +430,8 @@ public class CreateTables {
         try {
             //MEDICAL CARD  START creating table
             System.out.println("Creating Medical Card");
-            String createMCardDetails = "CREATE TABLE MedicalCard (GMSNumber NUMBER PRIMARY KEY, PPSN NUMBER, Gender VARCHAR2(20)" +
-                    ",DOB DATE,ValidTo DATE,HolderName VARCHAR2(70))";
+            String createMCardDetails = "CREATE TABLE MedicalCard ( MedCard_id NUMBER PRIMARY KEY, patient_Num NUMBER,GMSNumber NUMBER, PPSN NUMBER, Gender VARCHAR2(20)" +
+                    ",ValidTo VARCHAR2(30),HolderName VARCHAR2(70))";
             pstmt = conn.prepareStatement(createMCardDetails);
             pstmt.executeUpdate(createMCardDetails);
             // creating Sequence
@@ -445,8 +445,8 @@ public class CreateTables {
         try {
             //HEALTH INSURANCE  START creating table
             System.out.println("Creating Health Insurance");
-            String createInsurDetails = "CREATE TABLE HealthInsurance (Policy_number NUMBER PRIMARY KEY, Company_name VARCHAR2(255)" +
-                    ",Coverage_type NUMBER,Expiry_date DATE)";
+            String createInsurDetails = "CREATE TABLE HealthInsurance (Insu_ID NUMBER PRIMARY KEY,patient_Num NUMBER,Policy_number NUMBER, Company_name VARCHAR2(255)" +
+                    ",Coverage_type NUMBER,Expiry_date VARCHAR2(30))";
             pstmt = conn.prepareStatement(createInsurDetails);
             pstmt.executeUpdate(createInsurDetails);
             // creating Sequence

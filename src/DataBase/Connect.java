@@ -14,7 +14,7 @@ public class Connect {
     private Statement stmt;
 
     public Connect() {
-        conn = openDB();
+
     }
 
     // This method opens a connection to the Oracle database

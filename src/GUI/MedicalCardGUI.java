@@ -1,11 +1,7 @@
 package GUI;
 
-//import DataBase.AppointmentOperations;
-//import DataBase.PatientOperations;
-//import Model.Appointment;
-//import Model.PatientRecord;
-
         import Model.Appointment;
+        import Model.MedicalCard;
 
         import java.text.DateFormat;
         import java.text.SimpleDateFormat;
@@ -22,18 +18,24 @@ package GUI;
  * Created by Thomas Murray on 17/03/2015.
  */
 public class MedicalCardGUI extends JFrame implements ActionListener {
-    JButton confirm;
-    JButton cancel;
-
-    JLabel patientNum;
-    JLabel gmsNum,patientName,expiry,xMonth,xYear,dOB,day,month,year,ppsNum,gender,titleF;
-    JTextField pNumText,gmsNumText,patientNameText,xMonthText,xYearText,dayText,monthText,yearText,ppsNumText;
-    JCheckBox male,female,valid;
-    JFrame f;
-
-    JComboBox<String> coverageTypeCombo;
+    private JButton confirm;
+    private JButton cancel;
+    private JLabel patientNum;
+    private JLabel gmsNum,patientName,expiry,xMonth,xYear,dOB,day,month,year,ppsNum,gender,titleF;
+    private JTextField pNumText,gmsNumText,patientNameText,dayText,monthText,yearText,ppsNumText;
+    private JCheckBox male,female,valid;
+    private JFrame f;
+    private JComboBox<String> coverageTypeCombo;
+    private JComboBox<String> xMonthTextCombo;
+    private JComboBox<String> xYearTextCombo;
+    private MedicalCard medicalCard;
+    private ArrayList<MedicalCard>medCList=new ArrayList<>();
+    private String[]list={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+    private String[]list2={"2015","2016","2017"};
+    private int patientNumber;
 
     public MedicalCardGUI(int patientNumIn) {
+        patientNumber=patientNumIn;
         f = new JFrame();
         f.setTitle("Health Insurance");
         f.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -76,6 +78,23 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
 //        f.add(topSection);
 
         holder.add(topSection);
+        medicalCard=new MedicalCard();
+        medCList.addAll(medicalCard.getMedCardList());
+        for (int i = 0; i < medCList.size(); i++) {
+            if(patientNumIn==medCList.get(i).getPatientNum()){
+                patientNameText.setText(medCList.get(i).getHolderName());
+                gmsNumText.setText(Integer.toString(medCList.get(i).getGMSNumber()));
+                ppsNumText.setText(Integer.toString(medCList.get(i).getPPS()));
+                xMonthTextCombo.setSelectedItem(medCList.get(i).getValidTo().charAt(0) + "" + medCList.get(i).getValidTo().charAt(1));
+                xYearTextCombo.setSelectedItem(medCList.get(i).getValidTo().charAt(3) + "" + medCList.get(i).getValidTo().charAt(4) + "" +
+                        "" + medCList.get(i).getValidTo().charAt(5) +""+medCList.get(i).getValidTo().charAt(6));
+                if(medCList.get(i).getGender().equalsIgnoreCase("male")){
+                    male.setSelected(true);
+                }else if(medCList.get(i).getGender().equalsIgnoreCase("female")){
+                    female.setSelected(true);
+                }
+            }
+        }
 
 
 
@@ -116,13 +135,11 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
         xYear = new JLabel("Year");
         middle.add(xYear, getConstraints(1, 7, 1, 1, GridBagConstraints.WEST));
 
-        xMonthText = new JTextField(15);
-        xMonthText.setBorder(loweredBorder);
-        middle.add(xMonthText, getConstraints(0, 8, 1, 1, GridBagConstraints.WEST));
+        xMonthTextCombo = new JComboBox<>(list);
+        middle.add(xMonthTextCombo, getConstraints(0, 8, 1, 1, GridBagConstraints.WEST));
 
-        xYearText = new JTextField(15);
-        xYearText.setBorder(loweredBorder);
-        middle.add(xYearText, getConstraints(1, 8, 1, 1, GridBagConstraints.WEST));
+        xYearTextCombo = new JComboBox<>(list2);
+        middle.add(xYearTextCombo, getConstraints(1, 8, 1, 1, GridBagConstraints.WEST));
 
         gender = new JLabel("Gender");
         middle.add(gender, getConstraints(0, 9, 1, 1, GridBagConstraints.WEST));
@@ -181,20 +198,23 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
             f.setVisible(false);
 
         } else if (e.getSource().equals(confirm)) {
-            int catcher = 0, catcher2 = 0;
-            try {
-                String medEquip = (String) coverageTypeCombo.getSelectedItem();
-                if (medEquip.equals("XRay :")) {
-                    catcher = 1;
-                } else if (medEquip.equals("MRI Scan :")) {
-                    catcher = 2;
-                } else if (medEquip.equals("CT Scan :")) {
-                    catcher = 3;
-                }
-            } catch (InputMismatchException im) {
-                System.out.println(im);
+            String xComboM=(String)xMonthTextCombo.getSelectedItem();
+            String xComboY=(String)xYearTextCombo.getSelectedItem();
+            String catcher="",catcher2="";
+            if(male.isSelected()){
+                catcher="male";
+            }else if(female.isSelected()){
+                catcher="female";
             }
+            MedicalCard medicalCDAdd=new MedicalCard(patientNumber,Integer.parseInt(gmsNumText.getText()),Integer.parseInt(ppsNumText.getText()),catcher,(xComboM+"-"+xComboY),patientNameText.getText());
             f.setVisible(false);
+        } else if (e.getSource().equals(male)) {
+            female.setSelected(false);
+
+        } else if (e.getSource().equals(female)) {
+            male.setSelected(false);
+
+
         }
     }
 }
