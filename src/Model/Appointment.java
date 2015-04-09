@@ -23,15 +23,13 @@ public class Appointment {
 
 
     public Appointment(){
-        appointmentArray();
     }
 
-    public Appointment(int appNumIn ,String reasonForVisitIn,  String medicalEquipIn,String consultantTypeIn, int patientNumIn) {
+    public Appointment(int appNumIn ,String reasonForVisitIn,  String medicalEquipIn,String consultantTypeIn) {
         appNumber=appNumIn;
         reasonForVisit = reasonForVisitIn;
         consultantType = consultantTypeIn;
         medicalEquip = medicalEquipIn;
-        patientNum=patientNumIn;
     }
 
 
@@ -51,7 +49,7 @@ public class Appointment {
             rset = ao.getAppointment();
             System.out.println("\n\n\nAppointment list\n");
             while (rset.next()) {
-                appList.add(apt = new Appointment(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getInt(5)));
+                appList.add(apt = new Appointment(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4)));
             }ao.appointmentOperationsClose();
         } catch (SQLException e1) {
             System.out.println(e1);
@@ -131,12 +129,13 @@ public class Appointment {
 
 
     public void cancelAppointment(int appointmentNumber, String patientFName, String patientSurname, String patientDOB) {
+        ao=new AppointmentOperations();
         if (appointmentNumber == -1) {
                 ao.deleteAppointment(ao.getAppointmentNum(patientFName, patientSurname,patientDOB));
 
         }else{
             ao.deleteAppointment(appointmentNumber);
-        }
+        }ao.appointmentOperationsClose();
     }
 }
 

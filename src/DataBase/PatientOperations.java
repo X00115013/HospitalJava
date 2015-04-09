@@ -28,7 +28,7 @@ public class PatientOperations {
             "patientFName, patientLName,patientAddress " +
                     ", PatientDOB ,PatientGender," +
                     "occupation,PatientEmail," +
-                    "patientPhone "+
+                    "patientPhone,AppID "+
                     "FROM Patient";
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
@@ -118,6 +118,9 @@ public class PatientOperations {
         }
         return rset;
     }
+
+
+
     public void addPatient(String patientFNameIn, String patientLNameIn, String patientAddressIn,String occupationIn, String genderIn, String emailIn, String phoneIn, String DOBIn) {
         try {
             String sqlQuery = "INSERT INTO Patient(patient_Number,patientFName, patientLName, patientDOB, patientGender, occupation,PatientEmail," +
@@ -136,6 +139,9 @@ public class PatientOperations {
             System.out.println(se);
         }
     }
+
+
+
     public void updatePatientAdmin(int patientNumber, String newPFname,String newPLname, String newPaddress, String occupationIn, String genderIn, String newEmail,String newPphone, String DOBIn)
     {
         try {

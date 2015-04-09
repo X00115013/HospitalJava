@@ -87,7 +87,7 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
                 appDetails="\tAppointment Number ("+appointments.get(i).appNumber+")\n\n" +
                         "\tReason for Visit ("+appointments.get(i).reasonForVisit+")\n\n" +
                         "\tMedical Equipment ("+appointments.get(i).medicalEquip+")\n\n" +
-                        "\tConsultant Required ("+appointments.get(i).patientNum+")";
+                        "\tConsultant Required ("+appointments.get(i).getConsultantType()+")";
             }
 
         }

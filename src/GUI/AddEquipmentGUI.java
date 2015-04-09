@@ -1,5 +1,6 @@
 package GUI;
 
+import Model.Consultants;
 import Model.Equipment;
 import Model.PatientRecord;
 
@@ -167,9 +168,31 @@ import java.util.ArrayList;
             }
             else if (e.getSource().equals(confirm))
             {
-                equipment=new Equipment(equipNameText.getText(), Double.parseDouble(equipPriceText.getText()));
-                equipNameText.setText("");
-                equipPriceText.setText("");
+                boolean test = true;
+                double convert=0.0;
+                while (test == true) {
+                    try{
+                    if (equipNameText.getText().equals("") || Double.parseDouble(equipPriceText.getText()) == 0.0) {
+                        if (equipNameText.getText().equals("")) {
+                            JOptionPane.showMessageDialog(null, "Equipment Name is a required field");
+                            test = false;
+                        }
+                        if (Double.parseDouble(equipPriceText.getText()) == 0.0) {
+                            JOptionPane.showMessageDialog(null, "Equipment Price is a required field");
+                            test = false;
+                        }
+                    } else {
+                        convert = Double.parseDouble(equipPriceText.getText());
+                        equipment = new Equipment(equipNameText.getText(), convert);
+                        equipNameText.setText("");
+                        equipPriceText.setText("");
+                        test = false;
+                    }
+                        } catch (NumberFormatException nf) {
+                            JOptionPane.showMessageDialog(null, "Price must be of Number Format");
+                            test=false;
+                        }
+                    }
 
             }else if(e.getSource().equals(refresh)){
                 additionalInformation.setText(setTextArea());

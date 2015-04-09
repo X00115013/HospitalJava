@@ -18,7 +18,7 @@ public class CardDetails {
     private AllCardOperations cd;
 
     public CardDetails() {
-        refreshCardList();
+
     }
 
     public CardDetails(int patientNumberIn, int cardNumIn, String cardType, int securityCode, String cardHolder, String expiryDate) {
@@ -57,6 +57,7 @@ public class CardDetails {
     }
 
     public void addCard() {
+        refreshCardList();
         cd.addCard(patientNumIn, cardNum, cardType, securityCode, cardHolder, expiryDate);
         cd.allCardOperationsClose();
     }

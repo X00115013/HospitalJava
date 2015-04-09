@@ -157,10 +157,7 @@ public class AppointmentGUI extends JFrame implements ActionListener {
         cancel.addActionListener(this);
         bottom.add(cancel);
 
-        // Cancel Appointment button
-        cancelApt = new JButton("Cancel Appointment");
-        cancelApt.addActionListener(this);
-        bottom.add(cancelApt);
+
 
         f.add(holder);
         f.add(holder2);
@@ -204,8 +201,6 @@ public class AppointmentGUI extends JFrame implements ActionListener {
             AppointmentDetailsGUI appointmentDetailsGUI=new AppointmentDetailsGUI(app,Integer.parseInt(aptNumText.getText()));
 
 
-        } else if (e.getSource().equals(cancelApt)) {
-            CancelAppointmentGUI cancelAppointmentGUI=new CancelAppointmentGUI();
         }
     }
 }

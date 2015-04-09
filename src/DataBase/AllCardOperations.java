@@ -61,7 +61,6 @@ public class AllCardOperations {
         return rset;
     }
 
-
     public void addMedCard(int patientNumIn, int gmsNum, int pps,String gender,String validTO, String holderIn) {
         try {
             String sqlQuery = "INSERT INTO MedicalCard(MedCard_id, patient_Num,GMSNumber, PPSN, Gender ,ValidTo ,HolderName) values(GMSID.nextVal,?,?,?,?,?,?)";

@@ -20,7 +20,7 @@ public class AddPatientGUI extends JFrame implements ActionListener {
     JRadioButton male, female;
     JTextField patientText, patientFNameText, patientSNameText, patientAddressText, patientEmailText, patientOccupationText, patientPhoneText, dayText, monthText, yearText;
     JFrame f;
-    private int choiceGui ,setter=1940;;
+    private int choiceGui ,setter=1940;
     private ArrayList<PatientRecord> pList=new ArrayList<>();
     private PatientRecord patientRecord;
     private String[] dayArray=new String[31];
@@ -280,9 +280,21 @@ public class AddPatientGUI extends JFrame implements ActionListener {
             String choice = "";
             PatientOperations po = new PatientOperations();
             if ((patientFNameText.getText().equals("")) || (patientSNameText.getText().equals("")) || (patientAddressText.getText().equals("")) ||
-                    (dayCombo.getSelectedItem().equals("")) || (monthCombo.getSelectedItem().equals("")) || (yearCombo.getSelectedItem().equals("")) || (patientPhoneText.getText().equals(""))) {
-
-                JOptionPane.showMessageDialog(null, " First Name, Surname, Address\n DOB, Phone are required fields  ");
+                    (dayCombo.getSelectedItem().equals("")) || (monthCombo.getSelectedItem().equals("")) || (yearCombo.getSelectedItem().equals(""))
+                    || (patientPhoneText.getText().equals(""))) {
+                if (patientFNameText.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "First Name is a required field");
+                    patientFNameText.setText("");
+                }if(patientSNameText.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Surname is a required field");
+                    patientSNameText.setText("");
+                }if(patientAddressText.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Address is a required field");
+                    patientAddressText.setText("");
+                }if(patientPhoneText.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Phone are required field");
+                    patientPhoneText.setText("");
+                }
             } else {
                 if (male.isSelected()) {
                     choice = "Male";

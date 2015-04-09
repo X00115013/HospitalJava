@@ -14,10 +14,10 @@ public class MedicalCard {
     private ResultSet rset;
     private int PPS, GMSNumber,patientNum,ID;
 
-    private String gender, validTo, HolderName;
+    private String gender, validTo, holderName;
 
     public MedicalCard(){
-        refreshMedCardList();
+
     }
 
     public MedicalCard(int patientNumIn,int GMSNumber,int PPS,String gender,String validTo, String holderName) {
@@ -27,7 +27,7 @@ public class MedicalCard {
         this.PPS = PPS;
         this.gender = gender;
         this.validTo = validTo;
-        HolderName = holderName;
+        this.holderName = holderName;
         addMedCard();
 
     }
@@ -38,7 +38,7 @@ public class MedicalCard {
         this.PPS = PPS;
         this.gender = gender;
         this.validTo = validTo;
-        HolderName = holderName;
+        this.holderName = holderName;
 
     }
     public void refreshMedCardList() {
@@ -55,7 +55,7 @@ public class MedicalCard {
     }
 
     public void addMedCard(){
-        cd.addMedCard(patientNum,GMSNumber,PPS,gender,validTo,HolderName);
+        cd.addMedCard(patientNum,GMSNumber,PPS,gender,validTo,holderName);
         cd.allCardOperationsClose();
     }
 
@@ -85,6 +85,6 @@ public class MedicalCard {
     }
 
     public String getHolderName() {
-        return HolderName;
+        return holderName;
     }
 }

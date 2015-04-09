@@ -13,13 +13,11 @@ public class PatientRecord {
     private String patientFName;
     private String patientLName;
     private String gender,patientAddress;
-    private int patientNumber;
+    private int patientNumber,appID;
     private String email;
     private String occupation;
     private String phone;
     private String DOB;
-    private Appointment appointment;
-    private PatientRecord patientRecord;
     private ResultSet rset;
     private PatientOperations po;
     private ArrayList<PatientRecord> patientList = new ArrayList<PatientRecord>();
@@ -27,12 +25,12 @@ public class PatientRecord {
 
     public void refreshArrays() {
         try {
-            clearArrays();
+            patientList.removeAll(patientList);
             po=new PatientOperations();
             rset = po.getPatientAdmin();
             while (rset.next()) {
-                patientList.add(patientRecord = new PatientRecord(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4),
-                        rset.getString(5),rset.getString(6),rset.getString(7),rset.getString(8),rset.getString(9)));
+                patientList.add(new PatientRecord(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4),
+                        rset.getString(5),rset.getString(6),rset.getString(7),rset.getString(8),rset.getString(9),rset.getInt(10)));
             }po.patientOperationsClose();
         } catch (SQLException e1) {
             System.out.println(e1);
@@ -48,7 +46,7 @@ public class PatientRecord {
         phone = "";
         DOB = "";
     }
-    public PatientRecord(int patientNumIn,String patientFNameIn, String patientLNameIn, String patientAddressIn,String DOBIn,String genderIn, String occupationIn, String emailIn, String phoneIn ) {
+    public PatientRecord(int patientNumIn,String patientFNameIn, String patientLNameIn, String patientAddressIn,String DOBIn,String genderIn, String occupationIn, String emailIn, String phoneIn,int appIdIn ) {
         patientNumber=patientNumIn;
         patientFName = patientFNameIn;
         patientLName = patientLNameIn;
@@ -58,6 +56,7 @@ public class PatientRecord {
         email = emailIn;
         phone = phoneIn;
         DOB = DOBIn;
+        appID=appIdIn;
 
     }
 
@@ -137,14 +136,6 @@ public class PatientRecord {
         return rset;
     }
 
-    public PatientRecord getPatientRecord() {
-        return patientRecord;
-    }
-
-    public Appointment getAppointment() {
-        return appointment;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -165,45 +156,8 @@ public class PatientRecord {
         return gender;
     }
 
-    public void clearArrays(){
-        for (int i= 0; i < patientList.size() ; i++) {
-            patientList.remove(i);
-            System.out.println("Array cleared "+i);
-        }
+    public int getAppID() {
+        return appID;
     }
-
-
 }
 
-
-//    public void printFromArrayARByNumber(int patientNumIn){
-//        System.out.println("\n\n\nPatient Admin Record By Number from Array\n");
-//        for (int i = 0; i < patientList.size(); i++) {
-//            if(patientList.get(i).patientNumber == patientNumIn){
-//                System.out.print("\n\nPatient Number (" + patientList.get(i).patientNumber+")");
-//                System.out.print("\nPatient First Name (" + patientList.get(i).patientFName+")");
-//                System.out.print("\nPatient Last Name (" + patientList.get(i).patientLName+")");
-//                System.out.print("\nPatient Address (" + patientList.get(i).patientAddress+")");
-//                System.out.print("\nOccupation (" + patientList.get(i).occupation+")");
-//                System.out.print("\nGender (" + patientList.get(i).gender+")");
-//                System.out.print("\nEmail (" + patientList.get(i).email+")");
-//                System.out.print("\nPhone (" + patientList.get(i).phone+")");
-//                System.out.print("\nDOB (" + patientList.get(i).DOB+")");
-//            }
-//        }
-//    }
-//
-//    public void printFromArrayAR(){
-//        System.out.println("\n\n\nPatient Admin Record from Array\n");
-//        for (int i = 0; i < patientList.size(); i++) {
-//            System.out.print("\n\nPatient Number (" + patientList.get(i).patientNumber+")");
-//            System.out.print("\nPatient First Name (" + patientList.get(i).patientFName+")");
-//            System.out.print("\nPatient Last Name (" + patientList.get(i).patientLName+")");
-//            System.out.print("\nPatient Address (" + patientList.get(i).patientAddress+")");
-//            System.out.print("\nOccupation (" + patientList.get(i).occupation+")");
-//            System.out.print("\nGender (" + patientList.get(i).gender+")");
-//            System.out.print("\nEmail (" + patientList.get(i).email+")");
-//            System.out.print("\nPhone (" + patientList.get(i).phone+")");
-//            System.out.print("\nDOB (" + patientList.get(i).DOB+")");
-//            }
-//        }

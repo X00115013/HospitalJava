@@ -21,8 +21,8 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
     private JButton confirm;
     private JButton cancel;
     private JLabel patientNum;
-    private JLabel gmsNum,patientName,expiry,xMonth,xYear,dOB,day,month,year,ppsNum,gender,titleF;
-    private JTextField pNumText,gmsNumText,patientNameText,dayText,monthText,yearText,ppsNumText;
+    private JLabel gmsNum,patientName,expiry,xMonth,xYear,ppsNum,gender,titleF;
+    private JTextField pNumText,gmsNumText,patientNameText,ppsNumText;
     private JCheckBox male,female,valid;
     private JFrame f;
     private JComboBox<String> coverageTypeCombo;
@@ -78,25 +78,6 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
 //        f.add(topSection);
 
         holder.add(topSection);
-        medicalCard=new MedicalCard();
-        medCList.addAll(medicalCard.getMedCardList());
-        for (int i = 0; i < medCList.size(); i++) {
-            if(patientNumIn==medCList.get(i).getPatientNum()){
-                patientNameText.setText(medCList.get(i).getHolderName());
-                gmsNumText.setText(Integer.toString(medCList.get(i).getGMSNumber()));
-                ppsNumText.setText(Integer.toString(medCList.get(i).getPPS()));
-                xMonthTextCombo.setSelectedItem(medCList.get(i).getValidTo().charAt(0) + "" + medCList.get(i).getValidTo().charAt(1));
-                xYearTextCombo.setSelectedItem(medCList.get(i).getValidTo().charAt(3) + "" + medCList.get(i).getValidTo().charAt(4) + "" +
-                        "" + medCList.get(i).getValidTo().charAt(5) +""+medCList.get(i).getValidTo().charAt(6));
-                if(medCList.get(i).getGender().equalsIgnoreCase("male")){
-                    male.setSelected(true);
-                }else if(medCList.get(i).getGender().equalsIgnoreCase("female")){
-                    female.setSelected(true);
-                }
-            }
-        }
-
-
 
         //middle
         JPanel holder2=new JPanel(new GridLayout(2,1));
@@ -154,6 +135,28 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
         middle.add(female, getConstraints(1, 10, 1, 1, GridBagConstraints.WEST));
 
 
+        medCList.removeAll(medCList);
+        medicalCard=new MedicalCard();
+        medCList.addAll(medicalCard.getMedCardList());
+        for (int i = 0; i < medCList.size(); i++) {
+            if(patientNumber==medCList.get(i).getPatientNum()){
+                System.out.println("Getting to here "+medCList.get(i).getHolderName());
+                patientNameText.setText(medCList.get(i).getHolderName());
+                gmsNumText.setText(Integer.toString(medCList.get(i).getGMSNumber()));
+                ppsNumText.setText(Integer.toString(medCList.get(i).getPPS()));
+                xMonthTextCombo.setSelectedItem(medCList.get(i).getValidTo().charAt(0) + "" + medCList.get(i).getValidTo().charAt(1));
+                xYearTextCombo.setSelectedItem(medCList.get(i).getValidTo().charAt(3) + "" + medCList.get(i).getValidTo().charAt(4) + "" +
+                        "" + medCList.get(i).getValidTo().charAt(5) +""+medCList.get(i).getValidTo().charAt(6));
+                if(medCList.get(i).getGender().equalsIgnoreCase("male")){
+                    male.setSelected(true);
+                }else if(medCList.get(i).getGender().equalsIgnoreCase("female")){
+                    female.setSelected(true);
+                }
+            }
+        }
+
+
+
 
         //bottom
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -200,7 +203,7 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
         } else if (e.getSource().equals(confirm)) {
             String xComboM=(String)xMonthTextCombo.getSelectedItem();
             String xComboY=(String)xYearTextCombo.getSelectedItem();
-            String catcher="",catcher2="";
+            String catcher="";
             if(male.isSelected()){
                 catcher="male";
             }else if(female.isSelected()){

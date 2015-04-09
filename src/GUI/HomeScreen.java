@@ -134,7 +134,7 @@ public class HomeScreen extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(button1)) {
-            SecurityGUI securityGUI = new SecurityGUI(1);
+            CancelAppointmentSecurity securityGUI = new CancelAppointmentSecurity(1);
 
         } else if (e.getSource().equals(button2)) {
             SingleSecurityGUI securityGUI = new SingleSecurityGUI(2);

@@ -66,46 +66,33 @@ public class AppointmentOperations {
 
     public void deleteAppointment(int n) {
         try {
-            String cmd = "DELETE * FROM Appointment WHERE AppID =" + n;
+            String cmd = "DELETE FROM Appointment WHERE AppID =" + n;
             stmt = conn.createStatement();
             stmt.executeUpdate(cmd);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Error deleting appointment"+e);
         }
     }
 
     public void addAppointmentExisting(String recIn, String equipIn,String conIn,int patientNum) {
         try {
-            String sql2 = "INSERT INTO Appointment(AppID, ReasonVisit ,requiredEquipment, requiredConsultant,patient_Number) values(APPID.nextVal,?,?,?,?)";
+
+            String sql2 = "INSERT INTO Appointment(AppID, ReasonVisit ,requiredEquipment, requiredConsultant) values(APPID.nextVal,?,?,?)";
             pstmt = conn.prepareStatement(sql2);
             pstmt.setString(1, recIn);
             pstmt.setString(2, equipIn);
             pstmt.setString(3, conIn);
-            pstmt.setInt(4,patientNum);
             pstmt.executeUpdate();
+            updatePatientAppointment(patientNum);
         } catch (Exception se) {
             System.out.println("This is the problem ao update "+se);
         }
     }
 
-        public void addAppointment(String recIn, String equipIn,String conIn) {
-            try {
-                String sql2 = "INSERT INTO Appointment(AppID, ReasonVisit ,requiredEquipment, requiredConsultant,patient_Number) values(APPID.nextVal,?,?,?,?)";
-                pstmt = conn.prepareStatement(sql2);
-                pstmt.setString(1, recIn);
-                pstmt.setString(2, equipIn);
-                pstmt.setString(3, conIn);
-                pstmt.setInt(4,getCurrVal());
-                pstmt.executeUpdate();
-            } catch (Exception se) {
-                System.out.println("addAppointment went wrong"+se);
-            }
-        }
-
     public int getCurrVal(){
         int catchInt=0;
         try {
-            String queryString = "select max(patient_Number) from Patient";
+            String queryString = "select max(AppID) from Appointment";
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
             while(rset.next()) {
@@ -117,50 +104,18 @@ public class AppointmentOperations {
         return catchInt;
     }
 
-
-//    public void addAppointment(Appointment ap) {
-//        try {
-//            String sql2 = "INSERT INTO Patient(AppID, AppTime ,AppDate ,ReasonVisit, requiredEquipment, requiredConsultant) values(APPID.nextVal,?,?,?,?,?)";
-//            pstmt = conn.prepareStatement(sql2);
-//            pstmt.setInt(1, ap.getTime());
-//            pstmt.setString(2, ap.getDate());
-//            pstmt.setString(3,ap.getReasonForVisit());
-//            pstmt.setInt(4, ap.getMedicalEquip());
-//            pstmt.setInt(5, ap.getConsultantType());
-//            pstmt.executeUpdate();
-//        } catch (Exception se) {
-//            System.out.println(se);
-//        }
-//    }
-
-    //    public void addAppointmentExisting(String recIn, int equipIn,int conIn,int patientNum) {
-//        try {
-//            String sql2 = "INSERT INTO Appointment(AppID, ReasonVisit ,requiredEquipment, requiredConsultant,patient_Number) values(APPID.nextVal,?,?,?,?)";
-//            pstmt = conn.prepareStatement(sql2);
-//            pstmt.setString(1, recIn);
-//            pstmt.setInt(2, equipIn);
-//            pstmt.setInt(3, conIn);
-//            pstmt.setInt(4,getCurrVal());
-//            pstmt.executeUpdate();
-//        } catch (Exception se) {
-//            System.out.println("addAppointment went wrong"+se);
-//        }
-//    }
-
-//    public void addAppointmentExisting(String recIn, String equipIn,String conIn,int patientNum) {
-//        try {
-//            String sql1 = "UPDATE Appointment SET " +
-//                    "AppID= APPID.nextVal," +
-//                    "ReasonVisit= '" + recIn+ "'," +
-//                    "requiredEquipment= '"+equipIn+ "'," +
-//                    "requiredConsultant= '"+conIn+ "'" +
-//                    "where patient_Number=" +patientNum;
-//            stmt = conn.createStatement();
-//            stmt.executeUpdate(sql1);
-//        } catch (Exception se) {
-//            System.out.println("This is the problem ao update "+se);
-//        }
-//    }
+    public void updatePatientAppointment(int patientNumber)
+    {
+        try {
+            String sql1 = "UPDATE Patient SET " +
+                    " AppID = "+getCurrVal()+"" +
+                    "where patient_Number=" +patientNumber;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql1);
+        } catch (Exception se) {
+            System.out.println(se);
+        }
+    }
 
 
 }

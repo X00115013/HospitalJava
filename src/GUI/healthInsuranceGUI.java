@@ -6,6 +6,8 @@ package GUI;
 //import Model.PatientRecord;
 
         import Model.Appointment;
+        import Model.HealthInsurance;
+        import Model.MedicalCard;
 
         import java.text.DateFormat;
         import java.text.SimpleDateFormat;
@@ -22,7 +24,7 @@ package GUI;
  * Created by Thomas Murray on 17/03/2015.
  */
 public class healthInsuranceGUI extends JFrame implements ActionListener {
-    String[] list1 = {"Bronze :", "Silver :", "Gold :"};
+    String[] list1 = {"","Bronze", "Silver", "Gold","Platinum"};
     JButton confirm;
     JButton cancel;
 
@@ -31,10 +33,18 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
     JTextField pNumText,companyNameText,xMonthText,xYearText;
     JCheckBox valid;
     JFrame f;
+    private String[]list2={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+    private String[]list3={"2015","2016","2017"};
+    private ArrayList<HealthInsurance>hList=new ArrayList<>();
+    private HealthInsurance healthInsurance;
+    private int patientNumber;
 
     JComboBox<String> coverageTypeCombo;
+    JComboBox<String> monthCombo;
+    JComboBox<String> yearCombo;
 
     public healthInsuranceGUI(int patientNumIn) {
+        patientNumber=patientNumIn;
         f = new JFrame();
         f.setTitle("Health Insurance");
         f.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -110,13 +120,13 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
         xYear = new JLabel("Year");
         middle.add(xYear, getConstraints(1, 6, 1, 1, GridBagConstraints.WEST));
 
-        xMonthText = new JTextField(15);
-        xMonthText.setBorder(loweredBorder);
-        middle.add(xMonthText, getConstraints(0, 7, 1, 1, GridBagConstraints.WEST));
+        monthCombo=new JComboBox<>(list2);
+        monthCombo.setBorder(loweredBorder);
+        middle.add(monthCombo, getConstraints(0, 7, 1, 1, GridBagConstraints.WEST));
 
-        xYearText = new JTextField(15);
-        xYearText.setBorder(loweredBorder);
-        middle.add(xYearText, getConstraints(1, 7, 1, 1, GridBagConstraints.WEST));
+        yearCombo=new JComboBox<>(list3);
+        yearCombo.setBorder(loweredBorder);
+        middle.add(yearCombo, getConstraints(1, 7, 1, 1, GridBagConstraints.WEST));
 
         coverageType = new JLabel("Card Type");
         middle.add(coverageType, getConstraints(0, 8, 1, 1, GridBagConstraints.WEST));
@@ -125,6 +135,19 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
         coverageTypeCombo.setPreferredSize(new Dimension(120, 20));
         middle.add(coverageTypeCombo, getConstraints(0, 9, 3, 1, GridBagConstraints.WEST));
         coverageTypeCombo.addActionListener(this);
+
+
+       hList.removeAll(hList);
+        healthInsurance=new HealthInsurance();
+        hList.addAll(healthInsurance.getHealthList());
+        for (int i = 0; i < hList.size(); i++) {
+            if(patientNumber==hList.get(i).getPatientNum()){
+                monthCombo.setSelectedItem(hList.get(i).getExpDate().charAt(0) + "" + hList.get(i).getExpDate().charAt(1));
+                yearCombo.setSelectedItem(hList.get(i).getExpDate().charAt(3) + "" + hList.get(i).getExpDate().charAt(4) + "" +
+                        "" + hList.get(i).getExpDate().charAt(5) +""+hList.get(i).getExpDate().charAt(6));
+            }
+        }
+
 
 
         //bottom
@@ -170,20 +193,40 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
             f.setVisible(false);
 
         } else if (e.getSource().equals(confirm)) {
-            int catcher = 0, catcher2 = 0;
-            try {
-                String medEquip = (String) coverageTypeCombo.getSelectedItem();
-                if (medEquip.equals("XRay :")) {
-                    catcher = 1;
-                } else if (medEquip.equals("MRI Scan :")) {
-                    catcher = 2;
-                } else if (medEquip.equals("CT Scan :")) {
-                    catcher = 3;
+            boolean test=true;
+            int numFormat=0;
+            String polTypeCombo =(String)coverageTypeCombo.getSelectedItem();
+            String mCombo=(String)monthCombo.getSelectedItem();
+            String yCombo=(String)yearCombo.getSelectedItem();
+            while(test ==true){
+            if(pNumText.getText().equals("")||companyNameText.getText().equals("")||polTypeCombo.equals("")) {
+                if (pNumText.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Policy Number is a required fields");
+                    test=false;
+                } else if (companyNameText.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Company Name is a required fields");
+                    test=false;
+                } else if (polTypeCombo.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Policy Type is a required fields");
+                    test=false;
                 }
-            } catch (InputMismatchException im) {
-                System.out.println(im);
+
+            } else {
+                test=true;
+                while (test==true) {
+                    try {
+                        numFormat = Integer.parseInt(pNumText.getText());
+                        HealthInsurance healthInsurance = new HealthInsurance(patientNumber, numFormat, companyNameText.getText(), polTypeCombo, (mCombo + "-" + yCombo));
+                        test=false;
+                        f.setVisible(false);
+                    } catch (NumberFormatException im) {
+                        JOptionPane.showMessageDialog(null, "Policy Number Must be a Number");
+                        pNumText.setText("");
+                        test=false;
+                    }
+                }
             }
-            f.setVisible(false);
+            }
         }
     }
 }

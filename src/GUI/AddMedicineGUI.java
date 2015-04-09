@@ -173,9 +173,38 @@ package GUI;
             }
             else if (e.getSource().equals(confirm))
             {
-                medicine=new Medicine(medNameText.getText(), Integer.parseInt(stockText.getText()),Double.parseDouble(medPriceText.getText()));
-                medNameText.setText("");
-                medPriceText.setText("");
+                boolean test = true;
+                int convert=0;
+                double convert2=0.0;
+                while(test==true){
+                try{
+                    if (medNameText.getText().equals("") || Integer.parseInt(stockText.getText()) == 0 || Double.parseDouble(medPriceText.getText())==0.0){
+                        if (medNameText.getText().equals("")) {
+                            JOptionPane.showMessageDialog(null, "Medicine Name is a required field");
+                            test = false;
+                        }
+                        if (Integer.parseInt(stockText.getText()) == 0) {
+                            JOptionPane.showMessageDialog(null, "Stock Level is a required field");
+                            test = false;
+                        }
+                        if (Double.parseDouble(medPriceText.getText())==0.0) {
+                            JOptionPane.showMessageDialog(null, "Medicine Price is a required field");
+                            test = false;
+                        }
+                    } else {
+                        convert= Integer.parseInt(stockText.getText());
+                        convert2 = Double.parseDouble(medPriceText.getText());
+                        medicine=new Medicine(medNameText.getText(), convert,convert2);
+                        medNameText.setText("");
+                        medPriceText.setText("");
+                        test = false;
+                    }
+                } catch (NumberFormatException nf) {
+                    JOptionPane.showMessageDialog(null, "Price and Amount must be of Number Format");
+                    test=false;
+                }
+            }
+
 
             }else if(e.getSource().equals(refresh)){
                 additionalInformation.setText(setTextArea());

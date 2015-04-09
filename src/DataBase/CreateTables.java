@@ -175,18 +175,7 @@ public class CreateTables {
             }
 
 
-            // APPOINTMENT Sequence & Table START
-            try {
-                stmt.execute("DROP SEQUENCE APPID");
-                System.out.println("Appointment Sequence dropped.");
-            } catch (SQLException ex) {
-                // If in here then the Sequence did not exist
-            }
-            try {
-                stmt.execute("DROP TABLE Appointment");
-                System.out.println("Appointment Table dropped");
-            } catch (SQLException ex) {
-            }
+
 
             // ADMIN Sequence & Table START
             try {
@@ -238,6 +227,22 @@ public class CreateTables {
             } catch (SQLException ex) {
                 // The table doesn't exist
             } // PATIENT END
+
+
+            // APPOINTMENT Sequence & Table START
+            try {
+                stmt.execute("DROP SEQUENCE APPID");
+                System.out.println("Appointment Sequence dropped.");
+            } catch (SQLException ex) {
+                // If in here then the Sequence did not exist
+            }
+            try {
+                stmt.execute("DROP TABLE Appointment");
+                System.out.println("Appointment Table dropped");
+            } catch (SQLException ex) {
+            }
+
+
 
             // MEDICINE & Table START
             try {
@@ -395,12 +400,28 @@ public class CreateTables {
             System.exit(1);
         }
         try {
+            //APPOINTMENT START creating table
+            System.out.println("Creating Appointment");
+            String createApp = "CREATE TABLE Appointment (AppID NUMBER PRIMARY KEY,ReasonVisit VARCHAR2(255),requiredEquipment VARCHAR2(50), requiredConsultant VARCHAR2(50))";
+            pstmt = conn.prepareStatement(createApp);
+            pstmt.executeUpdate(createApp);
+            // creating Sequence
+            String createAppSeq = " CREATE SEQUENCE APPID increment by 1 start with 1";
+            pstmt = conn.prepareStatement(createAppSeq);
+            pstmt.executeUpdate(createAppSeq);
+        } catch (SQLException e) {
+            System.out.print("SQL Exception " + e);
+            System.exit(1);
+        }
+
+
+        try {
             //Patient START creating table
             System.out.println("Creating Patient");
             String createPatient = "CREATE TABLE Patient (patient_Number NUMBER PRIMARY KEY, patientFName VARCHAR2(60), patientLName VARCHAR2(60),patientAddress VARCHAR2(255)," +
                     "PatientDOB VARCHAR2(255),PatientGender VARCHAR2(10), occupation VARCHAR2(100), BloodType VARCHAR2(30),Symptoms VARCHAR2(255), Diagnoses VARCHAR2(255), RequiredTreatment " +
                     "VARCHAR2(255),Allergies VARCHAR2(255),PatientEmail VARCHAR2(60),PatientPhone VARCHAR2(60),Recommendation " +
-                    "VARCHAR2(255))";
+                    "VARCHAR2(255),AppID NUMBER)";
             pstmt = conn.prepareStatement(createPatient);
             pstmt.executeUpdate(createPatient);
             // creating Sequence
@@ -427,11 +448,14 @@ public class CreateTables {
             System.out.print("SQL Exception " + e);
             System.exit(1);
         }
+
+
+
+
         try {
             //MEDICAL CARD  START creating table
             System.out.println("Creating Medical Card");
-            String createMCardDetails = "CREATE TABLE MedicalCard ( MedCard_id NUMBER PRIMARY KEY, patient_Num NUMBER,GMSNumber NUMBER, PPSN NUMBER, Gender VARCHAR2(20)" +
-                    ",ValidTo VARCHAR2(30),HolderName VARCHAR2(70))";
+            String createMCardDetails = "CREATE TABLE MedicalCard ( MedCard_id NUMBER PRIMARY KEY, patient_Num NUMBER,GMSNumber NUMBER, PPSN NUMBER, Gender VARCHAR2(20),ValidTo VARCHAR2(30),HolderName VARCHAR2(70))";
             pstmt = conn.prepareStatement(createMCardDetails);
             pstmt.executeUpdate(createMCardDetails);
             // creating Sequence
@@ -445,8 +469,7 @@ public class CreateTables {
         try {
             //HEALTH INSURANCE  START creating table
             System.out.println("Creating Health Insurance");
-            String createInsurDetails = "CREATE TABLE HealthInsurance (Insu_ID NUMBER PRIMARY KEY,patient_Num NUMBER,Policy_number NUMBER, Company_name VARCHAR2(255)" +
-                    ",Coverage_type NUMBER,Expiry_date VARCHAR2(30))";
+            String createInsurDetails = "CREATE TABLE HealthInsurance (Insu_ID NUMBER PRIMARY KEY,patient_Num NUMBER,Policy_number NUMBER, Company_name VARCHAR2(255),Coverage_type VARCHAR2(40),Expiry_date VARCHAR2(30))";
             pstmt = conn.prepareStatement(createInsurDetails);
             pstmt.executeUpdate(createInsurDetails);
             // creating Sequence
@@ -524,20 +547,7 @@ public class CreateTables {
 
 
 
-        try {
-            //APPOINTMENT START creating table
-            System.out.println("Creating Appointment");
-            String createApp = "CREATE TABLE Appointment (AppID NUMBER PRIMARY KEY,ReasonVisit VARCHAR2(255),requiredEquipment VARCHAR2(50), requiredConsultant VARCHAR2(50),patient_Number NUMBER REFERENCES Patient(patient_Number))";
-            pstmt = conn.prepareStatement(createApp);
-            pstmt.executeUpdate(createApp);
-            // creating Sequence
-            String createAppSeq = " CREATE SEQUENCE APPID increment by 1 start with 1";
-            pstmt = conn.prepareStatement(createAppSeq);
-            pstmt.executeUpdate(createAppSeq);
-        } catch (SQLException e) {
-            System.out.print("SQL Exception " + e);
-            System.exit(1);
-        }
+
 
 
         // Tables that use FK as Primary Keys in this section
@@ -752,12 +762,12 @@ public class CreateTables {
 //            System.out.print("SQL Exception " + e);
 //            System.exit(1);
 //        }
-
+//
 
         try {
             //TIME TABLE START creating table
             System.out.println("Creating TimeTable");
-            String create = "CREATE TABLE TimeTable(tt_ID  NUMBER PRIMARY KEY,machineName VARCHAR2(100), time NUMBER, taken VARCHAR2(10),con_Name VARCHAR2(50), AppID NUMBER REFERENCES Appointment(AppID))";
+            String create = "CREATE TABLE TimeTable(tt_ID  NUMBER PRIMARY KEY,machineName VARCHAR2(100), time NUMBER, taken VARCHAR2(10),con_Name VARCHAR2(50), AppID NUMBER)";
             pstmt = conn.prepareStatement(create);
             pstmt.executeUpdate(create);
             // creating Sequence
@@ -768,55 +778,55 @@ public class CreateTables {
             System.out.print("Bloody timetable SQL Exception " + e);
             System.exit(1);
         }
-
-        try {
-            //TIME TABLE START creating table
-            System.out.println("Creating XRayTimeTable");
-            String create = "CREATE TABLE XRayTimeTable(xRay_ID  NUMBER PRIMARY KEY, time NUMBER, taken VARCHAR2(10),con_Name VARCHAR2(50), AppID NUMBER REFERENCES Appointment(AppID))";
-            pstmt = conn.prepareStatement(create);
-            pstmt.executeUpdate(create);
-            // creating Sequence
-            create = " CREATE SEQUENCE xRay_seq increment by 1 start with 1";
-            pstmt = conn.prepareStatement(create);
-            pstmt.executeUpdate(create);
-        } catch (SQLException e) {
-            System.out.print("SQL Exception " + e);
-            System.exit(1);
-        }
-
-        try {
-            //TIME TABLE START creating table
-            System.out.println("Creating MRITimeTable");
-            String create = "CREATE TABLE MRITimeTable(mRI_ID  NUMBER PRIMARY KEY, time NUMBER, taken VARCHAR2(10),con_Name VARCHAR2(50), AppID NUMBER REFERENCES Appointment(AppID))";
-            pstmt = conn.prepareStatement(create);
-            pstmt.executeUpdate(create);
-            // creating Sequence
-            create = " CREATE SEQUENCE mRI_seq increment by 1 start with 1";
-            pstmt = conn.prepareStatement(create);
-            pstmt.executeUpdate(create);
-        } catch (SQLException e) {
-            System.out.print("SQL Exception " + e);
-            System.exit(1);
-        }
-        try {
-            //TIME TABLE START creating table
-            System.out.println("Creating CTScanTimeTable");
-            String create = "CREATE TABLE CTScanTimeTable(cT_ID  NUMBER PRIMARY KEY, time NUMBER, taken VARCHAR2(10),con_Name VARCHAR2(50), AppID NUMBER REFERENCES Appointment(AppID))";
-            pstmt = conn.prepareStatement(create);
-            pstmt.executeUpdate(create);
-            // creating Sequence
-            create = " CREATE SEQUENCE cT_seq increment by 1 start with 1";
-            pstmt = conn.prepareStatement(create);
-            pstmt.executeUpdate(create);
-        } catch (SQLException e) {
-            System.out.print("SQL Exception " + e);
-            System.exit(1);
-        }
+//
+//        try {
+//            //TIME TABLE START creating table
+//            System.out.println("Creating XRayTimeTable");
+//            String create = "CREATE TABLE XRayTimeTable(xRay_ID  NUMBER PRIMARY KEY, time NUMBER, taken VARCHAR2(10),con_Name VARCHAR2(50), AppID NUMBER REFERENCES Appointment(AppID))";
+//            pstmt = conn.prepareStatement(create);
+//            pstmt.executeUpdate(create);
+//            // creating Sequence
+//            create = " CREATE SEQUENCE xRay_seq increment by 1 start with 1";
+//            pstmt = conn.prepareStatement(create);
+//            pstmt.executeUpdate(create);
+//        } catch (SQLException e) {
+//            System.out.print("SQL Exception " + e);
+//            System.exit(1);
+//        }
+//
+//        try {
+//            //TIME TABLE START creating table
+//            System.out.println("Creating MRITimeTable");
+//            String create = "CREATE TABLE MRITimeTable(mRI_ID  NUMBER PRIMARY KEY, time NUMBER, taken VARCHAR2(10),con_Name VARCHAR2(50), AppID NUMBER REFERENCES Appointment(AppID))";
+//            pstmt = conn.prepareStatement(create);
+//            pstmt.executeUpdate(create);
+//            // creating Sequence
+//            create = " CREATE SEQUENCE mRI_seq increment by 1 start with 1";
+//            pstmt = conn.prepareStatement(create);
+//            pstmt.executeUpdate(create);
+//        } catch (SQLException e) {
+//            System.out.print("SQL Exception " + e);
+//            System.exit(1);
+//        }
+//        try {
+//            //TIME TABLE START creating table
+//            System.out.println("Creating CTScanTimeTable");
+//            String create = "CREATE TABLE CTScanTimeTable(cT_ID  NUMBER PRIMARY KEY, time NUMBER, taken VARCHAR2(10),con_Name VARCHAR2(50), AppID NUMBER )";
+//            pstmt = conn.prepareStatement(create);
+//            pstmt.executeUpdate(create);
+//            // creating Sequence
+//            create = " CREATE SEQUENCE cT_seq increment by 1 start with 1";
+//            pstmt = conn.prepareStatement(create);
+//            pstmt.executeUpdate(create);
+//        } catch (SQLException e) {
+//            System.out.print("SQL Exception " + e);
+//            System.exit(1);
+//        }
 
         try {
             //TIME TABLE START creating table
             System.out.println("Creating consultantTimetable");
-            String create = "CREATE TABLE consultantTimetable(conTT_ID  NUMBER PRIMARY KEY, time NUMBER ,con_Name VARCHAR2(50), AppID NUMBER REFERENCES Appointment(AppID))";
+            String create = "CREATE TABLE consultantTimetable(conTT_ID  NUMBER PRIMARY KEY, time NUMBER ,con_Name VARCHAR2(50), AppID NUMBER )";
             pstmt = conn.prepareStatement(create);
             pstmt.executeUpdate(create);
             // creating Sequence

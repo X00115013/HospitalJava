@@ -38,6 +38,7 @@ public class TestHospital {
 //        AddEquipmentGUI addEquipmentGUI=new AddEquipmentGUI();
 //        AddMedicineGUI addMedicineGUI=new AddMedicineGUI();
 //        AddConsultantGUI addConsultantGUI=new AddConsultantGUI();
+//        MedicalCardGUI medicalCardGUI=new MedicalCardGUI(1003);
 
 
 
