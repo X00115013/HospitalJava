@@ -1,11 +1,7 @@
 package GUI;
-
-//import DataBase.AppointmentOperations;
-//import DataBase.PatientOperations;
-//import Model.Appointment;
-//import Model.PatientRecord;
-
         import Model.Appointment;
+        import Model.CardDetails;
+        import Model.MedicalCard;
 
         import java.text.DateFormat;
         import java.text.SimpleDateFormat;
@@ -22,7 +18,11 @@ package GUI;
  * Created by Thomas Murray on 17/03/2015.
  */
 public class CreditCardGUI extends JFrame implements ActionListener {
-    String[] list1 = {"Debit Card :", "VISA :", "MasterCard :"};
+    private String[] list1 = {"Debit Card", "VISA", "MasterCard"};
+    private String[]list2={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+    private String[]list3={"2015","2016","2017"};
+    private ArrayList<CardDetails>cList=new ArrayList<>();
+    private int patientNumber;
     JButton confirm;
     JButton cancel,validate;
 
@@ -33,12 +33,14 @@ public class CreditCardGUI extends JFrame implements ActionListener {
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     Date date = new Date();
 
-    JTextField pNumText,holdersNameText,cardNumText,secCodeText,xMonthText,xYearText;
+    JTextField pNumText,holdersNameText,cardNumText,secCodeText;
+    JComboBox<String> xMonthTextCombo,xYearTextCombo;
     JFrame f;
 
     JComboBox<String> cardTypeCombo;
 
     public CreditCardGUI(int patientNumIn) {
+        patientNumber=patientNumIn;
         f = new JFrame();
         f.setTitle("Credit Cards");
         f.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -92,56 +94,73 @@ public class CreditCardGUI extends JFrame implements ActionListener {
 
         //Reason for Visit label
         holdersName = new JLabel("Card Holders Full Name ");
-        middle.add(holdersName, getConstraints(0, 1, 1, 1, GridBagConstraints.WEST));
+        middle.add(holdersName, getConstraints(0, 0, 2, 1, GridBagConstraints.WEST));
 
         holdersNameText = new JTextField(35);
         holdersNameText.setBorder(loweredBorder);
-        middle.add(holdersNameText, getConstraints(0, 2, 4, 1, GridBagConstraints.WEST));
+        middle.add(holdersNameText, getConstraints(0, 1, 4, 1, GridBagConstraints.WEST));
 
         cardNum = new JLabel("Card Number");
-        middle.add(cardNum, getConstraints(0, 3, 3, 1, GridBagConstraints.WEST));
+        middle.add(cardNum, getConstraints(0, 2, 3, 1, GridBagConstraints.WEST));
 
         secCode = new JLabel("Security code");
-        middle.add(secCode, getConstraints(3, 3, 1, 1, GridBagConstraints.WEST));
+        middle.add(secCode, getConstraints(3, 2, 1, 1, GridBagConstraints.WEST));
 
         cardNumText = new JTextField(20);
         cardNumText.setBorder(loweredBorder);
-        middle.add(cardNumText, getConstraints(0, 4, 3, 1, GridBagConstraints.WEST));
+        middle.add(cardNumText, getConstraints(0, 3, 3, 1, GridBagConstraints.WEST));
 
         secCodeText = new JTextField(10);
         secCodeText.setBorder(loweredBorder);
-        middle.add(secCodeText, getConstraints(3, 4, 1, 1, GridBagConstraints.WEST));
+        middle.add(secCodeText, getConstraints(3, 3, 3, 1, GridBagConstraints.WEST));
 
         expiry = new JLabel("Expiry Date");
-        middle.add(expiry, getConstraints(0, 5, 1, 1, GridBagConstraints.WEST));
+        middle.add(expiry, getConstraints(0, 4, 1, 1, GridBagConstraints.WEST));
 
         xMonth = new JLabel("Month");
-        middle.add(xMonth, getConstraints(0, 6, 2, 1, GridBagConstraints.WEST));
+        middle.add(xMonth, getConstraints(0, 5, 1, 1, GridBagConstraints.WEST));
 
         xYear = new JLabel("Year");
-        middle.add(xYear, getConstraints(1, 6, 2, 1, GridBagConstraints.WEST));
+        middle.add(xYear, getConstraints(1, 5, 1, 1, GridBagConstraints.WEST));
 
         cardType = new JLabel("Card Type");
-        middle.add(cardType, getConstraints(3, 6, 1, 1, GridBagConstraints.WEST));
+        middle.add(cardType, getConstraints(2, 5, 1, 1, GridBagConstraints.WEST));
 
-        xMonthText = new JTextField(5);
-        xMonthText.setBorder(loweredBorder);
-        middle.add(xMonthText, getConstraints(0, 7, 2, 1, GridBagConstraints.WEST));
+        xMonthTextCombo = new JComboBox<>(list2);
+        xMonthTextCombo.setBorder(loweredBorder);
+        middle.add(xMonthTextCombo, getConstraints(0, 6, 1, 1, GridBagConstraints.WEST));
 
-        xYearText = new JTextField(5);
-        xYearText.setBorder(loweredBorder);
-        middle.add(xYearText, getConstraints(2, 7, 2, 1, GridBagConstraints.WEST));
+        xYearTextCombo = new JComboBox<>(list3);
+
+        middle.add(xYearTextCombo, getConstraints(1, 6, 1, 1, GridBagConstraints.WEST));
 
 
         cardTypeCombo = new JComboBox<String>(list1);
+        cardTypeCombo.setBorder(loweredBorder);
         cardTypeCombo.setPreferredSize(new Dimension(120, 20));
-        middle.add(cardTypeCombo, getConstraints(3, 7, 3, 1, GridBagConstraints.WEST));
+        middle.add(cardTypeCombo, getConstraints(2, 6, 1, 1, GridBagConstraints.WEST));
         cardTypeCombo.addActionListener(this);
 
 
         validate = new JButton(" Validate ");
         validate.addActionListener(this);
         middle.add(validate, getConstraints(0, 10, 3, 1, GridBagConstraints.WEST));
+
+        cList.removeAll(cList);
+        CardDetails cardDetails=new CardDetails();
+        cList.addAll(cardDetails.getCardList());
+        for (int i = 0; i < cList.size(); i++) {
+            if(patientNumber==cList.get(i).getPatientNumIn()){
+                holdersNameText.setText(cList.get(i).getCardHolder());
+                cardNumText.setText(Integer.toString(cList.get(i).getCardNum()));
+                secCodeText.setText(Integer.toString(cList.get(i).getSecurityCode()));
+                xMonthTextCombo.setSelectedItem(cList.get(i).getExpiryDate().charAt(0) + "" + cList.get(i).getExpiryDate().charAt(1) + "" + cList.get(i).getExpiryDate().charAt(2));
+                xYearTextCombo.setSelectedItem(cList.get(i).getExpiryDate().charAt(4) + "" + cList.get(i).getExpiryDate().charAt(5) + "" +
+                        "" + cList.get(i).getExpiryDate().charAt(6) + "" + cList.get(i).getExpiryDate().charAt(7));
+                cardTypeCombo.setSelectedItem(cList.get(i).getCardType());
+            }
+        }
+
 
 
 
@@ -183,20 +202,24 @@ public class CreditCardGUI extends JFrame implements ActionListener {
             f.setVisible(false);
 
         } else if (e.getSource().equals(confirm)) {
+            String xComboM=(String)xMonthTextCombo.getSelectedItem();
+            String xComboY=(String)xYearTextCombo.getSelectedItem();
+            String cardCombo=(String)cardTypeCombo.getSelectedItem();
             int catcher = 0, catcher2 = 0;
-            try {
-                String medEquip = (String) cardTypeCombo.getSelectedItem();
-                if (medEquip.equals("XRay :")) {
-                    catcher = 1;
-                } else if (medEquip.equals("MRI Scan :")) {
-                    catcher = 2;
-                } else if (medEquip.equals("CT Scan :")) {
-                    catcher = 3;
+            if(cardNumText.getText().equals("")||secCode.getText().equals("")||holdersNameText.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Holders Name, Card Number & Security Code are Required Fields");
+            }else{
+                try {
+                    catcher=Integer.parseInt(cardNumText.getText());
+                    catcher2=Integer.parseInt(secCodeText.getText());
+                    CardDetails cardDetails=new CardDetails(patientNumber,catcher,cardCombo,catcher2,holdersNameText.getText(),(xComboM+"-"+xComboY));
+                    f.setVisible(false);
+                } catch (NumberFormatException nf) {
+                    JOptionPane.showMessageDialog(null, "Card Number & Security Code must be Numeric");
+                    cardNumText.setText("");
+                    secCodeText.setText("");
                 }
-            } catch (InputMismatchException im) {
-                System.out.println(im);
             }
-            f.setVisible(false);
         }
     }
 }

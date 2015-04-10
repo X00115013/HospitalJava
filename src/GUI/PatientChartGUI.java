@@ -179,8 +179,8 @@ public class PatientChartGUI extends JFrame implements ActionListener
             File Files = new File("files");
             File textFile = new File(Files, ""+patientNumberIn+"_CHART.txt");
             try (FileWriter input = new FileWriter(textFile)) {
-                //Input text
                 input.write(chartInformation.getText());
+                JOptionPane.showMessageDialog(null, "Patient "+patientNumberIn+" Chart is printing....");
             } catch (IOException io) {
                 System.out.println(io);
             }

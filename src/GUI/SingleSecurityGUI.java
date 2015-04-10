@@ -98,28 +98,28 @@ public class SingleSecurityGUI extends JFrame implements ActionListener {
         return answer;
     }
 
-    public void actionPerformed(ActionEvent e)
-    {
-        if (e.getSource().equals(cancel))
-        {
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(cancel)) {
             f.setVisible(false);
 
         } else if (e.getSource().equals(confirm)) {
             boolean test = true;
-            try {
-                while (test) {
-                    Security security = new Security(selection,-1,Integer.parseInt(passwordText.getText()));
+            if (passwordText.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Password is a Required Field");
+            } else {
+                try {
+                    int choice = Integer.parseInt(passwordText.getText());
+                    Security security = new Security(selection, -1, choice);
                     if (security.passCheck() == -1) {
                         passwordText.setText("");
                         JOptionPane.showMessageDialog(null, "Password is Incorrect");
-                    } else {
-                        test = false;
+                    }else{
+                        f.setVisible(false);
                     }
-                }f.setVisible(false);
-            } catch (NumberFormatException im) {
-                patientNumText.setText("");
-                passwordText.setText("");
-                System.out.println(im);
+                } catch (NumberFormatException im) {
+                    JOptionPane.showMessageDialog(null, "Password must be Numeric");
+                    passwordText.setText("");
+                }
             }
         }
     }

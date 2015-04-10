@@ -9,6 +9,9 @@ package GUI;
         import java.awt.*;
         import java.awt.event.ActionEvent;
         import java.awt.event.ActionListener;
+        import java.io.File;
+        import java.io.FileWriter;
+        import java.io.IOException;
         import java.util.ArrayList;
 
 /**
@@ -205,11 +208,19 @@ public class PaymentGUI extends JFrame implements ActionListener
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
-            System.exit(0);
+            f.setVisible(false);
         } else if (e.getSource().equals(confirm)){
 
         }else if (e.getSource().equals(print))
-        {
+        {File Files = new File("files");
+            File textFile = new File(Files, ""+patientNumberIn+"_Bill.txt");
+            try (FileWriter input = new FileWriter(textFile)) {
+                //Input text
+                input.write(billInformation.getText());
+                JOptionPane.showMessageDialog(null, "Patient "+patientNumberIn+" bill is printing....");
+            } catch (IOException io) {
+                System.out.println(io);
+            }
         }else if (e.getSource().equals(debitCredit))
         {   CreditCardGUI creditCardGUI=new CreditCardGUI(patientNumberIn);
         }else if (e.getSource().equals(insurance))

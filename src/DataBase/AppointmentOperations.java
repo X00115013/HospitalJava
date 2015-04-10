@@ -5,6 +5,8 @@ import oracle.jdbc.pool.OracleDataSource;
 import java.sql.*;
 import Model.Appointment;
 
+import javax.swing.*;
+
 /**
  * Created by Thomas Murray on 08/03/2015.
  */
@@ -69,10 +71,39 @@ public class AppointmentOperations {
             String cmd = "DELETE FROM Appointment WHERE AppID =" + n;
             stmt = conn.createStatement();
             stmt.executeUpdate(cmd);
+            deleteAppointmentTT(n);
+            JOptionPane.showMessageDialog(null, "Appointment "+n+" has been deleted");
         } catch (Exception e) {
             System.out.println("Error deleting appointment"+e);
         }
     }
+
+    public void deleteAppointmentTT(int n) {
+        try {
+            String cmd = "DELETE FROM TimeTable WHERE AppID =" + n;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(cmd);
+            deletePatientAppointment(n);
+        } catch (Exception e) {
+            System.out.println("Error deleting appointment"+e);
+        }
+    }
+    public void deletePatientAppointment(int n)
+    {
+        try {
+            String sql1 = "UPDATE Patient SET " +
+                    " AppID = 0" +
+                    "where AppID=" +n;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql1);
+        } catch (Exception se) {
+            System.out.println(se);
+        }
+    }
+
+
+
+
 
     public void addAppointmentExisting(String recIn, String equipIn,String conIn,int patientNum) {
         try {

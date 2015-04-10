@@ -28,6 +28,7 @@ public class AppointmentGUI extends JFrame implements ActionListener {
     JButton cancel,cancelApt;
     private ArrayList<Equipment> eqList=new ArrayList<>();
     private ArrayList<Consultants>conList=new ArrayList<>();
+    private ArrayList<Appointment>appList=new ArrayList<>();
     private Equipment equipment;
     private Consultants consultants;
     private int patientNumberIn;
@@ -83,6 +84,7 @@ public class AppointmentGUI extends JFrame implements ActionListener {
         aptNumText = new JTextField(5);
         aptNumText.setBorder(loweredBorder);
         Appointment appointment=new Appointment();
+        appList.addAll(appointment.appArray());
         aptNumText.setText(Integer.toString(appointment.getSize()));
         aptNumText.setEditable(false);
         ID.add(aptNumText);

@@ -142,9 +142,12 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
         hList.addAll(healthInsurance.getHealthList());
         for (int i = 0; i < hList.size(); i++) {
             if(patientNumber==hList.get(i).getPatientNum()){
-                monthCombo.setSelectedItem(hList.get(i).getExpDate().charAt(0) + "" + hList.get(i).getExpDate().charAt(1));
-                yearCombo.setSelectedItem(hList.get(i).getExpDate().charAt(3) + "" + hList.get(i).getExpDate().charAt(4) + "" +
-                        "" + hList.get(i).getExpDate().charAt(5) +""+hList.get(i).getExpDate().charAt(6));
+                companyNameText.setText(hList.get(i).getCompanyName());
+                pNumText.setText(Integer.toString(hList.get(i).getPolNum()));
+                coverageTypeCombo.setSelectedItem(hList.get(i).getPolType());
+                monthCombo.setSelectedItem(hList.get(i).getExpDate().charAt(0) + "" + hList.get(i).getExpDate().charAt(1)+ "" + hList.get(i).getExpDate().charAt(2));
+                yearCombo.setSelectedItem(hList.get(i).getExpDate().charAt(4) + "" + hList.get(i).getExpDate().charAt(5) + "" +
+                        "" + hList.get(i).getExpDate().charAt(6) +""+hList.get(i).getExpDate().charAt(7));
             }
         }
 

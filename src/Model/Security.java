@@ -15,6 +15,10 @@ public class Security {
     private PatientRecord patientRecord;
     private ArrayList<PatientRecord> pList=new ArrayList<>();
 
+
+    public Security() {
+    }
+
     public Security(int selectionIn,int patientNumIn, int passWordIn) {
         patientNum=patientNumIn;
         selection=selectionIn;

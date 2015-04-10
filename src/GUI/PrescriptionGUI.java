@@ -6,6 +6,7 @@ package GUI;
 //import Model.PatientRecord;
 
         import Model.Appointment;
+        import Model.Consultants;
         import Model.Medicine;
         import Model.Prescription;
 
@@ -25,10 +26,12 @@ package GUI;
  */
 public class PrescriptionGUI extends JFrame implements ActionListener {
 
-    String[] list2 = {"10mg", "20mg", "40mg", "50mg", "60mg", "70mg", "80mg", "90mg", "100mg", "110mg", "120mg", "130mg", "140mg", "150mg", "160mg", "170mg", "180mg", "190mg", "200mg"};
+    private String[] list2 = {"10mg", "20mg", "40mg", "50mg", "60mg", "70mg", "80mg", "90mg", "100mg", "110mg", "120mg", "130mg", "140mg", "150mg", "160mg", "170mg", "180mg", "190mg", "200mg"};
     private ArrayList<Medicine> medList = new ArrayList<>();
-    String[] list1;
+    private ArrayList<Consultants>conList=new ArrayList<>();
+    private String[] list1,list3;
     private Medicine medicine;
+    private Consultants consultants;
     private int patientNumberIn;
     JButton confirm;
     JButton cancel;
@@ -46,8 +49,7 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
     JTextField field2, conNum;
     JFrame f;
 
-    JComboBox<String> combo1;
-    JComboBox<String> combo2;
+    JComboBox<String> combo1,combo2,conCombo;
 
     public PrescriptionGUI(int patientNumIn) {
 
@@ -95,10 +97,19 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
         holder.add(topSection);
 
         medicine = new Medicine();
+        medList.removeAll(medList);
         medList.addAll(medicine.getMedicines());
         list1 = new String[medList.size()];
         for (int i = 0; i < medList.size(); i++) {
             list1[i] = medList.get(i).getMedName();
+        }
+
+        consultants = new Consultants();
+        conList.addAll(consultants.getConsultants());
+        list3 = new String[conList.size()+1];
+        list3[0]="";
+        for (int i = 0; i < conList.size(); i++) {
+            list3[i+1] = conList.get(i).getConName();
         }
 
 
@@ -112,7 +123,8 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
         middle.add(label3, getConstraints(0, 2, 1, 1, GridBagConstraints.WEST));
 
         combo1 = new JComboBox<String>(list1);
-        combo1.setPreferredSize(new Dimension(400, 20));
+        combo1.setPreferredSize(new Dimension(400, 30));
+        combo1.setBorder(loweredBorder);
         middle.add(combo1, getConstraints(0, 3, 3, 1, GridBagConstraints.WEST));
         combo1.addActionListener(this);
 
@@ -122,7 +134,8 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
 
 
         combo2 = new JComboBox<String>(list2);
-        combo2.setPreferredSize(new Dimension(400, 20));
+        combo2.setPreferredSize(new Dimension(400, 30));
+        combo2.setBorder(loweredBorder);
         middle.add(combo2, getConstraints(0, 5, 3, 1, GridBagConstraints.WEST));
         combo2.addActionListener(this);
 
@@ -130,9 +143,9 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
         label2 = new JLabel("Consultant Number");
         middle.add(label2, getConstraints(0, 6, 1, 1, GridBagConstraints.WEST));
 
-        conNum = new JTextField(40);
-        conNum.setBorder(loweredBorder);
-        middle.add(conNum, getConstraints(0, 7, 2, 1, GridBagConstraints.WEST));
+        conCombo = new JComboBox<>(list3);
+        conCombo.setBorder(loweredBorder);
+        middle.add(conCombo, getConstraints(0, 7, 2, 1, GridBagConstraints.WEST));
 
         //bottom
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -174,27 +187,27 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
         } else if (e.getSource().equals(confirm)) {
             String catcher = "";
             int catcher2 = 0;
-            try{
-            String med = (String) combo1.getSelectedItem();
-            for (int i = 0; i < medList.size(); i++) {
-                if (med.equals(medList.get(i).getMedName())) {
-                    catcher =(String) medList.get(i).getMedName();
-                }
-            }
-            String conEquip = (String) combo2.getSelectedItem();
-            for (int j = 0; j < list2.length; j++) {
-                String temp = list2[j];
-                if (conEquip.equals(temp)) {
-                    catcher2 = j+1;
-                }
-            }
-                Prescription prescription=new Prescription(patientNumberIn,catcher,catcher2,conNum.getText());
-                f.setVisible(false);
+            String conName=(String)conCombo.getSelectedItem();
+            if (conName.equals("")) {
+                JOptionPane.showMessageDialog(null, "Consultant is a required fields");
+            } else {
+                    String med = (String) combo1.getSelectedItem();
+                    for (int i = 0; i < medList.size(); i++) {
+                        if (med.equals(medList.get(i).getMedName())) {
+                            catcher = (String) medList.get(i).getMedName();
+                        }
+                    }
+                    String conEquip = (String) combo2.getSelectedItem();
+                    for (int j = 0; j < list2.length; j++) {
+                        String temp = list2[j];
+                        if (conEquip.equals(temp)) {
+                            catcher2 = j + 1;
+                        }
+                    }
+                    Prescription prescription = new Prescription(patientNumberIn, catcher, catcher2, conName);
+                    f.setVisible(false);
 
-        }catch(InputMismatchException im){
-                System.out.println(im);
             }
-
         }
     }
 }

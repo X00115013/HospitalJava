@@ -3,6 +3,8 @@ package DataBase;
 import java.sql.*;
 import oracle.jdbc.pool.OracleDataSource;
 
+import javax.swing.*;
+
 /**
  * Created by David and Thomas Murray on 17/03/2015.
  */
@@ -44,6 +46,7 @@ public class AllCardOperations {
             pstmt.setString(5,holderIn);
             pstmt.setString(6,expDate);
             pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Your Bank Card Details have been entered");
         } catch (Exception se) {
             System.out.println(se);
         }
@@ -72,6 +75,7 @@ public class AllCardOperations {
             pstmt.setString(5,validTO);
             pstmt.setString(6,holderIn);
             pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Your Medical Card details have been added");
         } catch (Exception se) {
             System.out.println(se);
         }
@@ -99,6 +103,7 @@ public class AllCardOperations {
             pstmt.setString(4,polType);
             pstmt.setString(5,expDate);
             pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Your Insurance Details have been added");
         } catch (Exception se) {
             System.out.println(se);
         }

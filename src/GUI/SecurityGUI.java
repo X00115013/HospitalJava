@@ -14,8 +14,8 @@ import java.util.InputMismatchException;
 /**
  * Created by Thomas Murray on 01/03/2015.
  */
-public class SecurityGUI extends JFrame implements ActionListener{
-    private  int answer=0,selection;
+public class SecurityGUI extends JFrame implements ActionListener {
+    private int answer = 0, selection;
 
     JButton confirm;
     JButton cancel;
@@ -23,12 +23,12 @@ public class SecurityGUI extends JFrame implements ActionListener{
     JLabel patientNum;
     JLabel password;
     JLabel title;
-    JTextField patientNumText,passwordText;
+    JTextField patientNumText, passwordText;
 
     JFrame f;
 
     public SecurityGUI(int selectionIn) {
-        selection=selectionIn;
+        selection = selectionIn;
         f = new JFrame("Security");
         f.setLayout(new FlowLayout());
         f.setSize(420, 310);
@@ -37,15 +37,12 @@ public class SecurityGUI extends JFrame implements ActionListener{
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 
-
-        JPanel clock= new JPanel(new FlowLayout(FlowLayout.LEFT));
-        f.add(clock,BorderLayout.EAST);
-
+        JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        f.add(clock, BorderLayout.EAST);
 
 
-
-        JPanel offTop= new JPanel(new FlowLayout(FlowLayout.CENTER));
-        f.add(offTop,BorderLayout.NORTH);
+        JPanel offTop = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        f.add(offTop, BorderLayout.NORTH);
 
 
         title = new JLabel("SECURITY");
@@ -53,9 +50,8 @@ public class SecurityGUI extends JFrame implements ActionListener{
         title.setFont(new Font("Arial", Font.BOLD, 44));
 
 
-
-        JPanel middle=new JPanel();
-        f.add(middle,BorderLayout.CENTER);
+        JPanel middle = new JPanel();
+        f.add(middle, BorderLayout.CENTER);
         middle.setLayout(new GridBagLayout());
 
         //Patient Number
@@ -73,8 +69,8 @@ public class SecurityGUI extends JFrame implements ActionListener{
         middle.add(passwordText, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
 
 
-        JPanel bottom= new JPanel(new FlowLayout(FlowLayout.LEFT));
-        f.add(bottom,BorderLayout.SOUTH);
+        JPanel bottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        f.add(bottom, BorderLayout.SOUTH);
 
         // Confirm button
         confirm = new JButton("Confirm");
@@ -107,38 +103,39 @@ public class SecurityGUI extends JFrame implements ActionListener{
         return answer;
     }
 
-    public void actionPerformed(ActionEvent e)
-    {
-        if (e.getSource().equals(cancel))
-        {
-           f.setVisible(false);
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(cancel)) {
+            f.setVisible(false);
 
         } else if (e.getSource().equals(confirm)) {
             boolean test = true;
-            try {
-                while (test) {
-                    Security security = new Security(selection, Integer.parseInt(patientNumText.getText()), Integer.parseInt(passwordText.getText()));
+            if (patientNumText.getText().equals("") || passwordText.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Both Fields Must Be Populated");
+            } else {
+                try {
+                    int choice1=Integer.parseInt(patientNumText.getText());
+                    int choice2=Integer.parseInt(passwordText.getText());
+                    Security security = new Security(selection, choice1, choice2);
                     if (security.passCheck() == -1) {
                         passwordText.setText("");
                         JOptionPane.showMessageDialog(null, "Password is Incorrect");
-                    }else if(security.patientNumCheck()){
-                        test = false;
+                    } else if (security.patientNumCheck()) {
                     }
                     if (!security.patientNumCheck()) {
                         patientNumText.setText("");
                         passwordText.setText("");
                         JOptionPane.showMessageDialog(null, "Patient Does Not Exist");
-                    } else if(security.patientNumCheck()){
-                        test = false;
+                    } else{
+                        f.setVisible(false);
                     }
-                }f.setVisible(false);
-            } catch (NumberFormatException im) {
-                patientNumText.setText("");
-                passwordText.setText("");
-                JOptionPane.showMessageDialog(null, "Both Files Must Be Populated");
-                System.out.println(im);
+                } catch (NumberFormatException im) {
+                    patientNumText.setText("");
+                    passwordText.setText("");
+                    JOptionPane.showMessageDialog(null, "Both Files Must Be Numeric");
+                    System.out.println(im);
+                }
             }
         }
-        }
     }
+}
 

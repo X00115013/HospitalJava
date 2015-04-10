@@ -144,14 +144,10 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
                 patientNameText.setText(medCList.get(i).getHolderName());
                 gmsNumText.setText(Integer.toString(medCList.get(i).getGMSNumber()));
                 ppsNumText.setText(Integer.toString(medCList.get(i).getPPS()));
-                xMonthTextCombo.setSelectedItem(medCList.get(i).getValidTo().charAt(0) + "" + medCList.get(i).getValidTo().charAt(1));
-                xYearTextCombo.setSelectedItem(medCList.get(i).getValidTo().charAt(3) + "" + medCList.get(i).getValidTo().charAt(4) + "" +
-                        "" + medCList.get(i).getValidTo().charAt(5) +""+medCList.get(i).getValidTo().charAt(6));
-                if(medCList.get(i).getGender().equalsIgnoreCase("male")){
-                    male.setSelected(true);
-                }else if(medCList.get(i).getGender().equalsIgnoreCase("female")){
-                    female.setSelected(true);
-                }
+                xMonthTextCombo.setSelectedItem(medCList.get(i).getValidTo().charAt(0) + "" + medCList.get(i).getValidTo().charAt(1) + "" + medCList.get(i).getValidTo().charAt(2));
+                xYearTextCombo.setSelectedItem(medCList.get(i).getValidTo().charAt(4) + "" + medCList.get(i).getValidTo().charAt(5) + "" +
+                        "" + medCList.get(i).getValidTo().charAt(6) +""+medCList.get(i).getValidTo().charAt(7));
+
             }
         }
 
@@ -204,13 +200,26 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
             String xComboM=(String)xMonthTextCombo.getSelectedItem();
             String xComboY=(String)xYearTextCombo.getSelectedItem();
             String catcher="";
+            int intCatcher=0,intCatcher2=0;
             if(male.isSelected()){
                 catcher="male";
             }else if(female.isSelected()){
                 catcher="female";
             }
-            MedicalCard medicalCDAdd=new MedicalCard(patientNumber,Integer.parseInt(gmsNumText.getText()),Integer.parseInt(ppsNumText.getText()),catcher,(xComboM+"-"+xComboY),patientNameText.getText());
-            f.setVisible(false);
+            if(patientNameText.getText().equals("")||gmsNumText.getText().equals("")||ppsNumText.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Holders Name, GMS Number & PPS Code are Required Fields");
+            }else {
+                try {
+                    intCatcher=Integer.parseInt(gmsNumText.getText());
+                    intCatcher2=Integer.parseInt(ppsNumText.getText());
+                    MedicalCard medicalCDAdd = new MedicalCard(patientNumber,intCatcher , intCatcher2, catcher, (xComboM + "-" + xComboY), patientNameText.getText());
+                    f.setVisible(false);
+                }catch (NumberFormatException nf){
+                    JOptionPane.showMessageDialog(null, "GMS Number & PPS Code must be Numeric");
+                    gmsNumText.setText("");
+                    ppsNumText.setText("");
+                }
+            }
         } else if (e.getSource().equals(male)) {
             female.setSelected(false);
 

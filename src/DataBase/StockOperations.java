@@ -1,5 +1,6 @@
 package DataBase;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,6 +53,7 @@ public class StockOperations {
             pstmt.setInt(2, amount);
             pstmt.setDouble(3,price);
             pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "New medicine has been added");
         } catch (Exception se) {
             System.out.println(se);
         }
@@ -98,6 +100,7 @@ public class StockOperations {
             pstmt.setString(1,nameIn);
             pstmt.setDouble(2,price);
             pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "New Equipment has been added");
         } catch (Exception se) {
             System.out.println(se);
         }
@@ -124,6 +127,7 @@ public class StockOperations {
             pstmt.setString(4,conManeIn);
             pstmt.setInt(5,1);
             pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "New Prescription added for patient "+pNumIn);
         } catch (Exception se) {
             System.out.println(se);
         }
@@ -171,6 +175,7 @@ public class StockOperations {
             pstmt.setString(2, conSpecialIn);
             pstmt.setString(3,equip);
             pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "New Consultant has been added");
         } catch (Exception se) {
             System.out.println(se);
         }
@@ -196,6 +201,7 @@ public class StockOperations {
             pstmt.setString(2, medNameIn);
             pstmt.setInt(3, 1);
             pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "New Equipment added for patient "+patientNumIn);
         } catch (Exception se) {
             System.out.println("Error from Here addEuipUsed"+ se);
         }

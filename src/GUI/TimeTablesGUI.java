@@ -139,8 +139,8 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
             String tableSelection = (String) combo1.getSelectedItem();
             File textFile = new File(Files, "" + tableSelection + "_timeTables.txt");
             try (FileWriter input = new FileWriter(textFile)) {
-                //Input text
                 input.write(timeTableInformation.getText());
+                JOptionPane.showMessageDialog(null, tableSelection + " Timetable is printing....");
             } catch (IOException io) {
                 System.out.println(io);
             }

@@ -150,6 +150,7 @@
                 }
             } else if (e.getSource().equals(cancelAppointment)){
                 CancelAppointmentGUI cancelAppointmentGUI=new CancelAppointmentGUI();
+                f.setVisible(false);
 
             }
         }

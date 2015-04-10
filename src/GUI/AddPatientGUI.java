@@ -284,16 +284,12 @@ public class AddPatientGUI extends JFrame implements ActionListener {
                     || (patientPhoneText.getText().equals(""))) {
                 if (patientFNameText.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "First Name is a required field");
-                    patientFNameText.setText("");
                 }if(patientSNameText.getText().equals("")){
                     JOptionPane.showMessageDialog(null, "Surname is a required field");
-                    patientSNameText.setText("");
                 }if(patientAddressText.getText().equals("")){
                     JOptionPane.showMessageDialog(null, "Address is a required field");
-                    patientAddressText.setText("");
                 }if(patientPhoneText.getText().equals("")){
                     JOptionPane.showMessageDialog(null, "Phone are required field");
-                    patientPhoneText.setText("");
                 }
             } else {
                 if (male.isSelected()) {
@@ -308,12 +304,14 @@ public class AddPatientGUI extends JFrame implements ActionListener {
                     String yearCon=(String)yearCombo.getSelectedItem();
                     PatientRecord patientRecord = new PatientRecord(po, patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
                             patientOccupationText.getText(), choice, patientEmailText.getText(), patientPhoneText.getText(), ( dayCon+"-"+ monthCon +"-"+ yearCon));
+                    JOptionPane.showMessageDialog(null, "Admin Record has been Added");
                 } else if (choiceGui == 2) {
                     String dayCon=(String)dayCombo.getSelectedItem();
                     String monthCon=(String)monthCombo.getSelectedItem();
                     String yearCon=(String)yearCombo.getSelectedItem();
                     PatientRecord patientRecord = new PatientRecord(po, Integer.parseInt(patientText.getText()), patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
                             patientOccupationText.getText(), choice, patientEmailText.getText(), patientPhoneText.getText(), ( dayCon+"-"+ monthCon +"-"+ yearCon));
+                    JOptionPane.showMessageDialog(null, "Admin Record has been Updated");
 
                 }
                 f.setVisible(false);

@@ -40,13 +40,14 @@ public class CardDetails {
         this.cardType = cardType;
         this.expiryDate = expiryDate;
         this.securityCode = securityCode;
+        patientNumIn=patientNum;
     }
 
     public void refreshCardList() {
         cd = new AllCardOperations();
         cardList.removeAll(cardList);
         rset = cd.getCardDetails();
-        try { //THIS WILL ADD IT BACK IN WITH ANY UPDATES
+        try {
             while (rset.next()) {
                 cardList.add(new CardDetails(rset.getInt(1), rset.getInt(2), rset.getInt(3), rset.getString(4), rset.getInt(5), rset.getString(6), rset.getString(7)));
             }
@@ -57,7 +58,6 @@ public class CardDetails {
     }
 
     public void addCard() {
-        refreshCardList();
         cd.addCard(patientNumIn, cardNum, cardType, securityCode, cardHolder, expiryDate);
         cd.allCardOperationsClose();
     }
@@ -95,6 +95,7 @@ public class CardDetails {
     }
 
     public ArrayList getCardList() {
+        refreshCardList();
         return cardList;
     }
 

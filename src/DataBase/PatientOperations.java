@@ -2,6 +2,7 @@ package DataBase;
 
 import oracle.jdbc.pool.OracleDataSource;
 
+import javax.swing.*;
 import java.sql.*;
 
 /**
@@ -196,6 +197,7 @@ public class PatientOperations {
                     "where patient_Number=" +n;
             stmt = conn.createStatement();
             stmt.executeUpdate(sql1);
+            JOptionPane.showMessageDialog(null, "Patient "+n+" has been Archived");
         } catch (Exception se) {
             System.out.println("delete patient "+se);
         }

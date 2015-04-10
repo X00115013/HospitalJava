@@ -143,8 +143,7 @@ public class CancelAppointmentGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
             f.setVisible(false);
-        } else {
-            if (e.getSource().equals(confirm)) {
+        } else if (e.getSource().equals(confirm)) {
                 appList.removeAll(appList);
                 pList.removeAll(pList);
                 Appointment appointment = new Appointment();
@@ -155,49 +154,53 @@ public class CancelAppointmentGUI extends JFrame implements ActionListener {
                 String dayC = (String) dayCombo.getSelectedItem();
                 String monthC = (String) monthCombo.getSelectedItem();
                 String yearC = (String) yearCombo.getSelectedItem();
+                int choice = 0;
 
                 if ((firstNameText.getText().equals("")) && (surnameText.getText().equals("")) && (appNumText.getText().equals(""))) {
                     JOptionPane.showMessageDialog(null, "Appointment Number or Patient Info are Required Fields");
                 } else {
-                    try {
 
-                    for (int i = 0; i < pList.size(); i++) {
-                        if (firstNameText.getText().equals(pList.get(i).getPatientFName()) && surnameText.getText().equals(pList.get(i).getPatientLName()) &&
-                            dayC.equals(pList.get(i).getDOB().charAt(0) + "" + pList.get(i).getDOB().charAt(1)) && monthC.equals(pList.get(i).getDOB().charAt(3) + "" +
-                            "" + pList.get(i).getDOB().charAt(4) + "" + pList.get(i).getDOB().charAt(5)) && yearC.equals(pList.get(i).getDOB().charAt(7) + "" + pList.get(i).getDOB().charAt(8) + "" +
-                            "" + pList.get(i).getDOB().charAt(9) + "" + pList.get(i).getDOB().charAt(10))) {
-                            for (int j = 0; j < appList.size(); j++) {
-                                if (appList.get(j).appNumber == Integer.parseInt(appNumText.getText())) {
-                                    test2 = true;
+                    if(appNumText.getText().equals("")) {
+                        for (int i = 0; i < pList.size(); i++) {
+                            if (firstNameText.getText().equals(pList.get(i).getPatientFName()) && surnameText.getText().equals(pList.get(i).getPatientLName()) &&
+                                    dayC.equals(pList.get(i).getDOB().charAt(0) + "" + pList.get(i).getDOB().charAt(1)) && monthC.equals(pList.get(i).getDOB().charAt(3) + "" +
+                                    "" + pList.get(i).getDOB().charAt(4) + "" + pList.get(i).getDOB().charAt(5)) && yearC.equals(pList.get(i).getDOB().charAt(7) + "" + pList.get(i).getDOB().charAt(8) + "" +
+                                    "" + pList.get(i).getDOB().charAt(9) + "" + pList.get(i).getDOB().charAt(10))) {
+                                for (int j = 0; j < appList.size(); j++) {
+                                    if (appList.get(j).appNumber == pList.get(i).getAppID()) {
+                                        test2 = true;
+                                        choice = pList.get(i).getAppID();
+                                    }
                                 }
                             }
-                        }
-                    }
-                        for (int i = 0; i < appList.size(); i++) {
-                            if (appList.get(i).appNumber == Integer.parseInt(appNumText.getText())) {
-                                test = true;
+                            }if(test2==false){JOptionPane.showMessageDialog(null, "Appointment does not exist ");
+                                appNumText.setText("");
                             }
                         }
-
-                        if (test == true || test2 == true) {
-                            int choice = 0;
-                            choice = Integer.parseInt(appNumText.getText());
-                            if (appNumText.getText().equals("")) {
-                                choice = -1;
+                    else if ((!appNumText.getText().equals(""))) {
+                        try {
+                            for (int i = 0; i < appList.size(); i++) {
+                                if (appList.get(i).appNumber == Integer.parseInt(appNumText.getText())) {
+                                    choice = Integer.parseInt(appNumText.getText());
+                                    test = true;
+                                }
                             }
-                            appointment.cancelAppointment(choice, firstNameText.getText(), surnameText.getText(), (dayC + "-" + monthC + "-" + yearC));
-                            f.setVisible(false);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Appointment Number does not exist ");
+                        } catch (NumberFormatException nf) {
+                            JOptionPane.showMessageDialog(null, "Appointment Number must be a Number ");
                             appNumText.setText("");
                         }
-                    } catch (NumberFormatException nf) {
-                        JOptionPane.showMessageDialog(null, "Appointment Number must be a Number ");
-                        appNumText.setText("");
+                        if (test == false) {
+                            JOptionPane.showMessageDialog(null, "Appointment does not exist ");
+                            appNumText.setText("");
+                        }
+                    }
+                    if (test == true || test2 == true) {
+                        appointment.cancelAppointment(choice);
+                        f.setVisible(false);
                     }
                 }
             }
         }
     }
-}
+
 

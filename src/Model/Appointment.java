@@ -128,14 +128,10 @@ public class Appointment {
     }
 
 
-    public void cancelAppointment(int appointmentNumber, String patientFName, String patientSurname, String patientDOB) {
+    public void cancelAppointment(int appointmentNumber) {
         ao=new AppointmentOperations();
-        if (appointmentNumber == -1) {
-                ao.deleteAppointment(ao.getAppointmentNum(patientFName, patientSurname,patientDOB));
-
-        }else{
-            ao.deleteAppointment(appointmentNumber);
-        }ao.appointmentOperationsClose();
+        ao.deleteAppointment(appointmentNumber);
+        ao.appointmentOperationsClose();
     }
 }
 

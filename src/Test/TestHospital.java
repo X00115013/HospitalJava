@@ -17,7 +17,7 @@ public class TestHospital {
 //        ReferralGUI referralGUI= new ReferralGUI();
 //        referralGUI.setVisible(true);
         HomeScreen homeScreen=new HomeScreen();
-//        StockHomeScreen stockHomeScreen=new StockHomeScreen();
+        StockHomeScreen stockHomeScreen=new StockHomeScreen();
 //        CheckInGUI checkInGUI=new CheckInGUI();
 //        AddPatientGUI addPatientGUI=new AddPatientGUI(1,1);
 //        AdminCheckOutGUI adminCheckOutGUI=new AdminCheckOutGUI();
@@ -30,7 +30,7 @@ public class TestHospital {
 //        PatientChartGUI patientChartGUI=new PatientChartGUI();
 //        PrescriptionGUI prescriptionGUI=new PrescriptionGUI();
 //        PaymentGUI paymentGUI=new PaymentGUI();
-//        CreditCardGUI creditCardGUI=new CreditCardGUI();
+//        CreditCardGUI creditCardGUI=new CreditCardGUI(1003);
 //         HealthInsuranceGUI healthInsuranceGUI=new HealthInsuranceGUI();
 //        MedicalCardGUI medicalCardGUI=new MedicalCardGUI();
 //        AppointmentDetailsGUI appointmentDetailsGUI=new AppointmentDetailsGUI(1);
