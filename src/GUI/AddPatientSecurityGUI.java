@@ -190,7 +190,7 @@ public class AddPatientSecurityGUI extends JFrame implements ActionListener{
 
                     if (patientNumText.getText().equals("")) {
                         for (int i = 0; i < pList.size(); i++) {
-                            if (firstNameText.getText().equals(pList.get(i).getPatientFName()) && surnameText.getText().equals(pList.get(i).getPatientLName()) &&
+                            if (firstNameText.getText().equalsIgnoreCase(pList.get(i).getPatientFName()) && surnameText.getText().equalsIgnoreCase(pList.get(i).getPatientLName()) &&
                                     dayC.equals(pList.get(i).getDOB().charAt(0) + "" + pList.get(i).getDOB().charAt(1)) && monthC.equals(pList.get(i).getDOB().charAt(3) + "" +
                                     "" + pList.get(i).getDOB().charAt(4) + "" + pList.get(i).getDOB().charAt(5)) && yearC.equals(pList.get(i).getDOB().charAt(7) + "" + pList.get(i).getDOB().charAt(8) + "" +
                                     "" + pList.get(i).getDOB().charAt(9) + "" + pList.get(i).getDOB().charAt(10))) {
@@ -204,6 +204,8 @@ public class AddPatientSecurityGUI extends JFrame implements ActionListener{
                                     passwordText.setText("");
                                 }
                             }
+                        }if(test==false){
+                            JOptionPane.showMessageDialog(null, "Patient Does Not Exist");
                         }
                     }
 
@@ -222,7 +224,6 @@ public class AddPatientSecurityGUI extends JFrame implements ActionListener{
 
 
                     if (test == true) {
-
                         Security security = new Security(selection, choice, passwordC);
                         firstNameText.setText("");
                         surnameText.setText("");

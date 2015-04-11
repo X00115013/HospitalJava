@@ -1,4 +1,5 @@
 package Test;
+import Charts.ChartGUI;
 import GUI.*;
 import Model.*;
 import Referrals.ReferralGUI;
@@ -16,7 +17,7 @@ public class TestHospital {
 //        su.setVisible(true);
 //        ReferralGUI referralGUI= new ReferralGUI();
 //        referralGUI.setVisible(true);
-        HomeScreen homeScreen=new HomeScreen();
+//        HomeScreen homeScreen=new HomeScreen();
         StockHomeScreen stockHomeScreen=new StockHomeScreen();
 //        CheckInGUI checkInGUI=new CheckInGUI();
 //        AddPatientGUI addPatientGUI=new AddPatientGUI(1,1);
@@ -39,6 +40,7 @@ public class TestHospital {
 //        AddMedicineGUI addMedicineGUI=new AddMedicineGUI();
 //        AddConsultantGUI addConsultantGUI=new AddConsultantGUI();
 //        MedicalCardGUI medicalCardGUI=new MedicalCardGUI(1003);
+//        ChartGUI chartGUI=new ChartGUI(1);
 
 
 

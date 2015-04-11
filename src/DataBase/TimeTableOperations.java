@@ -45,6 +45,19 @@ public class TimeTableOperations {
         }
         return rset;
     }
+
+    public ResultSet getTT() {
+        try {
+            String queryString = "SELECT * FROM TimeTable";
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+        } catch (Exception e) {
+            System.out.println("getTT error "+e);
+        }
+        return rset;
+    }
+
+
     public void setTimeTable(String machineNameIn,int timeIn,  String taken, String consultantNameIn ){
         try {
             String queryString1 = "INSERT INTO TimeTable(tt_ID, machineName, time, taken,con_Name,AppID)VALUES(tt_seq.nextval,?,?,?,?,?)";

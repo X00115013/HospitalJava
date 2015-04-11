@@ -1,5 +1,7 @@
 package GUI;
 
+import Charts.ChartGUI;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -16,7 +18,7 @@ import java.io.IOException;
     public class StockHomeScreen extends JFrame implements ActionListener {
     private JButton button1;
     private JButton button2;
-    private JButton button3;
+    private JButton button3,charts;
 
 
     private JLabel label1, calender;
@@ -78,6 +80,10 @@ import java.io.IOException;
         button3.addActionListener(this);
         button3.setPreferredSize(new Dimension(200, 50));
         buttons.add(button3, getConstraints(2, 0, 1, 1, GridBagConstraints.SOUTH));
+        charts = new JButton("Charts");
+        charts.addActionListener(this);
+        charts.setPreferredSize(new Dimension(200, 50));
+        buttons.add(charts, getConstraints(3, 0, 1, 1, GridBagConstraints.SOUTH));
 
         f.add(buttons, getConstraints(1, 1, 0, 1, GridBagConstraints.SOUTH));
         f.setVisible(true);
@@ -109,6 +115,9 @@ import java.io.IOException;
 
         } else if (e.getSource().equals(button3)) {
             AddConsultantGUI addConsultantGUI=new AddConsultantGUI();
+
+        } else if (e.getSource().equals(charts)) {
+            ChartGUI chartGUI=new ChartGUI(1);
 
         }
 

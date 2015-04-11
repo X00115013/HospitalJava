@@ -35,7 +35,7 @@ public class HomeScreen extends JFrame implements ActionListener {
     public HomeScreen() {
         f = new JFrame();
         f.setTitle("Appointment");
-        f.setLayout(new GridLayout(3, 2));
+        f.setLayout(new GridLayout(3, 1));
 
         f.setSize(1200, 800);
         f.setResizable(true);
@@ -68,8 +68,8 @@ public class HomeScreen extends JFrame implements ActionListener {
         } catch (IOException e) {
             System.out.println("image doesn't exist");
         }
-        label2.isOpaque();
-        label2.setSize(1200, 800);
+
+        label2.setSize(2000, 1200);
         f.getContentPane().add(label2);
 
         //buttons

@@ -192,6 +192,17 @@ public class StockOperations {
         return rset;
     }
 
+    public ResultSet getEquipmentUsedC(){
+        try {
+            String queryString = "SELECT * FROM EquipmentUsed";
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rset;
+    }
+
 
     public void addEquipUsed(int patientNumIn, String medNameIn) {
         try {

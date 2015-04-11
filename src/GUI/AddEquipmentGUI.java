@@ -10,7 +10,6 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Arc2D;
 import java.util.ArrayList;
 
 /**
@@ -172,15 +171,9 @@ import java.util.ArrayList;
                 double convert=0.0;
                 while (test == true) {
                     try{
-                    if (equipNameText.getText().equals("") || Double.parseDouble(equipPriceText.getText()) == 0.0) {
-                        if (equipNameText.getText().equals("")) {
-                            JOptionPane.showMessageDialog(null, "Equipment Name is a required field");
+                    if (equipNameText.getText().equals("") || equipPriceText.getText().equals("")) {
+                            JOptionPane.showMessageDialog(null, "Equipment Name and Price are a required field");
                             test = false;
-                        }
-                        if (Double.parseDouble(equipPriceText.getText()) == 0.0) {
-                            JOptionPane.showMessageDialog(null, "Equipment Price is a required field");
-                            test = false;
-                        }
                     } else {
                         convert = Double.parseDouble(equipPriceText.getText());
                         equipment = new Equipment(equipNameText.getText(), convert);

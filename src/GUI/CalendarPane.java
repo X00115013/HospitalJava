@@ -97,13 +97,14 @@ package GUI;
             bp.setLayout(new GridLayout(7, 7));
             labs = new JButton[6][7];
 
-            bp.add(b0 = new JButton("S"));
-            bp.add(new JButton("M"));
-            bp.add(new JButton("T"));
-            bp.add(new JButton("W"));
-            bp.add(new JButton("R"));
-            bp.add(new JButton("F"));
-            bp.add(new JButton("S"));
+            bp.add(b0 = new JButton("Sun"));
+
+            bp.add(new JButton("Mon"));
+            bp.add(new JButton("Tues"));
+            bp.add(new JButton("Wed"));
+            bp.add(new JButton("Thur"));
+            bp.add(new JButton("Fri"));
+            bp.add(new JButton("Sat"));
 
             ActionListener dateSetter = new ActionListener() {
                 public void actionPerformed(ActionEvent e) {

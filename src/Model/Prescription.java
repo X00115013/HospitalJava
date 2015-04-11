@@ -38,6 +38,7 @@ public class Prescription {
 
     public void refreshArrays() {
         try {
+            presList.removeAll(presList);
             so=new StockOperations();
             rset = so.getPrescription();
             while (rset.next()) {
@@ -79,7 +80,7 @@ public class Prescription {
     }
 
     public ArrayList<Prescription> getPresList() {
-        presList.removeAll(presList);
+
         refreshArrays();
         return presList;
     }
