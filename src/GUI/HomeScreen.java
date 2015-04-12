@@ -2,6 +2,8 @@ package GUI;
 
 
 
+import Charts.ChartGUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,110 +11,165 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import javax.imageio.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 
 /**
  * Created by Lionhart and Thomas Murray on 17/03/2015.
  */
 public class HomeScreen extends JFrame implements ActionListener {
-    private JButton button1;
-    private JButton button2;
-    private JButton button3;
-    private JButton button4;
-    private JButton button5;
-    private JButton button6;
-    private JButton button7;
-    private JButton button8;
-    private JButton button9;
+
+
+    private JButton appointments,checkIn,prescriptions,adminRecord,charts,medRecord,timeTables,equipment,medicine,payment,consultant,patientCharts,processR;
     private JButton calendar;
-
-
-    private JLabel label1, calender;
-    private JLabel label2;
+    private JLabel pageTitle,pageTitle2;
+    private JLabel pageCenter,pageCenter2;
     JFrame f, g;
-    private JTabbedPane tabbedPane = new JTabbedPane(2);
+    private JTabbedPane tabbedPane;
+
 
     public HomeScreen() {
+//        UIManager.setLookAndFeel(new NimbusLookAndFeel());
         f = new JFrame();
-        f.setTitle("Appointment");
-        f.setLayout(new GridLayout(3, 1));
+//        JButton.
 
         f.setSize(1200, 800);
         f.setResizable(true);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        f.getContentPane().setBackground(Color.LIGHT_GRAY);
+
+        tabbedPane = new JTabbedPane();
+        JPanel firstPage=new JPanel();
+        firstPage.setLayout(new GridLayout(3, 1));
+        firstPage.setSize(1200,800);
+        firstPage.setBackground(Color.LIGHT_GRAY);
         Clock.DigitalClock clock1 = new Clock.DigitalClock();
         CalendarPane calendarPane=new CalendarPane();
-
+        Clock.DigitalClock clock2 = new Clock.DigitalClock();
+        CalendarPane calendarPane2=new CalendarPane();
 
         JPanel top = new JPanel(new GridLayout(1, 3));
         top.setOpaque(true);
         top.add(clock1);
-        label1 = new JLabel("Hospital Name");
-        label1.setFont(new Font("Arial", Font.BOLD, 50));
-        top.add(label1);
-        calender = new JLabel("Calender goes here");
+        pageTitle = new JLabel("Hospital Name");
+        pageTitle.setFont(new Font("Arial", Font.BOLD, 50));
+        top.add(pageTitle);
         top.add(calendarPane);
         top.setBorder(new EmptyBorder(20, 20, 20, 20));
 //        calendar=new JButton("Press for Calendar!!!");
 //        top.add(calendar);
-        f.add(top);
+        firstPage.add(top);
 
         //bg image
 
 
         try {
-            label2 = new JLabel(new ImageIcon(ImageIO.read(new File("files/img.jpg"))));
+            pageCenter = new JLabel(new ImageIcon(ImageIO.read(new File("files/img.jpg"))));
         } catch (IOException e) {
             System.out.println("image doesn't exist");
         }
 
-        label2.setSize(2000, 1200);
-        f.getContentPane().add(label2);
+        pageCenter.setSize(2000, 1200);
+        firstPage.add(pageCenter);
 
         //buttons
         JPanel buttons = new JPanel(new GridBagLayout());
 
-        button1 = new JButton("Appointments");
-        button1.addActionListener(this);
-        button1.setPreferredSize(new Dimension(200, 50));
-        buttons.add(button1, getConstraints(0, 0, 1, 1, GridBagConstraints.SOUTH));
-        button2 = new JButton("Check-In");
-        button2.addActionListener(this);
-        button2.setPreferredSize(new Dimension(200, 50));
-        buttons.add(button2, getConstraints(1, 0, 1, 1, GridBagConstraints.SOUTH));
-        button3 = new JButton("Admin Records");
-        button3.addActionListener(this);
-        button3.setPreferredSize(new Dimension(200, 50));
-        buttons.add(button3, getConstraints(2, 0, 1, 1, GridBagConstraints.SOUTH));
-        button4 = new JButton("Medical Records");
-        button4.addActionListener(this);
-        button4.setPreferredSize(new Dimension(200, 50));
-        buttons.add(button4, getConstraints(0, 1, 1, 1, GridBagConstraints.SOUTH));
-        button5 = new JButton("Timetables");
-        button5.addActionListener(this);
-        button5.setPreferredSize(new Dimension(200, 50));
-        buttons.add(button5, getConstraints(1, 1, 1, 1, GridBagConstraints.SOUTH));
-        button6 = new JButton("Process Referrals");
-        button6.addActionListener(this);
-        button6.setPreferredSize(new Dimension(200, 50));
-        buttons.add(button6, getConstraints(2, 1, 1, 1, GridBagConstraints.SOUTH));
-        button7 = new JButton("Patient Charts");
-        button7.addActionListener(this);
-        button7.setPreferredSize(new Dimension(200, 50));
-        buttons.add(button7, getConstraints(0, 2, 1, 1, GridBagConstraints.SOUTH));
-        button8 = new JButton("Payment");
-        button8.addActionListener(this);
-        button8.setPreferredSize(new Dimension(200, 50));
-        buttons.add(button8, getConstraints(1, 2, 1, 1, GridBagConstraints.SOUTH));
-        button9 = new JButton("Prescriptions");
-        button9.addActionListener(this);
-        button9.setPreferredSize(new Dimension(200, 50));
-        buttons.add(button9, getConstraints(2, 2, 1, 1, GridBagConstraints.SOUTH));
+        appointments = new JButton("Appointments");
+        appointments.addActionListener(this);
+        appointments.setPreferredSize(new Dimension(200, 50));
+        buttons.add(appointments, getConstraints(0, 0, 1, 1, GridBagConstraints.SOUTH));
+        checkIn= new JButton("Check-In");
+        checkIn.addActionListener(this);
+        checkIn.setPreferredSize(new Dimension(200, 50));
+        buttons.add(checkIn, getConstraints(1, 0, 1, 1, GridBagConstraints.SOUTH));
+        adminRecord = new JButton("Admin Records");
+        adminRecord.addActionListener(this);
+        adminRecord.setPreferredSize(new Dimension(200, 50));
+        buttons.add(adminRecord, getConstraints(2, 0, 1, 1, GridBagConstraints.SOUTH));
+        medRecord = new JButton("Medical Records");
+        medRecord.addActionListener(this);
+        medRecord.setPreferredSize(new Dimension(200, 50));
+        buttons.add(medRecord, getConstraints(0, 1, 1, 1, GridBagConstraints.SOUTH));
+        timeTables = new JButton("Timetables");
+        timeTables.addActionListener(this);
+        timeTables.setPreferredSize(new Dimension(200, 50));
+        buttons.add(timeTables, getConstraints(1, 1, 1, 1, GridBagConstraints.SOUTH));
+        processR = new JButton("Process Referrals");
+        processR.addActionListener(this);
+        processR.setPreferredSize(new Dimension(200, 50));
+        buttons.add(processR, getConstraints(2, 1, 1, 1, GridBagConstraints.SOUTH));
+        patientCharts = new JButton("Patient Charts");
+        patientCharts.addActionListener(this);
+        patientCharts.setPreferredSize(new Dimension(200, 50));
+        buttons.add(patientCharts, getConstraints(0, 2, 1, 1, GridBagConstraints.SOUTH));
+        payment = new JButton("Payment");
+        payment.addActionListener(this);
+        payment.setPreferredSize(new Dimension(200, 50));
+        buttons.add(payment, getConstraints(1, 2, 1, 1, GridBagConstraints.SOUTH));
+        prescriptions = new JButton("Prescriptions");
+        prescriptions.addActionListener(this);
+        prescriptions.setPreferredSize(new Dimension(200, 50));
+        buttons.add(prescriptions, getConstraints(2, 2, 1, 1, GridBagConstraints.SOUTH));
 
-        f.add(buttons, getConstraints(1, 1, 0, 1, GridBagConstraints.SOUTH));
+        firstPage.add(buttons, getConstraints(1, 1, 0, 1, GridBagConstraints.SOUTH));
+
+//        f.setVisible(true);
+
+        tabbedPane.add("Home",firstPage);
+
+        JPanel secondPage=new JPanel();
+        secondPage.setLayout(new GridLayout(3, 2));
+        secondPage.setBackground(Color.LIGHT_GRAY);
+        secondPage.setSize(1200, 800);
+
+        JPanel top2 = new JPanel(new GridLayout(1, 3));
+        top2.setOpaque(true);
+        top2.add(clock2);
+        pageTitle2 = new JLabel("Hospital Name");
+        pageTitle2.setFont(new Font("Arial", Font.BOLD, 50));
+        top2.add(pageTitle2);
+        top2.add(calendarPane2);
+        top2.setBorder(new EmptyBorder(20, 20, 20, 20));
+//        calendar=new JButton("Press for Calendar!!!");
+//        top.add(calendar);
+        secondPage.add(top2);
+
+
+        //bg image
+
+
+        try {
+            pageCenter2 = new JLabel(new ImageIcon(ImageIO.read(new File("files/img.jpg"))));
+        } catch (IOException e) {
+            System.out.println("image doesn't exist");
+        }
+        secondPage.add(pageCenter2);
+
+        //buttons
+        JPanel buttons2 = new JPanel(new GridBagLayout());
+
+        equipment = new JButton("Equipment");
+        equipment.addActionListener(this);
+        equipment.setPreferredSize(new Dimension(200, 50));
+        buttons2.add(equipment, getConstraints(0, 0, 1, 1, GridBagConstraints.SOUTH));
+        medicine = new JButton("Medicine");
+        medicine.addActionListener(this);
+        medicine.setPreferredSize(new Dimension(200, 50));
+        buttons2.add(medicine, getConstraints(1, 0, 1, 1, GridBagConstraints.SOUTH));
+        consultant = new JButton("Consultants");
+        consultant.addActionListener(this);
+        consultant.setPreferredSize(new Dimension(200, 50));
+        buttons2.add(consultant, getConstraints(2, 0, 1, 1, GridBagConstraints.SOUTH));
+        charts = new JButton("Charts");
+        charts.addActionListener(this);
+        charts.setPreferredSize(new Dimension(200, 50));
+        buttons2.add(charts, getConstraints(3, 0, 1, 1, GridBagConstraints.SOUTH));
+
+        secondPage.add(buttons2, getConstraints(1, 1, 0, 1, GridBagConstraints.SOUTH));
+        tabbedPane.add("Admin",secondPage);
+        f.add(tabbedPane);
         f.setVisible(true);
 
 //        tabbedPane.add(f);
@@ -133,35 +190,45 @@ public class HomeScreen extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(button1)) {
+        if (e.getSource().equals(appointments)) {
             CancelAppointmentSecurity securityGUI = new CancelAppointmentSecurity(1);
 
-        } else if (e.getSource().equals(button2)) {
+        } else if (e.getSource().equals(checkIn)) {
             SingleSecurityGUI securityGUI = new SingleSecurityGUI(2);
 
-        } else if (e.getSource().equals(button3)) {
+        } else if (e.getSource().equals(adminRecord)) {
             AddPatientSecurityGUI addSecurityGUI = new AddPatientSecurityGUI(3);
 
-        } else if (e.getSource().equals(button4)) {
+        } else if (e.getSource().equals(medRecord)) {
             SecurityGUI securityGUI = new SecurityGUI(4);
 
-        } else if (e.getSource().equals(button5)) {
+        } else if (e.getSource().equals(timeTables)) {
             SingleSecurityGUI securityGUI = new SingleSecurityGUI(5);
 
-        } else if (e.getSource().equals(button6)) {
+        } else if (e.getSource().equals(processR)) {
             SingleSecurityGUI securityGUI = new SingleSecurityGUI(6);
 
-        } else if (e.getSource().equals(button7)) {
+        } else if (e.getSource().equals(patientCharts)) {
             SecurityGUI securityGUI = new SecurityGUI(7);
 
-        } else if (e.getSource().equals(button8)) {
+        } else if (e.getSource().equals(payment)) {
             SecurityGUI securityGUI = new SecurityGUI(8);
 
-        } else if (e.getSource().equals(button9)) {
+        } else if (e.getSource().equals(prescriptions)) {
             SecurityGUI securityGUI = new SecurityGUI(9);
 
-        } else if (e.getSource().equals(calendar)) {
+        } else if  (e.getSource().equals(equipment)) {
+            AddEquipmentGUI equipmentGUI=new AddEquipmentGUI();
 
+        } else if (e.getSource().equals(medicine)) {
+            AddMedicineGUI addMedicineGUI=new AddMedicineGUI();
+
+
+        } else if (e.getSource().equals(consultant)) {
+            AddConsultantGUI addConsultantGUI=new AddConsultantGUI();
+
+        } else if (e.getSource().equals(charts)) {
+            ChartGUI chartGUI=new ChartGUI();
 
         }
 

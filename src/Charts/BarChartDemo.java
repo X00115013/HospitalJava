@@ -37,6 +37,8 @@ public class BarChartDemo extends JPanel {
     private ArrayList<Consultants>conList=new ArrayList<>();
     private AllTimeTables allTimeTables;
     private ArrayList<AllTimeTables>aTTList=new ArrayList<>();
+    private Appointment appointment;
+    private ArrayList<Appointment>appList=new ArrayList<>();
 
 
     static {
@@ -54,7 +56,7 @@ public class BarChartDemo extends JPanel {
             chartPanel.setFillZoomRectangle(true);
             chartPanel.setMouseWheelEnabled(true);
             chartPanel.setDismissDelay(Integer.MAX_VALUE);
-            chartPanel.setPreferredSize(new Dimension(1000, 500));
+            chartPanel.setPreferredSize(new Dimension(1000, 800));
 //            setContentPane(chartPanel);
         } else if (choice == 2) {
             CategoryDataset dataset2 = createDataset2();
@@ -64,7 +66,7 @@ public class BarChartDemo extends JPanel {
             chartPanel2.setFillZoomRectangle(true);
             chartPanel2.setMouseWheelEnabled(true);
             chartPanel2.setDismissDelay(Integer.MAX_VALUE);
-            chartPanel2.setPreferredSize(new Dimension(1000, 500));
+            chartPanel2.setPreferredSize(new Dimension(1000, 800));
 //            setContentPane(chartPanel2);
         } else if (choice == 3) {
             CategoryDataset dataset3 = createDataset3();
@@ -74,7 +76,7 @@ public class BarChartDemo extends JPanel {
             chartPanel3.setFillZoomRectangle(true);
             chartPanel3.setMouseWheelEnabled(true);
             chartPanel3.setDismissDelay(Integer.MAX_VALUE);
-            chartPanel3.setPreferredSize(new Dimension(1000, 500));
+            chartPanel3.setPreferredSize(new Dimension(1000, 800));
 //            setContentPane(chartPanel3);
         }
     }
@@ -98,14 +100,24 @@ public class BarChartDemo extends JPanel {
         eqList.addAll(equipmentUsed.getUsedListC());
         equipment=new Equipment();
         eList.addAll(equipment.getEquipments());
+        appointment=new Appointment();
+        aTTList.addAll(appointment.appArray());
         for (int i = 0; i < eqList.size() ; i++) {
-            for (int j = 0; j < eList.size(); j++) {
-                if(eList.get(j).getEqName().equals(eqList.get(i).getEqName())){
+
+            for (int k = 0; k < appList.size(); k++) {
+                System.out.println(eqList.get(i).getEqName()+" "+appList.get(k).medicalEquip);
+                if (eqList.get(i).getEqName().equals(appList.get(k).medicalEquip)) {
                     use++;
                 }
             }
-            dataset2.addValue(use, eqList.get(i).getEqName(),Integer.toString(eqList.get(i).getpNum()));
-            use=0;
+            for (int j = 0; j < eList.size(); j++) {
+                if (eList.get(j).getEqName().equals(eqList.get(i).getEqName())) {
+                    use++;
+                }
+            }
+
+            dataset2.addValue(use, eqList.get(i).getEqName(), Integer.toString(eqList.get(i).getpNum()));
+            use = 0;
         }
         return dataset2;
     }

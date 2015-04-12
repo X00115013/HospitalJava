@@ -29,11 +29,14 @@ public class ChartGUI extends JFrame implements ActionListener
     private PatientRecord patientRecord;
     private Appointment apt;
     private String record="This is meant to be the patient Admin Record";
+    private static JPanel chart;
+    private static Border RaisedBorder;
 
+    ChartPanel chartPanel,chartPanel2,chartPanel3;
 
     JFrame f;
 
-    public ChartGUI(int choice)
+    public ChartGUI()
     {
         this.choice=choice;
         f = new JFrame();
@@ -43,13 +46,13 @@ public class ChartGUI extends JFrame implements ActionListener
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-        Border RaisedBorder = BorderFactory.createBevelBorder(BevelBorder.RAISED);
+        RaisedBorder = BorderFactory.createBevelBorder(BevelBorder.RAISED);
 
         JPanel holder=new JPanel(new GridLayout(1,1));
         JPanel topSection=new JPanel(new GridLayout(1,2));
 
         Clock.DigitalClock clockD=new Clock.DigitalClock();
-        JPanel clock = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel clock = new JPanel();
         clock.add(clockD);
 
         JPanel title=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -69,27 +72,27 @@ public class ChartGUI extends JFrame implements ActionListener
 
 
 
-        JPanel chart=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        chart=new JPanel(new FlowLayout(FlowLayout.CENTER));
         chart.setPreferredSize(new Dimension(900,600));
-        if(choice==1) {
-            BarChartDemo barChartDemo = new BarChartDemo("Medicine", 1);
-            JFreeChart chart1=barChartDemo.createChart(barChartDemo.createDataset());
-            ChartPanel chartPanel = new ChartPanel(chart1, false);
-            chart.setBorder(RaisedBorder);
-            chart.add(chartPanel);
-        }else if(choice==2) {
-            BarChartDemo barChartDemo2 = new BarChartDemo("Equipment", 2);
-            JFreeChart chart1=barChartDemo2.createChart2(barChartDemo2.createDataset2());
-            ChartPanel chartPanel2 = new ChartPanel(chart1, false);
-            chart.setBorder(RaisedBorder);
-            chart.add(chartPanel2);
-        }else if(choice==3) {
-            BarChartDemo barChartDemo3 = new BarChartDemo("Consultant", 3);
-            JFreeChart chart1=barChartDemo3.createChart3(barChartDemo3.createDataset3());
-            ChartPanel chartPanel3 = new ChartPanel(chart1, false);
-            chart.setBorder(RaisedBorder);
-            chart.add(chartPanel3);
-        }
+//        if(choice==1) {
+//            BarChartDemo barChartDemo = new BarChartDemo("Medicine", 1);
+//            JFreeChart chart1=barChartDemo.createChart(barChartDemo.createDataset());
+//            ChartPanel chartPanel = new ChartPanel(chart1, false);
+//            chart.setBorder(RaisedBorder);
+//            chart.add(chartPanel);
+//        }else if(choice==2) {
+//            BarChartDemo barChartDemo2 = new BarChartDemo("Equipment", 2);
+//            JFreeChart chart1=barChartDemo2.createChart2(barChartDemo2.createDataset2());
+//            ChartPanel chartPanel2 = new ChartPanel(chart1, false);
+//            chart.setBorder(RaisedBorder);
+//            chart.add(chartPanel2);
+//        }else if(choice==3) {
+//            BarChartDemo barChartDemo3 = new BarChartDemo("Consultant", 3);
+//            JFreeChart chart1=barChartDemo3.createChart3(barChartDemo3.createDataset3());
+//            ChartPanel chartPanel3 = new ChartPanel(chart1, false);
+//            chart.setBorder(RaisedBorder);
+//            chart.add(chartPanel3);
+//        }
 
 
 
@@ -101,23 +104,23 @@ public class ChartGUI extends JFrame implements ActionListener
         // Update button
         medicine = new JButton("Medicine");
         medicine.addActionListener(this);
-        dobs.add(medicine, getConstraints(0, 1, 1, 1, GridBagConstraints.WEST));
+        dobs.add(medicine, getConstraints(0, 4, 1, 1, GridBagConstraints.WEST));
 
         // Delete button
         equipment = new JButton("Equipment");
         equipment.addActionListener(this);
-        dobs.add(equipment, getConstraints(1, 1, 1, 1, GridBagConstraints.WEST));
+        dobs.add(equipment, getConstraints(1, 4, 1, 1, GridBagConstraints.WEST));
 
         // Cancel button
         consultant = new JButton("Consultants");
         consultant.addActionListener(this);
-        dobs.add(consultant, getConstraints(2, 1, 1, 1, GridBagConstraints.WEST));
+        dobs.add(consultant, getConstraints(2, 4, 1, 1, GridBagConstraints.WEST));
 
 
         // Refresh button
         close = new JButton("Close");
         close.addActionListener(this);
-        dobs.add(close, getConstraints(7, 1, 1, 1, GridBagConstraints.WEST));
+        dobs.add(close, getConstraints(7, 4, 1, 1, GridBagConstraints.WEST));
 
 
         test.add(dobs);
@@ -152,20 +155,37 @@ public class ChartGUI extends JFrame implements ActionListener
         if (e.getSource().equals(close)) {
             f.setVisible(false);
         } else if (e.getSource().equals(medicine)){
-            choice=1;
-            ChartGUI chartGUI=new ChartGUI(1);
-            f.setVisible(false);
-
+            BarChartDemo barChartDemo = new BarChartDemo("Medicine", 1);
+            JFreeChart chart1=barChartDemo.createChart(barChartDemo.createDataset());
+            chartPanel = new ChartPanel(chart1, false);
+            chart.setBorder(RaisedBorder);
+            chart.add(chartPanel);
+            chart.remove(chartPanel2);
+            chart.remove(chartPanel3);
+            chart.revalidate();
+            chart.repaint();
 
         }else if (e.getSource().equals(equipment)) {
-            choice=2;
-            ChartGUI chartGUI=new ChartGUI(2);
-            f.setVisible(false);
+            BarChartDemo barChartDemo2 = new BarChartDemo("Equipment", 2);
+            JFreeChart chart1=barChartDemo2.createChart2(barChartDemo2.createDataset2());
+            chartPanel2 = new ChartPanel(chart1, false);
+            chart.setBorder(RaisedBorder);
+            chart.add(chartPanel2);
+            chart.remove(chartPanel);
+            chart.remove(chartPanel3);
+            chart.revalidate();
+            chart.repaint();
 
         }else if (e.getSource().equals(consultant)) {
-            choice=3;
-            ChartGUI chartGUI=new ChartGUI(3);
-            f.setVisible(false);
+            BarChartDemo barChartDemo3 = new BarChartDemo("Consultant", 3);
+            JFreeChart chart1=barChartDemo3.createChart3(barChartDemo3.createDataset3());
+            chartPanel3 = new ChartPanel(chart1, false);
+            chart.setBorder(RaisedBorder);
+            chart.remove(chartPanel2);
+            chart.remove(chartPanel);
+            chart.add(chartPanel3);
+            chart.revalidate();
+            chart.repaint();
 
         }
 

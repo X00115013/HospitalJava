@@ -117,7 +117,7 @@ import java.io.IOException;
             AddConsultantGUI addConsultantGUI=new AddConsultantGUI();
 
         } else if (e.getSource().equals(charts)) {
-            ChartGUI chartGUI=new ChartGUI(1);
+            ChartGUI chartGUI=new ChartGUI();
 
         }
 
