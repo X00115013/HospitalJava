@@ -402,7 +402,7 @@ public class CreateTables {
         try {
             //APPOINTMENT START creating table
             System.out.println("Creating Appointment");
-            String createApp = "CREATE TABLE Appointment (AppID NUMBER PRIMARY KEY,ReasonVisit VARCHAR2(255),requiredEquipment VARCHAR2(50), requiredConsultant VARCHAR2(50))";
+            String createApp = "CREATE TABLE Appointment (AppID NUMBER PRIMARY KEY,ReasonVisit VARCHAR2(255),requiredEquipment VARCHAR2(50), requiredConsultant VARCHAR2(50),dateIn VARCHAR2(60))";
             pstmt = conn.prepareStatement(createApp);
             pstmt.executeUpdate(createApp);
             // creating Sequence
@@ -659,7 +659,7 @@ public class CreateTables {
         try {
             //PRESCRIPTION START creating table
             System.out.println("Creating PrescriptionsUsed");
-            String createMedicine = "CREATE TABLE Prescriptions (PrescriptionID NUMBER PRIMARY KEY, Pat_NumIn NUMBER, Drug_name VARCHAR2(200), Med_Amount NUMBER,conName VARCHAR2(50), This_Visit NUMBER)";
+            String createMedicine = "CREATE TABLE Prescriptions (PrescriptionID NUMBER PRIMARY KEY, Pat_NumIn NUMBER, Drug_name VARCHAR2(200), Med_Amount NUMBER,conName VARCHAR2(50), This_Visit NUMBER, dateIn VARCHAR2(60))";
             pstmt = conn.prepareStatement(createMedicine);
             System.out.println("Even getting here"+createMedicine);
             pstmt.executeUpdate(createMedicine);

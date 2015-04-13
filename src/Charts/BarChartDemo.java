@@ -85,6 +85,7 @@ public class BarChartDemo extends JPanel {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         JFreeChart chart = createChart(dataset);
         prescription=new Prescription();
+        presList.removeAll(presList);
         presList.addAll(prescription.getPresList());
         for (int i = 0; i <presList.size() ; i++) {
             dataset.addValue(presList.get(i).getDose(), presList.get(i).getMedName(),presList.get(i).getConName());
@@ -97,26 +98,26 @@ public class BarChartDemo extends JPanel {
         DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
         JFreeChart chart2 = createChart2(dataset2);
         equipmentUsed=new EquipmentUsed();
+        eqList.removeAll(eqList);
         eqList.addAll(equipmentUsed.getUsedListC());
         equipment=new Equipment();
+        eList.removeAll(eList);
         eList.addAll(equipment.getEquipments());
         appointment=new Appointment();
-        aTTList.addAll(appointment.appArray());
-        for (int i = 0; i < eqList.size() ; i++) {
-
+        appList.removeAll(appList);
+        appList.addAll(appointment.appArray());
+        for (int i = 0; i < eList.size() ; i++) {
             for (int k = 0; k < appList.size(); k++) {
-                System.out.println(eqList.get(i).getEqName()+" "+appList.get(k).medicalEquip);
-                if (eqList.get(i).getEqName().equals(appList.get(k).medicalEquip)) {
+                if (appList.get(k).getMedicalEquip().equals(eList.get(i).getEqName())) {
                     use++;
                 }
             }
-            for (int j = 0; j < eList.size(); j++) {
-                if (eList.get(j).getEqName().equals(eqList.get(i).getEqName())) {
+            for (int j = 0; j < eqList.size(); j++) {
+                if (eqList.get(j).getEqName().equals(eList.get(i).getEqName())) {
                     use++;
                 }
             }
-
-            dataset2.addValue(use, eqList.get(i).getEqName(), Integer.toString(eqList.get(i).getpNum()));
+            dataset2.addValue(use, eList.get(i).getEqName(), "");
             use = 0;
         }
         return dataset2;
@@ -128,7 +129,9 @@ public class BarChartDemo extends JPanel {
         DefaultCategoryDataset dataset3 = new DefaultCategoryDataset();
         JFreeChart chart2 = createChart3(dataset3);
         consultants=new Consultants();
+        conList.removeAll(conList);
         conList.addAll(consultants.getConsultants());
+        aTTList.removeAll(aTTList);
         allTimeTables=new AllTimeTables();
         aTTList.addAll(allTimeTables.getListC());
         for (int i = 0; i < conList.size() ; i++) {

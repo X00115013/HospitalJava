@@ -31,7 +31,7 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
     JLabel patientNum;
     JLabel policyNum,companyName,expiry,xMonth,xYear,coverageType,titleF;
     JTextField pNumText,companyNameText,xMonthText,xYearText;
-    JCheckBox valid;
+    JCheckBox validate;
     JFrame f;
     private String[]list2={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     private String[]list3={"2015","2016","2017"};
@@ -168,9 +168,9 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
         bottom.add(cancel);
 
         //Valid Check
-        valid=new JCheckBox("Valid");
-        valid.addActionListener(this);
-        bottom.add(valid);
+        validate=new JCheckBox("Valid");
+        validate.addActionListener(this);
+        bottom.add(validate);
 
 
         f.add(holder);
@@ -230,6 +230,9 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
                 }
             }
             }
+        } else if (e.getSource().equals(validate)) {
+                PaymentGUI.valid=true;
         }
     }
+
 }

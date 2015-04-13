@@ -29,10 +29,31 @@ public class HomeScreen extends JFrame implements ActionListener {
 
 
     public HomeScreen() {
-//        UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         */
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(StartWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+//            Logger.getLogger(StartWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+//            Logger.getLogger(StartWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            Logger.getLogger(StartWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+//    Open your JFrame here. just paste directly into the main
         f = new JFrame();
 //        JButton.
-
         f.setSize(1200, 800);
         f.setResizable(true);
         f.setLocationRelativeTo(null);
@@ -53,7 +74,7 @@ public class HomeScreen extends JFrame implements ActionListener {
         top.setOpaque(true);
         top.add(clock1);
         pageTitle = new JLabel("Hospital Name");
-        pageTitle.setFont(new Font("Arial", Font.BOLD, 50));
+        pageTitle.setFont(new Font("Arial", Font.ITALIC, 50));
         top.add(pageTitle);
         top.add(calendarPane);
         top.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -117,7 +138,7 @@ public class HomeScreen extends JFrame implements ActionListener {
 
 //        f.setVisible(true);
 
-        tabbedPane.add("Home",firstPage);
+        tabbedPane.add("Patient Section",firstPage);
 
         JPanel secondPage=new JPanel();
         secondPage.setLayout(new GridLayout(3, 2));
@@ -128,7 +149,7 @@ public class HomeScreen extends JFrame implements ActionListener {
         top2.setOpaque(true);
         top2.add(clock2);
         pageTitle2 = new JLabel("Hospital Name");
-        pageTitle2.setFont(new Font("Arial", Font.BOLD, 50));
+        pageTitle2.setFont(new Font("Arial", Font.ITALIC , 50));
         top2.add(pageTitle2);
         top2.add(calendarPane2);
         top2.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -168,7 +189,7 @@ public class HomeScreen extends JFrame implements ActionListener {
         buttons2.add(charts, getConstraints(3, 0, 1, 1, GridBagConstraints.SOUTH));
 
         secondPage.add(buttons2, getConstraints(1, 1, 0, 1, GridBagConstraints.SOUTH));
-        tabbedPane.add("Admin",secondPage);
+        tabbedPane.add("Administration Section",secondPage);
         f.add(tabbedPane);
         f.setVisible(true);
 

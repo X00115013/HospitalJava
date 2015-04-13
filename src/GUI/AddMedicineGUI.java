@@ -1,5 +1,6 @@
 package GUI;
 
+    import Model.Consultants;
     import Model.Equipment;
     import Model.Medicine;
     import Model.PatientRecord;
@@ -14,12 +15,12 @@ package GUI;
     import java.util.ArrayList;
 
     /**
-     * Created by Roland on 04/04/2015.
+     * Created by Thomas Murray on 04/04/2015.
      */
 
 
     public class AddMedicineGUI extends JFrame implements ActionListener {
-        JButton confirm, cancel, refresh;
+        JButton confirm, cancel, refresh,delete,update;
         JLabel patientNum, titleF, reason, medName, medPrice, stock;
         JTextField patientText, medNameText, medPriceText, stockText;
         JTextArea additionalInformation;
@@ -124,6 +125,15 @@ package GUI;
             refresh.addActionListener(this);
             dobs.add(refresh, getConstraints(2, 9, 1, 1, GridBagConstraints.WEST));
 
+            // delete button
+            delete = new JButton("Remove Medicine");
+            delete.addActionListener(this);
+            dobs.add(delete, getConstraints(3, 9, 1, 1, GridBagConstraints.WEST));
+
+            // Refresh button
+            update = new JButton("Update Stock Level");
+            update.addActionListener(this);
+            dobs.add(update, getConstraints(4, 9, 1, 1, GridBagConstraints.WEST));
 
             test.add(dobs);
             holder2.add(test);
@@ -208,6 +218,11 @@ package GUI;
 
             }else if(e.getSource().equals(refresh)){
                 additionalInformation.setText(setTextArea());
+
+
+            }else if(e.getSource().equals(delete)){
+//               Medicine medicine1=new Medicine();
+//                medicine1.deleteMedicine();
 
 
             }

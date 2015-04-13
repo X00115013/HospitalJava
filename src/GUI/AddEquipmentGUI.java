@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
     public class AddEquipmentGUI extends JFrame implements ActionListener
     {
-        JButton confirm,cancel,refresh;
+        JButton confirm,cancel,refresh,delete;
         JLabel patientNum,titleF,reason,equipName,equipPrice;
         JTextField patientText,equipNameText, equipPriceText;
         JTextArea additionalInformation;
@@ -117,6 +117,11 @@ import java.util.ArrayList;
             refresh = new JButton("Refresh List");
             refresh.addActionListener(this);
             dobs.add(refresh, getConstraints(2, 7, 1, 1, GridBagConstraints.WEST));
+
+            // Refresh button
+            delete = new JButton("Remove Machine");
+            delete.addActionListener(this);
+            dobs.add(delete, getConstraints(3, 7, 1, 1, GridBagConstraints.WEST));
 
             test.add(dobs);
             holder2.add(test);

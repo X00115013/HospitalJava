@@ -22,6 +22,7 @@ public class CreditCardGUI extends JFrame implements ActionListener {
     private String[]list2={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     private String[]list3={"2015","2016","2017"};
     private ArrayList<CardDetails>cList=new ArrayList<>();
+//    private static boolean valid;
     private int patientNumber;
     JButton confirm;
     JButton cancel,validate;
@@ -220,6 +221,10 @@ public class CreditCardGUI extends JFrame implements ActionListener {
                     secCodeText.setText("");
                 }
             }
+        }else if (e.getSource().equals(validate)) {
+                PaymentGUI.valid=true;
         }
     }
+
+
 }

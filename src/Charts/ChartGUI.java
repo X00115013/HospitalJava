@@ -152,42 +152,46 @@ public class ChartGUI extends JFrame implements ActionListener
 
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(close)) {
-            f.setVisible(false);
-        } else if (e.getSource().equals(medicine)){
-            BarChartDemo barChartDemo = new BarChartDemo("Medicine", 1);
-            JFreeChart chart1=barChartDemo.createChart(barChartDemo.createDataset());
-            chartPanel = new ChartPanel(chart1, false);
-            chart.setBorder(RaisedBorder);
-            chart.add(chartPanel);
-            chart.remove(chartPanel2);
-            chart.remove(chartPanel3);
-            chart.revalidate();
-            chart.repaint();
+        try {
+            if (e.getSource().equals(close)) {
+                f.setVisible(false);
+            } else if (e.getSource().equals(medicine)) {
+                BarChartDemo barChartDemo = new BarChartDemo("Medicine", 1);
+                JFreeChart chart1 = barChartDemo.createChart(barChartDemo.createDataset());
+                chartPanel = new ChartPanel(chart1, false);
+                chart.setBorder(RaisedBorder);
+                chart.add(chartPanel);
+                chart.remove(chartPanel2);
+                chart.remove(chartPanel3);
+                chart.revalidate();
+                chart.repaint();
 
-        }else if (e.getSource().equals(equipment)) {
-            BarChartDemo barChartDemo2 = new BarChartDemo("Equipment", 2);
-            JFreeChart chart1=barChartDemo2.createChart2(barChartDemo2.createDataset2());
-            chartPanel2 = new ChartPanel(chart1, false);
-            chart.setBorder(RaisedBorder);
-            chart.add(chartPanel2);
-            chart.remove(chartPanel);
-            chart.remove(chartPanel3);
-            chart.revalidate();
-            chart.repaint();
+            } else if (e.getSource().equals(equipment)) {
+                BarChartDemo barChartDemo2 = new BarChartDemo("Equipment", 2);
+                JFreeChart chart1 = barChartDemo2.createChart2(barChartDemo2.createDataset2());
+                chartPanel2 = new ChartPanel(chart1, false);
+                chart.setBorder(RaisedBorder);
+                chart.add(chartPanel2);
+                chart.remove(chartPanel);
+                chart.remove(chartPanel3);
+                chart.revalidate();
+                chart.repaint();
 
-        }else if (e.getSource().equals(consultant)) {
-            BarChartDemo barChartDemo3 = new BarChartDemo("Consultant", 3);
-            JFreeChart chart1=barChartDemo3.createChart3(barChartDemo3.createDataset3());
-            chartPanel3 = new ChartPanel(chart1, false);
-            chart.setBorder(RaisedBorder);
-            chart.remove(chartPanel2);
-            chart.remove(chartPanel);
-            chart.add(chartPanel3);
-            chart.revalidate();
-            chart.repaint();
+            } else if (e.getSource().equals(consultant)) {
+                BarChartDemo barChartDemo3 = new BarChartDemo("Consultant", 3);
+                JFreeChart chart1 = barChartDemo3.createChart3(barChartDemo3.createDataset3());
+                chartPanel3 = new ChartPanel(chart1, false);
+                chart.setBorder(RaisedBorder);
+                chart.remove(chartPanel2);
+                chart.remove(chartPanel);
+                chart.add(chartPanel3);
+                chart.revalidate();
+                chart.repaint();
 
+            }
+
+        } catch (NullPointerException np) {
+            JOptionPane.showMessageDialog(null, "Generating Charts");
         }
-
     }
 }

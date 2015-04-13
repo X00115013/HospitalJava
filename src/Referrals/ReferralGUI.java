@@ -4,6 +4,7 @@ import DataBase.PatientOperations;
 import GUI.Clock;
 import Model.Consultants;
 import Model.Equipment;
+import Model.PatientRecord;
 import Referrals.ReferralOperations;
 
 import javax.swing.*;
@@ -27,6 +28,7 @@ public class ReferralGUI extends JFrame implements ActionListener {
     private Consultants consultants;
     JButton confirm;
     JButton cancel;
+    JRadioButton male, female;
 
     JLabel label1;
     JLabel label2;
@@ -66,7 +68,35 @@ public class ReferralGUI extends JFrame implements ActionListener {
     JComboBox<String> combo2;
     JFrame f;
 
+    private int choiceGui ,setter=1940;
+    private String[] daysIn={"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
+    private String[] months={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+    private String[] years=new String[76];
+    JComboBox<String> dayCombo,monthCombo,yearCombo;
+
+
     public ReferralGUI() {
+        for (int i = 0; i < 76; i++) {
+            years[i]= Integer.toString(setter);
+            setter++;
+        }
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(StartWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+//            Logger.getLogger(StartWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+//            Logger.getLogger(StartWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            Logger.getLogger(StartWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         f = new JFrame();
         f.setTitle("Referrals");
         f.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -112,16 +142,18 @@ public class ReferralGUI extends JFrame implements ActionListener {
 
         equipment=new Equipment();
         eqList.addAll(equipment.getEquipments());
-        list1 = new String[eqList.size()];
+        list1 = new String[eqList.size()+1];
+        list1[0]="";
         for (int i = 0; i < eqList.size(); i++) {
-            list1[i] = eqList.get(i).getEqName();
+            list1[i+1] = eqList.get(i).getEqName();
         }
 
         consultants=new Consultants();
         conList.addAll(consultants.getConsultants());
-        list2 = new String[conList.size()];
+        list2 = new String[conList.size()+1];
+        list2[0]="";
         for (int i = 0; i < conList.size(); i++) {
-            list2[i] = conList.get(i).getConSpeciality();
+            list2[i+1] = conList.get(i).getConSpeciality();
         }
 
 
@@ -195,7 +227,7 @@ public class ReferralGUI extends JFrame implements ActionListener {
         body.add(label9, getConstraints(1, 9, 1, 1, GridBagConstraints.WEST));
         //Combo-box
         combo1 = new JComboBox<String>(list1);
-        combo1.setPreferredSize(new Dimension(300,20));
+        combo1.setPreferredSize(new Dimension(300,30));
         body.add(combo1, getConstraints(1, 10, 2, 1, GridBagConstraints.WEST));
 
         //Patient Address label
@@ -211,44 +243,59 @@ public class ReferralGUI extends JFrame implements ActionListener {
         body.add(label11, getConstraints(1, 11, 1, 1, GridBagConstraints.WEST));
         //Combo-Box
         combo2 = new JComboBox<String>(list2);
-        combo2.setPreferredSize(new Dimension(300,20));
+        combo2.setPreferredSize(new Dimension(300,30));
         body.add(combo2, getConstraints(1, 12, 2, 1, GridBagConstraints.WEST));
+
+
 
 
         JPanel holder2=new JPanel(new FlowLayout(FlowLayout.LEFT));
         JPanel bottom=new JPanel(new GridBagLayout());
+
+
+        male = new JRadioButton("Male");
+        male.addActionListener(this);
+        bottom.add(male, getConstraints(0, 0, 1, 1, (GridBagConstraints.WEST)));
+        female = new JRadioButton("Female");
+        female.addActionListener(this);
+        bottom.add(female, getConstraints(1, 0, 1, 1, (GridBagConstraints.WEST)));
+
+
+
         //DOB labels
         label12 = new JLabel("Patient DOB");
-        bottom.add(label12, getConstraints(0, 0, 1, 1, GridBagConstraints.WEST));
+        bottom.add(label12, getConstraints(0, 1, 1, 1, GridBagConstraints.WEST));
         label13 = new JLabel("Day");
-        bottom.add(label13, getConstraints(0, 1, 1, 1, GridBagConstraints.WEST));
+        bottom.add(label13, getConstraints(0, 2, 1, 1, GridBagConstraints.WEST));
         label14 = new JLabel("Month");
-        bottom.add(label14, getConstraints(1, 1, 1, 1, GridBagConstraints.WEST));
+        bottom.add(label14, getConstraints(1, 2, 1, 1, GridBagConstraints.WEST));
         label15 = new JLabel("Year");
-        bottom.add(label15, getConstraints(2, 1, 1, 1, GridBagConstraints.WEST));
+        bottom.add(label15, getConstraints(2, 2, 1, 1, GridBagConstraints.WEST));
 
         //DOB text fields
-        day = new JTextField(5);
-        day.setBorder(loweredBorder);
-        bottom.add(day, getConstraints(0, 2, 1, 1, GridBagConstraints.WEST));
-        month = new JTextField(5);
-        month.setBorder(loweredBorder);
-        bottom.add(month, getConstraints(1, 2, 1, 1, GridBagConstraints.WEST));
-        year = new JTextField(5);
-        year.setBorder(loweredBorder);
-        bottom.add(year, getConstraints(2, 2, 1, 1, GridBagConstraints.WEST));
+        dayCombo = new JComboBox<String>(daysIn);
+        dayCombo.setBorder(loweredBorder);
+        bottom.add(dayCombo, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
+        monthCombo = new JComboBox<String>(months);
+        monthCombo.setBorder(loweredBorder);
+        monthCombo.addActionListener(this);
+        bottom.add(monthCombo, getConstraints(1, 3, 1, 1, GridBagConstraints.WEST));
+        yearCombo = new JComboBox<String>(years);
+        yearCombo.setBorder(loweredBorder);
+        bottom.add(yearCombo, getConstraints(2, 3, 1, 1, GridBagConstraints.WEST));
+
 
 
         // calculate button
         confirm = new JButton("Confirm");
         confirm.addActionListener(this);
-        bottom.add(confirm, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
+        bottom.add(confirm, getConstraints(0, 5, 1, 1, GridBagConstraints.WEST));
 
 
         // exit button
         cancel = new JButton("Cancel");
         cancel.addActionListener(this);
-        bottom.add(cancel, getConstraints(1, 3, 1, 1, GridBagConstraints.WEST));
+        bottom.add(cancel, getConstraints(1, 5, 1, 1, GridBagConstraints.WEST));
 
         f.add(holder,BorderLayout.NORTH);
         f.add(body, BorderLayout.CENTER);
@@ -277,6 +324,13 @@ public class ReferralGUI extends JFrame implements ActionListener {
             System.exit(0);
 
         } else if (e.getSource().equals(confirm)) {
+            String choice="";
+            if (male.isSelected()) {
+                choice = "Male";
+            }
+            if (female.isSelected()) {
+                choice = "Female";
+            }
             String catcher = "",catcher2 = "";
             String med = (String) combo1.getSelectedItem();
             for (int i = 0; i < eqList.size(); i++) {
@@ -291,9 +345,14 @@ public class ReferralGUI extends JFrame implements ActionListener {
                 }
             }
             Referrals referrals=new Referrals(gpName.getText(), gpLocation.getText(), pFname.getText(), pLname.getText(), pAddress.getText(),(day.getText() + "-" + month.getText() + "-" + year.getText()),pPhone.getText(),reasonVisit.getText(),
-                    recommendations.getText(),catcher,catcher2,1,"male");
+                    recommendations.getText(),catcher,catcher2,1,choice);
 
-            }
+            }else if (e.getSource().equals(male)) {
+                female.setSelected(false);
+
+            }else if (e.getSource().equals(female)) {
+                male.setSelected(false);
+        }
         }
     }
 

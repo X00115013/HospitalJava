@@ -72,6 +72,11 @@ package Model;
             so.addEquipUsed(pNumIn, equipNameIn);
             so.stockOperationsClose();
         }
+        public void updateEquipPayment(int patNumIn){
+            so=new StockOperations();
+            so.updateEquipmentPaid(patNumIn);
+            so.stockOperationsClose();
+        }
 
         public int getpNum() {
             return pNum;

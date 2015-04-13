@@ -21,7 +21,7 @@ package GUI;
 
 
     public class AddConsultantGUI extends JFrame implements ActionListener {
-    JButton confirm, cancel, refresh;
+    JButton confirm, cancel, refresh,delete;
     JLabel patientNum, titleF, reason, conName, conSkill, conEquip;
     JTextField patientText, conNameText, conSkillText, conEquipText;
     JTextArea additionalInformation;
@@ -136,6 +136,11 @@ package GUI;
         refresh = new JButton("Refresh List");
         refresh.addActionListener(this);
         dobs.add(refresh, getConstraints(2, 9, 1, 1, GridBagConstraints.WEST));
+
+        // Refresh button
+        delete = new JButton("Remove Consultant");
+        delete.addActionListener(this);
+        dobs.add(delete, getConstraints(3, 9, 1, 1, GridBagConstraints.WEST));
 
         test.add(dobs);
         holder2.add(test);

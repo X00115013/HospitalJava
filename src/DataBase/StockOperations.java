@@ -117,29 +117,18 @@ public class StockOperations {
         return rset;
     }
 
-    public void addPrescription(int pNumIn,String medNameIn,int amount,String conManeIn) {
+    public void addPrescription(int pNumIn,String medNameIn,int amount,String conManeIn,String dateIn) {
         try {
-            String sqlQuery = "INSERT INTO Prescriptions(PrescriptionID, Pat_NumIn, Drug_name , Med_Amount,conName, This_Visit) "+ "values(prescription_seq.nextVal,?,?,?,?,?)";
+            String sqlQuery = "INSERT INTO Prescriptions(PrescriptionID, Pat_NumIn, Drug_name , Med_Amount,conName, This_Visit,dateIn) "+ "values(prescription_seq.nextVal,?,?,?,?,?,?)";
             pstmt = conn.prepareStatement(sqlQuery);
             pstmt.setInt(1,pNumIn);
             pstmt.setString(2, medNameIn);
             pstmt.setInt(3, amount);
             pstmt.setString(4,conManeIn);
             pstmt.setInt(5,1);
+            pstmt.setString(6,dateIn);
             pstmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "New Prescription added for patient "+pNumIn);
-        } catch (Exception se) {
-            System.out.println(se);
-        }
-    }
-
-
-    public void updatePrescriptionPaid(int patNumber)
-    {
-        try {
-            String med = "UPDATE Prescriptions SET This_Visit= " + 2 +" where Pat_NumIn=" +patNumber;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(med);
         } catch (Exception se) {
             System.out.println(se);
         }
@@ -203,6 +192,28 @@ public class StockOperations {
         return rset;
     }
 
+    public void updatePrescriptionPaid(int patNumber)
+    {
+        try {
+            String med = "UPDATE Prescriptions SET This_Visit= " + 2 +" where Pat_NumIn=" +patNumber;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(med);
+        } catch (Exception se) {
+            System.out.println(se);
+        }
+    }
+
+
+    public void updateEquipmentPaid(int patNumber)
+    {
+        try {
+            String eq = "UPDATE EquipmentUsed SET this_Visit= " + 2 +" where patient_NumIn=" +patNumber;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(eq);
+        } catch (Exception se) {
+            System.out.println(se);
+        }
+    }
 
     public void addEquipUsed(int patientNumIn, String medNameIn) {
         try {

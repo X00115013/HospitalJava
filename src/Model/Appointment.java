@@ -25,11 +25,12 @@ public class Appointment {
     public Appointment(){
     }
 
-    public Appointment(int appNumIn ,String reasonForVisitIn,  String medicalEquipIn,String consultantTypeIn) {
+    public Appointment(int appNumIn ,String reasonForVisitIn,  String medicalEquipIn,String consultantTypeIn,String dateIn) {
         appNumber=appNumIn;
         reasonForVisit = reasonForVisitIn;
         consultantType = consultantTypeIn;
         medicalEquip = medicalEquipIn;
+        date=dateIn;
     }
 
 
@@ -39,7 +40,7 @@ public class Appointment {
         medicalEquip = medicalEquipIn;
         patientNum=patientNumIn;
         setAppointmentExisting(reasonForVisit, medicalEquip, consultantType, patientNum);
-        printAppointment();
+//        printAppointment();
     }
 
     public void appointmentArray() {
@@ -47,23 +48,22 @@ public class Appointment {
         ao=new AppointmentOperations();
         try {
             rset = ao.getAppointment();
-            System.out.println("\n\n\nAppointment list\n");
             while (rset.next()) {
-                appList.add(apt = new Appointment(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4)));
+                appList.add(apt = new Appointment(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getString(5)));
             }ao.appointmentOperationsClose();
         } catch (SQLException e1) {
             System.out.println(e1);
         }
     }
 
-    public void printAppointment() {
-        for (int i = 0; i < appList.size(); i++) {
-            System.out.println("\n\nAppointment number (" + appList.get(i).appNumber + ")");
-            System.out.println("Reason for visit (" + appList.get(i).reasonForVisit + ")");
-            System.out.println("Equipment (" + appList.get(i).consultantType + ")");
-            System.out.println("Consultant (" + appList.get(i).medicalEquip + ")");
-        }
-    }
+//    public void printAppointment() {
+//        for (int i = 0; i < appList.size(); i++) {
+//            System.out.println("\n\nAppointment number (" + appList.get(i).appNumber + ")");
+//            System.out.println("Reason for visit (" + appList.get(i).reasonForVisit + ")");
+//            System.out.println("Equipment (" + appList.get(i).consultantType + ")");
+//            System.out.println("Consultant (" + appList.get(i).medicalEquip + ")");
+//        }
+//    }
 
 
 
@@ -101,6 +101,8 @@ public class Appointment {
         return patientNum;
     }
 
+
+
     public String getConNameFromSkill(String skillIn){
         String swap="";
         conList.removeAll(conList);
@@ -117,7 +119,7 @@ public class Appointment {
 
     public void setAppointmentExisting(String recIn, String equipIn,String conIn,int patientNumIn) {
         ao=new AppointmentOperations();
-        ao.addAppointmentExisting(recIn, equipIn, conIn,patientNumIn);
+        ao.addAppointmentExisting(recIn, equipIn, conIn,patientNumIn,Prescription.getCurrentTimeStamp());
         if (equipIn.equals("")) {
             TimeTables timeTableCON = new TimeTables(conIn);
             ao.appointmentOperationsClose();

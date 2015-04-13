@@ -160,7 +160,7 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
                         "\n\n   List of Prescriptions this Visit \n\n";
                 for (int j = 0; j <presList.size() ; j++) {
                     if(patientNumberIn==presList.get(j).getpNum()&& presList.get(j).getPaid()==1) {
-                        record += record = "\n   Drug type:\t" + presList.get(j).getMedName() + "\t  Drug Amount:\t" + presList.get(j).getDose()+"\n";
+                        record += record = "\n   Drug type:\t" + presList.get(j).getMedName() + "\t  Drug Amount:\t" + presList.get(j).getDose()+"\t  Time & Date:   "+presList.get(j).getDate()+"\n";
                     }
 
                 }

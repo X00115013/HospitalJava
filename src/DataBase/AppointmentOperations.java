@@ -105,14 +105,15 @@ public class AppointmentOperations {
 
 
 
-    public void addAppointmentExisting(String recIn, String equipIn,String conIn,int patientNum) {
+    public void addAppointmentExisting(String recIn, String equipIn,String conIn,int patientNum,String dateIn) {
         try {
 
-            String sql2 = "INSERT INTO Appointment(AppID, ReasonVisit ,requiredEquipment, requiredConsultant) values(APPID.nextVal,?,?,?)";
+            String sql2 = "INSERT INTO Appointment(AppID, ReasonVisit ,requiredEquipment, requiredConsultant,dateIn) values(APPID.nextVal,?,?,?,?)";
             pstmt = conn.prepareStatement(sql2);
             pstmt.setString(1, recIn);
             pstmt.setString(2, equipIn);
             pstmt.setString(3, conIn);
+            pstmt.setString(4,dateIn);
             pstmt.executeUpdate();
             updatePatientAppointment(patientNum);
         } catch (Exception se) {

@@ -13,7 +13,7 @@ public class Bill {
     private final double FLAT_CHARGE = 150.00;
     private String type;
     private double equipCost,medCost=0,cost, totalBeforeVAT=0.00,totalAfterVAT=0.00,totalVAT=0.00;
-    private int paid = 0, typeH=0,patientNumberIn;  // typeH Is THE TYPE OF HEALTH INSURANCE
+    private int paid = 0, typeH=0,patientNumberIn;
     private ArrayList<Equipment> equipment = new ArrayList<Equipment>();
     private ArrayList<Medicine> medicine = new ArrayList<Medicine>();
     private ArrayList<Prescription>presList=new ArrayList<>();

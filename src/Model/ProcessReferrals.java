@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import DataBase.AppointmentOperations;
 import DataBase.PatientOperations;
+import DataBase.StockOperations;
 import Referrals.ReferralOperations;
 import Referrals.Referrals;
 
@@ -31,9 +32,13 @@ public class ProcessReferrals {
     private ProcessReferrals processReferrals;
     private PatientRecord patientRecord;
     private ArrayList<PatientRecord> pRecList=new ArrayList<>();
+    private Consultants consultants;
+    private ArrayList<Consultants> conList=new ArrayList<>();
+//    private StockOperations so;
 
 
     public ProcessReferrals() {
+//        so=new StockOperations();
         ro=new ReferralOperations();
         po=new PatientOperations();
         refreshTables();
@@ -85,6 +90,8 @@ public class ProcessReferrals {
 
 
     public void process() {
+        boolean test=false;
+        int pNum=0;
         for (int i = 0; i < refList.size(); i++) {
             if (refList.get(i).isChecked == 1) {
                 System.out.println("This is the check "+refList.get(i).isChecked);
@@ -108,40 +115,62 @@ public class ProcessReferrals {
                 }
                 else{
                 for (int j = 0; j < pRecList.size(); j++) {
+                    System.out.println("\n\n\t" + patientFName + "\t" + pRecList.get(j).getPatientFName());
                     if (patientFName.equalsIgnoreCase(pRecList.get(j).getPatientFName())) {
-                        referralProcessForExistingPatient(pRecList.get(j).getPatientNumber());
-                        ro.setChecked(refList.get(i).refNum);
-                        j=pRecList.size()+1;
-                    }
-
-                    else {
-                        referralProcessForNewPatient();
-                        ro.setChecked(refList.get(i).refNum);
-                        j=pRecList.size()+1;
+                        pNum=pRecList.get(j).getPatientNumber();
+                        test = true;
                     }
                 }
+                    if(test) {
+                        referralProcessForExistingPatient(pNum);
+                        ro.setChecked(refList.get(i).refNum);
+                    }
+                    else if(!test) {
+                        referralProcessForNewPatient();
+                        ro.setChecked(refList.get(i).refNum);
+                    }
+                }
+
               }
             }refreshTables();
-        }
+
         ro.referralOperationsClose();
     }
 
 
     public void referralProcessForExistingPatient(int patientNumIn) {
+        String catcher="";
         System.out.println("\n\nExisting Patient\n\n");
-       PatientRecord patientRecord = new PatientRecord(po,patientNumIn,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
+        PatientRecord patientRecord = new PatientRecord(po,patientNumIn,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
         MedicalRecord medicalRecord = new MedicalRecord(po,patientNumIn,recommendations);
-        Appointment appointment=new Appointment(reasonForVisit,medicalRequired,consultantRequired,patientNumIn);
+        consultants=new Consultants();
+        conList.removeAll(conList);
+        conList.addAll(consultants.getConsultants());
+        for (int j = 0; j < conList.size(); j++) {
+            if (consultantRequired.equals(conList.get(j).getConSpeciality())) {
+                catcher = conList.get(j).getConName();;
+            }
+        }
+        Appointment appointment=new Appointment(reasonForVisit,medicalRequired,catcher,patientNumIn);
         EquipmentUsed equipmentUsed=new EquipmentUsed(patientNumIn,medicalRequired);
     }
 
 
     public void referralProcessForNewPatient() {
+        String catcher="";
         System.out.println("\n\nNew Patient Method\n\n");
         PatientRecord patientRecord = new PatientRecord(po,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
         patientNumber=po.getPatientNumber(patientFName,patientLName,DOB);
         MedicalRecord medicalRecord = new MedicalRecord(po,patientNumber,recommendations);
-        Appointment appointment=new Appointment(reasonForVisit,medicalRequired,consultantRequired,patientNumber);
+        consultants=new Consultants();
+        conList.removeAll(conList);
+        conList.addAll(consultants.getConsultants());
+        for (int j = 0; j < conList.size(); j++) {
+            if (consultantRequired.equals(conList.get(j).getConSpeciality())) {
+                catcher = conList.get(j).getConName();;
+            }
+        }
+        Appointment appointment=new Appointment(reasonForVisit,medicalRequired,catcher,patientNumber);
         EquipmentUsed equipmentUsed=new EquipmentUsed(patientNumber,medicalRequired);
 
     }

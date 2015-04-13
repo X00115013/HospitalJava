@@ -68,6 +68,9 @@ public class SecurityGUI extends JFrame implements ActionListener {
         passwordText = new JTextField(30);
         middle.add(passwordText, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
 
+//        JPasswordField passwordText = new JPasswordField(30);
+//        passwordText.setEchoChar('*');
+//        middle.add(passwordText, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
 
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
         f.add(bottom, BorderLayout.SOUTH);

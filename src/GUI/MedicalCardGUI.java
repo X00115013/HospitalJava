@@ -23,7 +23,7 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
     private JLabel patientNum;
     private JLabel gmsNum,patientName,expiry,xMonth,xYear,ppsNum,gender,titleF;
     private JTextField pNumText,gmsNumText,patientNameText,ppsNumText;
-    private JCheckBox male,female,valid;
+    private JCheckBox male,female,validate;
     private JFrame f;
     private JComboBox<String> coverageTypeCombo;
     private JComboBox<String> xMonthTextCombo;
@@ -169,9 +169,9 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
         bottom.add(cancel);
 
         //Valid Check
-        valid=new JCheckBox("Valid");
-        valid.addActionListener(this);
-        bottom.add(valid);
+        validate=new JCheckBox("Valid");
+        validate.addActionListener(this);
+        bottom.add(validate);
 
 
         f.add(holder);
@@ -227,6 +227,11 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
             male.setSelected(false);
 
 
+        }else if (e.getSource().equals(validate)) {
+            PaymentGUI.valid=true;
+
+
         }
     }
+
 }

@@ -39,6 +39,8 @@ public class PaymentGUI extends JFrame implements ActionListener
     private String record="This is meant to be the patient Bill";
     private Bill bill;
     private JFrame f;
+    static boolean valid;
+
 
     public PaymentGUI(int patientNumIn)
     {
@@ -210,6 +212,16 @@ public class PaymentGUI extends JFrame implements ActionListener
         if (e.getSource().equals(cancel)) {
             f.setVisible(false);
         } else if (e.getSource().equals(confirm)){
+            if(valid){
+                Prescription prescription1=new Prescription();
+                prescription1.updatePaid(patientNumberIn);
+                EquipmentUsed equipmentUsed1=new EquipmentUsed();
+                equipmentUsed1.updateEquipPayment(patientNumberIn);
+                JOptionPane.showMessageDialog(null, "Payment has gone through");
+                f.setVisible(false);
+            }else{
+                JOptionPane.showMessageDialog(null, "Payment has to be Validated First");
+            }
 
         }else if (e.getSource().equals(print))
         {File Files = new File("files");
@@ -227,6 +239,8 @@ public class PaymentGUI extends JFrame implements ActionListener
         {   healthInsuranceGUI hInsuranceGUI=new healthInsuranceGUI(patientNumberIn);
         }else if (e.getSource().equals(medicalCard))
         {   MedicalCardGUI medicalCardGUI=new MedicalCardGUI(patientNumberIn);
+        }else if (e.getSource().equals(cash))
+        {  valid=true;
         }
     }
 }

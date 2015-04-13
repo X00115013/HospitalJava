@@ -30,8 +30,7 @@ package GUI;
         private JComboBox yearChoice;
         CalendarPane() {
             super();
-            setYYMMDD(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH));
+            setYYMMDD(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
             buildGUI();
             recompute();
         }
@@ -48,12 +47,10 @@ package GUI;
             dd = today;
         }
 
-        String[] months = { "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December" };
+        String[] months = { "January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December" };
 
         private void buildGUI() {
-            getAccessibleContext().setAccessibleDescription(
-                    "Calendar not accessible yet. Sorry!");
+            getAccessibleContext().setAccessibleDescription("Calendar not accessible yet. Sorry!");
             setBorder(BorderFactory.createEtchedBorder());
 
             setLayout(new BorderLayout());
@@ -194,7 +191,7 @@ package GUI;
             else
                 dd = newDay;
             Component square = labs[(leadGap + newDay - 1) / 7][(leadGap + newDay - 1) % 7];
-            square.setBackground(Color.LIGHT_GRAY);
+            square.setBackground(Color.white);
             square.repaint();
             activeDay = newDay;
         }

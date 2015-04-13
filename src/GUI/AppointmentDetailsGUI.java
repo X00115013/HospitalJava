@@ -81,8 +81,6 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
 
         appointments.addAll(appointment.appArray());
         for (int i = 0; i < appointments.size(); i++) {
-            System.out.println("Fink "+appointmentNumIn);
-            System.out.println("Fank "+appointments.get(i).appNumber);
             if(appointmentNumIn==appointments.get(i).appNumber){
                 appDetails="\tAppointment Number ("+appointments.get(i).appNumber+")\n\n" +
                         "\tReason for Visit ("+appointments.get(i).reasonForVisit+")\n\n" +

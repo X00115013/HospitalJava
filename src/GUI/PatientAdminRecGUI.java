@@ -166,13 +166,12 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
                         "\n   Patient Phone is        \t" + pList.get(i).getPhone() + "\n" +
                         "\n--------------------------------------------------------------------------------------------------------------------\n";
             for (int j = 0; j < appList.size(); j++) {
-                System.out.println("Here ");
                 if (appList.get(j).getAppNumber() == pList.get(i).getAppID()) {
-                    System.out.println("and here");
                     record += record = "\n\n--------------------------------------------------------------------------------------------------------------------\n" +
                             "\n   Patient Appointment Number\t" + appList.get(i).getAppNumber() + "\n" +
                             "\n   Booked Medical Equip      \t" + appList.get(i).getMedicalEquip() + "\n" +
                             "\n   Booked Consultant         \t" + appList.get(i).getConsultantType() + "\n" +
+                            "\n   Date & Time Booked        \t" + appList.get(i).getDate() + "\n" +
                             "\n--------------------------------------------------------------------------------------------------------------------\n\n";
                     }
                 }
