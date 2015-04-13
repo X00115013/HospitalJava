@@ -58,7 +58,7 @@ public class ChartGUI extends JFrame implements ActionListener
         JPanel title=new JPanel(new FlowLayout(FlowLayout.LEFT));
         label5 = new JLabel("Charts");
         title.add(label5);
-        label5.setFont(new Font("Arial", Font.BOLD, 46));
+        label5.setFont(new Font("Arial", Font.BOLD, 52));
 
         JPanel ID=new JPanel(new FlowLayout(FlowLayout.CENTER));
         //labels

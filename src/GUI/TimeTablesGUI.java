@@ -88,6 +88,7 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
         selectionCombo.add(combo1);
         combo1.addActionListener(this);
 
+
         // Print button
         print = new JButton("Print");
         print.addActionListener(this);
@@ -141,6 +142,7 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
             try (FileWriter input = new FileWriter(textFile)) {
                 input.write(timeTableInformation.getText());
                 JOptionPane.showMessageDialog(null, tableSelection + " Timetable is printing....");
+                Printing printing=new Printing(tableSelection + "_timeTables");
             } catch (IOException io) {
                 System.out.println(io);
             }

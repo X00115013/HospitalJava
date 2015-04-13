@@ -3,6 +3,7 @@ package Model;
 import DataBase.PatientOperations;
 import DataBase.StockOperations;
 
+import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,8 +36,12 @@ public class Medicine {
         medId=med_ID;
         medName=med_Name;
         stockLevel=stockLevelIn;
+//        if(stockLevel<=10){
+//            JOptionPane.showMessageDialog(null, med_Name+" is low on stock, "+stockLevel+" remain");
+//        }else if (stockLevel <=0){
+//            JOptionPane.showMessageDialog(null, med_Name+" is out on stock");
+//        }
         price=priceIn;
-
     }
 
     public void refreshArrays() {
@@ -58,11 +63,15 @@ public class Medicine {
     }
 
     public void updateStock(int id,int stockIn){
+        so=new StockOperations();
         so.updateMedStock(id,stockIn);
+        so.stockOperationsClose();
     }
 
     public void deleteMedicine(int medIdIn){
+        so=new StockOperations();
         so.deleteMedicine(medIdIn);
+        so.stockOperationsClose();
     }
 
     public ArrayList getMedicines() {

@@ -61,7 +61,7 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         if (choiceGUI == 1) {
             titleF = new JLabel("New Admin Records");
             title.add(titleF);
-            titleF.setFont(new Font("Arial", Font.BOLD, 24));
+            titleF.setFont(new Font("Arial", Font.BOLD, 26));
 
         } else if (choiceGUI == 2) {
             titleF = new JLabel("Update Admin Records");
@@ -77,7 +77,7 @@ public class AddPatientGUI extends JFrame implements ActionListener {
             ID.add(patientNum);
 
             //text field
-            patientText = new JTextField(5);
+            patientText = new JTextField(4);
             patientText.setBorder(loweredBorder);
             patientText.setText(Integer.toString(patientNumIn));
 

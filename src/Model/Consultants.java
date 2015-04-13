@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Created by Roland on 02/04/2015.
+ * Created by Thomas Murray on 02/04/2015.
  */
 public class Consultants {
     private int conId;
@@ -56,8 +56,10 @@ public class Consultants {
         so.stockOperationsClose();
     }
 
-    public void deleteMedicine(int conIdIn) {
+    public void deleteConsultant(int conIdIn) {
+        so=new StockOperations();
         so.deleteConsultant(conIdIn);
+        so.stockOperationsClose();
     }
 
     public ArrayList getConsultants() {

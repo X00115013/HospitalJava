@@ -59,7 +59,7 @@ package GUI;
         JPanel title = new JPanel(new FlowLayout(FlowLayout.CENTER));
         titleF = new JLabel("Add Consultant");
         title.add(titleF);
-        titleF.setFont(new Font("Arial", Font.BOLD, 24));
+        titleF.setFont(new Font("Arial", Font.BOLD, 37));
 
         JPanel ID = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         //labels
@@ -208,6 +208,33 @@ package GUI;
         } else if (e.getSource().equals(refresh)) {
             additionalInformation.setText(setTextArea());
 
+        }else if(e.getSource().equals(delete)) {
+            boolean deletion = true;
+            while (deletion) {
+                String input = JOptionPane.showInputDialog("Please input the Consultant ID to delete");
+                Consultants consultants1 = new Consultants();
+                conList.removeAll(conList);
+                conList.addAll(consultants1.getConsultants());
+                try {
+                    for (int i = 0; i < eqList.size(); i++) {
+                        if (Integer.parseInt(input) == conList.get(i).getConId()) {
+                            consultants1.deleteConsultant(Integer.parseInt(input));
+                            deletion = false;
+                        }
+                    }
+                    if (deletion == true) {
+                        JOptionPane.showMessageDialog(null, "Consultant does not Exist");
+
+                    }
+                } catch (NumberFormatException nf) {
+                    if(!input.equals("")) {
+                        JOptionPane.showMessageDialog(null, "Consultant ID must be Numeric");
+                    }
+                    deletion = false;
+
+                }
+            }
         }
+
     }
 }

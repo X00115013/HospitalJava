@@ -20,7 +20,7 @@ package GUI;
 
 
     public class AddMedicineGUI extends JFrame implements ActionListener {
-        JButton confirm, cancel, refresh,delete,update;
+        JButton confirm, cancel, refresh, delete, update;
         JLabel patientNum, titleF, reason, medName, medPrice, stock;
         JTextField patientText, medNameText, medPriceText, stockText;
         JTextArea additionalInformation;
@@ -54,7 +54,7 @@ package GUI;
             JPanel title = new JPanel(new FlowLayout(FlowLayout.CENTER));
             titleF = new JLabel("Add Medicine");
             title.add(titleF);
-            titleF.setFont(new Font("Arial", Font.BOLD, 24));
+            titleF.setFont(new Font("Arial", Font.BOLD, 43));
 
             JPanel ID = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             //labels
@@ -82,7 +82,7 @@ package GUI;
             textArea.add(scroll);
 
             JPanel holder2 = new JPanel(new GridLayout(1, 1));
-            JPanel test = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            JPanel test = new JPanel(new FlowLayout(FlowLayout.CENTER));
             JPanel dobs = new JPanel(new GridBagLayout());
 
             medName = new JLabel("Medicine Name ");
@@ -138,8 +138,9 @@ package GUI;
             test.add(dobs);
             holder2.add(test);
 
-            f.setLayout(new FlowLayout(FlowLayout.LEFT));
+
             f.add(holder);
+            f.setLayout(new FlowLayout(FlowLayout.LEFT));
             f.add(textArea);
             f.add(holder2);
             f.setVisible(true);
@@ -168,63 +169,91 @@ package GUI;
                     "_______________________________\n\n";
             for (int i = 0; i < medList.size(); i++) {
                 list += list = "\tMachine ID:" + medList.get(i).getMedId() + "\t\tName: " + medList.get(i).getMedName() + "\t\tIn Stock: " + medList.get(i).getStockLevel() + "\t\tCost: " + medList.get(i).getPrice() + "\n\n";
+                if(medList.get(i).getStockLevel()<=10){
+            JOptionPane.showMessageDialog(null, medList.get(i).getMedName()+" is low on stock, "+medList.get(i).getStockLevel()+" remain");
+        }else if (medList.get(i).getStockLevel() <=0){
+            JOptionPane.showMessageDialog(null, medList.get(i).getMedName()+" is out on stock");
+        }
+
             }
             return list;
         }
 
 
-
-
-        public void actionPerformed(ActionEvent e)
-        {
-            if (e.getSource().equals(cancel))
-            {
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource().equals(cancel)) {
                 f.setVisible(false);
-            }
-            else if (e.getSource().equals(confirm))
-            {
+            } else if (e.getSource().equals(confirm)) {
                 boolean test = true;
-                int convert=0;
-                double convert2=0.0;
-                while(test==true){
-                try{
-                    if (medNameText.getText().equals("") || Integer.parseInt(stockText.getText()) == 0 || Double.parseDouble(medPriceText.getText())==0.0){
-                        if (medNameText.getText().equals("")) {
-                            JOptionPane.showMessageDialog(null, "Medicine Name is a required field");
+                int convert = 0;
+                double convert2 = 0.0;
+                while (test == true) {
+                    try {
+                        if (medNameText.getText().equals("") || Integer.parseInt(stockText.getText()) == 0 || Double.parseDouble(medPriceText.getText()) == 0.0) {
+                            if (medNameText.getText().equals("")) {
+                                JOptionPane.showMessageDialog(null, "Medicine Name is a required field");
+                                test = false;
+                            }
+                            if (Integer.parseInt(stockText.getText()) == 0) {
+                                JOptionPane.showMessageDialog(null, "Stock Level is a required field");
+                                test = false;
+                            }
+                            if (Double.parseDouble(medPriceText.getText()) == 0.0) {
+                                JOptionPane.showMessageDialog(null, "Medicine Price is a required field");
+                                test = false;
+                            }
+                        } else {
+                            convert = Integer.parseInt(stockText.getText());
+                            convert2 = Double.parseDouble(medPriceText.getText());
+                            medicine = new Medicine(medNameText.getText(), convert, convert2);
+                            medNameText.setText("");
+                            medPriceText.setText("");
                             test = false;
                         }
-                        if (Integer.parseInt(stockText.getText()) == 0) {
-                            JOptionPane.showMessageDialog(null, "Stock Level is a required field");
-                            test = false;
-                        }
-                        if (Double.parseDouble(medPriceText.getText())==0.0) {
-                            JOptionPane.showMessageDialog(null, "Medicine Price is a required field");
-                            test = false;
-                        }
-                    } else {
-                        convert= Integer.parseInt(stockText.getText());
-                        convert2 = Double.parseDouble(medPriceText.getText());
-                        medicine=new Medicine(medNameText.getText(), convert,convert2);
-                        medNameText.setText("");
-                        medPriceText.setText("");
+                    } catch (NumberFormatException nf) {
+                        JOptionPane.showMessageDialog(null, "Price and Amount must be of Number Format");
                         test = false;
                     }
-                } catch (NumberFormatException nf) {
-                    JOptionPane.showMessageDialog(null, "Price and Amount must be of Number Format");
-                    test=false;
                 }
-            }
 
 
-            }else if(e.getSource().equals(refresh)){
+            } else if (e.getSource().equals(refresh)) {
                 additionalInformation.setText(setTextArea());
 
 
-            }else if(e.getSource().equals(delete)){
-//               Medicine medicine1=new Medicine();
-//                medicine1.deleteMedicine();
+            } else if (e.getSource().equals(delete)) {
+                boolean deletion = true;
+                while (deletion) {
+                    String input = JOptionPane.showInputDialog("Please input the Medicine ID to delete");
+                    Medicine medicine1 = new Medicine();
+                    medList.removeAll(medList);
+                    medList.addAll(medicine1.getMedicines());
+                    try {
+                        for (Medicine aMedList : medList) {
+                            if (Integer.parseInt(input) == aMedList.getMedId()) {
+                                medicine1.deleteMedicine(Integer.parseInt(input));
+                                deletion = false;
+                            }
+                        }
+                        if (deletion == true) {
+                            JOptionPane.showMessageDialog(null, "Medicine does not Exist");
+
+                        }
+                    } catch (NumberFormatException nf) {
+                        try {
+                            if (!input.equals("")) {
+                                JOptionPane.showMessageDialog(null, "Medicine ID must be Numeric");
+                                deletion = false;
+                            }
+                        } catch (NullPointerException np) {
+
+                        }
+                    }
+                }
+
+                }else if(e.getSource().equals(update)){
 
 
             }
+            }
         }
-    }

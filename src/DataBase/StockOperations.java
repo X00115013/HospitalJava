@@ -37,9 +37,10 @@ public class StockOperations {
 
     public void deleteMedicine(int medIDIn){
         try {
-            String queryString = "DELETE * FROM Medicine WHERE Med_ID= "+medIDIn;
+            String queryString = "DELETE FROM Medicine WHERE Med_ID= "+medIDIn;
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
+            JOptionPane.showMessageDialog(null, "Medicine number "+medIDIn+" has been Deleted");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -85,9 +86,10 @@ public class StockOperations {
 
     public void deleteEquipment(int eqIDIn){
         try {
-            String queryString = "DELETE * FROM MedicalEquipment WHERE Equipment_ID= "+eqIDIn;
+            String queryString = "DELETE FROM MedicalEquipment WHERE Equipment_ID= "+eqIDIn;
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
+            JOptionPane.showMessageDialog(null, "Equipment number "+eqIDIn+" has been Deleted");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -136,9 +138,10 @@ public class StockOperations {
 
     public void deleteConsultant(int conIDIn){
         try {
-            String queryString = "DELETE * FROM Consultant WHERE con_ID= "+conIDIn;
+            String queryString = "DELETE FROM Consultant WHERE con_ID= "+conIDIn;
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
+            JOptionPane.showMessageDialog(null, "Consultant Number "+conIDIn+" has been Deleted");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -204,6 +207,18 @@ public class StockOperations {
     }
 
 
+    public void updateMedicineStock(String medName,int amount)
+    {
+        try {
+            String med = "UPDATE Medicine SET StockLevel = StockLevel - " + amount +" WHERE Med_Name= '" +medName+"'";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(med);
+        } catch (Exception se) {
+            System.out.println(se);
+        }
+    }
+
+
     public void updateEquipmentPaid(int patNumber)
     {
         try {
@@ -223,7 +238,7 @@ public class StockOperations {
             pstmt.setString(2, medNameIn);
             pstmt.setInt(3, 1);
             pstmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "New Equipment added for patient "+patientNumIn);
+//            JOptionPane.showMessageDialog(null, "New Equipment added for patient "+patientNumIn);
         } catch (Exception se) {
             System.out.println("Error from Here addEuipUsed"+ se);
         }

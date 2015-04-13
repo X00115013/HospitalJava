@@ -10,6 +10,8 @@ import DataBase.StockOperations;
 import Referrals.ReferralOperations;
 import Referrals.Referrals;
 
+import javax.swing.*;
+
 /**
  * Created by Thomas Murray on 07/03/2015.
  */
@@ -91,10 +93,10 @@ public class ProcessReferrals {
 
     public void process() {
         boolean test=false;
-        int pNum=0;
+        int pNum=0,counter=0;
         for (int i = 0; i < refList.size(); i++) {
             if (refList.get(i).isChecked == 1) {
-                System.out.println("This is the check "+refList.get(i).isChecked);
+                counter++;
                 this.refNum = refList.get(i).refNum;
                 this.gpNum = refList.get(i).gpNum;
                 this.gpName = refList.get(i).gpName;
@@ -133,6 +135,7 @@ public class ProcessReferrals {
 
               }
             }refreshTables();
+        JOptionPane.showMessageDialog(null, counter+" Referrals have been processed");
 
         ro.referralOperationsClose();
     }

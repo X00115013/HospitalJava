@@ -62,7 +62,9 @@ public class Equipment {
 
 
     public void deleteEquipment(int eqIdIn){
+        so=new StockOperations();
         so.deleteEquipment(eqIdIn);
+        so.stockOperationsClose();
     }
 
     public int getEqId() {

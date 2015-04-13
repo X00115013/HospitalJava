@@ -230,6 +230,7 @@ public class PaymentGUI extends JFrame implements ActionListener
                 //Input text
                 input.write(billInformation.getText());
                 JOptionPane.showMessageDialog(null, "Patient "+patientNumberIn+" bill is printing....");
+                Printing printing=new Printing(patientNumberIn+"_Bill");
             } catch (IOException io) {
                 System.out.println(io);
             }

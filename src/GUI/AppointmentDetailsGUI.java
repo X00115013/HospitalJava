@@ -1,6 +1,7 @@
 package GUI;
 
         import Model.Appointment;
+        import Model.Printing;
 
         import javax.swing.*;
         import javax.swing.border.BevelBorder;
@@ -159,6 +160,8 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
             try (FileWriter input = new FileWriter(textFile)) {
                 //Input text
                 input.write(additionalInformation.getText());
+                JOptionPane.showMessageDialog(null, "Your appointment information is printing....");
+                Printing printing=new Printing(appNumberIn+"_APPOINTMENT");
             } catch (IOException io) {
                 System.out.println(io);
             }

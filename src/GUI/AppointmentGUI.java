@@ -74,7 +74,7 @@ public class AppointmentGUI extends JFrame implements ActionListener {
         JPanel title=new JPanel(new FlowLayout(FlowLayout.CENTER));
         label5 = new JLabel("Appointment");
         title.add(label5);
-        label5.setFont(new Font("Arial", Font.BOLD, 24));
+        label5.setFont(new Font("Arial", Font.BOLD, 34));
 
         JPanel ID=new JPanel(new FlowLayout(FlowLayout.CENTER));
         //labels

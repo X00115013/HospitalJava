@@ -71,21 +71,24 @@ public class AppointmentOperations {
             String cmd = "DELETE FROM Appointment WHERE AppID =" + n;
             stmt = conn.createStatement();
             stmt.executeUpdate(cmd);
-            deleteAppointmentTT(n);
+            updateTT(n);
             JOptionPane.showMessageDialog(null, "Appointment "+n+" has been deleted");
         } catch (Exception e) {
             System.out.println("Error deleting appointment"+e);
         }
     }
 
-    public void deleteAppointmentTT(int n) {
+
+    public void updateTT(int n) {
         try {
-            String cmd = "DELETE FROM TimeTable WHERE AppID =" + n;
+            String cmd = "UPDATE TimeTable SET taken = 'Free'," +
+                    "con_Name = 'null'" +
+                    "WHERE AppID =" + n;
             stmt = conn.createStatement();
             stmt.executeUpdate(cmd);
             deletePatientAppointment(n);
         } catch (Exception e) {
-            System.out.println("Error deleting appointment"+e);
+            System.out.println("Error deleting TimeTable Entry "+e);
         }
     }
     public void deletePatientAppointment(int n)

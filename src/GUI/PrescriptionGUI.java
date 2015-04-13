@@ -75,7 +75,7 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
         JPanel title = new JPanel(new FlowLayout(FlowLayout.CENTER));
         label5 = new JLabel("Prescription");
         title.add(label5);
-        label5.setFont(new Font("Arial", Font.BOLD, 32));
+        label5.setFont(new Font("Arial", Font.BOLD, 36));
 
         JPanel ID = new JPanel(new FlowLayout(FlowLayout.CENTER));
         //labels
@@ -201,10 +201,11 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
                     for (int j = 0; j < list2.length; j++) {
                         String temp = list2[j];
                         if (conEquip.equals(temp)) {
-                            catcher2 = j + 1;
+                            catcher2 = j + 2;
                         }
                     }
                     Prescription prescription = new Prescription(patientNumberIn, catcher, catcher2, conName);
+                    prescription.updateStock(catcher,catcher2);
                     f.setVisible(false);
 
             }

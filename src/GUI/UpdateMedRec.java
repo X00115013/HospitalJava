@@ -235,6 +235,8 @@ public class UpdateMedRec extends JFrame implements ActionListener {
             f.setVisible(false);
 
 
+        }else if (e.getSource().equals(reqEquipCombo)) {
+            JOptionPane.showMessageDialog(null, "New Equipment to be added for patient "+patientNumberIn);
         }
     }
 }

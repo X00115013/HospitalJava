@@ -66,6 +66,12 @@ public class Prescription {
         so.stockOperationsClose();
     }
 
+    public void updateStock(String medNameIn,int amount){
+        so=new StockOperations();
+        so.updateMedicineStock(medNameIn,amount);
+        so.stockOperationsClose();
+    }
+
     public String getConName() {
         return conName;
     }
@@ -90,8 +96,7 @@ public class Prescription {
         return date;
     }
 
-    public ArrayList<Prescription> getPresList() {
-
+    public ArrayList getPresList() {
         refreshArrays();
         return presList;
     }

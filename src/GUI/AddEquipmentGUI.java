@@ -2,6 +2,7 @@ package GUI;
 
 import Model.Consultants;
 import Model.Equipment;
+import Model.Medicine;
 import Model.PatientRecord;
 
 import javax.swing.*;
@@ -54,7 +55,7 @@ import java.util.ArrayList;
             JPanel title=new JPanel(new FlowLayout(FlowLayout.CENTER));
             titleF = new JLabel("Add Equipment");
             title.add(titleF);
-            titleF.setFont(new Font("Arial", Font.BOLD, 24));
+            titleF.setFont(new Font("Arial", Font.BOLD, 34));
 
             JPanel ID=new JPanel(new FlowLayout(FlowLayout.RIGHT));
             //labels
@@ -119,7 +120,7 @@ import java.util.ArrayList;
             dobs.add(refresh, getConstraints(2, 7, 1, 1, GridBagConstraints.WEST));
 
             // Refresh button
-            delete = new JButton("Remove Machine");
+            delete = new JButton("Remove Equipment");
             delete.addActionListener(this);
             dobs.add(delete, getConstraints(3, 7, 1, 1, GridBagConstraints.WEST));
 
@@ -196,7 +197,33 @@ import java.util.ArrayList;
                 additionalInformation.setText(setTextArea());
 
 
+            }else if(e.getSource().equals(delete)){
+                boolean deletion = true;
+                while (deletion) {
+                    String input = JOptionPane.showInputDialog("Please input the Equipment ID to delete");
+                    Equipment equipment1=new Equipment();
+                    eqList.removeAll(eqList);
+                    eqList.addAll(equipment1.getEquipments());
+                    try{
+                        for (int i = 0; i < eqList.size(); i++) {
+                            if (Integer.parseInt(input) == eqList.get(i).getEqId()) {
+                                equipment1.deleteEquipment(Integer.parseInt(input));
+                                deletion = false;
+                            }
+                        }if(deletion==true) {
+                            JOptionPane.showMessageDialog(null, "Equipment does not Exist");
+
+                        }
+                    }catch(NumberFormatException nf) {
+                        if(!input.equals("")) {
+                        JOptionPane.showMessageDialog(null, "Equipment ID must be Numeric");
+                        deletion=false;
+                        }
+                    }
                 }
+
             }
+
         }
+    }
 
