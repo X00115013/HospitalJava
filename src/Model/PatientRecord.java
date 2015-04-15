@@ -17,7 +17,7 @@ public class PatientRecord {
     private String email;
     private String occupation;
     private String phone;
-    private String DOB;
+    private String DOB,checkedIn;
     private ResultSet rset;
     private PatientOperations po;
     private ArrayList<PatientRecord> patientList = new ArrayList<PatientRecord>();
@@ -30,7 +30,7 @@ public class PatientRecord {
             rset = po.getPatientAdmin();
             while (rset.next()) {
                 patientList.add(new PatientRecord(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4),
-                        rset.getString(5),rset.getString(6),rset.getString(7),rset.getString(8),rset.getString(9),rset.getInt(10)));
+                        rset.getString(5),rset.getString(6),rset.getString(7),rset.getString(8),rset.getString(9),rset.getInt(10),rset.getString(11)));
             }po.patientOperationsClose();
         } catch (SQLException e1) {
             System.out.println(e1);
@@ -46,7 +46,7 @@ public class PatientRecord {
         phone = "";
         DOB = "";
     }
-    public PatientRecord(int patientNumIn,String patientFNameIn, String patientLNameIn, String patientAddressIn,String DOBIn,String genderIn, String occupationIn, String emailIn, String phoneIn,int appIdIn ) {
+    public PatientRecord(int patientNumIn,String patientFNameIn, String patientLNameIn, String patientAddressIn,String DOBIn,String genderIn, String occupationIn, String emailIn, String phoneIn,int appIdIn, String checked ) {
         patientNumber=patientNumIn;
         patientFName = patientFNameIn;
         patientLName = patientLNameIn;
@@ -57,6 +57,7 @@ public class PatientRecord {
         phone = phoneIn;
         DOB = DOBIn;
         appID=appIdIn;
+        checkedIn=checked;
 
     }
 
@@ -158,6 +159,10 @@ public class PatientRecord {
 
     public int getAppID() {
         return appID;
+    }
+
+    public String getCheckedIn() {
+        return checkedIn;
     }
 }
 

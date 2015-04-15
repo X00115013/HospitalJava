@@ -15,7 +15,7 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 
 /**
- * Created by Lionhart and Thomas Murray on 17/03/2015.
+ * Created by Dylan Mahony and Thomas Murray on 17/03/2015.
  */
 public class HomeScreen extends JFrame implements ActionListener {
 

@@ -169,7 +169,7 @@ package GUI;
                     "_______________________________\n\n";
             for (int i = 0; i < medList.size(); i++) {
                 list += list = "\tMachine ID:" + medList.get(i).getMedId() + "\t\tName: " + medList.get(i).getMedName() + "\t\tIn Stock: " + medList.get(i).getStockLevel() + "\t\tCost: " + medList.get(i).getPrice() + "\n\n";
-                if(medList.get(i).getStockLevel()<=10){
+                if(medList.get(i).getStockLevel() > 0 && medList.get(i).getStockLevel()<=10){
             JOptionPane.showMessageDialog(null, medList.get(i).getMedName()+" is low on stock, "+medList.get(i).getStockLevel()+" remain");
         }else if (medList.get(i).getStockLevel() <=0){
             JOptionPane.showMessageDialog(null, medList.get(i).getMedName()+" is out on stock");
@@ -246,7 +246,7 @@ package GUI;
                                 deletion = false;
                             }
                         } catch (NullPointerException np) {
-
+                            deletion=false;
                         }
                     }
                 }

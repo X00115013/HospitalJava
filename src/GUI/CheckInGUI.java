@@ -1,127 +1,129 @@
 package GUI;
 
+import Model.Appointment;
+import Model.CheckIn;
+import Model.PatientRecord;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
- * Created by Lionhart and Thomas Murray on 20/03/2015.
+ * Created by Dylan and Thomas Murray on 20/03/2015.
  */
 public class CheckInGUI extends JFrame implements ActionListener
 {
-    JButton confirm,checkOut;
-    JButton cancel;
-    JLabel label1;
-    JLabel label2;
-    JLabel label3;
-    JLabel label5;
-    JLabel label6;
-    JLabel label12;
-    JLabel label13;
-    JLabel label14;
-    JLabel label15;
-
-    JTextField field1;
-    JTextField field2;
-    JTextField field3;
-    JTextField field11;
-    JTextField field12;
-    JTextField field13;
+    JButton confirm,checkOut,cancel;
+    JLabel appNum,firstName,surname,label,or,dob, day,month,year;
+    JTextField appNumText,firstNameText, surnameText;
+    JComboBox<String> dayCombo,monthCombo,yearCombo;
     JFrame f;
-    private int securityAnsIn;
+    private int setter=1940;
+    private String[] daysIn={"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
+    private String[] months={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+    private String[] yearsList=new String[76];
+    private ArrayList<Appointment>appList=new ArrayList<>();
+    private ArrayList<PatientRecord>pList=new ArrayList<>();
+
 
     public CheckInGUI()
     {
+        for (int i = 0; i < 76; i++) {
+            yearsList[i]= Integer.toString(setter);
+            setter++;
+        }
         f = new JFrame();
         f.setTitle("Check-In");
-        f.setSize(600, 800);
+        f.setSize(660, 700);
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
 
-        JPanel holder=new JPanel(new GridLayout(3,1));
+        JPanel mainHolder=new JPanel(new FlowLayout(FlowLayout.LEFT));
         Clock.DigitalClock clockD=new Clock.DigitalClock();
-        JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel clock = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         clock.add(clockD);
-        label5 = new JLabel("Check-In");
-        clock.add(label5);
-        label5.setFont(new Font("Arial", Font.BOLD, 38));
-        holder.add(clock);
-
+        label = new JLabel("Check-In");
+        clock.add(label);
+        label.setFont(new Font("Arial", Font.BOLD, 46));
+//        holder.add(clock);
+        JPanel holder=new JPanel(new GridLayout(2,1));
         JPanel test2=new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         //middle
         JPanel middle = new JPanel(new GridBagLayout());
         test2.add(middle, BorderLayout.WEST);
         //labels
-        label1 = new JLabel("Appointment Number");
-        middle.add(label1, getConstraints(0, 0, 1, 1, (GridBagConstraints.WEST)));
+        appNum = new JLabel("Appointment Number");
+        middle.add(appNum, getConstraints(0, 0, 1, 1, (GridBagConstraints.WEST)));
         //text field
-        field1 = new JTextField(50);
-        field1.setBorder(loweredBorder);
-        label6 = new JLabel("OR");
-        middle.add(label6, getConstraints(0, 2, 1, 1, (GridBagConstraints.WEST)));
-        middle.add(field1, getConstraints(0, 1, 1, 1, (GridBagConstraints.WEST)));
-        label2 = new JLabel("First Name");
-        middle.add(label2, getConstraints(0, 3, 1, 1, (GridBagConstraints.WEST)));
+        appNumText = new JTextField(50);
+        appNumText.setBorder(loweredBorder);
+        or = new JLabel("OR");
+        middle.add(or, getConstraints(0, 2, 1, 1, (GridBagConstraints.WEST)));
+        middle.add(appNumText, getConstraints(0, 1, 1, 1, (GridBagConstraints.WEST)));
+        firstName = new JLabel("First Name");
+        middle.add(firstName, getConstraints(0, 3, 1, 1, (GridBagConstraints.WEST)));
         //text field
-        field2 = new JTextField(50);
-        field2.setBorder(loweredBorder);
-        middle.add(field2, getConstraints(0, 4, 1, 1, (GridBagConstraints.WEST)));
-        label3 = new JLabel("Surname");
-        middle.add(label3, getConstraints(0, 5, 1, 1, (GridBagConstraints.WEST)));
+        firstNameText = new JTextField(50);
+        firstNameText.setBorder(loweredBorder);
+        middle.add(firstNameText, getConstraints(0, 4, 1, 1, (GridBagConstraints.WEST)));
+        surname = new JLabel("Surname");
+        middle.add(surname, getConstraints(0, 5, 1, 1, (GridBagConstraints.WEST)));
         //text field
-        field3 = new JTextField(50);
-        field3.setBorder(loweredBorder);
-        middle.add(field3, getConstraints(0, 6, 1, 1, (GridBagConstraints.WEST)));
+        surnameText = new JTextField(50);
+        surnameText.setBorder(loweredBorder);
+        middle.add(surnameText, getConstraints(0, 6, 1, 1, (GridBagConstraints.WEST)));
         holder.add(test2);
 
         //DOB labels
         JPanel test =new JPanel(new FlowLayout(FlowLayout.LEFT));
         JPanel dobs = new JPanel(new GridBagLayout());
         test.add(dobs, BorderLayout.SOUTH);
-        label12 = new JLabel("Patient DOB");
-        dobs.add(label12, getConstraints(0, 0, 1, 1, GridBagConstraints.WEST));
-        label13 = new JLabel("Day");
-        dobs.add(label13, getConstraints(0, 2, 1, 1, GridBagConstraints.WEST));
-        label14 = new JLabel("Month");
-        dobs.add(label14, getConstraints(1, 2, 1, 1, GridBagConstraints.WEST));
-        label15 = new JLabel("Year");
-        dobs.add(label15, getConstraints(2, 2, 1, 1, GridBagConstraints.WEST));
+        dob = new JLabel("DOB");
+        dobs.add(dob, getConstraints(0, 0, 1, 1, GridBagConstraints.WEST));
+        day = new JLabel("Day");
+        dobs.add(day, getConstraints(0, 2, 1, 1, GridBagConstraints.WEST));
+        month = new JLabel("Month");
+        dobs.add(month, getConstraints(1, 2, 1, 1, GridBagConstraints.WEST));
+        year = new JLabel("Year");
+        dobs.add(year, getConstraints(2, 2, 1, 1, GridBagConstraints.WEST));
 
         //DOB text fields
-        field11 = new JTextField(5);
-        field11.setBorder(loweredBorder);
-        dobs.add(field11, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
-        field12 = new JTextField(5);
-        field12.setBorder(loweredBorder);
-        dobs.add(field12, getConstraints(1, 3, 1, 1, GridBagConstraints.WEST));
-        field13 = new JTextField(5);
-        field13.setBorder(loweredBorder);
-        dobs.add(field13, getConstraints(2, 3, 1, 1, GridBagConstraints.WEST));
+        dayCombo = new JComboBox<>(daysIn);
+        dayCombo.setBorder(loweredBorder);
+        dobs.add(dayCombo, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
+        monthCombo = new JComboBox<>(months);
+        monthCombo.setBorder(loweredBorder);
+        dobs.add(monthCombo, getConstraints(1, 3, 1, 1, GridBagConstraints.WEST));
+        yearCombo = new JComboBox<>(yearsList);
+        yearCombo.setBorder(loweredBorder);
+        dobs.add(yearCombo, getConstraints(2, 3, 1, 1, GridBagConstraints.WEST));
         holder.add(test);
 
         // Confirm button
         confirm = new JButton("Confirm");
         confirm.addActionListener(this);
-        dobs.add(confirm, getConstraints(0, 4, 1, 1, GridBagConstraints.WEST));
+        dobs.add(confirm, getConstraints(0, 6, 1, 1, GridBagConstraints.WEST));
 
         // Cancel button
         cancel = new JButton("Cancel");
         cancel.addActionListener(this);
-        dobs.add(cancel, getConstraints(1, 4, 1, 1, GridBagConstraints.WEST));
+        dobs.add(cancel, getConstraints(1, 6, 1, 1, GridBagConstraints.WEST));
 
         // CheckOut button
         checkOut = new JButton("Check-Out");
         checkOut.addActionListener(this);
-        dobs.add(checkOut, getConstraints(2, 4, 1, 1, GridBagConstraints.WEST));
-
-        f.add(holder);
+        dobs.add(checkOut, getConstraints(2, 6, 1, 1, GridBagConstraints.WEST));
+        mainHolder.add(clock);
+        mainHolder.add(holder);
+        f.add(mainHolder);
         f.setVisible(true);
     }
 
@@ -149,8 +151,61 @@ public class CheckInGUI extends JFrame implements ActionListener
            f.setVisible(true);
         }
         else if (e.getSource().equals(confirm))
-        {
+        { appList.removeAll(appList);
+            pList.removeAll(pList);
+            Appointment appointment = new Appointment();
+            PatientRecord patientRecord = new PatientRecord();
+            appList.addAll(appointment.appArray());
+            pList.addAll(patientRecord.getPatientList());
+            boolean test = false, test2 = false;
+            String dayC = (String) dayCombo.getSelectedItem();
+            String monthC = (String) monthCombo.getSelectedItem();
+            String yearC = (String) yearCombo.getSelectedItem();
+            int choice = 0;
 
+            if ((firstNameText.getText().equals("")) && (surnameText.getText().equals("")) && (appNumText.getText().equals(""))) {
+                JOptionPane.showMessageDialog(null, "Appointment Number or Patient Info are Required Fields");
+            } else {
+                if(appNumText.getText().equals("")) {
+                    for (int i = 0; i < pList.size(); i++) {
+                        if (firstNameText.getText().equals(pList.get(i).getPatientFName()) && surnameText.getText().equals(pList.get(i).getPatientLName()) &&
+                                dayC.equals(pList.get(i).getDOB().charAt(0) + "" + pList.get(i).getDOB().charAt(1)) && monthC.equals(pList.get(i).getDOB().charAt(3) + "" +
+                                "" + pList.get(i).getDOB().charAt(4) + "" + pList.get(i).getDOB().charAt(5)) && yearC.equals(pList.get(i).getDOB().charAt(7) + "" + pList.get(i).getDOB().charAt(8) + "" +
+                                "" + pList.get(i).getDOB().charAt(9) + "" + pList.get(i).getDOB().charAt(10))) {
+                            for (int j = 0; j < appList.size(); j++) {
+                                if (appList.get(j).appNumber == pList.get(i).getAppID()) {
+                                    test2 = true;
+                                    choice = pList.get(i).getAppID();
+                                }
+                            }
+                        }
+                    }if(test2==false){
+                        JOptionPane.showMessageDialog(null, "Appointment does not exist ");
+                        appNumText.setText("");
+                    }
+                }
+                else if ((!appNumText.getText().equals(""))) {
+                    try {
+                        for (int i = 0; i < appList.size(); i++) {
+                            if (appList.get(i).appNumber == Integer.parseInt(appNumText.getText())) {
+                                choice = Integer.parseInt(appNumText.getText());
+                                test = true;
+                            }
+                        }
+                    } catch (NumberFormatException nf) {
+                        JOptionPane.showMessageDialog(null, "Appointment Number must be a Number ");
+                        appNumText.setText("");
+                    }
+                    if (test == false) {
+                        JOptionPane.showMessageDialog(null, "Appointment does not exist ");
+                        appNumText.setText("");
+                    }
+                }
+                if (test == true || test2 == true) {
+                    CheckIn checkIn=new CheckIn(choice,1);
+                    f.setVisible(false);
+                }
+            }
         }
         else if (e.getSource().equals(checkOut))
         {

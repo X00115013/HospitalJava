@@ -2,6 +2,7 @@ package GUI;
 
 import Model.*;
 
+import javax.print.PrintException;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
@@ -142,7 +143,11 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
             try (FileWriter input = new FileWriter(textFile)) {
                 input.write(timeTableInformation.getText());
                 JOptionPane.showMessageDialog(null, tableSelection + " Timetable is printing....");
-                Printing printing=new Printing(tableSelection + "_timeTables");
+                try {
+                    Printing printing = new Printing(tableSelection + "_timeTables");
+                }catch (PrintException pe){
+
+                }
             } catch (IOException io) {
                 System.out.println(io);
             }

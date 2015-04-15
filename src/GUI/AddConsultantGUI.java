@@ -227,10 +227,14 @@ package GUI;
 
                     }
                 } catch (NumberFormatException nf) {
-                    if(!input.equals("")) {
-                        JOptionPane.showMessageDialog(null, "Consultant ID must be Numeric");
+                    try {
+                        if (!input.equals("")) {
+                            JOptionPane.showMessageDialog(null, "Consultant ID must be Numeric");
+                        }
+                        deletion = false;
+                    }catch (NullPointerException np){
+                        deletion=false;
                     }
-                    deletion = false;
 
                 }
             }

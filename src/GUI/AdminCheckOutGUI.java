@@ -1,29 +1,34 @@
 package GUI;
 
+import Model.Bill;
+import Model.CheckIn;
+import Model.PatientRecord;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
- * Created by Lionhart and Thomas Murray on 20/03/2015.
+ * Created by Thomas Murray on 20/03/2015.
  */
-public class AdminCheckOutGUI extends JFrame implements ActionListener
-{
-    JButton confirm,checkOut,cancel;
-    JLabel patientNum,label5;
+public class AdminCheckOutGUI extends JFrame implements ActionListener {
+    JButton confirm, checkOut, cancel;
+    JLabel patientNum, label5;
     JTextField patientText;
     JTextArea additionalInformation;
     JRadioButton checkOutRadio;
     private int patientNumberIn;
+    private PatientRecord patientRecord;
+    private ArrayList<PatientRecord>pRecord=new ArrayList<>();
 
     JFrame f;
 
-    public AdminCheckOutGUI(int patientNumIn)
-    {
-        patientNumberIn=patientNumIn;
+    public AdminCheckOutGUI(int patientNumIn) {
+        patientNumberIn = patientNumIn;
         f = new JFrame();
         f.setTitle("Admin Check-Out");
         f.setSize(700, 500);
@@ -33,19 +38,19 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener
 
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
 
-        JPanel holder=new JPanel(new GridLayout(3,1));
-        JPanel topSection=new JPanel(new GridLayout(1,3));
+        JPanel holder = new JPanel(new GridLayout(3, 1));
+        JPanel topSection = new JPanel(new GridLayout(1, 3));
 
-        Clock.DigitalClock clockD=new Clock.DigitalClock();
+        Clock.DigitalClock clockD = new Clock.DigitalClock();
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
         clock.add(clockD);
 
-        JPanel title=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel title = new JPanel(new FlowLayout(FlowLayout.CENTER));
         label5 = new JLabel("Admin Check-Out");
         title.add(label5);
         label5.setFont(new Font("Arial", Font.BOLD, 24));
 
-        JPanel ID=new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel ID = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         //labels
         patientNum = new JLabel("\tPatient Number");
         ID.add(patientNum);
@@ -64,15 +69,15 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener
         holder.add(topSection);
 
 
-        JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel textArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        additionalInformation = new JTextArea(230,60);
+        additionalInformation = new JTextArea(230, 60);
         additionalInformation.setBorder(loweredBorder);
         textArea.add(additionalInformation);
         holder.add(textArea);
 
         //DOB labels
-        JPanel test =new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel test = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JPanel dobs = new JPanel(new GridBagLayout());
 
         // Confirm button
@@ -102,8 +107,6 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener
     }
 
 
-
-
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(10, 5, 10, 10);
@@ -118,17 +121,35 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener
     }
 
 
-    public void actionPerformed(ActionEvent e)
-    {
-        if (e.getSource().equals(cancel))
-        {
-            System.exit(0);
-        }
-        else if (e.getSource().equals(confirm))
-        {
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(cancel)) {
+            f.setVisible(false);
+            CheckIn.checkInStatic=true;
+        } else if (e.getSource().equals(confirm)) {
+            boolean test=false;
+            pRecord.removeAll(pRecord);
+            patientRecord=new PatientRecord();
+            pRecord.addAll(patientRecord.getPatientList());
+            if (checkOutRadio.isSelected()) {
+                for (int i = 0; i < pRecord.size(); i++) {
+                    if (pRecord.get(i).getPatientNumber() == patientNumberIn && pRecord.get(i).getCheckedIn().equals("Medically Checked OUT")) {
+                        test=true;
+                    }
+                }
+                if(test==true) {
+                    CheckIn checkIn = new CheckIn(patientNumberIn, 3);
+                }else{
+                        JOptionPane.showMessageDialog(null, "Patient " + patientNumberIn + " is not Medically Checked Out!!!!");
+                    }
+            }else{
+                JOptionPane.showMessageDialog(null, "The Bill must be paid first");
+            }
+        } else if (e.getSource().equals(checkOut)) {
+            PaymentGUI paymentGUI = new PaymentGUI(patientNumberIn);
+        } else if (e.getSource().equals(checkOutRadio)) {
+            if(checkOutRadio.isSelected()){
 
-        }else if (e.getSource().equals(checkOut))
-        {PaymentGUI paymentGUI=new PaymentGUI(patientNumberIn);
+            }
         }
     }
 }

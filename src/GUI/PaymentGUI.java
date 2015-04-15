@@ -3,6 +3,7 @@ package GUI;
 
         import Model.*;
 
+        import javax.print.PrintException;
         import javax.swing.*;
         import javax.swing.border.BevelBorder;
         import javax.swing.border.Border;
@@ -230,7 +231,11 @@ public class PaymentGUI extends JFrame implements ActionListener
                 //Input text
                 input.write(billInformation.getText());
                 JOptionPane.showMessageDialog(null, "Patient "+patientNumberIn+" bill is printing....");
-                Printing printing=new Printing(patientNumberIn+"_Bill");
+                try {
+                    Printing printing = new Printing(patientNumberIn + "_Bill");
+                }catch (PrintException pe){
+
+                }
             } catch (IOException io) {
                 System.out.println(io);
             }

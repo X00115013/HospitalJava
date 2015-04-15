@@ -215,9 +215,13 @@ import java.util.ArrayList;
 
                         }
                     }catch(NumberFormatException nf) {
-                        if(!input.equals("")) {
-                        JOptionPane.showMessageDialog(null, "Equipment ID must be Numeric");
-                        deletion=false;
+                        try {
+                            if (!input.equals("")) {
+                                JOptionPane.showMessageDialog(null, "Equipment ID must be Numeric");
+                                deletion = false;
+                            }
+                        }catch (NullPointerException np){
+                            deletion=false;
                         }
                     }
                 }

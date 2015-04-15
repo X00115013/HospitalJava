@@ -1,5 +1,7 @@
 package GUI;
 
+import Model.CheckIn;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
@@ -123,10 +125,17 @@ public class MedCheckOutGUI extends JFrame implements ActionListener
     {
         if (e.getSource().equals(cancel))
         {
-            System.exit(0);
+           f.setVisible(false);
         }
         else if (e.getSource().equals(confirm))
         {
+            if(checkOutRadio.isSelected()) {
+                CheckIn.checkInStatic = false;
+                CheckIn checkIn = new CheckIn(patientNumberIn, 2);
+                f.setVisible(false);
+            }else{
+                JOptionPane.showMessageDialog(null, "Patient Discharge must be selected!!!");
+            }
 
         }
     }

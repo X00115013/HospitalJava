@@ -164,6 +164,8 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
                         "\n   Patient Email is        \t" + pList.get(i).getEmail() + "\n" +
                         "\n--------------------------------------------------------------------------------------------------------------------\n" +
                         "\n   Patient Phone is        \t" + pList.get(i).getPhone() + "\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n"+
+                        "\n   Patient is currently    \t" + pList.get(i).getCheckedIn() + "\n" +
                         "\n--------------------------------------------------------------------------------------------------------------------\n";
             for (int j = 0; j < appList.size(); j++) {
                 if (appList.get(j).getAppNumber() == pList.get(i).getAppID()) {

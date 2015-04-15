@@ -3,6 +3,7 @@ package GUI;
         import Model.Appointment;
         import Model.Printing;
 
+        import javax.print.PrintException;
         import javax.swing.*;
         import javax.swing.border.BevelBorder;
         import javax.swing.border.Border;
@@ -161,7 +162,11 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
                 //Input text
                 input.write(additionalInformation.getText());
                 JOptionPane.showMessageDialog(null, "Your appointment information is printing....");
-                Printing printing=new Printing(appNumberIn+"_APPOINTMENT");
+                try {
+                    Printing printing = new Printing(appNumberIn + "_APPOINTMENT");
+                }catch (PrintException pe){
+
+                }
             } catch (IOException io) {
                 System.out.println(io);
             }

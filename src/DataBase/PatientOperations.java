@@ -29,7 +29,7 @@ public class PatientOperations {
             "patientFName, patientLName,patientAddress " +
                     ", PatientDOB ,PatientGender," +
                     "occupation,PatientEmail," +
-                    "patientPhone,AppID "+
+                    "patientPhone,AppID,checkedIn "+
                     "FROM Patient";
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
@@ -161,6 +161,36 @@ public class PatientOperations {
             System.out.println(se);
         }
     }
+
+    public void updatePatientCheckIn(int appNumber, String checkedIn)
+    {
+        try {
+            String sql1 = "UPDATE Patient SET checkedIn= '" + checkedIn +"'" +
+                    "WHERE AppID=" +appNumber;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql1);
+            JOptionPane.showMessageDialog(null, "Patient Checked In");
+        } catch (Exception se) {
+            System.out.println(se);
+        }
+    }
+
+    public void updatePatientCheckInByNumber( int patientNumber, String checkedIn)
+    {
+        try {
+            String sql1 = "UPDATE Patient SET checkedIn= '" + checkedIn +"'" +
+                    "where patient_Number=" +patientNumber;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql1);
+            JOptionPane.showMessageDialog(null, "Patient "+patientNumber+" is "+checkedIn);
+        } catch (Exception se) {
+            System.out.println(se);
+        }
+    }
+
+
+
+
     public void updatePatientMedical(int patientNumber,String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment, String newAllergies )
     {
         try {

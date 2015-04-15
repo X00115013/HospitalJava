@@ -117,10 +117,10 @@ public class ProcessReferrals {
                 }
                 else{
                 for (int j = 0; j < pRecList.size(); j++) {
-                    System.out.println("\n\n\t" + patientFName + "\t" + pRecList.get(j).getPatientFName());
                     if (patientFName.equalsIgnoreCase(pRecList.get(j).getPatientFName())) {
                         pNum=pRecList.get(j).getPatientNumber();
                         test = true;
+                        j=pRecList.size()+1;
                     }
                 }
                     if(test) {
@@ -151,7 +151,7 @@ public class ProcessReferrals {
         conList.addAll(consultants.getConsultants());
         for (int j = 0; j < conList.size(); j++) {
             if (consultantRequired.equals(conList.get(j).getConSpeciality())) {
-                catcher = conList.get(j).getConName();;
+                catcher = conList.get(j).getConName();
             }
         }
         Appointment appointment=new Appointment(reasonForVisit,medicalRequired,catcher,patientNumIn);
@@ -170,7 +170,7 @@ public class ProcessReferrals {
         conList.addAll(consultants.getConsultants());
         for (int j = 0; j < conList.size(); j++) {
             if (consultantRequired.equals(conList.get(j).getConSpeciality())) {
-                catcher = conList.get(j).getConName();;
+                catcher = conList.get(j).getConName();
             }
         }
         Appointment appointment=new Appointment(reasonForVisit,medicalRequired,catcher,patientNumber);
