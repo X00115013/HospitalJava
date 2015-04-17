@@ -1,6 +1,9 @@
 package Model;
 import DataBase.*;
 
+import java.lang.reflect.Array;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Model.*;
@@ -11,18 +14,24 @@ import Model.*;
 public class Bill {
     private final double VAT = 0.27;
     private final double FLAT_CHARGE = 150.00;
-    private String type;
+    private String type,oldBill,datePaid;
     private double equipCost,medCost=0,cost, totalBeforeVAT=0.00,totalAfterVAT=0.00,totalVAT=0.00;
     private int paid = 0, typeH=0,patientNumberIn;
     private ArrayList<Equipment> equipment = new ArrayList<Equipment>();
     private ArrayList<Medicine> medicine = new ArrayList<Medicine>();
     private ArrayList<Prescription>presList=new ArrayList<>();
     private ArrayList<EquipmentUsed>eqUsedList=new ArrayList<>();
+    private ArrayList<Bill>bills=new ArrayList<>();
     private Prescription prescription;
     private EquipmentUsed equipmentUsed;
     private Equipment e;
     private Medicine m;
+    private ResultSet rset;
+    private StockOperations so;
 
+    public Bill(){
+
+    }
 
     public Bill(int patientNumIn){
         patientNumberIn=patientNumIn;
@@ -30,6 +39,35 @@ public class Bill {
         totalBeforeVAT=calcMedCost()+calcEquipCost()+FLAT_CHARGE;
         totalVAT=totalBeforeVAT*VAT;
         totalAfterVAT=totalBeforeVAT+totalVAT;
+    }
+
+
+    public Bill(String oldBillIn,String datePaidIn,int patientNumIn){
+        oldBill=oldBillIn;
+        datePaid=datePaidIn;
+        patientNumberIn=patientNumIn;
+    }
+
+
+    public void getOldBill() {
+        try {
+            bills.removeAll(bills);
+            so = new StockOperations();
+            rset = so.getBill();
+            while (rset.next()) {
+                bills.add(new Bill(rset.getString(2), rset.getString(3), rset.getInt(4)));
+            }
+            so.stockOperationsClose();
+        } catch (SQLException e1) {
+            System.out.println(e1);
+        }
+    }
+
+    public void storeBill(int patientNumIn,String billIn){
+        so=new StockOperations();
+        so.storeBill(patientNumIn,billIn,Prescription.getCurrentTimeStamp());
+        so.stockOperationsClose();
+
     }
 
     public double calcEquipCost(){
@@ -84,6 +122,50 @@ public class Bill {
 
     public double getTotalVAT() {
         return totalVAT;
+    }
+
+    public int getPatientNumberIn() {
+        return patientNumberIn;
+    }
+
+    public int getPaid() {
+        return paid;
+    }
+
+    public String getDatePaid() {
+        return datePaid;
+    }
+
+    public String getOld() {
+        return oldBill;
+    }
+
+    public double getFLAT_CHARGE() {
+        return FLAT_CHARGE;
+    }
+
+    public double getVAT() {
+        return VAT;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public double getEquipCost() {
+        return equipCost;
+    }
+
+    public double getMedCost() {
+        return medCost;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public int getTypeH() {
+        return typeH;
     }
 }
 

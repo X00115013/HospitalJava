@@ -202,8 +202,14 @@ public class CheckInGUI extends JFrame implements ActionListener
                     }
                 }
                 if (test == true || test2 == true) {
-                    CheckIn checkIn=new CheckIn(choice,1);
-                    f.setVisible(false);
+                    for (int i = 0; i < pList.size(); i++) {
+                        if((pList.get(i).getCheckedIn().equals("Checked IN")|| pList.get(i).getCheckedIn().equals("Medically Checked OUT"))&&pList.get(i).getAppID()==choice){
+                            JOptionPane.showMessageDialog(null, "Patient is already Checked-IN");
+                        }else {
+                            CheckIn checkIn = new CheckIn(choice, 1);
+                            f.setVisible(false);
+                        }
+                    }
                 }
             }
         }

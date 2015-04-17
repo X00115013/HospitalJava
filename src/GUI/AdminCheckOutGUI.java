@@ -142,7 +142,7 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Patient " + patientNumberIn + " is not Medically Checked Out!!!!");
                     }
             }else{
-                JOptionPane.showMessageDialog(null, "The Bill must be paid first");
+                JOptionPane.showMessageDialog(null, "Check-OUT must be selected to complete check-OUT");
             }
         } else if (e.getSource().equals(checkOut)) {
             PaymentGUI paymentGUI = new PaymentGUI(patientNumberIn);

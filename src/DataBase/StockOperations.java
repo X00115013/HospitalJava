@@ -1,5 +1,7 @@
 package DataBase;
 
+import Model.Prescription;
+
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -72,6 +74,70 @@ public class StockOperations {
         }
     }
 
+    public ResultSet getBill() {
+        try {
+            String queryString = "SELECT * FROM Bill";
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rset;
+
+    }
+
+    public void storeBill(int patientNumIn,String oldBill, String dateIn) {
+        try {
+            String sqlQuery = "INSERT INTO Bill(bill_Number ,bill ,datePaid, patient_Num NUMBER ) values(bill_seq.nextVal,?,?,?)";
+            pstmt = conn.prepareStatement(sqlQuery);
+            pstmt.setString(1, oldBill);
+            pstmt.setString(2,dateIn);
+            pstmt.setInt(3,patientNumIn);
+            pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Patient "+patientNumIn+"'s Bill has been Paid");
+        } catch (Exception se) {
+            System.out.println(se);
+        }
+    }
+
+    public void updateAccounts(int accountID,double total)
+    {
+        try {
+            String med = "UPDATE Accounts SET runningTotal= runningTotal + " +total +" where accountID=" +accountID;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(med);
+        } catch (Exception se) {
+            System.out.println(se);
+        }
+    }
+
+    public ResultSet getAccounts() {
+        try {
+            String queryString = "SELECT * FROM Accounts";
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rset;
+
+    }
+
+
+    public void storeAccounts(double medDeposit, double equipDeposit, int patientNumIn) {
+        try {
+            String sqlQuery = "INSERT INTO Accounts(accountID, medDeposit, equipDeposit ,dateIn , patient_Num ) values(account_seq.nextVal,?,?,?,?,?)";
+            pstmt = conn.prepareStatement(sqlQuery);
+            pstmt.setDouble(1, medDeposit);
+            pstmt.setDouble(2, equipDeposit);
+            pstmt.setString(3, Prescription.getCurrentTimeStamp());
+            pstmt.setInt(4, patientNumIn);
+            pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Hospital Accounts Updated");
+        } catch (Exception se) {
+            System.out.println(se);
+        }
+    }
 
     public ResultSet getEquipment(){
         try {

@@ -72,12 +72,18 @@ public class CreateTables {
             } catch (SQLException ex) {
 
             }
-//            try {
-//                stmt.execute("DROP TABLE Payment");
-//                System.out.println("Payment Table dropped");
-//            } catch (SQLException ex) {
-//                // The table doesn't exist
-//            } // PAYMENT END
+            try{
+                stmt.execute("DROP SEQUENCE bill_seq");
+                System.out.println("Bill Sequence dropped.");
+            }catch (SQLException ex) {
+                // If in here then the Sequence did not exist
+            }
+            try {
+                stmt.execute("DROP TABLE Bill");
+                System.out.println("Bill Table dropped");
+            } catch (SQLException ex) {
+                // The table doesn't exist
+            } // PAYMENT END
 
             try{
                 stmt.execute("DROP SEQUENCE machine_seq");
@@ -174,7 +180,12 @@ public class CreateTables {
                 // The table doesn't exist
             }
 
-
+            try {
+                stmt.execute("DROP TABLE Accounts");
+                System.out.println("Accounts Table dropped");
+            } catch (SQLException ex) {
+                // The table doesn't exist
+            }
 
 
             // ADMIN Sequence & Table START
@@ -227,6 +238,12 @@ public class CreateTables {
             } catch (SQLException ex) {
                 // The table doesn't exist
             } // PATIENT END
+
+            try {
+                stmt.execute("DROP SEQUENCE account_seq");
+                System.out.println("Accounts Sequence dropped.");
+            } catch (SQLException ex) {
+            }
 
 
             // APPOINTMENT Sequence & Table START
@@ -739,16 +756,20 @@ public class CreateTables {
         }
 
 
-//        try {
-//            //PAYMENT  START creating table
-//            System.out.println("Creating Payment");
-//            String createPayDetails = "CREATE TABLE Payment (payment_Number NUMBER PRIMARY KEY,  NUMBER REFERENCES HealthInsurance(Policy_number))";
-//            pstmt = conn.prepareStatement(createPayDetails);
-//            pstmt.executeUpdate(createPayDetails);
-//        } catch (SQLException e) {
-//            System.out.print("SQL Exception " + e);
-//            System.exit(1);
-//        }
+        try {
+            //PAYMENT  START creating table
+            System.out.println("Creating Bill");
+            String createPayDetails = "CREATE TABLE Bill (bill_Number NUMBER PRIMARY KEY,bill VARCHAR2(255),datePaid VARCHAR2(60), patient_Num NUMBER )";
+            pstmt = conn.prepareStatement(createPayDetails);
+            pstmt.executeUpdate(createPayDetails);
+            // creating Sequence
+            createPayDetails = " CREATE SEQUENCE bill_seq increment by 1 start with 1";
+            pstmt = conn.prepareStatement(createPayDetails);
+            pstmt.executeUpdate(createPayDetails);
+        } catch (SQLException e) {
+            System.out.print("Bill SQL Exception " + e);
+            System.exit(1);
+        }
 
 //        try {
 //            //TIME TABLE START creating table
@@ -778,21 +799,21 @@ public class CreateTables {
             System.out.print("Bloody timetable SQL Exception " + e);
             System.exit(1);
         }
-//
-//        try {
-//            //TIME TABLE START creating table
-//            System.out.println("Creating XRayTimeTable");
-//            String create = "CREATE TABLE XRayTimeTable(xRay_ID  NUMBER PRIMARY KEY, time NUMBER, taken VARCHAR2(10),con_Name VARCHAR2(50), AppID NUMBER REFERENCES Appointment(AppID))";
-//            pstmt = conn.prepareStatement(create);
-//            pstmt.executeUpdate(create);
-//            // creating Sequence
-//            create = " CREATE SEQUENCE xRay_seq increment by 1 start with 1";
-//            pstmt = conn.prepareStatement(create);
-//            pstmt.executeUpdate(create);
-//        } catch (SQLException e) {
-//            System.out.print("SQL Exception " + e);
-//            System.exit(1);
-//        }
+
+        try {
+            //creating table
+            System.out.println("Creating Hospital Account");
+            String create = "CREATE TABLE Accounts(accountID  NUMBER PRIMARY KEY, medDeposit NUMBER, equipDeposit NUMBER ,runningTotal NUMBER, dateIn VARCHAR2(60),patient_Num NUMBER)";
+            pstmt = conn.prepareStatement(create);
+            pstmt.executeUpdate(create);
+            // creating Sequence
+            create = " CREATE SEQUENCE account_seq increment by 1 start with 1";
+            pstmt = conn.prepareStatement(create);
+            pstmt.executeUpdate(create);
+        } catch (SQLException e) {
+            System.out.print("SQL Exception " + e);
+            System.exit(1);
+        }
 //
 //        try {
 //            //TIME TABLE START creating table
