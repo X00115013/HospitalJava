@@ -210,8 +210,6 @@ public class PatientOperations {
         try {
             archive(n,reason);
             String sql1 = "UPDATE Patient SET " +
-                    "patientFName= 'Archived'," +
-                    "patientLName= 'Archived'," +
                     "patientAddress= 'Archived'," +
                     "patientPhone= 'Archived'," +
                     "patientEmail= 'Archived'," +
@@ -222,7 +220,6 @@ public class PatientOperations {
                     "diagnoses= 'Archived'," +
                     "allergies= 'Archived'," +
                     "Recommendation ='Archived'," +
-                    "patientDOB ='Archive',"+
                     "patientGender= 'Archive'"+
                     "where patient_Number=" +n;
             stmt = conn.createStatement();

@@ -49,11 +49,11 @@ public class Bill {
     }
 
 
-    public void getOldBill() {
+    public void getOldBill(int patientNumberIn) {
         try {
             bills.removeAll(bills);
             so = new StockOperations();
-            rset = so.getBill();
+            rset = so.getBill(patientNumberIn);
             while (rset.next()) {
                 bills.add(new Bill(rset.getString(2), rset.getString(3), rset.getInt(4)));
             }

@@ -1,6 +1,7 @@
 package GUI;
 
 import Model.CheckIn;
+import Model.PatientRecord;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -8,6 +9,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Created by Thomas Murray on 20/03/2015.
@@ -20,6 +22,8 @@ public class MedCheckOutGUI extends JFrame implements ActionListener
     JTextArea additionalInformation;
     JRadioButton checkOutRadio;
     private int patientNumberIn;
+    private PatientRecord patientRecord;
+    private ArrayList<PatientRecord>pList=new ArrayList<>();
 
     JFrame f;
 
@@ -130,9 +134,15 @@ public class MedCheckOutGUI extends JFrame implements ActionListener
         else if (e.getSource().equals(confirm))
         {
             if(checkOutRadio.isSelected()) {
-                CheckIn.checkInStatic = false;
-                CheckIn checkIn = new CheckIn(patientNumberIn, 2);
-                f.setVisible(false);
+                patientRecord=new PatientRecord();
+                pList.addAll(patientRecord.getPatientList());
+                for (int i = 0; i < pList.size(); i++) {
+                    if (pList.get(i).getPatientNumber() == patientNumberIn ) {
+                        CheckIn checkIn = new CheckIn(patientNumberIn, 2);
+                        f.setVisible(false);
+                    }
+                }
+
             }else{
                 JOptionPane.showMessageDialog(null, "Patient Discharge must be selected!!!");
             }

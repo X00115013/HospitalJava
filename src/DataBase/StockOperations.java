@@ -74,9 +74,9 @@ public class StockOperations {
         }
     }
 
-    public ResultSet getBill() {
+    public ResultSet getBill(int patient_Num) {
         try {
-            String queryString = "SELECT * FROM Bill";
+            String queryString = "SELECT * FROM Bill WHERE patient_Num= "+patient_Num;
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
         } catch (Exception e) {
@@ -88,7 +88,7 @@ public class StockOperations {
 
     public void storeBill(int patientNumIn,String oldBill, String dateIn) {
         try {
-            String sqlQuery = "INSERT INTO Bill(bill_Number ,bill ,datePaid, patient_Num NUMBER ) values(bill_seq.nextVal,?,?,?)";
+            String sqlQuery = "INSERT INTO Bill(bill_Number ,bill ,datePaid, patient_Num ) values(bill_seq.nextVal,?,?,?)";
             pstmt = conn.prepareStatement(sqlQuery);
             pstmt.setString(1, oldBill);
             pstmt.setString(2,dateIn);
@@ -96,7 +96,7 @@ public class StockOperations {
             pstmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Patient "+patientNumIn+"'s Bill has been Paid");
         } catch (Exception se) {
-            System.out.println(se);
+            System.out.println("Error is here in bill "+se);
         }
     }
 

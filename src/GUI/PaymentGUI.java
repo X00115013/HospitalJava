@@ -219,6 +219,8 @@ public class PaymentGUI extends JFrame implements ActionListener
                 EquipmentUsed equipmentUsed1=new EquipmentUsed();
                 equipmentUsed1.updateEquipPayment(patientNumberIn);
                 JOptionPane.showMessageDialog(null, "Payment has gone through");
+                Bill bill1=new Bill();
+                bill1.storeBill(patientNumberIn,record);
                 f.setVisible(false);
             }else{
                 JOptionPane.showMessageDialog(null, "Payment has to be Validated First");

@@ -124,7 +124,6 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
             f.setVisible(false);
-            CheckIn.checkInStatic=true;
         } else if (e.getSource().equals(confirm)) {
             boolean test=false;
             pRecord.removeAll(pRecord);

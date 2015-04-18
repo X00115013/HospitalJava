@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * Created by Roland on 04/04/2015.
+ * Created by Thomas Murray on 04/04/2015.
  */
 
 

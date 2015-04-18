@@ -16,7 +16,7 @@ package GUI;
     import java.util.InputMismatchException;
 
 /**
-     * Created by Roland on 04/04/2015.
+     * Created by Thomas Murray on 04/04/2015.
      */
 
 

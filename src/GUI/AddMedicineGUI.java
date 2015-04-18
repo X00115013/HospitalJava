@@ -184,7 +184,7 @@ package GUI;
             if (e.getSource().equals(cancel)) {
                 f.setVisible(false);
             } else if (e.getSource().equals(confirm)) {
-                boolean test = true;
+                boolean test = true,test2=true;
                 int convert = 0;
                 double convert2 = 0.0;
                 while (test == true) {
@@ -205,10 +205,26 @@ package GUI;
                         } else {
                             convert = Integer.parseInt(stockText.getText());
                             convert2 = Double.parseDouble(medPriceText.getText());
-                            medicine = new Medicine(medNameText.getText(), convert, convert2);
-                            medNameText.setText("");
-                            medPriceText.setText("");
-                            test = false;
+                            for (int i = 0; i <medList.size() ; i++) {
+                                if (medNameText.getText().equalsIgnoreCase(medList.get(i).getMedName())) {
+                                    medicine = new Medicine();
+                                    medicine.updateStock(medList.get(i).getMedId(),convert );
+                                    JOptionPane.showMessageDialog(null,medList.get(i).getMedName()+" has Been Updated");
+                                    medNameText.setText("");
+                                    medNameText.setEditable(true);
+                                    medPriceText.setText("");
+                                    stockText.setText("");
+                                    test2=false;
+                                    test=false;
+                                }
+                            }
+                            if(test2==true) {
+                                medicine = new Medicine(medNameText.getText(), convert, convert2);
+                                medNameText.setText("");
+                                medPriceText.setText("");
+                                stockText.setText("");
+                                test = false;
+                            }
                         }
                     } catch (NumberFormatException nf) {
                         JOptionPane.showMessageDialog(null, "Price and Amount must be of Number Format");
@@ -223,11 +239,12 @@ package GUI;
 
             } else if (e.getSource().equals(delete)) {
                 boolean deletion = true;
-                while (deletion) {
+
                     String input = JOptionPane.showInputDialog("Please input the Medicine ID to delete");
                     Medicine medicine1 = new Medicine();
                     medList.removeAll(medList);
                     medList.addAll(medicine1.getMedicines());
+                while (deletion) {
                     try {
                         for (Medicine aMedList : medList) {
                             if (Integer.parseInt(input) == aMedList.getMedId()) {
@@ -252,8 +269,37 @@ package GUI;
                 }
 
                 }else if(e.getSource().equals(update)){
+                boolean deletion = true;
+                String input = JOptionPane.showInputDialog("Please input the Medicine ID to Update");
+                Medicine medicine1 = new Medicine();
+                medList.removeAll(medList);
+                medList.addAll(medicine1.getMedicines());
+                while (deletion) {
+                try {
+                    for (int i = 0; i < medList.size(); i++) {
+                        if (Integer.parseInt(input) == medList.get(i).getMedId()) {
+                            medNameText.setText(medList.get(i).getMedName());
+                            medNameText.setEditable(false);
+                            medPriceText.setText(Double.toString(medList.get(i).getPrice()));
+                            stockText.setText(Integer.toString(medList.get(i).getStockLevel()));
+                            deletion = false;
+                        }
+                    }
+                    if (deletion == true) {
+                        JOptionPane.showMessageDialog(null, "Medicine does not Exist");
 
-
+                    }
+                } catch (NumberFormatException nf) {
+                    try {
+                        if (!input.equals("")) {
+                            JOptionPane.showMessageDialog(null, "Medicine ID must be Numeric");
+                            deletion = false;
+                        }
+                    } catch (NullPointerException np) {
+                        deletion=false;
+                    }
+                }
+            }
             }
             }
         }
