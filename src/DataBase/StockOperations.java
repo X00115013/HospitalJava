@@ -100,10 +100,11 @@ public class StockOperations {
         }
     }
 
-    public void updateAccounts(int accountID,double total)
+    public void updateAccounts(double total)
     {
         try {
-            String med = "UPDATE Accounts SET runningTotal= runningTotal + " +total +" where accountID=" +accountID;
+            String med = "UPDATE Accounts SET runningTotal = runningTotal + " +total +" where accountID =" +getAccountCurVal();
+            System.out.println("UPDATE Accounts SET runningTotal = runningTotal + " +total +" where accountID =" +getAccountCurVal());
             stmt = conn.createStatement();
             stmt.executeUpdate(med);
         } catch (Exception se) {
@@ -122,11 +123,27 @@ public class StockOperations {
         return rset;
 
     }
+    public int getAccountCurVal() {
+        int accMax=0;
+        try {
+            String queryString = "SELECT max(accountID) FROM Accounts";
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+            while(rset.next()) {
+                accMax = rset.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("Error in get Account CurVal "+e);
+        }
+        System.out.println("get Account Number curVla "+accMax);
+        return accMax;
+
+    }
 
 
     public void storeAccounts(double medDeposit, double equipDeposit, int patientNumIn) {
         try {
-            String sqlQuery = "INSERT INTO Accounts(accountID, medDeposit, equipDeposit ,dateIn , patient_Num ) values(account_seq.nextVal,?,?,?,?,?)";
+            String sqlQuery = "INSERT INTO Accounts(accountID, medDeposit, equipDeposit ,dateIn , patient_Num ) values(account_seq.nextVal,?,?,?,?)";
             pstmt = conn.prepareStatement(sqlQuery);
             pstmt.setDouble(1, medDeposit);
             pstmt.setDouble(2, equipDeposit);

@@ -34,11 +34,13 @@ public class Bill {
     }
 
     public Bill(int patientNumIn){
+//        so=new StockOperations();
         patientNumberIn=patientNumIn;
         arrays();
         totalBeforeVAT=calcMedCost()+calcEquipCost()+FLAT_CHARGE;
         totalVAT=totalBeforeVAT*VAT;
         totalAfterVAT=totalBeforeVAT+totalVAT;
+
     }
 
 

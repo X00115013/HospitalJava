@@ -1,6 +1,7 @@
 
 package GUI;
 
+        import DataBase.StockOperations;
         import Model.*;
 
         import javax.print.PrintException;
@@ -41,6 +42,7 @@ public class PaymentGUI extends JFrame implements ActionListener
     private Bill bill;
     private JFrame f;
     static boolean valid;
+    private StockOperations so;
 
 
     public PaymentGUI(int patientNumIn)
@@ -169,24 +171,27 @@ public class PaymentGUI extends JFrame implements ActionListener
                         "\n\n   List of Prescriptions this Visit \n\n";
                 for (int j = 0; j <presList.size() ; j++) {
                     if(patientNumberIn==presList.get(j).getpNum()&& presList.get(j).getPaid()==1) {
-                        record += record = "\n   Drug type:\t" + presList.get(j).getMedName() + "\t  Drug Amount:\t" + presList.get(j).getDose()*10+" mg\tTotal:  "+bill.calcMedCost()+"\n";
+                        record += record = "\n   Drug type:\t" + presList.get(j).getMedName() + "\t  Drug Amount:\t" + presList.get(j).getDose()*10+" mg\n";
                     }
 
                 }
+                record+=record=	"\n   Total Medicine Cost:  €"+bill.calcMedCost()+"\n";
                 record+=record="\n--------------------------------------------------------------------------------------------------------------------\n" +
                         "\n\n   List of Equipment Used this Visit \n\n";
                 for (int k = 0; k <eqUsedList.size() ; k++) {
                     if(patientNumberIn==eqUsedList.get(k).getpNum()&& eqUsedList.get(k).getThisVisit()==1) {
-                        record += record = "\n   Equip type:\t" + eqUsedList.get(k).getEqName() + "\tTotal:  "+bill.calcEquipCost()+"\n";
+                        record += record = "\n   Equip type:\t" + eqUsedList.get(k).getEqName() + "\n";
                     }
 
                 }
+                record+=record= "\n   Total Equipment Cost:  € "+bill.calcEquipCost()+"\n";
+                record+=record= "\n   Standing Daily Charge :  € 150.00\n";
                 record+=record="\n--------------------------------------------------------------------------------------------------------------------\n" +
-                        "\n\n   Total before VAT\t\t"+bill.getTotalBeforeVAT()+"\n";
+                        "\n\n   Total before VAT\t\t€ "+bill.getTotalBeforeVAT()+"\n";
                 record+=record="\n--------------------------------------------------------------------------------------------------------------------\n" +
-                        "\n\n   Total After VAT \t\t"+bill.getTotalAfterVAT()+"\n";
+                        "\n\n   Total After VAT \t\t€ "+bill.getTotalAfterVAT()+"\n";
                 record+=record="\n--------------------------------------------------------------------------------------------------------------------\n" +
-                        "\n\n   Total VAT Paid\t\t"+bill.getTotalVAT()+"\n";
+                        "\n\n   Total VAT Paid\t\t€ "+bill.getTotalVAT()+"\n";
             }
 
         }
@@ -219,6 +224,10 @@ public class PaymentGUI extends JFrame implements ActionListener
                 EquipmentUsed equipmentUsed1=new EquipmentUsed();
                 equipmentUsed1.updateEquipPayment(patientNumberIn);
                 JOptionPane.showMessageDialog(null, "Payment has gone through");
+                so=new StockOperations();
+                so.storeAccounts(bill.calcMedCost(),bill.calcEquipCost(),patientNumberIn);
+                so.updateAccounts(bill.getTotalAfterVAT());
+                so.stockOperationsClose();
                 Bill bill1=new Bill();
                 bill1.storeBill(patientNumberIn,record);
                 f.setVisible(false);
