@@ -828,7 +828,6 @@ public class CreateTables {
             System.exit(1);
         }
 
-
         try {
             //Creating table
             System.out.println("Creating Old MedicalRecords");

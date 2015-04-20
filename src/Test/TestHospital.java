@@ -41,6 +41,7 @@ public class TestHospital {
 //        AddConsultantGUI addConsultantGUI=new AddConsultantGUI();
 //        MedicalCardGUI medicalCardGUI=new MedicalCardGUI(1003);
 //        ChartGUI chartGUI=new ChartGUI(1);
+//        OldBills oldBills=new OldBills();
 
 
 

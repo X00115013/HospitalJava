@@ -219,12 +219,14 @@ public class PaymentGUI extends JFrame implements ActionListener
             f.setVisible(false);
         } else if (e.getSource().equals(confirm)){
             if(valid){
+                so=new StockOperations();
+                MedPatientRecGUI medPatientRecGUI=new MedPatientRecGUI(patientNumberIn);
+                medPatientRecGUI.setVisible(false);
+                so.storeOldMedRec(patientNumberIn, medPatientRecGUI.setTextArea(), Prescription.getCurrentTimeStamp());
                 Prescription prescription1=new Prescription();
                 prescription1.updatePaid(patientNumberIn);
                 EquipmentUsed equipmentUsed1=new EquipmentUsed();
                 equipmentUsed1.updateEquipPayment(patientNumberIn);
-                JOptionPane.showMessageDialog(null, "Payment has gone through");
-                so=new StockOperations();
                 so.storeAccounts(bill.calcMedCost(),bill.calcEquipCost(),patientNumberIn);
                 so.updateAccounts(bill.getTotalAfterVAT());
                 so.stockOperationsClose();

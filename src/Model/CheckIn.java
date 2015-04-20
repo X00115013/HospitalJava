@@ -28,6 +28,7 @@ public class CheckIn {
         }else if(choice==3){
             po.updatePatientCheckInByNumber(appNumber, "Checked OUT");
             po.patientOperationsClose();
+
         }
 
     }

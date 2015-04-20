@@ -112,6 +112,20 @@ public class StockOperations {
         }
     }
 
+
+    public ResultSet getAccounts(int patientNum) {
+        try {
+            String queryString = "SELECT * FROM Accounts WHERE patient_Num = "+patientNum;
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rset;
+
+    }
+
+
     public ResultSet getAccounts() {
         try {
             String queryString = "SELECT * FROM Accounts";
@@ -175,6 +189,39 @@ public class StockOperations {
             System.out.println(se);
         }
     }
+
+    String create = "CREATE TABLE OldMedicalRecords(oldMed_ID  NUMBER PRIMARY KEY, dateIn VARCHAR2(60),old_Record VARCHAR2(4000),patient_Num NUMBER)";
+
+    public ResultSet getOldMecRec(int patient_Num) {
+        try {
+            String queryString = "SELECT * FROM OldMedicalRecords WHERE patient_Num= "+patient_Num;
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return rset;
+
+    }
+
+    public void storeOldMedRec(int patientNumIn,String oldMed, String dateIn) {
+        try {
+            String sqlQuery = "INSERT INTO OldMedicalRecords(oldMed_ID ,dateIn,old_Record , patient_Num ) values(oldMed_seq.nextVal,?,?,?)";
+            pstmt = conn.prepareStatement(sqlQuery);
+            pstmt.setString(1,dateIn);
+            pstmt.setString(2, oldMed);
+            pstmt.setInt(3,patientNumIn);
+            pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Patient "+patientNumIn+"'s Medical Record has been Stored");
+        } catch (Exception se) {
+            System.out.println("Error is here in old med records "+se);
+        }
+    }
+
+
+
+
+
 
     public ResultSet getEquipment(){
         try {

@@ -20,7 +20,7 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 public class HomeScreen extends JFrame implements ActionListener {
 
 
-    private JButton appointments,checkIn,prescriptions,adminRecord,charts,medRecord,timeTables,equipment,medicine,payment,consultant,patientCharts,processR;
+    private JButton appointments,checkIn,prescriptions,adminRecord,charts,medRecord,timeTables,equipment,medicine,payment,consultant,patientCharts,processR,oldBills,oldMed,accounts;
     private JButton calendar;
     private JLabel pageTitle,pageTitle2;
     private JLabel pageCenter,pageCenter2;
@@ -187,6 +187,19 @@ public class HomeScreen extends JFrame implements ActionListener {
         charts.addActionListener(this);
         charts.setPreferredSize(new Dimension(200, 50));
         buttons2.add(charts, getConstraints(3, 0, 1, 1, GridBagConstraints.SOUTH));
+        oldBills = new JButton("Old Bills");
+        oldBills.addActionListener(this);
+        oldBills.setPreferredSize(new Dimension(200, 50));
+        buttons2.add(oldBills, getConstraints(0, 1, 1, 1, GridBagConstraints.SOUTH));
+        oldMed = new JButton("Old Med Records");
+        oldMed.addActionListener(this);
+        oldMed.setPreferredSize(new Dimension(200, 50));
+        buttons2.add(oldMed, getConstraints(1, 1, 1, 1, GridBagConstraints.SOUTH));
+        accounts = new JButton("Hospital Accounts");
+        accounts.addActionListener(this);
+        accounts.setPreferredSize(new Dimension(200, 50));
+        buttons2.add(accounts, getConstraints(2, 1, 1, 1, GridBagConstraints.SOUTH));
+
 
         secondPage.add(buttons2, getConstraints(1, 1, 0, 1, GridBagConstraints.SOUTH));
         tabbedPane.add("Administration Section",secondPage);
@@ -250,6 +263,16 @@ public class HomeScreen extends JFrame implements ActionListener {
 
         } else if (e.getSource().equals(charts)) {
             ChartGUI chartGUI=new ChartGUI();
+
+        }
+        else if (e.getSource().equals(oldBills)) {
+           OldBills oldBills=new OldBills();
+
+        }else if (e.getSource().equals(oldMed)) {
+           OldMedRecords oldMedRecords=new OldMedRecords();
+
+        }else if (e.getSource().equals(accounts)) {
+           AccountsGUI accountsGUI=new AccountsGUI();
 
         }
 
