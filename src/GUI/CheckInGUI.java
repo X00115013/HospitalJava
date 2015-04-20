@@ -216,6 +216,7 @@ public class CheckInGUI extends JFrame implements ActionListener
         else if (e.getSource().equals(checkOut))
         {
         SecurityGUI securityGUI=new SecurityGUI(10);
+            f.setVisible(false);
         }
     }
 }

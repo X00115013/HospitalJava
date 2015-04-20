@@ -1,8 +1,6 @@
 package GUI;
 
-import Model.Bill;
-import Model.CheckIn;
-import Model.PatientRecord;
+import Model.*;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -16,14 +14,19 @@ import java.util.ArrayList;
  * Created by Thomas Murray on 20/03/2015.
  */
 public class AdminCheckOutGUI extends JFrame implements ActionListener {
-    JButton confirm, checkOut, cancel;
+    JButton confirm, bill,cancel;
     JLabel patientNum, label5;
     JTextField patientText;
     JTextArea additionalInformation;
     JRadioButton checkOutRadio;
     private int patientNumberIn;
     private PatientRecord patientRecord;
-    private ArrayList<PatientRecord>pRecord=new ArrayList<>();
+    private ArrayList<PatientRecord> pRecord = new ArrayList<>();
+    private Prescription prescriptions;
+    private EquipmentUsed equipUsed;
+    private ArrayList<Prescription>presList=new ArrayList<>();
+    private ArrayList<EquipmentUsed>eUseList=new ArrayList<>();
+
 
     JFrame f;
 
@@ -91,9 +94,9 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener {
         dobs.add(cancel, getConstraints(1, 3, 1, 1, GridBagConstraints.WEST));
 
         // Cancel button
-        checkOut = new JButton("Generate Bill");
-        checkOut.addActionListener(this);
-        dobs.add(checkOut, getConstraints(2, 3, 1, 1, GridBagConstraints.WEST));
+        bill = new JButton("Generate Bill");
+        bill.addActionListener(this);
+        dobs.add(bill, getConstraints(2, 3, 1, 1, GridBagConstraints.WEST));
 
 
         checkOutRadio = new JRadioButton("Check-Out");
@@ -125,30 +128,54 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener {
         if (e.getSource().equals(cancel)) {
             f.setVisible(false);
         } else if (e.getSource().equals(confirm)) {
-            boolean test=false;
+            boolean test = false;
             pRecord.removeAll(pRecord);
-            patientRecord=new PatientRecord();
+            patientRecord = new PatientRecord();
             pRecord.addAll(patientRecord.getPatientList());
             if (checkOutRadio.isSelected()) {
                 for (int i = 0; i < pRecord.size(); i++) {
                     if (pRecord.get(i).getPatientNumber() == patientNumberIn && pRecord.get(i).getCheckedIn().equals("Medically Checked OUT")) {
-                        test=true;
+                        test = true;
                     }
                 }
-                if(test==true) {
+                if (test == true) {
                     CheckIn checkIn = new CheckIn(patientNumberIn, 3);
-                }else{
-                        JOptionPane.showMessageDialog(null, "Patient " + patientNumberIn + " is not Medically Checked Out!!!!");
-                    }
-            }else{
+                } else {
+                    JOptionPane.showMessageDialog(null, "Patient " + patientNumberIn + " is not Medically Checked Out!!!!");
+                }
+            } else {
                 JOptionPane.showMessageDialog(null, "Check-OUT must be selected to complete check-OUT");
             }
-        } else if (e.getSource().equals(checkOut)) {
+        } else if (e.getSource().equals(bill)) {
             PaymentGUI paymentGUI = new PaymentGUI(patientNumberIn);
+            f.setVisible(false);
         } else if (e.getSource().equals(checkOutRadio)) {
-            if(checkOutRadio.isSelected()){
-
+            boolean payCheck = false;
+            prescriptions = new Prescription();
+            equipUsed = new EquipmentUsed();
+            presList.removeAll(presList);
+            eUseList.removeAll(eUseList);
+            presList.addAll(prescriptions.getPresList());
+            eUseList.addAll(equipUsed.getUsedListC());
+            for (int i = 0; i < presList.size(); i++) {
+                System.out.println("out Test pres "+presList.get(i).getPaid());
+                if (presList.get(i).getpNum() == patientNumberIn && presList.get(i).getPaid() == 1) {
+                    System.out.println("in Test pres "+presList.get(i).getPaid());
+                    payCheck = true;
+                }
             }
+            for (int i = 0; i < eUseList.size(); i++) {
+                System.out.println("out Test equip "+eUseList.get(i).getThisVisit());
+                if (eUseList.get(i).getpNum() == patientNumberIn && eUseList.get(i).getThisVisit() == 1) {
+                    System.out.println("in Test equip "+eUseList.get(i).getThisVisit());
+                    payCheck = true;
+                }
+            }
+                if(payCheck==true){
+                    JOptionPane.showMessageDialog(null, "Payment must be received before Check Out");
+                    checkOutRadio.setSelected(false);
+                }
         }
     }
 }
+

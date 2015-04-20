@@ -1,7 +1,6 @@
 package GUI;
 
-import Model.CheckIn;
-import Model.PatientRecord;
+import Model.*;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -20,10 +19,14 @@ public class MedCheckOutGUI extends JFrame implements ActionListener
     JLabel patientNum,label5;
     JTextField patientText;
     JTextArea additionalInformation;
+    JComboBox<String>conTextCombo;
     JRadioButton checkOutRadio;
     private int patientNumberIn;
     private PatientRecord patientRecord;
     private ArrayList<PatientRecord>pList=new ArrayList<>();
+    private ArrayList<Consultants>conList=new ArrayList<>();
+    private Consultants consultants;
+    String[] list;
 
     JFrame f;
 
@@ -69,6 +72,12 @@ public class MedCheckOutGUI extends JFrame implements ActionListener
 
         holder.add(topSection);
 
+        consultants=new Consultants();
+        conList.addAll(consultants.getConsultants());
+        list = new String[conList.size()];
+        for (int i = 0; i < conList.size(); i++) {
+            list[i] = conList.get(i).getConName();
+        }
 
         JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
 
@@ -80,12 +89,12 @@ public class MedCheckOutGUI extends JFrame implements ActionListener
         JPanel test =new JPanel(new FlowLayout(FlowLayout.LEFT));
         JPanel dobs = new JPanel(new GridBagLayout());
 
-        patientNum = new JLabel("\tConsultant Number");
+        patientNum = new JLabel("\tConsultant");
         dobs.add(patientNum, getConstraints(0, 2, 1, 1, GridBagConstraints.WEST));
         //text field
-        patientText = new JTextField(7);
-        patientText.setBorder(loweredBorder);
-        dobs.add(patientText, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
+        conTextCombo = new JComboBox<>(list);
+        conTextCombo.setBorder(loweredBorder);
+        dobs.add(conTextCombo, getConstraints(0, 3, 2, 1, GridBagConstraints.WEST));
 
         // Confirm button
         confirm = new JButton("Confirm");

@@ -103,8 +103,8 @@ public class StockOperations {
     public void updateAccounts(double total)
     {
         try {
-            String med = "UPDATE Accounts SET runningTotal = runningTotal + " +total +" where accountID =" +getAccountCurVal();
-            System.out.println("UPDATE Accounts SET runningTotal = runningTotal + " +total +" where accountID =" +getAccountCurVal());
+            String med = "UPDATE Accounts SET runningTotal = " +(getRunningTotal()+total )+" where accountID =" +getAccountCurVal();
+            System.out.println("UPDATE Accounts SET runningTotal =" +(getRunningTotal()+total )+" where accountID =" +getAccountCurVal());
             stmt = conn.createStatement();
             stmt.executeUpdate(med);
         } catch (Exception se) {
@@ -123,6 +123,26 @@ public class StockOperations {
         return rset;
 
     }
+
+    public int getRunningTotal() {
+        int rTotal=0;
+        try {
+            String queryString = "SELECT runningTotal FROM Accounts WHERE accountID =" +(getAccountCurVal()-1);
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+            while(rset.next()) {
+                rTotal = rset.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("Error in get runningTotal "+e);
+        }
+        System.out.println("get Account runningTotal "+rTotal);
+        return rTotal;
+
+    }
+
+
+
     public int getAccountCurVal() {
         int accMax=0;
         try {
