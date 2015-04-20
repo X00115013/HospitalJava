@@ -4,6 +4,7 @@ import DataBase.*;
 import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Model.*;
@@ -28,6 +29,7 @@ public class Bill {
     private Medicine m;
     private ResultSet rset;
     private StockOperations so;
+    public static DecimalFormat df=new DecimalFormat("0.00");
 
     public Bill(){
 

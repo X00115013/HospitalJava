@@ -1,9 +1,6 @@
 package GUI;
 
-import Model.Consultants;
-import Model.Equipment;
-import Model.Medicine;
-import Model.PatientRecord;
+import Model.*;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -159,7 +156,7 @@ import java.util.ArrayList;
                     "___________________________________________________________________________________________________" +
                     "_______________________________\n\n";
             for (int i = 0; i < eqList.size(); i++) {
-                list += list = "\tMachine ID:" + eqList.get(i).getEqId() + "\t\tName: " + eqList.get(i).getEqName() + "\t\tCost: " + eqList.get(i).getPrice() + "\n\n";
+                list += list = "\tMachine ID:" + eqList.get(i).getEqId() + "\t\tName: " + eqList.get(i).getEqName() + "\t\tCost: " + Bill.df.format(eqList.get(i).getPrice()) + "\n\n";
 
             }
             return list;

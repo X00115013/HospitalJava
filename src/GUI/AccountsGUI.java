@@ -1,5 +1,6 @@
 package GUI;
     import DataBase.StockOperations;
+    import Model.Bill;
     import Model.EquipmentUsed;
     import Model.MedicalRecord;
     import Model.Prescription;
@@ -138,7 +139,7 @@ package GUI;
             textAreaString = "\n\tAccount ID\tMedicine\tEquipment\tRunning Total\t\tDate\tPatient Number\n\n";
             try{
                 while(rset.next()){
-                    textAreaString+= "\t"+Integer.toString(rset.getInt(1))+"\t"+Double.toString(rset.getDouble(2))+"\t"+Double.toString(rset.getDouble(3))+"\t"+Double.toString(rset.getDouble(4))+"\t\t"+rset.getString(5)+"\t"+Integer.toString(rset.getInt(6))+"\n";
+                    textAreaString+= "\t"+Integer.toString(rset.getInt(1))+"\t"+Bill.df.format(rset.getDouble(2))+"\t"+Bill.df.format(rset.getDouble(3))+"\t"+Bill.df.format(rset.getDouble(4))+"\t\t"+rset.getString(5)+"\t"+Integer.toString(rset.getInt(6))+"\n";
                 }
             }catch (SQLException sq){
 
@@ -156,10 +157,10 @@ package GUI;
                 String textAreaString="";
                 so=new StockOperations();
                 rset=so.getAccounts(Integer.parseInt(enterNumText.getText()));
-                textAreaString = "\n\tAccount ID\tMedicine\tEquipment\tRunning Total\t\tDate\tPatient Number\n\n";
+                textAreaString = "\n\tAccount ID\tMedicine\tEquipment\tRunning Total\tDate\t\t\tPatient Number\n\n";
                 try{
                     while(rset.next()){
-                        textAreaString+= "\t"+Integer.toString(rset.getInt(1))+"\t"+Double.toString(rset.getDouble(2))+"\t"+Double.toString(rset.getDouble(3))+"\t"+Double.toString(rset.getDouble(4))+"\t\t"+rset.getString(5)+"\t"+Integer.toString(rset.getInt(6))+"\n";
+                        textAreaString+= "\t"+Integer.toString(rset.getInt(1))+"\t"+Bill.df.format(rset.getDouble(2))+"\t"+Bill.df.format(rset.getDouble(3))+"\t"+Bill.df.format(rset.getDouble(4))+"\t"+rset.getString(5)+"\t"+Integer.toString(rset.getInt(6))+"\n";
                     }
                 }catch (SQLException sq){
 

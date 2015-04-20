@@ -175,7 +175,7 @@ public class PaymentGUI extends JFrame implements ActionListener
                     }
 
                 }
-                record+=record=	"\n   Total Medicine Cost:  €"+bill.calcMedCost()+"\n";
+                record+=record=	"\n   Total Medicine Cost:  €"+Bill.df.format(bill.calcMedCost())+"\n";
                 record+=record="\n--------------------------------------------------------------------------------------------------------------------\n" +
                         "\n\n   List of Equipment Used this Visit \n\n";
                 for (int k = 0; k <eqUsedList.size() ; k++) {
@@ -184,14 +184,14 @@ public class PaymentGUI extends JFrame implements ActionListener
                     }
 
                 }
-                record+=record= "\n   Total Equipment Cost:  € "+bill.calcEquipCost()+"\n";
+                record+=record= "\n   Total Equipment Cost:  € "+Bill.df.format(bill.calcEquipCost())+"\n";
                 record+=record= "\n   Standing Daily Charge :  € 150.00\n";
                 record+=record="\n--------------------------------------------------------------------------------------------------------------------\n" +
-                        "\n\n   Total before VAT\t\t€ "+bill.getTotalBeforeVAT()+"\n";
+                        "\n\n   Total before VAT\t\t€ "+Bill.df.format(bill.getTotalBeforeVAT())+"\n";
                 record+=record="\n--------------------------------------------------------------------------------------------------------------------\n" +
-                        "\n\n   Total After VAT \t\t€ "+bill.getTotalAfterVAT()+"\n";
+                        "\n\n   Total After VAT \t\t€ "+Bill.df.format(bill.getTotalAfterVAT())+"\n";
                 record+=record="\n--------------------------------------------------------------------------------------------------------------------\n" +
-                        "\n\n   Total VAT Paid\t\t€ "+bill.getTotalVAT()+"\n";
+                        "\n\n   Total VAT Paid\t\t€ "+Bill.df.format(bill.getTotalVAT())+"\n";
             }
 
         }
