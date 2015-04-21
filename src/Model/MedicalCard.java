@@ -20,6 +20,18 @@ public class MedicalCard {
 
     }
 
+    public MedicalCard(int patientNumIn,int GMSNumber,int PPS,String gender,String validTo, String holderName,int fake) {
+        cd=new AllCardOperations();
+        patientNum=patientNumIn;
+        this.GMSNumber = GMSNumber;
+        this.PPS = PPS;
+        this.gender = gender;
+        this.validTo = validTo;
+        this.holderName = holderName;
+        updateMedCard();
+
+    }
+
     public MedicalCard(int patientNumIn,int GMSNumber,int PPS,String gender,String validTo, String holderName) {
         cd=new AllCardOperations();
         patientNum=patientNumIn;
@@ -56,6 +68,11 @@ public class MedicalCard {
 
     public void addMedCard(){
         cd.addMedCard(patientNum,GMSNumber,PPS,gender,validTo,holderName);
+        cd.allCardOperationsClose();
+    }
+
+    public void updateMedCard(){
+        cd.updateMedCard(patientNum,GMSNumber,PPS,gender,validTo,holderName);
         cd.allCardOperationsClose();
     }
 

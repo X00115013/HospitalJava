@@ -20,6 +20,16 @@ public class HealthInsurance {
 
     }
 
+    public HealthInsurance(int patientNumIn,int polNumIn, String companyNameIn, String polTypeIn, String expDateIn,int fake) {
+        cd = new AllCardOperations();
+        patientNum = patientNumIn;
+        polNum=polNumIn;
+        companyName=companyNameIn;
+        polType=polTypeIn;
+        expDate=expDateIn;
+        updateInsurance();
+
+    }
     public HealthInsurance(int patientNumIn,int polNumIn, String companyNameIn, String polTypeIn, String expDateIn) {
         cd = new AllCardOperations();
         patientNum = patientNumIn;
@@ -58,6 +68,11 @@ public class HealthInsurance {
 
     public void addInsurance() {
         cd.addInsurance(patientNum, polNum, companyName, polType, expDate);
+        cd.allCardOperationsClose();
+    }
+
+    public void updateInsurance() {
+        cd.updateInsurance(patientNum, polNum, companyName, polType, expDate);
         cd.allCardOperationsClose();
     }
 

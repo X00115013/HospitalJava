@@ -203,17 +203,32 @@ public class CreditCardGUI extends JFrame implements ActionListener {
             f.setVisible(false);
 
         } else if (e.getSource().equals(confirm)) {
+            boolean test=false;
+            cList.removeAll(cList);
+            CardDetails cardDetails=new CardDetails();
+            cList.addAll(cardDetails.getCardList());
+            for (int i = 0; i <cList.size() ; i++) {
+                if(cList.get(i).getPatientNumIn()==patientNumber){
+                    test=true;
+                }
+            }
+
             String xComboM=(String)xMonthTextCombo.getSelectedItem();
             String xComboY=(String)xYearTextCombo.getSelectedItem();
             String cardCombo=(String)cardTypeCombo.getSelectedItem();
             int catcher = 0, catcher2 = 0;
+
             if(cardNumText.getText().equals("")||secCode.getText().equals("")||holdersNameText.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Holders Name, Card Number & Security Code are Required Fields");
             }else{
                 try {
                     catcher=Integer.parseInt(cardNumText.getText());
                     catcher2=Integer.parseInt(secCodeText.getText());
-                    CardDetails cardDetails=new CardDetails(patientNumber,catcher,cardCombo,catcher2,holdersNameText.getText(),(xComboM+"-"+xComboY));
+                    if(test==false) {
+                        CardDetails cardDetails2 = new CardDetails(patientNumber, catcher, cardCombo, catcher2, holdersNameText.getText(), (xComboM + "-" + xComboY));
+                    }else{
+                        CardDetails cardDetails2 = new CardDetails(patientNumber, catcher, cardCombo, catcher2, holdersNameText.getText(), (xComboM + "-" + xComboY),1);
+                    }
                     f.setVisible(false);
                 } catch (NumberFormatException nf) {
                     JOptionPane.showMessageDialog(null, "Card Number & Security Code must be Numeric");

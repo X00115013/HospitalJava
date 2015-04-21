@@ -37,7 +37,7 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
     public MedicalCardGUI(int patientNumIn) {
         patientNumber=patientNumIn;
         f = new JFrame();
-        f.setTitle("Health Insurance");
+        f.setTitle("Medical Card");
         f.setLayout(new FlowLayout(FlowLayout.LEFT));
         f.setSize(620, 620);
         f.setResizable(false);
@@ -56,9 +56,9 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
         clock.add(clockD);
 
         JPanel title=new JPanel(new FlowLayout(FlowLayout.CENTER));
-        titleF = new JLabel("Health Insurance");
+        titleF = new JLabel("Medical Card");
         title.add(titleF);
-        titleF.setFont(new Font("Arial", Font.BOLD, 24));
+        titleF.setFont(new Font("Arial", Font.BOLD, 31));
 
         JPanel ID=new JPanel(new FlowLayout(FlowLayout.CENTER));
         //labels
@@ -148,6 +148,11 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
                 xYearTextCombo.setSelectedItem(medCList.get(i).getValidTo().charAt(4) + "" + medCList.get(i).getValidTo().charAt(5) + "" +
                         "" + medCList.get(i).getValidTo().charAt(6) +""+medCList.get(i).getValidTo().charAt(7));
 
+                if(medCList.get(i).getGender().equals("male")){
+                    male.setSelected(true);
+                }else {
+                    female.setSelected(true);
+                }
             }
         }
 
@@ -197,6 +202,16 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
             f.setVisible(false);
 
         } else if (e.getSource().equals(confirm)) {
+            boolean test=false;
+            medCList.removeAll(medCList);
+            medicalCard=new MedicalCard();
+            medCList.addAll(medicalCard.getMedCardList());
+            for (int i = 0; i < medCList.size(); i++) {
+                if(medCList.get(i).getPatientNum()==patientNumber){
+                    test=true;
+                }
+
+            }
             String xComboM=(String)xMonthTextCombo.getSelectedItem();
             String xComboY=(String)xYearTextCombo.getSelectedItem();
             String catcher="";
@@ -212,7 +227,11 @@ public class MedicalCardGUI extends JFrame implements ActionListener {
                 try {
                     intCatcher=Integer.parseInt(gmsNumText.getText());
                     intCatcher2=Integer.parseInt(ppsNumText.getText());
-                    MedicalCard medicalCDAdd = new MedicalCard(patientNumber,intCatcher , intCatcher2, catcher, (xComboM + "-" + xComboY), patientNameText.getText());
+                    if(test==false) {
+                        MedicalCard medicalCDAdd = new MedicalCard(patientNumber, intCatcher, intCatcher2, catcher, (xComboM + "-" + xComboY), patientNameText.getText());
+                    }else{
+                        MedicalCard medicalCDAdd = new MedicalCard(patientNumber, intCatcher, intCatcher2, catcher, (xComboM + "-" + xComboY), patientNameText.getText(),1);
+                    }
                     f.setVisible(false);
                 }catch (NumberFormatException nf){
                     JOptionPane.showMessageDialog(null, "GMS Number & PPS Code must be Numeric");

@@ -21,6 +21,19 @@ public class CardDetails {
 
     }
 
+
+    public CardDetails(int patientNumberIn, int cardNumIn, String cardType, int securityCode, String cardHolder, String expiryDate,int fake) {
+        cd = new AllCardOperations();
+        patientNumIn = patientNumberIn;
+        cardNum = cardNumIn;
+        this.cardHolder = cardHolder;
+        this.cardType = cardType;
+        this.expiryDate = expiryDate;
+        this.securityCode = securityCode;
+        updateCard();
+    }
+
+
     public CardDetails(int patientNumberIn, int cardNumIn, String cardType, int securityCode, String cardHolder, String expiryDate) {
         cd = new AllCardOperations();
         patientNumIn = patientNumberIn;
@@ -63,8 +76,10 @@ public class CardDetails {
     }
 
     public void updateCard() {
-
+        cd.updateCard(patientNumIn, cardNum, cardType, securityCode, cardHolder, expiryDate);
+        cd.allCardOperationsClose();
     }
+
 
     public int getCardId() {
         return cardId;

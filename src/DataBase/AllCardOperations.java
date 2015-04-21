@@ -52,6 +52,23 @@ public class AllCardOperations {
         }
     }
 
+    public void updateCard(int patientNumber,int cardNum, String type, int code,String name, String date  )
+    {
+        try {
+            String sql1 = "UPDATE  CardDetails SET cardNumber= " +cardNum+ "," +
+                    "cardType= '"+type+ "'," +
+                    " SecurityCode= "+code+"," +
+                    " ExpiryDate= '"+date+"'," +
+                    " CardHolder= '"+name+"'" +
+                    " where patient_Num =" +patientNumber;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql1);
+            JOptionPane.showMessageDialog(null, "Your Bank Card Details have been Updated");
+        } catch (Exception se) {
+            System.out.println("The error might be here ac update card "+se);
+        }
+    }
+
 
     public ResultSet getMedCardDetails() {
         try {
@@ -81,6 +98,24 @@ public class AllCardOperations {
         }
     }
 
+    public void updateMedCard(int patientNumber,int GMS, int PPS, String gender, String validTO,String name )
+    {
+        try {
+            String sql1 = "UPDATE MedicalCard SET GMSNumber= "+GMS+"," +
+                    "PPSN= " +PPS+ "," +
+                    "Gender= '"+gender+ "'," +
+                    " ValidTo= '"+validTO+"'," +
+                    " HolderName= '"+name+"'" +
+                    " where patient_Num=" +patientNumber;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql1);
+            JOptionPane.showMessageDialog(null, "Your Medical Card details have been Update");
+        } catch (Exception se) {
+            System.out.println("The error might be here ac update medical card "+se);
+        }
+    }
+
+
     public ResultSet getInsuranceDetails() {
         try {
             String queryString = "SELECT * FROM HealthInsurance";
@@ -106,6 +141,22 @@ public class AllCardOperations {
             JOptionPane.showMessageDialog(null, "Your Insurance Details have been added");
         } catch (Exception se) {
             System.out.println(se);
+        }
+    }
+
+    public void updateInsurance(int patientNumber,int pol_num, String company, String coverType, String expDate)
+    {
+        try {
+            String sql1 = "UPDATE Patient SET Policy_number= "+pol_num+"," +
+                    "Company_name= '" +company+ "'," +
+                    "Coverage_type= '"+coverType+ "'," +
+                    " Expiry_date= '"+expDate+"'" +
+                    " where patient_Num=" +patientNumber;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql1);
+            JOptionPane.showMessageDialog(null, "Your Insurance Details have been Updated");
+        } catch (Exception se) {
+            System.out.println("The error might be here ac update insurance "+se);
         }
     }
 

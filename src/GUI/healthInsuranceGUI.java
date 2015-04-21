@@ -137,7 +137,7 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
         coverageTypeCombo.addActionListener(this);
 
 
-       hList.removeAll(hList);
+        hList.removeAll(hList);
         healthInsurance=new HealthInsurance();
         hList.addAll(healthInsurance.getHealthList());
         for (int i = 0; i < hList.size(); i++) {
@@ -196,7 +196,16 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
             f.setVisible(false);
 
         } else if (e.getSource().equals(confirm)) {
-            boolean test=true;
+            boolean test=true,test2=false;
+            hList.removeAll(hList);
+            healthInsurance=new HealthInsurance();
+            hList.addAll(healthInsurance.getHealthList());
+            for (int i = 0; i < hList.size(); i++) {
+                if(hList.get(i).getPatientNum()==patientNumber){
+                    test2=true;
+                }
+
+            }
             int numFormat=0;
             String polTypeCombo =(String)coverageTypeCombo.getSelectedItem();
             String mCombo=(String)monthCombo.getSelectedItem();
@@ -219,7 +228,11 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
                 while (test==true) {
                     try {
                         numFormat = Integer.parseInt(pNumText.getText());
-                        HealthInsurance healthInsurance = new HealthInsurance(patientNumber, numFormat, companyNameText.getText(), polTypeCombo, (mCombo + "-" + yCombo));
+                        if(test2==false) {
+                            HealthInsurance healthInsurance = new HealthInsurance(patientNumber, numFormat, companyNameText.getText(), polTypeCombo, (mCombo + "-" + yCombo));
+                        }else{
+                            HealthInsurance healthInsurance = new HealthInsurance(patientNumber, numFormat, companyNameText.getText(), polTypeCombo, (mCombo + "-" + yCombo),1);
+                        }
                         test=false;
                         f.setVisible(false);
                     } catch (NumberFormatException im) {

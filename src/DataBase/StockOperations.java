@@ -212,9 +212,23 @@ public class StockOperations {
             pstmt.setString(2, oldMed);
             pstmt.setInt(3,patientNumIn);
             pstmt.executeUpdate();
+            resetPatientMedical(patientNumIn);
             JOptionPane.showMessageDialog(null, "Patient "+patientNumIn+"'s Medical Record has been Stored");
         } catch (Exception se) {
             System.out.println("Error is here in old med records "+se);
+        }
+    }
+    public void resetPatientMedical(int patientNumber )
+    {
+        try {
+            String sql1 = "UPDATE Patient SET symptoms= 'Add New'," +
+                    "requiredTreatment= 'Add New'," +
+                    " diagnoses= 'Add New'" +
+                    " where patient_Number=" +patientNumber;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql1);
+        } catch (Exception se) {
+            System.out.println("The error might be here so reset medical "+se);
         }
     }
 
