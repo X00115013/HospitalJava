@@ -1,6 +1,7 @@
 package GUI;
         import Model.Appointment;
         import Model.CardDetails;
+        import Model.CardValidation;
         import Model.MedicalCard;
 
         import java.text.DateFormat;
@@ -237,7 +238,7 @@ public class CreditCardGUI extends JFrame implements ActionListener {
                 }
             }
         }else if (e.getSource().equals(validate)) {
-                PaymentGUI.valid=true;
+            CardValidation cardValidation=new CardValidation(cardNumText.getText());
         }
     }
 

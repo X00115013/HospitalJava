@@ -33,6 +33,7 @@ public class UpdateMedRec extends JFrame implements ActionListener {
     private Equipment equipment;
     private MedicalRecord medicalRecord;
     private int patientNumberIn;
+    JScrollPane symptomsScroll,diagnosesScroll,requiredScroll,allergiesScroll;
 
     public UpdateMedRec(int patientNumIn) {
         patientNumberIn=patientNumIn;
@@ -102,28 +103,36 @@ public class UpdateMedRec extends JFrame implements ActionListener {
         //text field
         symptomsText = new JTextArea(4,70);
         symptomsText.setBorder(loweredBorder);
-        middle.add(symptomsText, getConstraints(0, 4, 1, 1, (GridBagConstraints.WEST)));
+        symptomsScroll = new JScrollPane(symptomsText);
+        symptomsScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        middle.add(symptomsScroll, getConstraints(0, 4, 1, 1, (GridBagConstraints.WEST)));
 
         reqTreatment = new JLabel("Required Treatment");
         middle.add(reqTreatment, getConstraints(0, 6, 1, 1, (GridBagConstraints.WEST)));
         //text field
         requiredTreatText = new JTextArea(4,70);
         requiredTreatText.setBorder(loweredBorder);
-        middle.add(requiredTreatText,getConstraints(0, 7, 1, 1, (GridBagConstraints.WEST)));
+        requiredScroll = new JScrollPane(requiredTreatText);
+        requiredScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        middle.add(requiredScroll,getConstraints(0, 7, 1, 1, (GridBagConstraints.WEST)));
 
         allergies = new JLabel("Allergies");
         middle.add(allergies, getConstraints(0, 9, 1, 1, (GridBagConstraints.WEST)));
         //text field
         allergiesText = new JTextArea(4,70);
         allergiesText.setBorder(loweredBorder);
-        middle.add(allergiesText, getConstraints(0, 10, 1, 1, (GridBagConstraints.WEST)));
+        allergiesScroll = new JScrollPane(allergiesText);
+        allergiesScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        middle.add(allergiesScroll, getConstraints(0, 10, 1, 1, (GridBagConstraints.WEST)));
 
         diagnoses = new JLabel("Diagnoses");
         middle.add(diagnoses, getConstraints(0, 12, 1, 1, (GridBagConstraints.WEST)));
         //text field
         diagnosesText = new JTextArea(4,70);
         diagnosesText.setBorder(loweredBorder);
-        middle.add(diagnosesText, getConstraints(0, 13, 1, 1, (GridBagConstraints.WEST)));
+        diagnosesScroll = new JScrollPane(diagnosesText);
+        diagnosesScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        middle.add(diagnosesScroll, getConstraints(0, 13, 1, 1, (GridBagConstraints.WEST)));
 
         reqEquip = new JLabel("Required Equipment");
         middle.add(reqEquip, getConstraints(0, 15, 1, 1, (GridBagConstraints.WEST)));
@@ -132,7 +141,6 @@ public class UpdateMedRec extends JFrame implements ActionListener {
         reqEquipCombo.setPreferredSize(new Dimension(300, 20));
         middle.add(reqEquipCombo, getConstraints(0, 16, 1, 1, GridBagConstraints.WEST));
         reqEquipCombo.addActionListener(this);
-
         test2.add(middle);
         f.add(test2);
 
@@ -146,7 +154,6 @@ public class UpdateMedRec extends JFrame implements ActionListener {
         female = new JRadioButton("Female");
         female.addActionListener(this);
         dobs.add(female, getConstraints(1, 1, 1, 4, (GridBagConstraints.WEST)));
-
         test.add(dobs);
 
         medicalRecord=new MedicalRecord();
@@ -167,26 +174,21 @@ public class UpdateMedRec extends JFrame implements ActionListener {
         }
 
         //bottom
-
-
         JPanel buttons=new JPanel(new GridLayout(1,1));
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        // Confirm button
 
+        // Confirm button
         confirm = new JButton("Confirm");
         confirm.addActionListener(this);
         bottom.add(confirm);
-
 
         // Cancel button
         cancel = new JButton("Cancel");
         cancel.addActionListener(this);
         bottom.add(cancel);
-
         buttons.add(bottom);
         test.add(buttons);
         f.add(test, BorderLayout.NORTH);
-
         f.setVisible(true);
     }
 

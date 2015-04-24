@@ -18,7 +18,6 @@ public class Consultants {
 
 
     public Consultants() {
-        refreshArrays();
     }
 
     public Consultants(String con_Name, String specialityIn,String equipSkillIn) {
@@ -27,6 +26,7 @@ public class Consultants {
         conSpeciality = specialityIn;
         equipSill=equipSkillIn;
         addConsultant(con_Name,specialityIn,equipSkillIn);
+        so.stockOperationsClose();
     }
 
 

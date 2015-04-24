@@ -202,6 +202,7 @@ package GUI;
                     consultants = new Consultants(conNameText.getText(), conSkillText.getText(), equipIn);
                     conNameText.setText("");
                     conSkillText.setText("");
+                    test=false;
                 }
             }
 

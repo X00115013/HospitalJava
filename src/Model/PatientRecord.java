@@ -61,8 +61,8 @@ public class PatientRecord {
 
     }
 
-    public PatientRecord(PatientOperations po,int patientNumIn,String patientFNameIn, String patientLNameIn, String patientAddressIn, String occupationIn,String genderIn, String emailIn, String phoneIn, String DOBIn) {
-        this.po=po;
+    public PatientRecord(int patientNumIn,String patientFNameIn, String patientLNameIn, String patientAddressIn, String occupationIn,String genderIn, String emailIn, String phoneIn, String DOBIn) {
+        po=new PatientOperations();
         patientNumber=patientNumIn;
         patientFName = patientFNameIn;
         patientLName = patientLNameIn;
@@ -74,10 +74,11 @@ public class PatientRecord {
         DOB = DOBIn;
         updatePatientRecord(patientNumIn);
 
+
     }
 
-    public PatientRecord(PatientOperations po,String patientFNameIn, String patientLNameIn, String patientAddressIn, String occupationIn,String genderIn, String emailIn, String phoneIn, String DOBIn) {
-        this.po=po;
+    public PatientRecord(String patientFNameIn, String patientLNameIn, String patientAddressIn, String occupationIn,String genderIn, String emailIn, String phoneIn, String DOBIn) {
+        po=new PatientOperations();
         patientFName = patientFNameIn;
         patientLName = patientLNameIn;
         patientAddress = patientAddressIn;
@@ -87,19 +88,20 @@ public class PatientRecord {
         phone = phoneIn;
         DOB = DOBIn;
         addPatientRecord();
+
     }
 
     public void addPatientRecord(){
         System.out.println("New Patient NEW NEW NEW NEW NEW NEW ");
         po.addPatient(patientFName, patientLName, patientAddress, occupation, gender, email, phone, DOB);
-//        printFromArrayAR();
+        po.patientOperationsClose();
+
     }
 
     public void updatePatientRecord(int patientNumIn){
         System.out.println("Updated Patient UPDATED UPDATED UPDATED ");
         po.updatePatientAdmin(patientNumIn, patientFName, patientLName, patientAddress, occupation, gender, email, phone, DOB);
-//        printFromArrayAR();
-//        printFromArrayARByNumber(2);
+        po.patientOperationsClose();
     }
 
     public int getPatientNumber() {
@@ -127,10 +129,6 @@ public class PatientRecord {
 
     public String getDOB() {
         return DOB;
-    }
-
-    public PatientOperations getPo() {
-        return po;
     }
 
     public ResultSet getRset() {

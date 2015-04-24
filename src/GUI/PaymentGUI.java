@@ -41,7 +41,7 @@ public class PaymentGUI extends JFrame implements ActionListener
     private String record="This is meant to be the patient Bill";
     private Bill bill;
     private JFrame f;
-    static boolean valid;
+    public static boolean valid;
     private StockOperations so;
 
 

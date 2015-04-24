@@ -11,11 +11,13 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import javax.imageio.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 
 /**
- * Created by Dylan Mahony and Thomas Murray on 17/03/2015.
+ * Created by David Kiernan and Thomas Murray on 17/03/2015.
  */
 public class HomeScreen extends JFrame implements ActionListener {
 
@@ -42,18 +44,12 @@ public class HomeScreen extends JFrame implements ActionListener {
                 }
             }
         } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(StartWindow.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-//            Logger.getLogger(StartWindow.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-//            Logger.getLogger(StartWindow.class.getName()).log(Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            Logger.getLogger(StartWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-//    Open your JFrame here. just paste directly into the main
         f = new JFrame();
-//        JButton.
         f.setSize(1200, 800);
         f.setResizable(true);
         f.setLocationRelativeTo(null);
@@ -78,11 +74,7 @@ public class HomeScreen extends JFrame implements ActionListener {
         top.add(pageTitle);
         top.add(calendarPane);
         top.setBorder(new EmptyBorder(20, 20, 20, 20));
-//        calendar=new JButton("Press for Calendar!!!");
-//        top.add(calendar);
         firstPage.add(top);
-
-        //bg image
 
 
         try {
@@ -204,6 +196,22 @@ public class HomeScreen extends JFrame implements ActionListener {
         secondPage.add(buttons2, getConstraints(1, 1, 0, 1, GridBagConstraints.SOUTH));
         tabbedPane.add("Administration Section",secondPage);
         f.add(tabbedPane);
+
+        tabbedPane.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                TabSecurity tabSecurity=new TabSecurity();
+                System.out.println("In Homepage "+tabSecurity.isTest());
+                if(tabSecurity.isTest()==false) {
+                    tabbedPane.setSelectedIndex(1);
+                    System.out.println("In Homepage index 0 "+tabSecurity.isTest());
+                }else{
+                    tabbedPane.setSelectedIndex(0);
+                    System.out.println("In Homepage index 1 "+tabSecurity.isTest());
+                }
+            }
+        });
+
         f.setVisible(true);
 
 //        tabbedPane.add(f);
@@ -279,3 +287,9 @@ public class HomeScreen extends JFrame implements ActionListener {
     }
 }
 
+//                tabbedPane.setComponentAt("Patient Section",secondPage);
+//                tabbedPane.setIgnoreRepaint(true);
+//                tabbedPane.setVerifyInputWhenFocusTarget(true);
+//                tabbedPane.setRequestFocusEnabled(false);
+//                tabbedPane.getRootPane();
+//                tabbedPane.setTabPlacement(1);

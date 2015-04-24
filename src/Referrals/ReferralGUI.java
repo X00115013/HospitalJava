@@ -30,44 +30,13 @@ public class ReferralGUI extends JFrame implements ActionListener {
     JButton confirm;
     JButton cancel;
     JRadioButton male, female;
-
-    JLabel label1;
-    JLabel label2;
-    JLabel label3;
-    JLabel label4;
-    JLabel label5;
-    JLabel label6;
-    JLabel label7;
-    JLabel label8;
-    JLabel label9;
-    JLabel label10;
-    JLabel label11;
-    JLabel label12;
-    JLabel label13;
-    JLabel label14;
-    JLabel label15;
-    JLabel label16;
-    JLabel gPNum;
-    JLabel bgroundImg;
-
-
-    JTextField gpName;
-    JTextField pPhone;
-    JTextField gpLocation;
-    JTextField reasonVisit;
-    JTextField pFname;
-    JTextField pLname;
-    JTextField pNum;
-    JTextField pAddress;
-    JTextField year;
-    JTextField day;
-    JTextField month;
-    JTextField gPNumText;
-
+    JLabel gpNameL,dobL,dayL,monthL,yearL,patientPL,location,reasonL,fName, lName,recommendationsL, medL,addressL,conL,titleL, gPNum;
+    JTextField gpName,pPhone, gpLocation, reasonVisit, pFname,pLname, pAddress, gPNumText;
     JTextArea recommendations;
     JComboBox<String> combo1;
     JComboBox<String> combo2;
     JFrame f;
+    JScrollPane requiredScroll;
 
     private int choiceGui ,setter=1940;
     private String[] daysIn={"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
@@ -119,9 +88,9 @@ public class ReferralGUI extends JFrame implements ActionListener {
         clock.add(clockD);
 
         JPanel title=new JPanel(new FlowLayout(FlowLayout.CENTER));
-        label5 = new JLabel("        Referrals    ");
-        title.add(label5);
-        label5.setFont(new Font("Arial", Font.BOLD, 38));
+        titleL = new JLabel("        Referrals    ");
+        title.add(titleL);
+        titleL.setFont(new Font("Arial", Font.BOLD, 38));
 
 
         JPanel ID=new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -159,88 +128,82 @@ public class ReferralGUI extends JFrame implements ActionListener {
 
         JPanel body=new JPanel(new GridBagLayout());
         //GP Name label
-        label1 = new JLabel("GP Full Name");
-        body.add(label1, getConstraints(0, 0, 2, 1, GridBagConstraints.WEST));
+        gpNameL = new JLabel("GP Full Name");
+        body.add(gpNameL, getConstraints(0, 0, 2, 1, GridBagConstraints.WEST));
         //text field
         gpName = new JTextField(40);
         gpName.setBorder(loweredBorder);
         body.add(gpName, getConstraints(0, 1, 2, 1, GridBagConstraints.WEST));
 
         //Patient Phone label
-        label2 = new JLabel("Patient Phone");
-        body.add(label2, getConstraints(2, 0, 2, 1, GridBagConstraints.WEST));
+        patientPL = new JLabel("Patient Phone");
+        body.add(patientPL, getConstraints(2, 0, 2, 1, GridBagConstraints.WEST));
         //text field
         pPhone = new JTextField(40);
         pPhone.setBorder(loweredBorder);
         body.add(pPhone, getConstraints(2, 1, 2, 1, GridBagConstraints.WEST));
 
         //GO Location label
-        label3 = new JLabel("GP Location");
-        body.add(label3, getConstraints(0, 3, 2, 1, GridBagConstraints.WEST));
+        location = new JLabel("GP Location");
+        body.add(location, getConstraints(0, 3, 2, 1, GridBagConstraints.WEST));
         //text field
         gpLocation = new JTextField(40);
         gpLocation.setBorder(loweredBorder);
         body.add(gpLocation, getConstraints(0, 4, 2, 1, GridBagConstraints.WEST));
 
         //Reason for Visit label
-        label4 = new JLabel("Reason For Visit");
-        body.add(label4, getConstraints(2, 3, 2, 1, GridBagConstraints.WEST));
+        reasonL = new JLabel("Reason For Visit");
+        body.add(reasonL, getConstraints(2, 3, 2, 1, GridBagConstraints.WEST));
         //text field
         reasonVisit = new JTextField(40);
         reasonVisit.setBorder(loweredBorder);
         body.add(reasonVisit, getConstraints(2, 4, 2, 1, GridBagConstraints.WEST));
 
         //Patient First Name label
-        label5 = new JLabel("Patient First Name");
-        body.add(label5, getConstraints(0, 5, 2, 1, GridBagConstraints.WEST));
+        fName = new JLabel("Patient First Name");
+        body.add(fName, getConstraints(0, 5, 2, 1, GridBagConstraints.WEST));
         //text field
         pFname = new JTextField(40);
         pFname.setBorder(loweredBorder);
         body.add(pFname, getConstraints(0, 6, 2, 1, GridBagConstraints.WEST));
 
         //Recommendations label
-        label6 = new JLabel("Recommendations");
-        body.add(label6, getConstraints(2, 5, 2, 1, GridBagConstraints.WEST));
+        recommendationsL = new JLabel("Recommendations");
+        body.add(recommendationsL, getConstraints(2, 5, 2, 1, GridBagConstraints.WEST));
         //text field
         recommendations = new JTextArea(4, 40);
         recommendations.setBorder(loweredBorder);
-        body.add(recommendations, getConstraints(2, 6, 3, 3, GridBagConstraints.WEST));
+        requiredScroll = new JScrollPane(recommendations);
+        requiredScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        body.add(requiredScroll, getConstraints(2, 6, 3, 3, GridBagConstraints.WEST));
 
         //Patient Surname label
-        label7 = new JLabel("Patient Surname");
-        body.add(label7, getConstraints(0, 7, 2, 1, GridBagConstraints.WEST));
+        lName = new JLabel("Patient Surname");
+        body.add(lName, getConstraints(0, 7, 2, 1, GridBagConstraints.WEST));
         //text field
         pLname = new JTextField(40);
         pLname.setBorder(loweredBorder);
         body.add(pLname, getConstraints(0, 8, 2, 1, GridBagConstraints.WEST));
 
-//        //Patient Number label
-//        label8 = new JLabel("Patient Number");
-//        body.add(label8, getConstraints(0, 9, 1, 1, GridBagConstraints.WEST));
-//        //text field
-//        pNum = new JTextField(40);
-//        pNum.setBorder(loweredBorder);
-//        body.add(pNum, getConstraints(0, 10, 1, 1, GridBagConstraints.WEST));
-
         //Required Equipment label
-        label9 = new JLabel("Medical Equipment Required");
-        body.add(label9, getConstraints(2, 9, 2, 1, GridBagConstraints.WEST));
+        medL = new JLabel("Medical Equipment Required");
+        body.add(medL, getConstraints(2, 9, 2, 1, GridBagConstraints.WEST));
         //Combo-box
         combo1 = new JComboBox<String>(list1);
         combo1.setPreferredSize(new Dimension(300,30));
         body.add(combo1, getConstraints(2, 10, 2, 1, GridBagConstraints.WEST));
 
         //Patient Address label
-        label10 = new JLabel("Patient Address");
-        body.add(label10, getConstraints(0, 9, 2, 1, GridBagConstraints.WEST));
+        addressL = new JLabel("Patient Address");
+        body.add(addressL, getConstraints(0, 9, 2, 1, GridBagConstraints.WEST));
         //text field
         pAddress = new JTextField(40);
         pAddress.setBorder(loweredBorder);
         body.add(pAddress, getConstraints(0, 10, 2, 1, GridBagConstraints.WEST));
 
         //Required Consultant label
-        label11 = new JLabel("Consultant Type Required");
-        body.add(label11, getConstraints(2, 11, 2, 1, GridBagConstraints.WEST));
+        conL = new JLabel("Consultant Type Required");
+        body.add(conL, getConstraints(2, 11, 2, 1, GridBagConstraints.WEST));
         //Combo-Box
         combo2 = new JComboBox<String>(list2);
         combo2.setPreferredSize(new Dimension(300,30));
@@ -270,14 +233,14 @@ public class ReferralGUI extends JFrame implements ActionListener {
 
 
         //DOB labels
-        label12 = new JLabel("Patient DOB");
-        bottom.add(label12, getConstraints(0, 1, 1, 1, GridBagConstraints.WEST));
-        label13 = new JLabel("Day");
-        bottom.add(label13, getConstraints(0, 2, 1, 1, GridBagConstraints.WEST));
-        label14 = new JLabel("Month");
-        bottom.add(label14, getConstraints(1, 2, 1, 1, GridBagConstraints.WEST));
-        label15 = new JLabel("Year");
-        bottom.add(label15, getConstraints(2, 2, 1, 1, GridBagConstraints.WEST));
+        dobL = new JLabel("Patient DOB");
+        bottom.add(dobL, getConstraints(0, 1, 1, 1, GridBagConstraints.WEST));
+        dayL = new JLabel("Day");
+        bottom.add(dayL, getConstraints(0, 2, 1, 1, GridBagConstraints.WEST));
+        monthL = new JLabel("Month");
+        bottom.add(monthL, getConstraints(1, 2, 1, 1, GridBagConstraints.WEST));
+        yearL = new JLabel("Year");
+        bottom.add(yearL, getConstraints(2, 2, 1, 1, GridBagConstraints.WEST));
 
         //DOB text fields
         dayCombo = new JComboBox<String>(daysIn);
@@ -332,31 +295,36 @@ public class ReferralGUI extends JFrame implements ActionListener {
 
         } else if (e.getSource().equals(confirm)) {
             String choice="";
-            if (male.isSelected()) {
-                choice = "Male";
-            }
-            if (female.isSelected()) {
-                choice = "Female";
-            }
-            String catcher = "",catcher2 = "";
-            String med = (String) combo1.getSelectedItem();
-            for (int i = 0; i < eqList.size(); i++) {
-                if (med.equals(eqList.get(i).getEqName())){
-                    catcher =eqList.get(i).getEqName();
-                }
-            }
-            String con = (String) combo2.getSelectedItem();
-            for (int j = 0; j < conList.size(); j++) {
-                if (con.equals(conList.get(j).getConSpeciality())) {
-                    catcher2 = conList.get(j).getConName();
-                }
-            }
-            String dayC=(String)dayCombo.getSelectedItem();
-            String monthC=(String)monthCombo.getSelectedItem();
-            String yearC=(String)yearCombo.getSelectedItem();
+            if(gpName.getText().equals("")||pFname.getText().equals("")||pLname.getText().equals("")||pAddress.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "GP name,patient first & last name and Address are required fields");
+            }else {
 
-            Referrals referrals=new Referrals(gpName.getText(), gpLocation.getText(), pFname.getText(), pLname.getText(), pAddress.getText(),(dayC+ "-" + monthC + "-" + yearC),pPhone.getText(),reasonVisit.getText(),
-                    recommendations.getText(),catcher,catcher2,1,choice);
+                if (male.isSelected()) {
+                    choice = "Male";
+                }
+                if (female.isSelected()) {
+                    choice = "Female";
+                }
+                String catcher = "", catcher2 = "";
+                String med = (String) combo1.getSelectedItem();
+                for (int i = 0; i < eqList.size(); i++) {
+                    if (med.equals(eqList.get(i).getEqName())) {
+                        catcher = eqList.get(i).getEqName();
+                    }
+                }
+                String con = (String) combo2.getSelectedItem();
+                for (int j = 0; j < conList.size(); j++) {
+                    if (con.equals(conList.get(j).getConSpeciality())) {
+                        catcher2 = conList.get(j).getConSpeciality();
+                    }
+                }
+                String dayC = (String) dayCombo.getSelectedItem();
+                String monthC = (String) monthCombo.getSelectedItem();
+                String yearC = (String) yearCombo.getSelectedItem();
+
+                Referrals referrals = new Referrals(gpName.getText(), gpLocation.getText(), pFname.getText(), pLname.getText(), pAddress.getText(), (dayC + "-" + monthC + "-" + yearC), pPhone.getText(), reasonVisit.getText(),
+                        recommendations.getText(), catcher, catcher2, 1, choice);
+            }
 
             }else if (e.getSource().equals(male)) {
                 female.setSelected(false);

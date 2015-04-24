@@ -396,31 +396,31 @@ public class CreateTables {
             String insertCon = "INSERT INTO Consultant (con_ID,con_Name,speciality,machineSkill) Values(ConID.nextVal,?,?,?)";
 
             pstmt = conn.prepareStatement(insertCon);
-            pstmt.setString(1, "Dr John Doe ");
+            pstmt.setString(1, "Dr J Doe ");
             pstmt.setString(2, "Radiology");
             pstmt.setString(3, "XRay");
             pstmt.executeUpdate();
 
             pstmt = conn.prepareStatement(insertCon);
-            pstmt.setString(1, "Dr Jane Doe ");
+            pstmt.setString(1, "Dr K Door ");
             pstmt.setString(2, "Pediatrics");
             pstmt.setString(3, "Ultrasound");
             pstmt.executeUpdate();
 
             pstmt = conn.prepareStatement(insertCon);
-            pstmt.setString(1, "Dr Jack Smith ");
+            pstmt.setString(1, "Dr J Smith ");
             pstmt.setString(2, "Neurologist");
             pstmt.setString(3,"CT Scan");
             pstmt.executeUpdate();
 
             pstmt = conn.prepareStatement(insertCon);
-            pstmt.setString(1, "Dr Sarah Johns ");
+            pstmt.setString(1, "Dr S Johns ");
             pstmt.setString(2, "Dermatologist");
             pstmt.setString(3,"Laparoscopy");
             pstmt.executeUpdate();
 
             pstmt = conn.prepareStatement(insertCon);
-            pstmt.setString(1, "Dr Xanu Starburner ");
+            pstmt.setString(1, "Dr X Starburn ");
             pstmt.setString(2, "Psychiatrist");
             pstmt.setString(3,"MRI");
             pstmt.executeUpdate();
@@ -530,7 +530,7 @@ public class CreateTables {
             //REFERRAL START creating table
             System.out.println("Creating Referral");
             String createReferral = "CREATE TABLE Referral (Reference NUMBER PRIMARY KEY,GPNumber NUMBER,GPName VARCHAR2(40),GPLocation VARCHAR2(255),Patient_FName VARCHAR2(30)," +
-                    "Patient_LName VARCHAR2(30),Patient_DOB VARCHAR(225),Patient_Address VARCHAR2(255),Patient_Phone VARCHAR2(15)," +
+                    "Patient_LName VARCHAR2(30),Patient_Address VARCHAR2(255),Patient_DOB VARCHAR(225),Patient_Phone VARCHAR2(15)," +
                     "ReasonVisit VARCHAR2(255),Recommendation VARCHAR2(255),Med_Equip_Needed VARCHAR2(50),Consultant_Type VARCHAR2(50),checked NUMBER,gender VARCHAR2(10))";
             pstmt = conn.prepareStatement(createReferral);
             pstmt.executeUpdate(createReferral);
@@ -805,20 +805,7 @@ public class CreateTables {
             System.out.print("Old Medical records SQL Exception " + e);
             System.exit(1);
         }
-//        try {
-//            //Creating table
-//            System.out.println("Creating Old Prescriptions");
-//            String create = "CREATE TABLE oldPrescriptions(cT_ID  NUMBER PRIMARY KEY, time NUMBER, taken VARCHAR2(10),con_Name VARCHAR2(50), AppID NUMBER )";
-//            pstmt = conn.prepareStatement(create);
-//            pstmt.executeUpdate(create);
-//            // creating Sequence
-//            create = " CREATE SEQUENCE cT_seq increment by 1 start with 1";
-//            pstmt = conn.prepareStatement(create);
-//            pstmt.executeUpdate(create);
-//        } catch (SQLException e) {
-//            System.out.print("SQL Exception " + e);
-//            System.exit(1);
-//        }
+
 
         try {
             //TIME TABLE START creating table
@@ -849,12 +836,6 @@ public class CreateTables {
             System.out.print("SQL Exception " + e);
             System.exit(1);
         }
-
-
-
-
-
-
 
 
     }

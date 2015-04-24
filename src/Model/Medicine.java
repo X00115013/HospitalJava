@@ -62,9 +62,9 @@ public class Medicine {
         so.stockOperationsClose();
     }
 
-    public void updateStock(int id,int stockIn){
+    public void updateStock(int id,int stockIn,double priceIn){
         so=new StockOperations();
-        so.updateMedStock(id,stockIn);
+        so.updateMedStock(id,stockIn,priceIn);
         so.stockOperationsClose();
     }
 

@@ -34,6 +34,7 @@ public class TimeTables {
         req=reqIn;
         refreshTimeTables();
         setFromConReq(req);
+        to.TimeTableOperationsClose();
     }
 
     public TimeTables(String selectionIn, String reqIn) {
@@ -42,6 +43,7 @@ public class TimeTables {
         selection=selectionIn;
         refreshTimeTables();
         setFromMedReq(selection,req);
+        to.TimeTableOperationsClose();
         }
 
 

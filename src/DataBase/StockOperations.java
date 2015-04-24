@@ -63,10 +63,10 @@ public class StockOperations {
     }
 
 
-    public void updateMedStock(int medNumber,int newStock)
+    public void updateMedStock(int medNumber,int newStock,double newPrice)
     {
         try {
-            String med = "UPDATE Medicine SET StockLevel= " + newStock +" where Med_ID=" +medNumber;
+            String med = "UPDATE Medicine SET StockLevel= " + newStock +", price = "+newPrice+" where Med_ID=" +medNumber;
             stmt = conn.createStatement();
             stmt.executeUpdate(med);
         } catch (Exception se) {
@@ -374,7 +374,7 @@ public class StockOperations {
     public void updateMedicineStock(String medName,int amount)
     {
         try {
-            String med = "UPDATE Medicine SET StockLevel = StockLevel - " + amount +" WHERE Med_Name= '" +medName+"'";
+            String med = "UPDATE Medicine SET StockLevel = StockLevel - " + amount +"  WHERE Med_Name= '" +medName+"'";
             stmt = conn.createStatement();
             stmt.executeUpdate(med);
         } catch (Exception se) {

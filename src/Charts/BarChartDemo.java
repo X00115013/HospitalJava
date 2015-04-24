@@ -110,11 +110,11 @@ public class BarChartDemo extends JPanel {
         appList.removeAll(appList);
         appList.addAll(appointment.appArray());
         for (int i = 0; i < eList.size() ; i++) {
-            for (int k = 0; k < appList.size(); k++) {
-                if (appList.get(k).getMedicalEquip().equals(eList.get(i).getEqName())) {
-                    use++;
-                }
-            }
+//            for (int k = 0; k < appList.size(); k++) {
+//                if (appList.get(k).getMedicalEquip().equals(eList.get(i).getEqName())) {
+//                    use++;
+//                }
+//            }
             for (int j = 0; j < eqList.size(); j++) {
                 if (eqList.get(j).getEqName().equals(eList.get(i).getEqName())) {
                     use++;

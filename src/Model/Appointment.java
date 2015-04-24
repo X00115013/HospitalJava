@@ -40,7 +40,6 @@ public class Appointment {
         medicalEquip = medicalEquipIn;
         patientNum=patientNumIn;
         setAppointmentExisting(reasonForVisit, medicalEquip, consultantType, patientNum);
-//        printAppointment();
     }
 
     public void appointmentArray() {
@@ -55,17 +54,6 @@ public class Appointment {
             System.out.println(e1);
         }
     }
-
-//    public void printAppointment() {
-//        for (int i = 0; i < appList.size(); i++) {
-//            System.out.println("\n\nAppointment number (" + appList.get(i).appNumber + ")");
-//            System.out.println("Reason for visit (" + appList.get(i).reasonForVisit + ")");
-//            System.out.println("Equipment (" + appList.get(i).consultantType + ")");
-//            System.out.println("Consultant (" + appList.get(i).medicalEquip + ")");
-//        }
-//    }
-
-
 
     public ArrayList appArray(){
         appointmentArray();
@@ -102,18 +90,18 @@ public class Appointment {
     }
 
 
-
-    public String getConNameFromSkill(String skillIn){
-        String swap="";
-        conList.removeAll(conList);
-        consultants=new Consultants();
-        conList.addAll(consultants.getConsultants());
-        for (int i = 0; i <conList.size() ; i++) {
-            if(conList.get(i).getEquipSill().equals(skillIn)){
-                swap=conList.get(i).getConName();
-            }
-        }return swap;
-    }
+//
+//    public String getConNameFromSkill(String skillIn){
+//        String swap="";
+//        conList.removeAll(conList);
+//        consultants=new Consultants();
+//        conList.addAll(consultants.getConsultants());
+//        for (int i = 0; i <conList.size() ; i++) {
+//            if(conList.get(i).getEquipSill().equals(skillIn)){
+//                swap=conList.get(i).getConName();
+//            }
+//        }return swap;
+//    }
 
 
 

@@ -31,6 +31,7 @@ public class ChartGUI extends JFrame implements ActionListener
     private String record="This is meant to be the patient Admin Record";
     private static JPanel chart;
     private static Border RaisedBorder;
+    private int replaceTest=0;
 
     ChartPanel chartPanel,chartPanel2,chartPanel3;
 
@@ -65,37 +66,12 @@ public class ChartGUI extends JFrame implements ActionListener
         topSection.add(clock);
         topSection.add(title);
         topSection.add(ID);
-//        f.add(topSection);
 
         holder.add(topSection);
         f.add(holder);
 
-
-
         chart=new JPanel(new FlowLayout(FlowLayout.CENTER));
         chart.setPreferredSize(new Dimension(900,600));
-//        if(choice==1) {
-//            BarChartDemo barChartDemo = new BarChartDemo("Medicine", 1);
-//            JFreeChart chart1=barChartDemo.createChart(barChartDemo.createDataset());
-//            ChartPanel chartPanel = new ChartPanel(chart1, false);
-//            chart.setBorder(RaisedBorder);
-//            chart.add(chartPanel);
-//        }else if(choice==2) {
-//            BarChartDemo barChartDemo2 = new BarChartDemo("Equipment", 2);
-//            JFreeChart chart1=barChartDemo2.createChart2(barChartDemo2.createDataset2());
-//            ChartPanel chartPanel2 = new ChartPanel(chart1, false);
-//            chart.setBorder(RaisedBorder);
-//            chart.add(chartPanel2);
-//        }else if(choice==3) {
-//            BarChartDemo barChartDemo3 = new BarChartDemo("Consultant", 3);
-//            JFreeChart chart1=barChartDemo3.createChart3(barChartDemo3.createDataset3());
-//            ChartPanel chartPanel3 = new ChartPanel(chart1, false);
-//            chart.setBorder(RaisedBorder);
-//            chart.add(chartPanel3);
-//        }
-
-
-
 
         JPanel holder2=new JPanel(new GridLayout(1,1));
         JPanel test =new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -134,8 +110,6 @@ public class ChartGUI extends JFrame implements ActionListener
     }
 
 
-
-
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5, 5, 10, 10);
@@ -156,39 +130,55 @@ public class ChartGUI extends JFrame implements ActionListener
             if (e.getSource().equals(close)) {
                 f.setVisible(false);
             } else if (e.getSource().equals(medicine)) {
-                BarChartDemo barChartDemo = new BarChartDemo("Medicine", 1);
-                JFreeChart chart1 = barChartDemo.createChart(barChartDemo.createDataset());
-                chartPanel = new ChartPanel(chart1, false);
-                chart.setBorder(RaisedBorder);
-                chart.add(chartPanel);
-                chart.remove(chartPanel2);
-                chart.remove(chartPanel3);
-                chart.revalidate();
-                chart.repaint();
+                if(replaceTest==1){
+                    chart.remove(chartPanel);
+                }else{
+                    BarChartDemo barChartDemo = new BarChartDemo("Medicine", 1);
+                    JFreeChart chart1 = barChartDemo.createChart(barChartDemo.createDataset());
+                    chartPanel = new ChartPanel(chart1, false);
+                    chart.setBorder(RaisedBorder);
+                    chart.add(chartPanel);
+                    chart.remove(chartPanel2);
+                    chart.remove(chartPanel3);
+                    chart.revalidate();
+                    chart.repaint();
+                    replaceTest=1;
+
+                }
 
             } else if (e.getSource().equals(equipment)) {
-                BarChartDemo barChartDemo2 = new BarChartDemo("Equipment", 2);
-                JFreeChart chart1 = barChartDemo2.createChart2(barChartDemo2.createDataset2());
-                chartPanel2 = new ChartPanel(chart1, false);
-                chart.setBorder(RaisedBorder);
-                chart.add(chartPanel2);
-                chart.remove(chartPanel);
-                chart.remove(chartPanel3);
-                chart.revalidate();
-                chart.repaint();
+                if(replaceTest==2) {
+                    chart.remove(chartPanel2);
+                }else{
+                    BarChartDemo barChartDemo2 = new BarChartDemo("Equipment", 2);
+                    JFreeChart chart1 = barChartDemo2.createChart2(barChartDemo2.createDataset2());
+                    chartPanel2 = new ChartPanel(chart1, false);
+                    chart.setBorder(RaisedBorder);
+                    chart.add(chartPanel2);
+                    chart.remove(chartPanel);
+                    chart.remove(chartPanel3);
+                    chart.revalidate();
+                    chart.repaint();
+                    replaceTest=2;
+
+                }
 
             } else if (e.getSource().equals(consultant)) {
-                BarChartDemo barChartDemo3 = new BarChartDemo("Consultant", 3);
-                JFreeChart chart1 = barChartDemo3.createChart3(barChartDemo3.createDataset3());
-                chartPanel3 = new ChartPanel(chart1, false);
-                chart.setBorder(RaisedBorder);
-                chart.remove(chartPanel2);
-                chart.remove(chartPanel);
-                chart.add(chartPanel3);
-                chart.revalidate();
-                chart.repaint();
+                if(replaceTest==3) {
+                    chart.remove(chartPanel3);
+                }else{
+                    BarChartDemo barChartDemo3 = new BarChartDemo("Consultant", 3);
+                    JFreeChart chart1 = barChartDemo3.createChart3(barChartDemo3.createDataset3());
+                    chartPanel3 = new ChartPanel(chart1, false);
+                    chart.setBorder(RaisedBorder);
+                    chart.remove(chartPanel2);
+                    chart.remove(chartPanel);
+                    chart.add(chartPanel3);
+                    chart.revalidate();
+                    chart.repaint();
+                    replaceTest=3;
 
-
+                }
             }
 
         } catch (NullPointerException np) {

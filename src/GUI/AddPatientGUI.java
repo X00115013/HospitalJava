@@ -299,17 +299,31 @@ public class AddPatientGUI extends JFrame implements ActionListener {
                     choice = "Female";
                 }
                 if (choiceGui == 1) {
-                    String dayCon=(String)dayCombo.getSelectedItem();
-                    String monthCon=(String)monthCombo.getSelectedItem();
-                    String yearCon=(String)yearCombo.getSelectedItem();
-                    PatientRecord patientRecord = new PatientRecord(po, patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
-                            patientOccupationText.getText(), choice, patientEmailText.getText(), patientPhoneText.getText(), ( dayCon+"-"+ monthCon +"-"+ yearCon));
-                    JOptionPane.showMessageDialog(null, "Admin Record has been Added");
+                    boolean test=false;
+                    patientRecord=new PatientRecord();
+                    pList.addAll(patientRecord.getPatientList());
+                    String dayCon = (String) dayCombo.getSelectedItem();
+                    String monthCon = (String) monthCombo.getSelectedItem();
+                    String yearCon = (String) yearCombo.getSelectedItem();
+                    for (int i = 0; i <pList.size(); i++) {
+                        if(patientFNameText.getText().equalsIgnoreCase(pList.get(i).getPatientFName())&& patientSNameText.getText().equalsIgnoreCase(pList.get(i).getPatientLName())&&(dayCon + "-" + monthCon + "-" + yearCon).equals(pList.get(i).getDOB())){
+                            test=true;
+                        }
+                    }
+                    if(test==false) {
+                        PatientRecord patientRecord = new PatientRecord(patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
+                                patientOccupationText.getText(), choice, patientEmailText.getText(), patientPhoneText.getText(), (dayCon + "-" + monthCon + "-" + yearCon));
+                        JOptionPane.showMessageDialog(null, "Admin Record has been Added");
+                    }
+                    if(test==true){
+                        JOptionPane.showMessageDialog(null, "Patient Already Exists");
+
+                    }
                 } else if (choiceGui == 2) {
                     String dayCon=(String)dayCombo.getSelectedItem();
                     String monthCon=(String)monthCombo.getSelectedItem();
                     String yearCon=(String)yearCombo.getSelectedItem();
-                    PatientRecord patientRecord = new PatientRecord(po, Integer.parseInt(patientText.getText()), patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
+                    PatientRecord patientRecord = new PatientRecord(Integer.parseInt(patientText.getText()), patientFNameText.getText(), patientSNameText.getText(), patientAddressText.getText(),
                             patientOccupationText.getText(), choice, patientEmailText.getText(), patientPhoneText.getText(), ( dayCon+"-"+ monthCon +"-"+ yearCon));
                     JOptionPane.showMessageDialog(null, "Admin Record has been Updated");
 

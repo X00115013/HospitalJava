@@ -194,7 +194,7 @@ public class AppointmentGUI extends JFrame implements ActionListener {
             String con = (String) combo2.getSelectedItem();
             for (int j = 0; j < conList.size(); j++) {
                 if (con.equals(conList.get(j).getConSpeciality())) {
-                    catcher2 = conList.get(j).getConName();;
+                    catcher2 = conList.get(j).getConName();
                 }
             }
             Appointment app = new Appointment(textArea.getText(), catcher, catcher2,patientNumberIn);

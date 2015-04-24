@@ -21,8 +21,8 @@ public class MedicalRecord {
         refreshArray();
     }
 
-    public MedicalRecord(PatientOperations po,int patientNumberIn,String recommendationsIn){
-        this.po=po;
+    public MedicalRecord(int patientNumberIn,String recommendationsIn){
+       po=new PatientOperations();
         patientNumber=patientNumberIn;
         recommendations=recommendationsIn;
         po.refMedUpdate(patientNumber,recommendations);
@@ -30,6 +30,7 @@ public class MedicalRecord {
 
     }
     public MedicalRecord(int patientNumberIn,String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment,String newAllergies){
+        po=new PatientOperations();
         patientNumber=patientNumberIn;
         blood=newBlood;
         symptoms=newSymptoms;
@@ -55,6 +56,7 @@ public class MedicalRecord {
     }
 
     public void refreshArray(){
+        medicalRecordArrayList.removeAll(medicalRecordArrayList);
         rset = po.getPatientMedical();
         try {
             while (rset.next()) {
@@ -151,13 +153,8 @@ public class MedicalRecord {
     }
 
     public void updateMedicalRecord(){
-        po=new PatientOperations();
-        po.updatePatientMedical(patientNumber,blood,symptoms,diagnoses,reqTreatment,allergies);
-        refreshArray();
-        printAllArrayMR();
-//        printFromArrayMR(2);
-//        printMedicalRecord();
-//        printMedicalRecordByPatientNum();
+        po.updatePatientMedical(patientNumber, blood, symptoms, diagnoses, reqTreatment, allergies);
+        po.patientOperationsClose();
     }
 }
 

@@ -31,7 +31,6 @@ public class ProcessReferrals {
     private ArrayList<ProcessReferrals> refList= new ArrayList<>();
     private PatientOperations po;
     private ResultSet rset;
-    private ProcessReferrals processReferrals;
     private PatientRecord patientRecord;
     private ArrayList<PatientRecord> pRecList=new ArrayList<>();
     private Consultants consultants;
@@ -74,7 +73,7 @@ public class ProcessReferrals {
         rset = ro.getReferral();
         try {
             while (rset.next()) {
-                refList.add(processReferrals = new ProcessReferrals(rset.getInt(1), rset.getInt(2), rset.getString(3), rset.getString(4), rset.getString(5), rset.getString(6), rset.getString(7),
+                refList.add(new ProcessReferrals(rset.getInt(1), rset.getInt(2), rset.getString(3), rset.getString(4), rset.getString(5), rset.getString(6), rset.getString(7),
                         rset.getString(8), rset.getString(9), rset.getString(10), rset.getString(11), rset.getString(12), rset.getString(13), rset.getInt(14), rset.getString(15)));
             }
         } catch (SQLException e1) {
@@ -129,18 +128,19 @@ public class ProcessReferrals {
                 }
 
               }
-            }refreshTables();
+            }
         JOptionPane.showMessageDialog(null, counter+" Referrals have been processed");
 
         ro.referralOperationsClose();
+//        po.patientOperationsClose();
     }
 
 
     public void referralProcessForExistingPatient(int patientNumIn) {
         String catcher="";
         System.out.println("\n\nExisting Patient\n\n");
-        PatientRecord patientRecord = new PatientRecord(po,patientNumIn,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
-        MedicalRecord medicalRecord = new MedicalRecord(po,patientNumIn,recommendations);
+        PatientRecord patientRecord = new PatientRecord(patientNumIn,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
+        MedicalRecord medicalRecord = new MedicalRecord(patientNumIn,recommendations);
         consultants=new Consultants();
         conList.removeAll(conList);
         conList.addAll(consultants.getConsultants());
@@ -157,9 +157,9 @@ public class ProcessReferrals {
     public void referralProcessForNewPatient() {
         String catcher="";
         System.out.println("\n\nNew Patient Method\n\n");
-        PatientRecord patientRecord = new PatientRecord(po,patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
+        PatientRecord patientRecord = new PatientRecord(patientFName, patientLName, patientAddress,occupation,gender, emailIn, phoneIn, DOB);
         patientNumber=po.getPatientNumber(patientFName,patientLName,DOB);
-        MedicalRecord medicalRecord = new MedicalRecord(po,patientNumber,recommendations);
+        MedicalRecord medicalRecord = new MedicalRecord(patientNumber,recommendations);
         consultants=new Consultants();
         conList.removeAll(conList);
         conList.addAll(consultants.getConsultants());

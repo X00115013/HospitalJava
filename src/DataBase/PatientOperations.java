@@ -34,7 +34,7 @@ public class PatientOperations {
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("po 1"+e);
         }
         return rset;
     }
@@ -49,7 +49,7 @@ public class PatientOperations {
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("po 2"+e);
         }
         return rset;
     }
@@ -66,7 +66,7 @@ public class PatientOperations {
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("po 3"+e);
         }
         return rset;
     }
@@ -83,7 +83,7 @@ public class PatientOperations {
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("po 4"+e);
         }
         return rset;
     }
@@ -115,7 +115,7 @@ public class PatientOperations {
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("po 5"+e);
         }
         return rset;
     }
@@ -137,7 +137,7 @@ public class PatientOperations {
             pstmt.setString(8,patientAddressIn);
             pstmt.executeUpdate();
         } catch (Exception se) {
-            System.out.println(se);
+            System.out.println("po 6"+se);
         }
     }
 
@@ -158,7 +158,7 @@ public class PatientOperations {
             stmt = conn.createStatement();
             stmt.executeUpdate(sql1);
         } catch (Exception se) {
-            System.out.println(se);
+            System.out.println("Problem update admin po "+se);
         }
     }
 
@@ -171,7 +171,7 @@ public class PatientOperations {
             stmt.executeUpdate(sql1);
             JOptionPane.showMessageDialog(null, "Patient Checked In");
         } catch (Exception se) {
-            System.out.println(se);
+            System.out.println("po 7"+se);
         }
     }
 
@@ -184,7 +184,7 @@ public class PatientOperations {
             stmt.executeUpdate(sql1);
             JOptionPane.showMessageDialog(null, "Patient "+patientNumber+" is "+checkedIn);
         } catch (Exception se) {
-            System.out.println(se);
+            System.out.println("po 8"+se);
         }
     }
 
@@ -272,7 +272,7 @@ public class PatientOperations {
                 id = rset.getInt(1);
             }
         } catch (Exception se) {
-            System.out.println(se);
+            System.out.println("po 9"+se);
         }
         return id;
     }

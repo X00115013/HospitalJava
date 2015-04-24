@@ -205,7 +205,8 @@ package GUI;
                             for (int i = 0; i <medList.size() ; i++) {
                                 if (medNameText.getText().equalsIgnoreCase(medList.get(i).getMedName())) {
                                     medicine = new Medicine();
-                                    medicine.updateStock(medList.get(i).getMedId(),convert );
+                                    int total=medList.get(i).getStockLevel()+convert;
+                                    medicine.updateStock(medList.get(i).getMedId(),total,convert2 );
                                     JOptionPane.showMessageDialog(null,medList.get(i).getMedName()+" has Been Updated");
                                     medNameText.setText("");
                                     medNameText.setEditable(true);
@@ -278,7 +279,7 @@ package GUI;
                             medNameText.setText(medList.get(i).getMedName());
                             medNameText.setEditable(false);
                             medPriceText.setText(Double.toString(medList.get(i).getPrice()));
-                            stockText.setText(Integer.toString(medList.get(i).getStockLevel()));
+//                            stockText.setText(Integer.toString(medList.get(i).getStockLevel()));
                             deletion = false;
                         }
                     }

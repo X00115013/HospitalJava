@@ -37,34 +37,34 @@ public class AppointmentOperations {
         return rset;
     }
 
-    public ResultSet getAppointmentByNum(int id) {
-        try {
-            String queryString = "SELECT * FROM Appointment where patientNumber = "+id;
-            stmt = conn.createStatement();
-            rset = stmt.executeQuery(queryString);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return rset;
-    }
+//    public ResultSet getAppointmentByNum(int id) {
+//        try {
+//            String queryString = "SELECT * FROM Appointment where patientNumber = "+id;
+//            stmt = conn.createStatement();
+//            rset = stmt.executeQuery(queryString);
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//        return rset;
+//    }
 
-    public int getAppointmentNum(String pFNameIn ,String pLNameIn, String dobIn) {
-        int num=0;
-        try {
-            String queryString = "SELECT AppID FROM Appointment where patient_Number= (" +
-                    "SELECT patient_Number" +
-                    "FROM Patient" +
-                    "WHERE patientFName ='"+pFNameIn+"' AND patientLName = '"+pLNameIn+"' AND patientDOB= "+dobIn+")";
-            stmt = conn.createStatement();
-            rset = stmt.executeQuery(queryString);
-            while (rset.next()){
-                num= rset.getInt(1);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return num;
-    }
+//    public int getAppointmentNum(String pFNameIn ,String pLNameIn, String dobIn) {
+//        int num=0;
+//        try {
+//            String queryString = "SELECT AppID FROM Appointment where patient_Number= (" +
+//                    "SELECT patient_Number" +
+//                    "FROM Patient" +
+//                    "WHERE patientFName ='"+pFNameIn+"' AND patientLName = '"+pLNameIn+"' AND patientDOB= "+dobIn+")";
+//            stmt = conn.createStatement();
+//            rset = stmt.executeQuery(queryString);
+//            while (rset.next()){
+//                num= rset.getInt(1);
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//        return num;
+//    }
 
     public void deleteAppointment(int n) {
         try {

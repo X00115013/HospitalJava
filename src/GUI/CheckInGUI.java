@@ -148,7 +148,7 @@ public class CheckInGUI extends JFrame implements ActionListener
     {
         if (e.getSource().equals(cancel))
         {
-           f.setVisible(true);
+           f.setVisible(false);
         }
         else if (e.getSource().equals(confirm))
         { appList.removeAll(appList);
