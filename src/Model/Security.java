@@ -77,7 +77,9 @@ public class Security {
         }else if(selection==5&& (answerIn==1 ||answerIn==2 ||answerIn==3 )){
             TimeTablesGUI timeTablesGUI =new TimeTablesGUI();
         }else if(selection==6&& (answerIn==1 ||answerIn==3 )){
-            ProcessReferrals processReferrals=new ProcessReferrals();
+            Thread thread = new Thread(new ProcessRefThread());
+            thread.start();
+//            ProcessReferrals processReferrals=new ProcessReferrals();
         }else if(selection==7&& (answerIn==1 ||answerIn==2 ||answerIn==3 )){
             PatientChartGUI patientChartGUI=new PatientChartGUI(patientNum);
         }else if(selection==8&& (answerIn==1 ||answerIn==3 )){

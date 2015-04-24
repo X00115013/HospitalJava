@@ -13,6 +13,7 @@ public class TimeTableOperations {
     private PreparedStatement pstmt;
     private Statement stmt;
     private Connect connect= new Connect();
+    public static int clearInt;
 
     public TimeTableOperations(){
     conn = connect.openDB();
@@ -21,9 +22,6 @@ public class TimeTableOperations {
     public void TimeTableOperationsClose(){
         connect.closeDB();
     }
-
-
-
 
     public ResultSet getConsultantTT() {
         try {
@@ -73,9 +71,17 @@ public class TimeTableOperations {
         }
     }
 
+    public void updateTimeTable(){
+        for (int i = 0; i <42 ; i++) {
+            cancelTableEntry(clearInt);
+            clearInt++;
+        }
+    }
+
+
     public void cancelTableEntry(int appNumIn){
         try {
-            String queryString = "UPDATE TimeTable SET machineName = null, time = null, con_Name = null, taken = 'Free' WHERE AppID = "+appNumIn;
+            String queryString = "UPDATE TimeTable SET time = null, con_Name = '', taken = 'Free' WHERE AppID = "+appNumIn;
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
         } catch (Exception e) {
@@ -84,24 +90,13 @@ public class TimeTableOperations {
 
     }
 
-    public void setAllFree(){
-        try {
-            String free="Free";
-            String queryString1 = "INSERT INTO TimeTable(tt_ID,taken)VALUES(tt_seq.nextval,?)";
-            pstmt = conn.prepareStatement(queryString1);
-            pstmt.setString(1,free);
-            pstmt.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
     public void setTTFree(String equipIn,String taken){
         try {
-            String queryString1 = "INSERT INTO TimeTable(tt_ID,machineName,taken)VALUES(tt_seq.nextval,?,?)";
+            String queryString1 = "INSERT INTO TimeTable(tt_ID,machineName,taken,con_Name)VALUES(tt_seq.nextval,?,?,?)";
             pstmt = conn.prepareStatement(queryString1);
             pstmt.setString(1,equipIn);
             pstmt.setString(2,taken);
+            pstmt.setString(3,"  ");
             pstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -121,13 +116,13 @@ public class TimeTableOperations {
         }
     }
 
-    public int getCurrVal(){
-        int catchInt=0;
+    public int getCurrVal() {
+        int catchInt = 0;
         try {
             String queryString = "select max(appID) from appointment";
             stmt = conn.createStatement();
             rset = stmt.executeQuery(queryString);
-            while(rset.next()) {
+            while (rset.next()) {
                 catchInt = rset.getInt(1);
             }
         } catch (Exception e) {
@@ -135,8 +130,6 @@ public class TimeTableOperations {
         }
         return catchInt;
     }
-
-
 
 
     public ResultSet getConsultant(){
@@ -149,159 +142,5 @@ public class TimeTableOperations {
         }
         return rset;
     }
-
-    public String getConsultantName(String equipIn){
-        String temp="";
-        try {
-            String queryString = "SELECT con_Name FROM Consultant WHERE machineSkill = '"+equipIn+"'";
-            stmt = conn.createStatement();
-            rset = stmt.executeQuery(queryString);
-            while (rset.next()){
-                System.out.println("Return name consultant "+rset.getString(2));
-                temp=rset.getString(2);
-            }
-        } catch (Exception e) {
-            System.out.println("Con name crash+++ toperations  "+e);
-        }
-        return temp;
-    }
-
-    public void cancelXRayTableEntry(int appNumIn){
-        try {
-            String queryString = "UPDATE XRayTimeTable SET taken = 'Free' WHERE AppID = "+appNumIn;
-            stmt = conn.createStatement();
-            rset = stmt.executeQuery(queryString);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-    }
-
-    public void cancelMRITableEntry(int appNumIn){
-        try {
-            String queryString = "UPDATE MRITimeTable SET taken = 'Free' WHERE AppID = "+appNumIn;
-            stmt = conn.createStatement();
-            rset = stmt.executeQuery(queryString);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-    }
-    public void cancelCTTableEntry(int appNumIn){
-        try {
-            String queryString = "UPDATE CTScanTimeTable SET taken = 'Free' WHERE AppID = "+appNumIn;
-            stmt = conn.createStatement();
-            rset = stmt.executeQuery(queryString);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-    }
 }
 
-
-
-
-//    public void setXRayFree(String taken){
-//        try {
-//            String queryString1 = "INSERT INTO XRayTimeTable(xRay_ID,taken)VALUES(xRay_seq.nextval,?)";
-//            pstmt = conn.prepareStatement(queryString1);
-//            pstmt.setString(1,taken);
-//            pstmt.executeUpdate();
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//    }
-//    public void setMRIFree(String taken){
-//        try {
-//            String queryString1 = "INSERT INTO MRITimeTable(mRI_ID,taken)VALUES(mRI_seq.nextval,?)";
-//            pstmt = conn.prepareStatement(queryString1);
-//            pstmt.setString(1,taken);
-//            pstmt.executeUpdate();
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//    }
-//    public void setCTFree(String taken){
-//        try {
-//            String queryString1 = "INSERT INTO CTScanTimeTable(cT_ID,taken)VALUES(cT_seq.nextval,?)";
-//            pstmt = conn.prepareStatement(queryString1);
-//            pstmt.setString(1,taken);
-//            pstmt.executeUpdate();
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//    }
-
-//
-//    public void setXRayTimeTable(int timeIn, String taken, int consultantNumIn ){
-//        try {
-//            String queryString1 = "INSERT INTO XRayTimeTable(xRay_ID, time, taken,con_Name,AppID)VALUES(xRay_seq.nextval,?,?,?,?)";
-//            pstmt = conn.prepareStatement(queryString1);
-//            pstmt.setInt(1,timeIn);
-//            pstmt.setString(2, taken);
-//            pstmt.setString(3,getConsultantName(consultantNumIn));
-//            pstmt.setInt(4,getCurrVal());
-//            pstmt.executeUpdate();
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//    }
-//    public void setMRITimeTable(int timeIn, String taken,int consultantNumIn){
-//        try {
-//            String queryString1 = "INSERT INTO MRITimeTable(mRI_ID, time,taken, con_Name,AppID)VALUES(mRI_seq.nextval,?,?,?,?)";
-//            pstmt = conn.prepareStatement(queryString1);
-//            pstmt.setInt(1,timeIn);
-//            pstmt.setString(2,taken);
-//            pstmt.setString(3, getConsultantName(consultantNumIn));
-//            pstmt.setInt(4,getCurrVal());
-//            pstmt.executeUpdate();
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//    }
-//    public void setCTTimeTable(int timeIn, String taken, int consultantNumber) {
-//        try {
-//            String queryString1 = "INSERT INTO CTScanTimeTable(cT_ID, time,taken, con_Name,AppID)VALUES(cT_seq.nextval,?,?,?,?)";
-//            pstmt = conn.prepareStatement(queryString1);
-//            pstmt.setInt(1, timeIn);
-//            pstmt.setString(2, taken);
-//            pstmt.setString(3, getConsultantName(consultantNumber));
-//            pstmt.setInt(4,getCurrVal());
-//            pstmt.executeUpdate();
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//    }
-
-
-//    public ResultSet getXRayTT() {
-//        try {
-//            String queryString = "SELECT * FROM XRayTimeTable ORDER BY time";
-//            stmt = conn.createStatement();
-//            rset = stmt.executeQuery(queryString);
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//        return rset;
-//    }
-//    public ResultSet getCTScanTT() {
-//        try {
-//            String queryString = "SELECT * FROM CTScanTimeTable ORDER BY time";
-//            stmt = conn.createStatement();
-//            rset = stmt.executeQuery(queryString);
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//        return rset;
-//    }
-//    public ResultSet getMRIScanTT() {
-//        try {
-//            String queryString = "SELECT * FROM MRITimeTable ORDER BY time";
-//            stmt = conn.createStatement();
-//            rset = stmt.executeQuery(queryString);
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//        return rset;
-//    }

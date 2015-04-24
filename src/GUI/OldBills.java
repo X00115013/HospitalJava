@@ -165,7 +165,10 @@ public class OldBills extends JFrame implements ActionListener {
             }
             so.stockOperationsClose();
             patientText.setText(enterNumText.getText());
-            oldBillInformation.setText(billList.get(0));
+            try {
+                oldBillInformation.setText(billList.get(0));
+            }catch(IndexOutOfBoundsException io) {
+            }
         }
         else if (e.getSource().equals(next)) {
             try {

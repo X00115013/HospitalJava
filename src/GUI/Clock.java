@@ -1,5 +1,7 @@
 package GUI;
 
+import DataBase.TimeTableOperations;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,23 +25,24 @@ import javax.swing.WindowConstants;
 
 public class Clock {
 
-    public static void main(String[] args) {
+//    public static void main(String[] args) {
+//
+//        JFrame f = new JFrame();
+//        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//        DigitalClock myClock = new DigitalClock();
+//        f.add(myClock);
+//        f.pack();
+//        f.setVisible(true);
+//    }
 
-        JFrame f = new JFrame();
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        DigitalClock myClock = new DigitalClock();
-        f.add(myClock);
-        f.pack();
-        f.setVisible(true);
-    }
-
-    public static class DigitalClock extends JPanel {
+    public static class DigitalClock extends JPanel{
 
         String stringTime;
         int hour, minute, second;
         String correctionHour = "";
         String correctionMinute = "";
         String correctionSecond = "";
+        TimeTableOperations to;
 
         public void setStringTime(String xyz) {
             this.stringTime = xyz;
@@ -60,9 +63,21 @@ public class Clock {
             t1.start();
         }
 
+
+
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
+
+            int delay = 604800000; //milliseconds
+            ActionListener taskPerformer = new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    to=new TimeTableOperations();
+                    to.updateTimeTable();
+                    to.TimeTableOperationsClose();
+                }
+            };
+            new Timer(delay, taskPerformer).start();
 
             Calendar now = Calendar.getInstance();
             hour = now.get(Calendar.HOUR_OF_DAY);

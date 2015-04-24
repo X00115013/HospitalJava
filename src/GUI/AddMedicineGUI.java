@@ -251,7 +251,7 @@ package GUI;
                         }
                         if (deletion == true) {
                             JOptionPane.showMessageDialog(null, "Medicine does not Exist");
-
+                            deletion = false;
                         }
                     } catch (NumberFormatException nf) {
                         try {
@@ -284,7 +284,7 @@ package GUI;
                     }
                     if (deletion == true) {
                         JOptionPane.showMessageDialog(null, "Medicine does not Exist");
-
+                        deletion = false;
                     }
                 } catch (NumberFormatException nf) {
                     try {

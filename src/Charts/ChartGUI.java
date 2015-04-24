@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * Created by Roland on 10/04/2015.
+ * Created by Thomas Murray on 10/04/2015.
  */
 public class ChartGUI extends JFrame implements ActionListener
 {
@@ -187,6 +187,7 @@ public class ChartGUI extends JFrame implements ActionListener
                 chart.add(chartPanel3);
                 chart.revalidate();
                 chart.repaint();
+
 
             }
 

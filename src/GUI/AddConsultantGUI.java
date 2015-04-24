@@ -224,7 +224,7 @@ package GUI;
                     }
                     if (deletion == true) {
                         JOptionPane.showMessageDialog(null, "Consultant does not Exist");
-
+                        deletion = false;
                     }
                 } catch (NumberFormatException nf) {
                     try {

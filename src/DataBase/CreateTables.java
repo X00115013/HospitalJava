@@ -542,43 +542,6 @@ public class CreateTables {
             System.out.print("SQL Exception " + e);
             System.exit(1);
         }
-//        try {
-//            //APPOINTMENT START creating table
-//            System.out.println("Creating Appointment");
-//            String createApp = "CREATE TABLE Appointment (AppID NUMBER PRIMARY KEY,AppTime NUMBER,AppDate DATE,ReasonVisit VARCHAR2(255)" +
-//                    ",patient_Number NUMBER REFERENCES Patient(patient_Number))";
-//            pstmt = conn.prepareStatement(createApp);
-//            pstmt.executeUpdate(createApp);
-//            // creating Sequence
-//            String createAppSeq = " CREATE SEQUENCE APPID increment by 1 start with 1";
-//            pstmt = conn.prepareStatement(createAppSeq);
-//            pstmt.executeUpdate(createAppSeq);
-//            // Insert data into table
-//           /* String insertRef = "INSERT INTO Referral (GPNumber,GPName,GPLocation,Patient_FName, Patient_LName,Patient_DOB,Patient_Address,Patient_Phone" +
-//                    "ReasonVisit,Recommendation,Med_Equip_Needed,Consultant_Type,patient_Number) " +
-//                    "Values(GPID.nextVal,?,?,?,?,?,?,?,?,?,?,PatientID.currVal)";
-//            pstmt = conn.prepareStatement(insertRef);
-//            pstmt.setString(1, "John");
-//            pstmt.setString(2, "Dublin");
-//            pstmt.setString(3, "Bill");
-//            pstmt.setString(4, "McKey");
-//            pstmt.setString(5, "02 Jul 1960");
-//            pstmt.setString(6, "25 Willow Way Dublin 10");
-//            pstmt.setString(7, "0871234567");
-//            pstmt.setString(8,"Chest Pain");
-//            pstmt.setString(9,"Rest");
-//            pstmt.setInt(10,1);
-//            pstmt.setInt(10, 3);
-//            pstmt.executeUpdate();*/
-//        } catch (SQLException e) {
-//            System.out.print("SQL Exception " + e);
-//            System.exit(1);
-//        }
-
-
-
-
-
 
         // Tables that use FK as Primary Keys in this section
         try {

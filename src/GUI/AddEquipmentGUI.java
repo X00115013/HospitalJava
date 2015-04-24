@@ -209,7 +209,7 @@ import java.util.ArrayList;
                             }
                         }if(deletion==true) {
                             JOptionPane.showMessageDialog(null, "Equipment does not Exist");
-
+                            deletion = false;
                         }
                     }catch(NumberFormatException nf) {
                         try {

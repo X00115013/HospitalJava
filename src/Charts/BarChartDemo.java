@@ -22,6 +22,9 @@ import org.jfree.ui.RefineryUtilities;
 
 import javax.swing.*;
 
+/**
+ * Created by Thomas Murray on 10/04/2015.
+ */
 
 public class BarChartDemo extends JPanel {
 
@@ -188,13 +191,4 @@ public class BarChartDemo extends JPanel {
         chart.getLegend().setFrame(BlockBorder.NONE);
         return chart;
     }
-
-
-//    public static void main(String[] args) {
-//        BarChartDemo demo = new BarChartDemo("JFreeChart: BarChartDemo1.java",1);
-//        demo.pack();
-//        RefineryUtilities.centerFrameOnScreen(demo);
-//        demo.setVisible(true);
-//    }
-
 }

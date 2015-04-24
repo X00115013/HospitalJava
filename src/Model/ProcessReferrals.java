@@ -17,15 +17,15 @@ import javax.swing.*;
  */
 public class ProcessReferrals {
     private String gpName;
-    private String gpLocation;
+    private String gpLocation,occupation,emailIn;
     private int patientNumber;
     private int refNum,isChecked;
-    private String reasonForVisit,occupation;
+    private String reasonForVisit;
     private String recommendations,consultantRequired,medicalRequired;
     private int  gpNum;
     private String patientFName;
     private String patientLName;
-    private String patientAddress, emailIn, phoneIn, DOB;
+    private String patientAddress,phoneIn, DOB;
     private String gender;
     private ReferralOperations ro;
     private ArrayList<ProcessReferrals> refList= new ArrayList<>();
@@ -36,20 +36,15 @@ public class ProcessReferrals {
     private ArrayList<PatientRecord> pRecList=new ArrayList<>();
     private Consultants consultants;
     private ArrayList<Consultants> conList=new ArrayList<>();
-//    private StockOperations so;
+
 
 
     public ProcessReferrals() {
-//        so=new StockOperations();
-        ro=new ReferralOperations();
-        po=new PatientOperations();
-        refreshTables();
-        process();
-
-    }
-
-//    public PatientRecord(PatientOperations po,int patientNumIn,String patientFNameIn, String patientLNameIn,
-//                         String patientAddressIn, String occupationIn,String genderIn, String emailIn, String phoneIn, String DOBIn)
+            ro = new ReferralOperations();
+            po = new PatientOperations();
+            refreshTables();
+            process();
+        }
 
 
     public ProcessReferrals(int refNumIn,int gpNumIn,String gpNameIn,String gpLocationIn,
@@ -177,57 +172,4 @@ public class ProcessReferrals {
         EquipmentUsed equipmentUsed=new EquipmentUsed(patientNumber,medicalRequired);
 
     }
-
-    public void clearArrays(){
-        for (int i= 0; i < pRecList.size() ; i++) {
-            pRecList.remove(i);
-        }
-        for (int i= 0; i < refList.size() ; i++) {
-            refList.remove(i);
-        }
-    }
 }
-
-
-
-
-
-
-
-
-
-//    public void printProcessRefArray(){
-//        refreshTables();
-//        System.out.println("\n\n\nReferral List\n");
-//        for (int i = 0; i < refList.size(); i++) {
-//            System.out.print("\nReference Num (" + refList.get(i).refNum+")");
-//            System.out.print("\nGP Num ("+refList.get(i).gpNum+")");
-//            System.out.print("\nGP Name ("+refList.get(i).gpName+")");
-//            System.out.print("\nGP Location ("+refList.get(i).gpLocation+")");
-//            System.out.print("\nPatient First Name ("+refList.get(i).patientFName+")");
-//            System.out.print("\nPatient Surname ("+refList.get(i).patientLName+")");
-//            System.out.print("\nPatient DOB"+refList.get(i).DOB+")");
-//            System.out.print("\nPatient Address ("+refList.get(i).patientAddress+")");
-//            System.out.print("\nPhone ("+refList.get(i).phoneIn+")");
-//            System.out.print("\nReason ("+refList.get(i).reasonForVisit+")");
-//            System.out.print("\nGender ("+refList.get(i).gender+")");
-//            System.out.print("\nRecommendations ("+refList.get(i).recommendations+")");
-//            System.out.print("\nMed Required ("+refList.get(i).medicalRequired+")");
-//            System.out.print("\nCon Required ("+refList.get(i).consultantRequired+")");
-//            System.out.print("\nPatient Number ("+refList.get(i).patientNumber+")");
-//            System.out.print("\nChecked Already Flag (" + refList.get(i).isChecked+")\n\n");
-//        }
-//    }
-
-//    public void printReferrals () {
-//        System.out.println("\n\n\nReferral List\n");
-//        rset = ro.getReferral();
-//        try {
-//            while (rset.next()) {
-//                System.out.println("" + rset.getInt(2) + "\t" + rset.getString(3) + "\t" + rset.getString(4) + "\t" + rset.getString(5) + "\t" + rset.getString(6) + "\t" + rset.getString(7) + "\t" + rset.getString(8) + "\t" +
-//                        "\t" + rset.getString(9) + "\t" + rset.getString(10) + "\t" + rset.getString(11) + "\t" + rset.getInt(12) + "\t" + rset.getInt(13) + "\t" + rset.getInt(14) + "\t" + rset.getString(15) + "\t" + rset.getInt(16));
-//            }
-//        } catch (SQLException e1) {
-//            System.out.println(e1);
-//        }
-//    }
