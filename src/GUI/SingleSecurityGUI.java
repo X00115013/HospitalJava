@@ -14,18 +14,14 @@ package GUI;
 
 /**
  * Created by Thomas Murray on 01/03/2015.
+ *
+ * security validating just the password field
  */
 public class SingleSecurityGUI extends JFrame implements ActionListener {
     private  int answer=0,selection;
-
-    JButton confirm;
-    JButton cancel;
-
-    JLabel patientNum;
-    JLabel password;
-    JLabel title;
-    JTextField patientNumText,passwordText;
-
+    JButton confirm,cancel;
+    JLabel patientNum, password,title;
+    JTextField passwordText;
     JFrame f;
 
     public SingleSecurityGUI(int selectionIn) {
@@ -36,21 +32,15 @@ public class SingleSecurityGUI extends JFrame implements ActionListener {
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
-
-
         JPanel clock= new JPanel(new FlowLayout(FlowLayout.LEFT));
         f.add(clock,BorderLayout.EAST);
-
         JPanel offTop= new JPanel(new FlowLayout(FlowLayout.CENTER));
         f.add(offTop,BorderLayout.NORTH);
 
-
+        //Title
         title = new JLabel("SECURITY");
         offTop.add(title);
         title.setFont(new Font("Arial", Font.BOLD, 44));
-
-
 
         JPanel middle=new JPanel();
         f.add(middle,BorderLayout.CENTER);
@@ -62,8 +52,6 @@ public class SingleSecurityGUI extends JFrame implements ActionListener {
         //text field
         passwordText = new JTextField(30);
         middle.add(passwordText, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
-
-
         JPanel bottom= new JPanel(new FlowLayout(FlowLayout.LEFT));
         f.add(bottom,BorderLayout.SOUTH);
 
@@ -72,15 +60,12 @@ public class SingleSecurityGUI extends JFrame implements ActionListener {
         confirm.addActionListener(this);
         bottom.add(confirm);
 
-
         // Cancel button
         cancel = new JButton("Cancel");
         cancel.addActionListener(this);
         bottom.add(cancel);
-
         f.setVisible(true);
     }
-
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5, 5, 5, 5);
@@ -94,16 +79,10 @@ public class SingleSecurityGUI extends JFrame implements ActionListener {
         return c;
     }
 
-    public int getAnswer() {
-        return answer;
-    }
-
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
             f.setVisible(false);
-
         } else if (e.getSource().equals(confirm)) {
-            boolean test = true;
             if (passwordText.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Password is a Required Field");
             } else {

@@ -15,22 +15,15 @@
 
     /**
      * Created by Thomas Murray on 01/03/2015.
+     *
+     * This class is used to cancel a current appointment
+     *
      */
     public class CancelAppointmentSecurity extends JFrame implements ActionListener {
         private  int answer=0,selection;
-
-        JButton confirm;
-        JButton cancel;
-        JButton cancelAppointment;
-
-        JLabel patientNum;
-        JLabel password;
-        JLabel label5;
-        JLabel title;
-
-
-        JTextField patientNumText;
-        JTextField passwordText;
+        JButton confirm,cancel,cancelAppointment;
+        JLabel patientNum,password,label5,title;
+        JTextField patientNumText,passwordText;
         JFrame f;
 
         public CancelAppointmentSecurity(int selection) {
@@ -41,24 +34,16 @@
             f.setResizable(false);
             f.setLocationRelativeTo(null);
             f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
-
-
             JPanel clock= new JPanel(new FlowLayout(FlowLayout.LEFT));
             f.add(clock,BorderLayout.EAST);
 
-
-
-
             JPanel offTop= new JPanel(new FlowLayout(FlowLayout.CENTER));
             f.add(offTop,BorderLayout.NORTH);
-            //Reason for Visit label
+
+            //Title
             title = new JLabel("SECURITY");
             offTop.add(title);
             title.setFont(new Font("Arial",Font.BOLD, 44));
-
-
-
             JPanel middle=new JPanel();
             f.add(middle,BorderLayout.CENTER);
             middle.setLayout(new GridBagLayout());
@@ -66,6 +51,7 @@
             //Patient Number
             patientNum = new JLabel("Patient Number");
             middle.add(patientNum, getConstraints(0, 0, 1, 1, GridBagConstraints.WEST));
+
             //text field
             patientNumText= new JTextField(30);
             middle.add(patientNumText, getConstraints(0, 1, 1, 1, GridBagConstraints.WEST));
@@ -73,11 +59,10 @@
             //Password
             password = new JLabel("Admin/Medical Password");
             middle.add(password, getConstraints(0, 2, 1, 1, GridBagConstraints.WEST));
+
             //text field
             passwordText = new JTextField(30);
             middle.add(passwordText, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
-
-
             JPanel bottom= new JPanel(new FlowLayout(FlowLayout.LEFT));
             f.add(bottom,BorderLayout.SOUTH);
 
@@ -86,17 +71,15 @@
             confirm.addActionListener(this);
             bottom.add(confirm);
 
-
             // Cancel button
             cancel = new JButton("Cancel");
             cancel.addActionListener(this);
             bottom.add(cancel);
 
-            // Cancel button
+            // Cancel appointment button
             cancelAppointment = new JButton("Cancel Appointment");
             cancelAppointment.addActionListener(this);
             bottom.add(cancelAppointment);
-
             f.setVisible(true);
         }
 
@@ -113,16 +96,9 @@
             return c;
         }
 
-        public int getAnswer() {
-            return answer;
-        }
-
-        public void actionPerformed(ActionEvent e)
-        {
-            if (e.getSource().equals(cancel))
-            {
+        public void actionPerformed(ActionEvent e){
+            if (e.getSource().equals(cancel)){
                 f.setVisible(false);
-
             } else if (e.getSource().equals(confirm))
             {boolean test = true;
                 try {

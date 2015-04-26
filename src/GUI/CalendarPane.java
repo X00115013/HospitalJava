@@ -17,6 +17,12 @@ package GUI;
     import javax.swing.JPanel;
 
 
+/**
+ * Created by Thomas Murray on 17/03/2015.
+ *
+ * This class builds and displays the calendar on the home page
+ */
+
     public class CalendarPane extends JPanel {
         protected int yy;
         protected int mm, dd;

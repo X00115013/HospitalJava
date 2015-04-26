@@ -1,7 +1,7 @@
 package DataBase;
 
 /**
- * Created by David and Thomas Murray on 25/02/2015.
+ * Created by David Kiernan and Thomas Murray on 25/02/2015.
  */
 
 import java.sql.*;
@@ -47,7 +47,7 @@ public class CreateTables {
         return conn;
     }
 
-    // Dropping tables and sequences. Dropped in the reverse order than the createTable method
+    // Dropping tables and sequences.
     public void dropTables() {
         System.out.println("Checking for existing tables & Sequences");
 
@@ -58,13 +58,11 @@ public class CreateTables {
                 stmt.execute("DROP TABLE PatientChart");
                 System.out.println("PatientChart Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
-            } // PATIENTCHART END
+            }
             try{
                 stmt.execute("DROP SEQUENCE prescription_seq");
                 System.out.println("Prescription Sequence dropped.");
             }catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE Prescriptions");
@@ -76,20 +74,16 @@ public class CreateTables {
                 stmt.execute("DROP SEQUENCE bill_seq");
                 System.out.println("Bill Sequence dropped.");
             }catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE Bill");
                 System.out.println("Bill Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
-            } // PAYMENT END
-
+            }
             try{
                 stmt.execute("DROP SEQUENCE machine_seq");
                 System.out.println("Machine Sequence dropped.");
             }catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE EquipmentUsed");
@@ -97,98 +91,71 @@ public class CreateTables {
             } catch (SQLException ex) {
 
             }
-
-
             try{
                 stmt.execute("DROP SEQUENCE tt_seq");
                 System.out.println("Time Table Sequence dropped.");
             }catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
-
-
-
             try {
                 stmt.execute("DROP TABLE TimeTable");
                 System.out.println("Timetable Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
-            } // TIME TABLE END
-            // REFERRAL Sequence & Table START
+            }
             try{
                 stmt.execute("DROP SEQUENCE GPID");
                 System.out.println("Referral Sequence dropped.");
             }catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try{
                 stmt.execute("DROP TABLE Referral");
                 System.out.println("Referral Table dropped");
             }catch (SQLException ex){
-                // The table doesn't exist
-            }   // REFERRAL END
-            // CONSULTANT Sequence & Table START
+            }
             try {
                 stmt.execute("DROP SEQUENCE xRay_seq");
                 System.out.println("xRayTT Sequence dropped.");
             } catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE XRayTimeTable");
                 System.out.println("xRayTT Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
             }
-            // CONSULTANT Sequence & Table START
             try {
                 stmt.execute("DROP SEQUENCE mRI_seq");
                 System.out.println("MRI Sequence dropped.");
             } catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE MRITimeTable");
                 System.out.println("MRI Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
             }
-            // CONSULTANT Sequence & Table START
             try {
                 stmt.execute("DROP SEQUENCE cT_seq");
                 System.out.println("cT_seq Sequence dropped.");
             } catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE CTScanTimeTable");
                 System.out.println("CT Scan Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
             }
-            // CONSULTANT Sequence & Table START
             try {
                 stmt.execute("DROP SEQUENCE conTT_seq");
                 System.out.println("conTT_seq Sequence dropped.");
             } catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE consultantTimetable");
                 System.out.println("ConsultantTT Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
             }
-
             try {
                 stmt.execute("DROP TABLE Accounts");
                 System.out.println("Accounts Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
             }
-
-
-            // ADMIN Sequence & Table START
             try {
                 stmt.execute("DROP SEQUENCE StaffID");
                 System.out.println("Administration Sequence dropped.");
@@ -199,7 +166,6 @@ public class CreateTables {
                 System.out.println("Administration Table dropped");
             } catch (SQLException ex) {
             }
-
             try {
                 stmt.execute("DROP SEQUENCE archive_seq");
                 System.out.println("Archive Sequence dropped.");
@@ -210,168 +176,121 @@ public class CreateTables {
                 System.out.println("Archive Table dropped");
             } catch (SQLException ex) {
             }
-
-           // CONSULTANT Sequence & Table START
             try {
                 stmt.execute("DROP SEQUENCE ConID");
                 System.out.println("Consultant Sequence dropped.");
             } catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE Consultant");
                 System.out.println("Consultant Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
-            } // CONSULTANT END
-
-            // PATIENT Sequence & Table START
+            }
             try {
                 stmt.execute("DROP SEQUENCE PatientID");
                 System.out.println("Patient Sequence dropped.");
             } catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE Patient");
                 System.out.println("Patient Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
-            } // PATIENT END
-
+            }
             try {
                 stmt.execute("DROP SEQUENCE account_seq");
                 System.out.println("Accounts Sequence dropped.");
             } catch (SQLException ex) {
             }
-
             try {
                 stmt.execute("DROP TABLE OldMedicalRecords");
                 System.out.println("Old Med Records Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
-            } // PATIENT END
-
+            }
             try {
                 stmt.execute("DROP SEQUENCE oldMed_seq");
                 System.out.println("Old Med Records Sequence dropped.");
             } catch (SQLException ex) {
             }
-
-
-            // APPOINTMENT Sequence & Table START
             try {
                 stmt.execute("DROP SEQUENCE APPID");
                 System.out.println("Appointment Sequence dropped.");
             } catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE Appointment");
                 System.out.println("Appointment Table dropped");
             } catch (SQLException ex) {
             }
-
-
-
-            // MEDICINE & Table START
             try {
                 stmt.execute("DROP SEQUENCE MedID");
                 System.out.println("Medicine Sequence dropped.");
             } catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE Medicine");
                 System.out.println("Medicine Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
-            } // MEDICINE END
-
-            // CARD DETAILS & Table START
+            }
             try {
                 stmt.execute("DROP SEQUENCE CardID");
                 System.out.println("Card Details Sequence dropped.");
             } catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE CardDetails");
                 System.out.println("CardDetails Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
-            } // CARD DETAILS END
-
-            // MEDICAL CARD Sequence & Table START
+            }
             try {
                 stmt.execute("DROP SEQUENCE GMSID");
                 System.out.println("Medical Card Sequence dropped.");
             } catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE MedicalCard");
                 System.out.println("MedicalCard Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
-            } // MEDICAL CARD END
-
-            // HEALTH INSURANCE Sequence & Table START
+            }
             try {
                 stmt.execute("DROP SEQUENCE PolicyID");
                 System.out.println("Health Insurance Sequence dropped.");
             } catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE HealthInsurance");
                 System.out.println("HealthInsurance Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
-            } // HEALTH INSURANCE END
-
-            // BED Sequence & Table START
+            }
             try {
                 stmt.execute("DROP SEQUENCE BedID");
                 System.out.println("Bed Sequence dropped.");
             } catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE Bed");
                 System.out.println("Bed Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
-            } // BED END
-
-            // MEDICAL EQUIPMENT Sequence & Table START
+            }
             try {
                 stmt.execute("DROP SEQUENCE EquipID");
                 System.out.println("Medical Equipment Sequence dropped.");
             } catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE MedicalEquipment");
                 System.out.println("MedicalEquipment Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
-            } // MEDICAL EQUIPMENT END
-
-            // MEDICAL EQUIPMENT Sequence & Table START
+            }
             try {
                 stmt.execute("DROP SEQUENCE check_seq ");
                 System.out.println("check out Sequence dropped.");
             } catch (SQLException ex) {
-                // If in here then the Sequence did not exist
             }
             try {
                 stmt.execute("DROP TABLE checkOUT");
                 System.out.println("check out Table dropped");
             } catch (SQLException ex) {
-                // The table doesn't exist
-            } // MEDICAL EQUIPMENT END
-
+            }
         } catch (SQLException ex) {
             System.out.println("ERROR: " + ex.getMessage());
         }
@@ -493,9 +412,6 @@ public class CreateTables {
             System.exit(1);
         }
 
-
-
-
         try {
             //MEDICAL CARD  START creating table
             System.out.println("Creating Medical Card");
@@ -510,6 +426,7 @@ public class CreateTables {
             System.out.print("SQL Exception " + e);
             System.exit(1);
         }
+
         try {
             //HEALTH INSURANCE  START creating table
             System.out.println("Creating Health Insurance");
@@ -524,22 +441,7 @@ public class CreateTables {
             System.out.print("SQL Exception " + e);
             System.exit(1);
         }
-        try {
-            //BED  START creating table
-            System.out.println("Creating Bed");
-            String createBedDetails = "CREATE TABLE Bed (Bed_ID NUMBER PRIMARY KEY , CurrentBeds NUMBER, MaxBed NUMBER)";
-            pstmt = conn.prepareStatement(createBedDetails);
-            pstmt.executeUpdate(createBedDetails);
-            // creating Sequence
-            String createBedSeq = " CREATE SEQUENCE BedID increment by 1 start with 1";
-            pstmt = conn.prepareStatement(createBedSeq);
-            pstmt.executeUpdate(createBedSeq);
-        } catch (SQLException e) {
-            System.out.print("SQL Exception " + e);
-            System.exit(1);
-        }
 
-        // Tables with FK created in this section
         try {
             //REFERRAL START creating table
             System.out.println("Creating Referral");
@@ -557,7 +459,6 @@ public class CreateTables {
             System.exit(1);
         }
 
-        // Tables that use FK as Primary Keys in this section
         try {
             //PATIENT CHART START creating table
             System.out.println("Creating Patient Chart");
@@ -747,7 +648,7 @@ public class CreateTables {
 
 
         try {
-            //PAYMENT  START creating table
+            //old bills creating table
             System.out.println("Creating Bill");
             String createPayDetails = "CREATE TABLE Bill (bill_Number NUMBER PRIMARY KEY,bill VARCHAR2(2000),datePaid VARCHAR2(60), patient_Num NUMBER )";
             pstmt = conn.prepareStatement(createPayDetails);
@@ -762,7 +663,7 @@ public class CreateTables {
         }
 
         try {
-            //creating table
+            //creating checkOut table
             System.out.println("Creating check out info Tables");
             String create = "CREATE TABLE checkOUT(check_ID  NUMBER PRIMARY KEY, message VARCHAR2(255),conName VARCHAR2(50), thisVisit NUMBER, patient_Num NUMBER )";
             pstmt = conn.prepareStatement(create);
@@ -793,7 +694,7 @@ public class CreateTables {
         }
 
         try {
-            //creating table
+            //creating accounts table
             System.out.println("Creating Hospital Account");
             String create = "CREATE TABLE Accounts(accountID  NUMBER PRIMARY KEY, medDeposit NUMBER, equipDeposit NUMBER ,runningTotal NUMBER, dateIn VARCHAR2(60),patient_Num NUMBER)";
             pstmt = conn.prepareStatement(create);
@@ -808,7 +709,7 @@ public class CreateTables {
         }
 
         try {
-            //Creating table
+            //Creating old med rec table
             System.out.println("Creating Old MedicalRecords");
             String create = "CREATE TABLE OldMedicalRecords(oldMed_ID  NUMBER PRIMARY KEY, dateIn VARCHAR2(60),old_Record VARCHAR2(4000),patient_Num NUMBER)";
             pstmt = conn.prepareStatement(create);
@@ -824,7 +725,7 @@ public class CreateTables {
 
 
         try {
-            //TIME TABLE START creating table
+            //Consultant TIME TABLE START creating table
             System.out.println("Creating consultantTimetable");
             String create = "CREATE TABLE consultantTimetable(conTT_ID  NUMBER PRIMARY KEY, time NUMBER ,con_Name VARCHAR2(50), AppID NUMBER )";
             pstmt = conn.prepareStatement(create);
@@ -839,7 +740,7 @@ public class CreateTables {
         }
 
         try {
-            //TIME TABLE START creating table
+            //Archive TABLE START creating table
             System.out.println("Creating Archive");
             String create = "CREATE TABLE Archive(archiveID  NUMBER PRIMARY KEY, patient_numIn NUMBER,reasonForDeletion VARCHAR2(255),archiveFile VARCHAR2(255))";
             pstmt = conn.prepareStatement(create);

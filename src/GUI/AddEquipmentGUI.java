@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Thomas Murray on 04/04/2015.
+ *
+ * This class if for adding and removing equipment
  */
 
 
@@ -64,13 +66,13 @@ import java.util.ArrayList;
             patientText.setBorder(loweredBorder);
             patientText.setEditable(false);
             ID.add(patientText);
-
-
             topSection.add(clock);
             topSection.add(title);
             topSection.add(ID);
 
             holder.add(topSection);
+
+            //Central text area
             JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
             additionalInformation = new JTextArea(27,65);
             additionalInformation.setBorder(loweredBorder);
@@ -84,17 +86,21 @@ import java.util.ArrayList;
             JPanel test =new JPanel(new FlowLayout(FlowLayout.LEFT));
             JPanel dobs = new JPanel(new GridBagLayout());
 
+            //Equipment Label
             equipName=new JLabel("Equipment Name ");
             dobs.add(equipName, getConstraints(0, 3, 2, 1, GridBagConstraints.WEST));
 
+            //Equipment text
             equipNameText=new JTextField(50);
             equipNameText.setBorder(loweredBorder);
             equipNameText.setEditable(true);
             dobs.add(equipNameText, getConstraints(0, 4, 5, 1, GridBagConstraints.WEST));
 
+            //Price label
             equipPrice=new JLabel("Equipment Cost Per Usage ");
             dobs.add(equipPrice, getConstraints(0, 5, 2, 1, GridBagConstraints.WEST));
 
+            //Price Text
             equipPriceText=new JTextField(50);
             equipPriceText.setBorder(loweredBorder);
             equipPriceText.setEditable(true);
@@ -102,7 +108,7 @@ import java.util.ArrayList;
 
 
 
-            // Confirm button
+            // Add button
             confirm = new JButton("ADD");
             confirm.addActionListener(this);
             dobs.add(confirm, getConstraints(0, 7, 1, 1, GridBagConstraints.WEST));
@@ -117,7 +123,7 @@ import java.util.ArrayList;
             refresh.addActionListener(this);
             dobs.add(refresh, getConstraints(2, 7, 1, 1, GridBagConstraints.WEST));
 
-            // Refresh button
+            // Remove button
             delete = new JButton("Remove Equipment");
             delete.addActionListener(this);
             dobs.add(delete, getConstraints(3, 7, 1, 1, GridBagConstraints.WEST));
@@ -148,6 +154,7 @@ import java.util.ArrayList;
             return c;
         }
 
+        //Pulling account information from the database and converting to a string to be displayed
         public String setTextArea() {
             list="";
             additionalInformation.setText("");

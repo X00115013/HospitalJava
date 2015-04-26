@@ -17,23 +17,27 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 
 /**
- * Created by David Kiernan and Thomas Murray on 17/03/2015.
+ * Created by Thomas Murray on 17/03/2015.
+ *
+ * Both home pages:
+ * 1. Patient section
+ * 2. Administration session
  */
+
+
 public class HomeScreen extends JFrame implements ActionListener {
 
 
     private JButton appointments,checkIn,prescriptions,adminRecord,charts,medRecord,timeTables,equipment,medicine,payment,consultant,patientCharts,processR,oldBills,oldMed,accounts;
-    private JButton calendar;
-    private JLabel pageTitle,pageTitle2;
-    private JLabel pageCenter,pageCenter2;
-    JFrame f, g;
+    private JLabel pageTitle,pageTitle2, pageCenter,pageCenter2;
+    JFrame f;
     private JTabbedPane tabbedPane;
     private String name="Hospital Name";
     boolean localTest=false;
     int tabbedCheck=1,firstVisit=0;
 
-
     public HomeScreen() {
+        //This code implements the NIMBUS design throughout the whole system.
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -59,14 +63,19 @@ public class HomeScreen extends JFrame implements ActionListener {
         firstPage.setLayout(new GridLayout(3, 1));
         firstPage.setSize(1200,800);
         firstPage.setBackground(Color.LIGHT_GRAY);
+
+        //Clock
         Clock.DigitalClock clock1 = new Clock.DigitalClock();
         CalendarPane calendarPane=new CalendarPane();
         Clock.DigitalClock clock2 = new Clock.DigitalClock();
-        CalendarPane calendarPane2=new CalendarPane();
 
+        //Calendar pane
+        CalendarPane calendarPane2=new CalendarPane();
         JPanel top = new JPanel(new GridLayout(1, 3));
         top.setOpaque(true);
         top.add(clock1);
+
+        //Title
         pageTitle = new JLabel();
         pageTitle.setFont(new Font("Arial", Font.ITALIC, 56));
         top.add(pageTitle);
@@ -74,13 +83,14 @@ public class HomeScreen extends JFrame implements ActionListener {
         top.setBorder(new EmptyBorder(20, 20, 20, 20));
         firstPage.add(top);
 
+        //Asks for a hospital name the first time a tabbed pane is selected (Start up)
         if(firstVisit==0) {
             name = JOptionPane.showInputDialog("Enter Hospital Name");
             pageTitle.setText(name);
             firstVisit++;
         }
 
-
+        //Home screen central image
         try {
             pageCenter = new JLabel(new ImageIcon(ImageIO.read(new File("files/img.jpg"))));
         } catch (IOException e) {
@@ -89,51 +99,54 @@ public class HomeScreen extends JFrame implements ActionListener {
 
         pageCenter.setSize(2000, 1200);
         firstPage.add(pageCenter);
-
-        //buttons
         JPanel buttons = new JPanel(new GridBagLayout());
 
         appointments = new JButton("Appointments");
         appointments.addActionListener(this);
         appointments.setPreferredSize(new Dimension(200, 50));
         buttons.add(appointments, getConstraints(0, 0, 1, 1, GridBagConstraints.SOUTH));
+
         checkIn= new JButton("Check-In");
         checkIn.addActionListener(this);
         checkIn.setPreferredSize(new Dimension(200, 50));
         buttons.add(checkIn, getConstraints(1, 0, 1, 1, GridBagConstraints.SOUTH));
+
         adminRecord = new JButton("Admin Records");
         adminRecord.addActionListener(this);
         adminRecord.setPreferredSize(new Dimension(200, 50));
         buttons.add(adminRecord, getConstraints(2, 0, 1, 1, GridBagConstraints.SOUTH));
+
         medRecord = new JButton("Medical Records");
         medRecord.addActionListener(this);
         medRecord.setPreferredSize(new Dimension(200, 50));
         buttons.add(medRecord, getConstraints(0, 1, 1, 1, GridBagConstraints.SOUTH));
+
         timeTables = new JButton("Timetables");
         timeTables.addActionListener(this);
         timeTables.setPreferredSize(new Dimension(200, 50));
         buttons.add(timeTables, getConstraints(1, 1, 1, 1, GridBagConstraints.SOUTH));
+
         processR = new JButton("Process Referrals");
         processR.addActionListener(this);
         processR.setPreferredSize(new Dimension(200, 50));
         buttons.add(processR, getConstraints(2, 1, 1, 1, GridBagConstraints.SOUTH));
+
         patientCharts = new JButton("Patient Charts");
         patientCharts.addActionListener(this);
         patientCharts.setPreferredSize(new Dimension(200, 50));
         buttons.add(patientCharts, getConstraints(0, 2, 1, 1, GridBagConstraints.SOUTH));
+
         payment = new JButton("Payment");
         payment.addActionListener(this);
         payment.setPreferredSize(new Dimension(200, 50));
         buttons.add(payment, getConstraints(1, 2, 1, 1, GridBagConstraints.SOUTH));
+
         prescriptions = new JButton("Prescriptions");
         prescriptions.addActionListener(this);
         prescriptions.setPreferredSize(new Dimension(200, 50));
         buttons.add(prescriptions, getConstraints(2, 2, 1, 1, GridBagConstraints.SOUTH));
 
         firstPage.add(buttons, getConstraints(1, 1, 0, 1, GridBagConstraints.SOUTH));
-
-//        f.setVisible(true);
-
         tabbedPane.add("Patient Section",firstPage);
 
         JPanel secondPage=new JPanel();
@@ -149,13 +162,7 @@ public class HomeScreen extends JFrame implements ActionListener {
         top2.add(pageTitle2);
         top2.add(calendarPane2);
         top2.setBorder(new EmptyBorder(20, 20, 20, 20));
-//        calendar=new JButton("Press for Calendar!!!");
-//        top.add(calendar);
         secondPage.add(top2);
-
-
-        //bg image
-
 
         try {
             pageCenter2 = new JLabel(new ImageIcon(ImageIO.read(new File("files/img.jpg"))));
@@ -164,33 +171,38 @@ public class HomeScreen extends JFrame implements ActionListener {
         }
         secondPage.add(pageCenter2);
 
-        //buttons
         JPanel buttons2 = new JPanel(new GridBagLayout());
 
         equipment = new JButton("Equipment");
         equipment.addActionListener(this);
         equipment.setPreferredSize(new Dimension(200, 50));
         buttons2.add(equipment, getConstraints(0, 0, 1, 1, GridBagConstraints.SOUTH));
+
         medicine = new JButton("Medicine");
         medicine.addActionListener(this);
         medicine.setPreferredSize(new Dimension(200, 50));
         buttons2.add(medicine, getConstraints(1, 0, 1, 1, GridBagConstraints.SOUTH));
+
         consultant = new JButton("Consultants");
         consultant.addActionListener(this);
         consultant.setPreferredSize(new Dimension(200, 50));
         buttons2.add(consultant, getConstraints(2, 0, 1, 1, GridBagConstraints.SOUTH));
+
         charts = new JButton("Charts");
         charts.addActionListener(this);
         charts.setPreferredSize(new Dimension(200, 50));
         buttons2.add(charts, getConstraints(3, 0, 1, 1, GridBagConstraints.SOUTH));
+
         oldBills = new JButton("Old Bills");
         oldBills.addActionListener(this);
         oldBills.setPreferredSize(new Dimension(200, 50));
         buttons2.add(oldBills, getConstraints(0, 1, 1, 1, GridBagConstraints.SOUTH));
+
         oldMed = new JButton("Old Med Records");
         oldMed.addActionListener(this);
         oldMed.setPreferredSize(new Dimension(200, 50));
         buttons2.add(oldMed, getConstraints(1, 1, 1, 1, GridBagConstraints.SOUTH));
+
         accounts = new JButton("Hospital Accounts");
         accounts.addActionListener(this);
         accounts.setPreferredSize(new Dimension(200, 50));
@@ -201,6 +213,7 @@ public class HomeScreen extends JFrame implements ActionListener {
         tabbedPane.add("Administration Section",secondPage);
         f.add(tabbedPane);
 
+        //Tabbed pane security (High level Admin only)
         tabbedPane.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -306,6 +319,9 @@ public class HomeScreen extends JFrame implements ActionListener {
 
     }
 }
+
+
+//Spare parts
 
 //                tabbedPane.setComponentAt("Patient Section",secondPage);
 //                tabbedPane.setIgnoreRepaint(true);

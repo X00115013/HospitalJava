@@ -18,6 +18,8 @@ package GUI;
 
 /**
  * Created by Thomas Murray on 29/03/2015.
+ *
+ * This class is used to give the patient a list of items used this visit and a list of payment options
  */
 
 
@@ -29,7 +31,6 @@ public class PaymentGUI extends JFrame implements ActionListener
     JTextField patientText;
     JTextArea billInformation;
     JCheckBox cash;
-    JRadioButton checkOutRadio;
     JScrollPane scroll;
     private int patientNumberIn;
     private ArrayList<PatientRecord>patList=new ArrayList<>();
@@ -44,7 +45,6 @@ public class PaymentGUI extends JFrame implements ActionListener
     public static boolean valid;
     private StockOperations so;
 
-
     public PaymentGUI(int patientNumIn)
     {
         patientNumberIn=patientNumIn;
@@ -54,41 +54,40 @@ public class PaymentGUI extends JFrame implements ActionListener
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-
         JPanel holder=new JPanel(new GridLayout(1,1));
         JPanel topSection=new JPanel(new GridLayout(1,3));
 
+        //Clock
         Clock.DigitalClock clockD=new Clock.DigitalClock();
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
         clock.add(clockD);
 
+        //Title
         JPanel title=new JPanel(new FlowLayout(FlowLayout.CENTER));
         label5 = new JLabel("      Payment            ");
         title.add(label5);
         label5.setFont(new Font("Arial", Font.BOLD, 30));
-
         JPanel ID=new JPanel(new FlowLayout(FlowLayout.CENTER));
-        //labels
+
+        //Patient num labels
         patientNum = new JLabel("\tPatient Number");
         ID.add(patientNum);
-        //text field
+
+        //Patient num text field
         patientText = new JTextField(5);
         patientText.setText(Integer.toString(patientNumIn));
         patientText.setBorder(loweredBorder);
         patientText.setEditable(false);
         ID.add(patientText);
 
-
         topSection.add(clock);
         topSection.add(title);
         topSection.add(ID);
-
         holder.add(topSection);
-
         JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
 
+        //Central text area
         billInformation = new JTextArea(40,70);
         billInformation.setBorder(loweredBorder);
         billInformation.setFont(new Font("Arial", Font.ITALIC, 14));
@@ -97,7 +96,6 @@ public class PaymentGUI extends JFrame implements ActionListener
         scroll = new JScrollPane(billInformation);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         textArea.add(scroll);
-
 
         JPanel holder2=new JPanel(new GridLayout(1,1));
         JPanel test =new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -137,7 +135,6 @@ public class PaymentGUI extends JFrame implements ActionListener
         cancel = new JButton("Cancel");
         cancel.addActionListener(this);
         dobs.add(cancel, getConstraints(2, 1, 1, 1, GridBagConstraints.WEST));
-
         test.add(dobs);
         holder2.add(test);
 
@@ -148,6 +145,7 @@ public class PaymentGUI extends JFrame implements ActionListener
         f.setVisible(true);
     }
 
+    //Pulling a list of item used information from the database and converting to a string to be displayed
     public String setTextArea(){
         bill=new Bill(patientNumberIn);
         patList.removeAll(patList);
@@ -172,7 +170,6 @@ public class PaymentGUI extends JFrame implements ActionListener
                     if(patientNumberIn==presList.get(j).getpNum()&& presList.get(j).getPaid()==1) {
                         record += record = "\n   Drug type:\t" + presList.get(j).getMedName() + "\t  Drug Amount:\t" + presList.get(j).getDose()*10+" mg\n";
                     }
-
                 }
                 record+=record=	"\n   Total Medicine Cost:  €"+Bill.df.format(bill.calcMedCost())+"\n";
                 record+=record="\n--------------------------------------------------------------------------------------------------------------------\n" +
@@ -181,7 +178,6 @@ public class PaymentGUI extends JFrame implements ActionListener
                     if(patientNumberIn==eqUsedList.get(k).getpNum()&& eqUsedList.get(k).getThisVisit()==1) {
                         record += record = "\n   Equip type:\t" + eqUsedList.get(k).getEqName() + "\n";
                     }
-
                 }
                 record+=record= "\n   Total Equipment Cost:  € "+Bill.df.format(bill.calcEquipCost())+"\n";
                 record+=record= "\n   Standing Daily Charge :  € 150.00\n";
@@ -192,12 +188,9 @@ public class PaymentGUI extends JFrame implements ActionListener
                 record+=record="\n--------------------------------------------------------------------------------------------------------------------\n" +
                         "\n\n   Total VAT Paid\t\t€ "+Bill.df.format(bill.getTotalVAT())+"\n";
             }
-
         }
-
         return record;
     }
-
 
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
@@ -211,7 +204,6 @@ public class PaymentGUI extends JFrame implements ActionListener
         c.anchor = anchor;
         return c;
     }
-
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
@@ -235,7 +227,6 @@ public class PaymentGUI extends JFrame implements ActionListener
             }else{
                 JOptionPane.showMessageDialog(null, "Payment has to be Validated First");
             }
-
         }else if (e.getSource().equals(print))
         {File Files = new File("files");
             File textFile = new File(Files, ""+patientNumberIn+"_Bill.txt");
@@ -246,7 +237,6 @@ public class PaymentGUI extends JFrame implements ActionListener
                 try {
                     Printing printing = new Printing(patientNumberIn + "_Bill");
                 }catch (PrintException pe){
-
                 }
             } catch (IOException io) {
                 System.out.println(io);

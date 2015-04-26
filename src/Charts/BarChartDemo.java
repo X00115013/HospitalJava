@@ -24,6 +24,12 @@ import javax.swing.*;
 
 /**
  * Created by Thomas Murray on 10/04/2015.
+ *
+ * This class Builds and populates the charts for the hospital
+ *
+ * 1. what medicine each doctor is prescribing
+ * 2. What equipment is being used the most
+ * 3.Which consultant is being booked the most
  */
 
 public class BarChartDemo extends JPanel {
@@ -49,6 +55,7 @@ public class BarChartDemo extends JPanel {
     }
 
 
+    //Setting up the three GUI panes to send
     public BarChartDemo(String title,int choice) {
         this.choice=choice;
         if (choice == 1) {
@@ -81,6 +88,7 @@ public class BarChartDemo extends JPanel {
         }
     }
 
+    //Prescription information
     public CategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         JFreeChart chart = createChart(dataset);
@@ -93,6 +101,7 @@ public class BarChartDemo extends JPanel {
         return dataset;
     }
 
+    //Equipment information
     public CategoryDataset createDataset2() {
         int use=0;
         DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
@@ -119,6 +128,7 @@ public class BarChartDemo extends JPanel {
     }
 
 
+    //Consultant information
     public CategoryDataset createDataset3() {
         int use=0;
         DefaultCategoryDataset dataset3 = new DefaultCategoryDataset();
@@ -141,6 +151,7 @@ public class BarChartDemo extends JPanel {
         return dataset3;
     }
 
+    //Building Prescription Charts
     public JFreeChart createChart(CategoryDataset dataset) {
         JFreeChart chart = ChartFactory.createBarChart("Prescriptions Used", null,"10 Milligram Units", dataset);
         chart.addSubtitle(new TextTitle("Amount prescribed and the prescribers"));
@@ -155,7 +166,7 @@ public class BarChartDemo extends JPanel {
         return chart;
     }
 
-
+    //Building Equipment Charts
     public JFreeChart createChart2(CategoryDataset dataset2) {
         JFreeChart chart = ChartFactory.createBarChart("Equipment Used", null,"Sessions", dataset2);
         chart.addSubtitle(new TextTitle("Amount Equipment and the Users Patient Number"));
@@ -170,6 +181,7 @@ public class BarChartDemo extends JPanel {
         return chart;
     }
 
+    //Building Consultant Charts
     public JFreeChart createChart3(CategoryDataset dataset3) {
         JFreeChart chart = ChartFactory.createBarChart("Consultants Used", null,"Bookings", dataset3);
         chart.addSubtitle(new TextTitle("Consultants most regularly booked"));

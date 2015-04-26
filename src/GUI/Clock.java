@@ -21,19 +21,13 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
-
+/**
+ * Created by Thomas Murray on 20/03/2015.
+ *
+ * This class builds and displays the current time as a digital clock
+ */
 
 public class Clock {
-
-//    public static void main(String[] args) {
-//
-//        JFrame f = new JFrame();
-//        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//        DigitalClock myClock = new DigitalClock();
-//        f.add(myClock);
-//        f.pack();
-//        f.setVisible(true);
-//    }
 
     public static class DigitalClock extends JPanel{
 
@@ -63,8 +57,7 @@ public class Clock {
             t1.start();
         }
 
-
-
+        //Timer to clear time table entries
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);

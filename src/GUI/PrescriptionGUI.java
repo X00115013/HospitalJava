@@ -1,9 +1,5 @@
 package GUI;
 
-//import DataBase.AppointmentOperations;
-//import DataBase.PatientOperations;
-//import Model.Appointment;
-//import Model.PatientRecord;
 
         import Model.Appointment;
         import Model.Consultants;
@@ -23,6 +19,8 @@ package GUI;
 
 /**
  * Created by Thomas Murray on 17/03/2015.
+ *
+ * This class is used to prescribe medicines to a patient one at a time
  */
 public class PrescriptionGUI extends JFrame implements ActionListener {
 
@@ -33,9 +31,7 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
     private Medicine medicine;
     private Consultants consultants;
     private int patientNumberIn;
-    JButton confirm;
-    JButton cancel;
-
+    JButton confirm,cancel;
     JLabel patientNum;
     JLabel label2;
     JLabel label3;
@@ -61,41 +57,40 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-
-
         JPanel holder = new JPanel(new GridLayout(1, 1));
         JPanel topSection = new JPanel(new GridLayout(1, 3));
 
+        //Clock
         Clock.DigitalClock clockD = new Clock.DigitalClock();
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
         clock.add(clockD);
 
+        //Title
         JPanel title = new JPanel(new FlowLayout(FlowLayout.CENTER));
         label5 = new JLabel("Prescription");
         title.add(label5);
         label5.setFont(new Font("Arial", Font.BOLD, 36));
-
         JPanel ID = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        //labels
+
+        //patient num label
         patientNum = new JLabel("\tPatient Number");
         ID.add(patientNum);
-        //text field
+
+        //patient num text field
         pNumText = new JTextField(5);
         pNumText.setText(Integer.toString(patientNumIn));
         pNumText.setBorder(loweredBorder);
         pNumText.setEditable(false);
         ID.add(pNumText);
 
-
         topSection.add(clock);
         topSection.add(title);
         topSection.add(ID);
-//        f.add(topSection);
-
         holder.add(topSection);
 
+
+        //Population of medicine and consultant combo
         medicine = new Medicine();
         medList.removeAll(medList);
         medList.addAll(medicine.getMedicines());
@@ -103,7 +98,6 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
         for (int i = 0; i < medList.size(); i++) {
             list1[i] = medList.get(i).getMedName();
         }
-
         consultants = new Consultants();
         conList.addAll(consultants.getConsultants());
         list3 = new String[conList.size()+1];
@@ -112,61 +106,57 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
             list3[i+1] = conList.get(i).getConName();
         }
 
-
-        //middle
         JPanel holder2 = new JPanel(new GridLayout(2, 1));
         JPanel middle = new JPanel(new GridBagLayout());
-
         holder2.add(middle, BorderLayout.CENTER);
 
+        //Medicine label
         label3 = new JLabel("Medical Required");
         middle.add(label3, getConstraints(0, 2, 1, 1, GridBagConstraints.WEST));
 
+        //Medicine Combo box
         combo1 = new JComboBox<String>(list1);
         combo1.setPreferredSize(new Dimension(400, 30));
         combo1.setBorder(loweredBorder);
         middle.add(combo1, getConstraints(0, 3, 3, 1, GridBagConstraints.WEST));
         combo1.addActionListener(this);
 
-
+        //Dose label
         label4 = new JLabel("Dose Required");
         middle.add(label4, getConstraints(0, 4, 1, 1, GridBagConstraints.WEST));
 
-
+        //dose combo box
         combo2 = new JComboBox<String>(list2);
         combo2.setPreferredSize(new Dimension(400, 30));
         combo2.setBorder(loweredBorder);
         middle.add(combo2, getConstraints(0, 5, 3, 1, GridBagConstraints.WEST));
         combo2.addActionListener(this);
 
-        //Reason for Visit label
+        //Consultant label
         label2 = new JLabel("Consultant Number");
         middle.add(label2, getConstraints(0, 6, 1, 1, GridBagConstraints.WEST));
 
+        //Consultant combo box
         conCombo = new JComboBox<>(list3);
         conCombo.setBorder(loweredBorder);
         middle.add(conCombo, getConstraints(0, 7, 2, 1, GridBagConstraints.WEST));
-
-        //bottom
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
         holder2.add(bottom);
+
         // Confirm button
         confirm = new JButton("Confirm");
         confirm.addActionListener(this);
         bottom.add(confirm);
-
 
         // Cancel button
         cancel = new JButton("Cancel");
         cancel.addActionListener(this);
         bottom.add(cancel);
 
-
         f.add(holder);
         f.add(holder2);
         f.setVisible(true);
     }
-
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5, 5, 5, 5);
@@ -179,11 +169,9 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
         c.anchor = anchor;
         return c;
     }
-
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
             f.setVisible(false);
-
         } else if (e.getSource().equals(confirm)) {
             String catcher = "";
             int catcher2 = 0;
@@ -207,7 +195,6 @@ public class PrescriptionGUI extends JFrame implements ActionListener {
                     Prescription prescription = new Prescription(patientNumberIn, catcher, catcher2, conName);
                     prescription.updateStock(catcher,catcher2);
                     f.setVisible(false);
-
             }
         }
     }

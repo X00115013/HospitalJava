@@ -23,7 +23,7 @@ public class UpdateMedRec extends JFrame implements ActionListener {
     JButton confirm, cancel;
     JLabel blood,gender,symptoms,diagnoses,reqTreatment,reqEquip,patientNum, allergies, titleF;
     JRadioButton male, female;
-    JTextField patientText, bloodText,patientNumText;
+    JTextField patientText, bloodText;
     JComboBox<String> reqEquipCombo;
     JTextArea symptomsText, diagnosesText, requiredTreatText, allergiesText;
     JFrame f;
@@ -45,26 +45,26 @@ public class UpdateMedRec extends JFrame implements ActionListener {
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
         f.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-
         JPanel holder = new JPanel(new GridLayout(1, 1));
         JPanel topSection = new JPanel(new GridLayout(1, 3));
 
+        //Clock
         Clock.DigitalClock clockD = new Clock.DigitalClock();
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
         clock.add(clockD);
-
         JPanel title = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
+        //Title
         titleF = new JLabel("Update Medical Records");
         title.add(titleF);
         titleF.setFont(new Font("Arial", Font.BOLD, 24));
-
         JPanel ID = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        //labels
+
+        //patient num label
         patientNum = new JLabel("\tPatient Number");
         ID.add(patientNum);
-        //text field
+
+        //patient num text field
         patientText = new JTextField(5);
         patientText.setText(Integer.toString(patientNumIn));
         patientText.setBorder(loweredBorder);
@@ -77,66 +77,63 @@ public class UpdateMedRec extends JFrame implements ActionListener {
         holder.add(topSection);
         f.add(holder);
 
-
+        //Populate equipment combo box
         equipment=new Equipment();
         epList.addAll(equipment.getEquipments());
         list1 = new String[epList.size()+1];
         list1[0]="";
         for (int i = 0; i < epList.size(); i++) {
             list1[i+1]=epList.get(i).getEqName();
-
         }
-
-
-
         JPanel test2 = new JPanel(new GridLayout(1, 1));
-        //middle
         JPanel middle = new JPanel(new GridBagLayout());
+
+        //Blood type
         blood = new JLabel("Blood Type");
         middle.add(blood, getConstraints(0, 0, 1, 1, (GridBagConstraints.WEST)));
         bloodText = new JTextField(70);
         bloodText.setBorder(loweredBorder);
         middle.add(bloodText, getConstraints(0, 1, 1, 1, (GridBagConstraints.WEST)));
 
+        //Symptoms
         symptoms= new JLabel("Symptoms");
         middle.add(symptoms, getConstraints(0, 3, 1, 1, (GridBagConstraints.WEST)));
-        //text field
         symptomsText = new JTextArea(4,70);
         symptomsText.setBorder(loweredBorder);
         symptomsScroll = new JScrollPane(symptomsText);
         symptomsScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         middle.add(symptomsScroll, getConstraints(0, 4, 1, 1, (GridBagConstraints.WEST)));
 
+        //Required treatment
         reqTreatment = new JLabel("Required Treatment");
         middle.add(reqTreatment, getConstraints(0, 6, 1, 1, (GridBagConstraints.WEST)));
-        //text field
         requiredTreatText = new JTextArea(4,70);
         requiredTreatText.setBorder(loweredBorder);
         requiredScroll = new JScrollPane(requiredTreatText);
         requiredScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         middle.add(requiredScroll,getConstraints(0, 7, 1, 1, (GridBagConstraints.WEST)));
 
+        //Allergies
         allergies = new JLabel("Allergies");
         middle.add(allergies, getConstraints(0, 9, 1, 1, (GridBagConstraints.WEST)));
-        //text field
         allergiesText = new JTextArea(4,70);
         allergiesText.setBorder(loweredBorder);
         allergiesScroll = new JScrollPane(allergiesText);
         allergiesScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         middle.add(allergiesScroll, getConstraints(0, 10, 1, 1, (GridBagConstraints.WEST)));
 
+        //Diagnoses
         diagnoses = new JLabel("Diagnoses");
         middle.add(diagnoses, getConstraints(0, 12, 1, 1, (GridBagConstraints.WEST)));
-        //text field
         diagnosesText = new JTextArea(4,70);
         diagnosesText.setBorder(loweredBorder);
         diagnosesScroll = new JScrollPane(diagnosesText);
         diagnosesScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         middle.add(diagnosesScroll, getConstraints(0, 13, 1, 1, (GridBagConstraints.WEST)));
 
+        //Required Equipment
         reqEquip = new JLabel("Required Equipment");
         middle.add(reqEquip, getConstraints(0, 15, 1, 1, (GridBagConstraints.WEST)));
-        //text field
         reqEquipCombo = new JComboBox<String>(list1);
         reqEquipCombo.setPreferredSize(new Dimension(300, 20));
         middle.add(reqEquipCombo, getConstraints(0, 16, 1, 1, GridBagConstraints.WEST));
@@ -146,6 +143,8 @@ public class UpdateMedRec extends JFrame implements ActionListener {
 
         JPanel test = new JPanel(new GridLayout( 2,1));
         JPanel dobs = new JPanel(new GridBagLayout());
+
+        //Gender
         gender=new JLabel("Gender");
         dobs.add(gender, getConstraints(0, 0, 1, 1, (GridBagConstraints.WEST)));
         male = new JRadioButton("Male");
@@ -156,6 +155,7 @@ public class UpdateMedRec extends JFrame implements ActionListener {
         dobs.add(female, getConstraints(1, 1, 1, 4, (GridBagConstraints.WEST)));
         test.add(dobs);
 
+        //This will pull information from the data base and display it in their respective text areas
         medicalRecord=new MedicalRecord();
         mList.addAll(medicalRecord.getMedicalRecordArrayList());
         for (int i = 0; i < mList.size() ; i++) {
@@ -205,17 +205,13 @@ public class UpdateMedRec extends JFrame implements ActionListener {
         c.anchor = anchor;
         return c;
     }
-
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
             f.setVisible(false);
-
         }else if (e.getSource()==(male)) {
             female.setSelected(false);
-
         }else if (e.getSource()==(female)) {
            male.setSelected(false);
-
         } else if (e.getSource().equals(confirm)) {
             String choice = "";
             if (male.isSelected()) {
@@ -226,17 +222,11 @@ public class UpdateMedRec extends JFrame implements ActionListener {
             }
             int catcher = 0;
             String medEquip = (String) reqEquipCombo.getSelectedItem();
-
             if(!medEquip.equals("")){
                 EquipmentUsed equipmentUsed = new EquipmentUsed(patientNumberIn, medEquip);
             }
-
-
             MedicalRecord medicalRecord1=new MedicalRecord(patientNumberIn,bloodText.getText(),symptomsText.getText(),diagnosesText.getText(),requiredTreatText.getText(),allergiesText.getText());
-
             f.setVisible(false);
-
-
         }else if (e.getSource().equals(reqEquipCombo)) {
             JOptionPane.showMessageDialog(null, "New Equipment to be added for patient "+patientNumberIn);
         }

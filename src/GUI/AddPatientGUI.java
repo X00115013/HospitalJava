@@ -13,12 +13,14 @@ import java.util.ArrayList;
 
 /**
  * Created by Thomas Murray on 20/03/2015.
+ *
+ * This class if for adding and updating patient records
  */
 public class AddPatientGUI extends JFrame implements ActionListener {
     JButton confirm, cancel;
     JLabel patientFName, patientSName, patientAddress, patientEmail, patientOccupation, patientPhone, patientNum, titleF, day, month, year, DOB;
     JRadioButton male, female;
-    JTextField patientText, patientFNameText, patientSNameText, patientAddressText, patientEmailText, patientOccupationText, patientPhoneText, dayText, monthText, yearText;
+    JTextField patientText, patientFNameText, patientSNameText, patientAddressText, patientEmailText, patientOccupationText, patientPhoneText;
     JFrame f;
     private int choiceGui ,setter=1940;
     private ArrayList<PatientRecord> pList=new ArrayList<>();
@@ -35,6 +37,7 @@ public class AddPatientGUI extends JFrame implements ActionListener {
             setter++;
         }
         choiceGui = choiceGUI;
+        //Choice 1 is for adding and choice 2 is for updating
         f = new JFrame();
         if (choiceGUI == 1) {
             f.setTitle("New Patient Admin Record");
@@ -48,16 +51,17 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
         f.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-
         JPanel holder = new JPanel(new GridLayout(1, 1));
         JPanel topSection = new JPanel(new GridLayout(1, 3));
 
+        //Clock
         Clock.DigitalClock clockD = new Clock.DigitalClock();
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
         clock.add(clockD);
 
         JPanel title = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
+        //Titles choice
         if (choiceGUI == 1) {
             titleF = new JLabel("New Admin Records");
             title.add(titleF);
@@ -72,6 +76,7 @@ public class AddPatientGUI extends JFrame implements ActionListener {
 
         JPanel ID = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
+        //Patient num choice
         if (choiceGUI == 1) {
             patientNum = new JLabel("\tNew Patient Number");
             ID.add(patientNum);
@@ -90,21 +95,13 @@ public class AddPatientGUI extends JFrame implements ActionListener {
             patientText.setText(Integer.toString(patientNumIn));
         }
         patientText.setEditable(false);
-        //labels
-
         ID.add(patientText);
-
-
         topSection.add(clock);
         topSection.add(title);
         topSection.add(ID);
 
         holder.add(topSection);
-
-
         f.add(holder);
-
-
         JPanel test2 = new JPanel(new GridLayout(1, 1));
         //middle
         JPanel middle = new JPanel(new GridBagLayout());
@@ -114,13 +111,16 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         patientFNameText.setBorder(loweredBorder);
         middle.add(patientFNameText, getConstraints(0, 1, 1, 2, (GridBagConstraints.WEST)));
 
+        //Label
         patientSName = new JLabel("Patient Surname");
         middle.add(patientSName, getConstraints(0, 3, 1, 1, (GridBagConstraints.WEST)));
+
         //text field
         patientSNameText = new JTextField(60);
         patientSNameText.setBorder(loweredBorder);
         middle.add(patientSNameText, getConstraints(0, 4, 1, 2, (GridBagConstraints.WEST)));
 
+        //Label
         patientAddress = new JLabel("Patient Address");
         middle.add(patientAddress, getConstraints(0, 6, 1, 1, (GridBagConstraints.WEST)));
         //text field
@@ -128,22 +128,28 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         patientAddressText.setBorder(loweredBorder);
         middle.add(patientAddressText, getConstraints(0, 7, 1, 2, (GridBagConstraints.WEST)));
 
+        //Label
         patientEmail = new JLabel("Patient Email");
         middle.add(patientEmail, getConstraints(0, 9, 1, 1, (GridBagConstraints.WEST)));
+
         //text field
         patientEmailText = new JTextField(60);
         patientEmailText.setBorder(loweredBorder);
         middle.add(patientEmailText, getConstraints(0, 10, 1, 2, (GridBagConstraints.WEST)));
 
+        //Label
         patientOccupation = new JLabel("Patient Occupation");
         middle.add(patientOccupation, getConstraints(0, 12, 1, 1, (GridBagConstraints.WEST)));
+
         //text field
         patientOccupationText = new JTextField(60);
         patientOccupationText.setBorder(loweredBorder);
         middle.add(patientOccupationText, getConstraints(0, 13, 1, 2, (GridBagConstraints.WEST)));
 
+        //Label
         patientPhone = new JLabel("Patient Phone");
         middle.add(patientPhone, getConstraints(0, 15, 1, 1, (GridBagConstraints.WEST)));
+
         //text field
         patientPhoneText = new JTextField(60);
         patientPhoneText.setBorder(loweredBorder);
@@ -152,7 +158,7 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         f.add(test2);
 
 
-        //DOB labels
+        //Gender
         JPanel test = new JPanel(new GridLayout(2, 1));
         JPanel dobs = new JPanel(new GridBagLayout());
         male = new JRadioButton("Male");
@@ -162,7 +168,7 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         female.addActionListener(this);
         dobs.add(female, getConstraints(1, 1, 1, 1, (GridBagConstraints.WEST)));
 
-
+        //DOB labels
         DOB = new JLabel("Patient DOB");
         dobs.add(DOB, getConstraints(0, 3, 1, 1, GridBagConstraints.LINE_START));
         day = new JLabel("Day");
@@ -173,7 +179,6 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         dobs.add(year, getConstraints(2, 4, 1, 1, GridBagConstraints.LINE_START));
 
         //DOB text fields
-
         monthCombo = new JComboBox<String>(months);
         monthCombo.addActionListener(this);
         dayCombo = new JComboBox<String>(daysIn);
@@ -183,6 +188,7 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         dobs.add(yearCombo, getConstraints(2, 6, 1, 1, GridBagConstraints.LINE_START));
         test.add(dobs);
 
+        //If updating this pulls the information from the data base and assignes it to the appropriate text fields
         if(choiceGUI==2){
             patientRecord=new PatientRecord();
             pList.addAll(patientRecord.getPatientList());
@@ -207,25 +213,23 @@ public class AddPatientGUI extends JFrame implements ActionListener {
         }
 
        //bottom
-
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
         test.add(bottom);
-        // Confirm button
 
+        // Confirm button
         confirm = new JButton("Confirm");
         confirm.addActionListener(this);
         bottom.add(confirm);
-
 
         // Cancel button
         cancel = new JButton("Cancel");
         cancel.addActionListener(this);
         bottom.add(cancel);
         f.add(test, BorderLayout.NORTH);
-
         f.setVisible(true);
     }
 
+    //Unused draft to set up dates in combo boxes
     public String[] setCombo(){
         int setter=1;
         String catcher= (String)monthCombo.getSelectedItem();
@@ -278,17 +282,17 @@ public class AddPatientGUI extends JFrame implements ActionListener {
 
         }else if (e.getSource().equals(confirm)) {
             String choice = "";
-            PatientOperations po = new PatientOperations();
+//            PatientOperations po = new PatientOperations();
             if ((patientFNameText.getText().equals("")) || (patientSNameText.getText().equals("")) || (patientAddressText.getText().equals("")) ||
                     (dayCombo.getSelectedItem().equals("")) || (monthCombo.getSelectedItem().equals("")) || (yearCombo.getSelectedItem().equals(""))
                     || (patientPhoneText.getText().equals(""))) {
                 if (patientFNameText.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "First Name is a required field");
-                }if(patientSNameText.getText().equals("")){
+                }else if(patientSNameText.getText().equals("")){
                     JOptionPane.showMessageDialog(null, "Surname is a required field");
-                }if(patientAddressText.getText().equals("")){
+                }else if(patientAddressText.getText().equals("")){
                     JOptionPane.showMessageDialog(null, "Address is a required field");
-                }if(patientPhoneText.getText().equals("")){
+                }else if(patientPhoneText.getText().equals("")){
                     JOptionPane.showMessageDialog(null, "Phone are required field");
                 }
             } else {

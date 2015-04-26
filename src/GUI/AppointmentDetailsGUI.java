@@ -45,23 +45,23 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-
         JPanel holder=new JPanel(new GridLayout(1,1));
         JPanel topSection=new JPanel(new GridLayout(1,3));
 
+        //Clock
         Clock.DigitalClock clockD=new Clock.DigitalClock();
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
         clock.add(clockD);
 
+        //Titles
         JPanel title=new JPanel(new FlowLayout(FlowLayout.CENTER));
         label5 = new JLabel("Appointment Details");
         title.add(label5);
         label5.setFont(new Font("Arial", Font.BOLD, 24));
-
         JPanel ID=new JPanel(new FlowLayout(FlowLayout.CENTER));
-        //labels
+
+        //App id label
         patientNum = new JLabel("\tAppointment Number");
         ID.add(patientNum);
         //text field
@@ -70,19 +70,14 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
         patientText.setBorder(loweredBorder);
         patientText.setEditable(false);
         ID.add(patientText);
-
-
         topSection.add(clock);
         topSection.add(title);
         topSection.add(ID);
-
         holder.add(topSection);
-
-
 
         JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-
+        //Pulling account information from the database and converting to a string to be displayed
         appointments.addAll(appointment.appArray());
         ao=new AppointmentOperations();
         for (int i = 0; i < appointments.size(); i++) {
@@ -96,8 +91,7 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
             }
 
         }
-
-
+        //Central text area
         additionalInformation = new JTextArea(20,60);
         additionalInformation.setBorder(loweredBorder);
         additionalInformation.setText(appDetails);
@@ -105,18 +99,16 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         textArea.add(scroll);
 
-
-
         JPanel holder2=new JPanel(new GridLayout(1,1));
         JPanel test =new JPanel(new FlowLayout(FlowLayout.LEFT));
         JPanel dobs = new JPanel(new GridBagLayout());
 
-        // Update button
+        // Confirm button
         confirm = new JButton("Confirm");
         confirm.addActionListener(this);
         dobs.add(confirm, getConstraints(0, 4, 1, 1, GridBagConstraints.WEST));
 
-        // Delete button
+        // Print button
         print = new JButton("Print");
         print.addActionListener(this);
         dobs.add(print, getConstraints(1, 4, 1, 1, GridBagConstraints.WEST));
@@ -125,7 +117,6 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
         cancel = new JButton("Cancel");
         cancel.addActionListener(this);
         dobs.add(cancel, getConstraints(2, 4, 1, 1, GridBagConstraints.WEST));
-
         test.add(dobs);
         holder2.add(test);
 
@@ -135,10 +126,6 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
         f.add(holder2);
         f.setVisible(true);
     }
-
-
-
-
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5, 5, 10, 10);
@@ -151,16 +138,12 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
         c.anchor = anchor;
         return c;
     }
-
-
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
             f.setVisible(false);
         } else if (e.getSource().equals(confirm)){
             f.setVisible(false);
-
-        }else if (e.getSource().equals(print))
-        {
+        }else if (e.getSource().equals(print)){
             File Files = new File("files");
             File textFile = new File(Files, ""+appNumberIn+"_APPOINTMENT.txt");
             try (FileWriter input = new FileWriter(textFile)) {

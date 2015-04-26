@@ -17,14 +17,18 @@ package GUI;
 
     /**
      * Created by Thomas Murray on 20/04/2015.
+     *
+     * To display charges and total for the hospital accounts
      */
+
+
+
     public class AccountsGUI extends JFrame implements ActionListener {
-        JButton back,next, cancel,refresh,search;
+        JButton cancel,refresh,search;
         JLabel patientNum, label5,enterNum;
         JTextField patientText,enterNumText;
         JTextArea accountsInformation;
         JScrollPane scroll;
-        private int patientNumberIn;
         private String record="This is meant to be the patient Medical Record";
         JFrame f;
         private StockOperations so;
@@ -43,20 +47,23 @@ package GUI;
             JPanel holder = new JPanel(new GridLayout(1, 1));
             JPanel topSection = new JPanel(new GridLayout(1, 3));
 
+            //Clock
             Clock.DigitalClock clockD = new Clock.DigitalClock();
             JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
             clock.add(clockD);
 
+            //Title
             JPanel title = new JPanel(new FlowLayout(FlowLayout.CENTER));
             label5 = new JLabel("Hospital Accounts");
             title.add(label5);
             label5.setFont(new Font("Arial", Font.BOLD, 32));
-
             JPanel ID = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            //labels
+
+            //Patient Num labels
             patientNum = new JLabel("\tPatient Number");
             ID.add(patientNum);
-            //text field
+
+            //Patient Num text field
             patientText = new JTextField(5);
             patientText.setText("");
             patientText.setBorder(loweredBorder);
@@ -67,7 +74,6 @@ package GUI;
             topSection.add(clock);
             topSection.add(title);
             topSection.add(ID);
-//        f.add(topSection);
 
             holder.add(topSection);
             JPanel textArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -132,7 +138,7 @@ package GUI;
             return c;
         }
 
-
+        //Pulling account information from the database and converting to a string to be displayed
         public String setTextArea(){
             String textAreaString="";
             so=new StockOperations();
@@ -156,6 +162,7 @@ package GUI;
             if (e.getSource().equals(cancel)) {
                 f.setVisible(false);
             } else if (e.getSource().equals(search)) {
+//                Refine the search by patient
                 accountsInformation.setText("");
                 String textAreaString="";
                 so=new StockOperations();

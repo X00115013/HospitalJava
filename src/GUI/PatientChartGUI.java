@@ -16,9 +16,10 @@ import java.sql.SQLException;
 
 /**
  * Created by Thomas Murray on 29/03/2015.
+ *
+ * This class is used to collect, display and print some of the patients information.
+ * Also the information can be edited prior to printing
  */
-
-
 
 public class PatientChartGUI extends JFrame implements ActionListener
 {
@@ -26,12 +27,10 @@ public class PatientChartGUI extends JFrame implements ActionListener
     JLabel patientNum,label5;
     JTextField patientText;
     JTextArea chartInformation;
-    JRadioButton checkOutRadio;
     JScrollPane scroll;
     private ResultSet rset;
     private String chart="This should work chart";
     private int patientNumberIn;
-
     JFrame f;
 
     public PatientChartGUI(int patientNumIn)
@@ -43,40 +42,39 @@ public class PatientChartGUI extends JFrame implements ActionListener
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-
         JPanel holder=new JPanel(new GridLayout(1,1));
         JPanel topSection=new JPanel(new GridLayout(1,3));
 
+        //Clock
         Clock.DigitalClock clockD=new Clock.DigitalClock();
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
         clock.add(clockD);
 
+        //Title
         JPanel title=new JPanel(new FlowLayout(FlowLayout.CENTER));
         label5 = new JLabel("      Patient Chart            ");
         title.add(label5);
         label5.setFont(new Font("Arial", Font.BOLD, 24));
-
         JPanel ID=new JPanel(new FlowLayout(FlowLayout.CENTER));
-        //labels
+
+        //patient num label
         patientNum = new JLabel("\tPatient Number");
         ID.add(patientNum);
-        //text field
+
+        //patient num text field
         patientText = new JTextField(5);
         patientText.setText(Integer.toString(patientNumIn));
         patientText.setBorder(loweredBorder);
         patientText.setEditable(false);
         ID.add(patientText);
 
-
         topSection.add(clock);
         topSection.add(title);
         topSection.add(ID);
-//        f.add(topSection);
-
         holder.add(topSection);
 
+        //Pulling medical and administration information from the database and converting to a string to be displayed
         try {
             PatientOperations po=new PatientOperations();
             rset = po.getPatientChart(patientNumIn);
@@ -112,6 +110,7 @@ public class PatientChartGUI extends JFrame implements ActionListener
 
         JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
 
+        //Central text area
         chartInformation = new JTextArea(40,70);
         chartInformation.setBorder(loweredBorder);
         chartInformation.setText(chart);
@@ -119,9 +118,6 @@ public class PatientChartGUI extends JFrame implements ActionListener
         scroll = new JScrollPane(chartInformation);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         textArea.add(scroll);
-
-//        holder.add(textArea);
-
 
         JPanel holder2=new JPanel(new GridLayout(1,1));
         JPanel test =new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -144,17 +140,12 @@ public class PatientChartGUI extends JFrame implements ActionListener
 
         test.add(dobs);
         holder2.add(test);
-
         f.setLayout(new FlowLayout(FlowLayout.LEFT));
         f.add(holder);
         f.add(textArea);
         f.add(holder2);
         f.setVisible(true);
     }
-
-
-
-
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5, 5, 10, 10);
@@ -167,14 +158,11 @@ public class PatientChartGUI extends JFrame implements ActionListener
         c.anchor = anchor;
         return c;
     }
-
-
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
             f.setVisible(false);
         } else if (e.getSource().equals(edit)){
             chartInformation.setEditable(true);
-
         }else if (e.getSource().equals(print)){
             File Files = new File("files");
             File textFile = new File(Files, ""+patientNumberIn+"_CHART.txt");

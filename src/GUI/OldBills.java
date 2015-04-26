@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Thomas Murray on 20/04/2015.
+ * This class is used to view a patients old bills
+ *
  */
 public class OldBills extends JFrame implements ActionListener {
     JButton back,next, cancel,refresh,search;
@@ -38,41 +40,39 @@ public class OldBills extends JFrame implements ActionListener {
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-
         JPanel holder = new JPanel(new GridLayout(1, 1));
         JPanel topSection = new JPanel(new GridLayout(1, 3));
 
+        //CLock
         Clock.DigitalClock clockD = new Clock.DigitalClock();
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
         clock.add(clockD);
 
+        //Title
         JPanel title = new JPanel(new FlowLayout(FlowLayout.CENTER));
         label5 = new JLabel("Old Patient Bills ");
         title.add(label5);
         label5.setFont(new Font("Arial", Font.BOLD, 36));
 
+        //Patient Num label
         JPanel ID = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        //labels
         patientNum = new JLabel("\tPatient Number");
         ID.add(patientNum);
-        //text field
+
+        //Patient num text field
         patientText = new JTextField(5);
         patientText.setText("");
         patientText.setBorder(loweredBorder);
         patientText.setEditable(false);
         ID.add(patientText);
-
-
         topSection.add(clock);
         topSection.add(title);
         topSection.add(ID);
-//        f.add(topSection);
-
         holder.add(topSection);
         JPanel textArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
+        //Central text area
         oldBillInformation = new JTextArea(40, 70);
         oldBillInformation.setBorder(loweredBorder);
         oldBillInformation.setText(setTextArea());
@@ -84,11 +84,11 @@ public class OldBills extends JFrame implements ActionListener {
         JPanel test = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JPanel dobs = new JPanel(new GridBagLayout());
 
-
-        //Search Bar
+        //Search Bar label
         enterNum=new JLabel("Enter Patient Number");
         dobs.add(enterNum,getConstraints(0,2,3,1, GridBagConstraints.WEST));
 
+        //Search bar
         enterNumText=new JTextField(15);
         enterNumText.setBorder(loweredBorder);
         dobs.add(enterNumText,getConstraints(0,3,4,1, GridBagConstraints.WEST));
@@ -117,7 +117,6 @@ public class OldBills extends JFrame implements ActionListener {
         refresh = new JButton("Reset");
         refresh.addActionListener(this);
         dobs.add(refresh, getConstraints(3, 4, 1, 1, GridBagConstraints.WEST));
-
         test.add(dobs);
         holder2.add(test);
 
@@ -127,8 +126,6 @@ public class OldBills extends JFrame implements ActionListener {
         f.add(holder2);
         f.setVisible(true);
     }
-
-
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5, 5, 10, 10);
@@ -141,8 +138,6 @@ public class OldBills extends JFrame implements ActionListener {
         c.anchor = anchor;
         return c;
     }
-
-
     public String setTextArea(){
       return record;
     }
@@ -153,7 +148,6 @@ public class OldBills extends JFrame implements ActionListener {
         } else if (e.getSource().equals(search)) {
             billList.removeAll(billList);
             oldBillInformation.setText("");
-            String textAreaString="";
             so=new StockOperations();
             rset=so.getBill(Integer.parseInt(enterNumText.getText()));
             try{
@@ -177,11 +171,9 @@ public class OldBills extends JFrame implements ActionListener {
             }catch (IndexOutOfBoundsException id){
                 JOptionPane.showMessageDialog(null, "No More Records for Patient "+enterNumText.getText());
             }
-
         }else if (e.getSource().equals(refresh)) {
             oldBillInformation.setText(record);
             enterNumText.setText("");
-
         }else if (e.getSource().equals(back)) {
             nextInt--;
             try {

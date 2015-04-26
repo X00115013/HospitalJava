@@ -36,7 +36,6 @@ public class StockOperations {
         }
         return rset;
     }
-
     public void deleteMedicine(int medIDIn){
         try {
             String queryString = "DELETE FROM Medicine WHERE Med_ID= "+medIDIn;
@@ -47,7 +46,6 @@ public class StockOperations {
             System.out.println(e);
         }
     }
-
     public void addMedicine(String nameIn,int amount,double price) {
         try {
             String sqlQuery = "INSERT INTO Medicine(Med_ID , Med_Name , StockLevel , price ) "+ "values(MedID.nextVal,?,?,?)";
@@ -61,8 +59,6 @@ public class StockOperations {
             System.out.println(se);
         }
     }
-
-
     public void updateMedStock(int medNumber,int newStock,double newPrice)
     {
         try {
@@ -73,7 +69,6 @@ public class StockOperations {
             System.out.println(se);
         }
     }
-
     public ResultSet getBill(int patient_Num) {
         try {
             String queryString = "SELECT * FROM Bill WHERE patient_Num= "+patient_Num;
@@ -85,7 +80,6 @@ public class StockOperations {
         return rset;
 
     }
-
     public void storeBill(int patientNumIn,String oldBill, String dateIn) {
         try {
             String sqlQuery = "INSERT INTO Bill(bill_Number ,bill ,datePaid, patient_Num ) values(bill_seq.nextVal,?,?,?)";
@@ -99,20 +93,16 @@ public class StockOperations {
             System.out.println("Error is here in bill "+se);
         }
     }
-
     public void updateAccounts(double total)
     {
         try {
             String med = "UPDATE Accounts SET runningTotal = " +(getRunningTotal()+total )+" where accountID =" +getAccountCurVal();
-            System.out.println("UPDATE Accounts SET runningTotal =" +(getRunningTotal()+total )+" where accountID =" +getAccountCurVal());
             stmt = conn.createStatement();
             stmt.executeUpdate(med);
         } catch (Exception se) {
             System.out.println(se);
         }
     }
-
-
     public ResultSet getAccounts(int patientNum) {
         try {
             String queryString = "SELECT * FROM Accounts WHERE patient_Num = "+patientNum;
@@ -124,8 +114,6 @@ public class StockOperations {
         return rset;
 
     }
-
-
     public ResultSet getAccounts() {
         try {
             String queryString = "SELECT * FROM Accounts";
@@ -137,7 +125,6 @@ public class StockOperations {
         return rset;
 
     }
-
     public int getRunningTotal() {
         int rTotal=0;
         try {
@@ -148,15 +135,10 @@ public class StockOperations {
                 rTotal = rset.getInt(1);
             }
         } catch (Exception e) {
-            System.out.println("Error in get runningTotal "+e);
+            System.out.println("Error in getting runningTotal "+e);
         }
-        System.out.println("get Account runningTotal "+rTotal);
         return rTotal;
-
     }
-
-
-
     public int getAccountCurVal() {
         int accMax=0;
         try {
@@ -169,12 +151,8 @@ public class StockOperations {
         } catch (Exception e) {
             System.out.println("Error in get Account CurVal "+e);
         }
-        System.out.println("get Account Number curVla "+accMax);
         return accMax;
-
     }
-
-
     public void storeAccounts(double medDeposit, double equipDeposit, int patientNumIn) {
         try {
             String sqlQuery = "INSERT INTO Accounts(accountID, medDeposit, equipDeposit ,dateIn , patient_Num ) values(account_seq.nextVal,?,?,?,?)";
@@ -189,9 +167,6 @@ public class StockOperations {
             System.out.println(se);
         }
     }
-
-
-
     public ResultSet getOldMecRec(int patient_Num) {
         try {
             String queryString = "SELECT * FROM OldMedicalRecords WHERE patient_Num= "+patient_Num;
@@ -201,9 +176,7 @@ public class StockOperations {
             System.out.println(e);
         }
         return rset;
-
     }
-
     public void storeOldMedRec(int patientNumIn,String oldMed, String dateIn) {
         try {
             String sqlQuery = "INSERT INTO OldMedicalRecords(oldMed_ID ,dateIn,old_Record , patient_Num ) values(oldMed_seq.nextVal,?,?,?)";
@@ -231,12 +204,6 @@ public class StockOperations {
             System.out.println("The error might be here so reset medical "+se);
         }
     }
-
-
-
-
-
-
     public ResultSet getEquipment(){
         try {
             String queryString = "SELECT * FROM MedicalEquipment";
@@ -247,7 +214,6 @@ public class StockOperations {
         }
         return rset;
     }
-
     public void deleteEquipment(int eqIDIn){
         try {
             String queryString = "DELETE FROM MedicalEquipment WHERE Equipment_ID= "+eqIDIn;
@@ -258,7 +224,6 @@ public class StockOperations {
             System.out.println(e);
         }
     }
-
     public void addEquipment(String nameIn,double price) {
         try {
             String sqlQuery = "INSERT INTO MedicalEquipment(Equipment_ID , Equipment_name, price ) "+ "values(EquipID.nextVal,?,?)";
@@ -271,7 +236,6 @@ public class StockOperations {
             System.out.println(se);
         }
     }
-
     public ResultSet getPrescription(){
         try {
             String queryString = "SELECT * FROM Prescriptions";
@@ -282,7 +246,6 @@ public class StockOperations {
         }
         return rset;
     }
-
     public void addPrescription(int pNumIn,String medNameIn,int amount,String conManeIn,String dateIn) {
         try {
             String sqlQuery = "INSERT INTO Prescriptions(PrescriptionID, Pat_NumIn, Drug_name , Med_Amount,conName, This_Visit,dateIn) "+ "values(prescription_seq.nextVal,?,?,?,?,?,?)";
@@ -299,7 +262,6 @@ public class StockOperations {
             System.out.println(se);
         }
     }
-
     public void deleteConsultant(int conIDIn){
         try {
             String queryString = "DELETE FROM Consultant WHERE con_ID= "+conIDIn;
@@ -310,8 +272,6 @@ public class StockOperations {
             System.out.println(e);
         }
     }
-
-
     public ResultSet getConsultant(){
         try {
             String queryString = "SELECT * FROM Consultant";
@@ -322,7 +282,6 @@ public class StockOperations {
         }
         return rset;
     }
-
     public void addConsultant(String conNameIn,String conSpecialIn,String equip) {
         try {
             String sqlQuery = "INSERT INTO Consultant(con_ID , con_Name, speciality,machineSkill) "+ "values(conID.nextVal,?,?,?)";
@@ -336,7 +295,6 @@ public class StockOperations {
             System.out.println(se);
         }
     }
-
     public ResultSet getEquipmentUsed(int patientNumIn){
         try {
             String queryString = "SELECT * FROM EquipmentUsed WHERE patient_NumIn = "+patientNumIn+"";
@@ -347,7 +305,6 @@ public class StockOperations {
         }
         return rset;
     }
-
     public ResultSet getEquipmentUsedC(){
         try {
             String queryString = "SELECT * FROM EquipmentUsed";
@@ -358,7 +315,6 @@ public class StockOperations {
         }
         return rset;
     }
-
     public void updatePrescriptionPaid(int patNumber)
     {
         try {
@@ -369,8 +325,6 @@ public class StockOperations {
             System.out.println(se);
         }
     }
-
-
     public void updateMedicineStock(String medName,int amount)
     {
         try {
@@ -381,8 +335,6 @@ public class StockOperations {
             System.out.println(se);
         }
     }
-
-
     public void updateEquipmentPaid(int patNumber)
     {
         try {
@@ -393,7 +345,6 @@ public class StockOperations {
             System.out.println(se);
         }
     }
-
     public void addEquipUsed(int patientNumIn, String medNameIn) {
         try {
             String sqlQuery = "INSERT INTO EquipmentUsed(machineID,patient_NumIn, machine_name , this_Visit) "+ "values(machine_seq.nextVal,?,?,?)";
@@ -402,7 +353,6 @@ public class StockOperations {
             pstmt.setString(2, medNameIn);
             pstmt.setInt(3, 1);
             pstmt.executeUpdate();
-//            JOptionPane.showMessageDialog(null, "New Equipment added for patient "+patientNumIn);
         } catch (Exception se) {
             System.out.println("Error from Here addEuipUsed"+ se);
         }

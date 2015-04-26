@@ -18,6 +18,10 @@ import java.util.InputMismatchException;
 
 /**
  * Created by Thomas Murray on 01/03/2015.
+ *
+ * This class is used to search for a record using either their name and DOB or by their patient Number.
+ * This class is also used to verify access security
+ *
  */
 public class AddPatientSecurityGUI extends JFrame implements ActionListener{
     private  int answer=0,selection,setter=1940;
@@ -46,41 +50,44 @@ public class AddPatientSecurityGUI extends JFrame implements ActionListener{
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-
-
+        //Clock
         JPanel clock= new JPanel(new FlowLayout(FlowLayout.LEFT));
         f.add(clock,BorderLayout.EAST);
         JPanel offTop= new JPanel(new FlowLayout(FlowLayout.CENTER));
         f.add(offTop,BorderLayout.NORTH);
-        //Reason for Visit label
+
+        //title label
         title = new JLabel("SECURITY");
         offTop.add(title);
         title.setFont(new Font("Arial",Font.BOLD, 44));
-
-
 
         JPanel middle=new JPanel();
         f.add(middle,BorderLayout.CENTER);
         middle.setLayout(new GridBagLayout());
 
+        //first name label
         firstName=new JLabel("First Name");
         middle.add(firstName, getConstraints(0, 0, 4, 1, GridBagConstraints.WEST));
 
+        //first name text
         firstNameText=new JTextField(30);
         firstNameText.setBorder(loweredBorder);
         middle.add(firstNameText, getConstraints(0, 1,4, 1, GridBagConstraints.WEST));
 
+        //surname label
         surname=new JLabel("Surname");
         middle.add(surname, getConstraints(0, 2, 4, 1, GridBagConstraints.WEST));
 
+        //surname text
         surnameText=new JTextField(30);
         surnameText.setBorder(loweredBorder);
         middle.add(surnameText, getConstraints(0, 3, 4, 1, GridBagConstraints.WEST));
 
-
+        //DOB label
         dob=new JLabel("Date of Birth");
         middle.add(dob, getConstraints(0, 4, 2, 1, GridBagConstraints.WEST));
 
+        //DOB Labels
         day=new JLabel("Day");
         middle.add(day, getConstraints(0, 5, 1, 1, GridBagConstraints.WEST));
 
@@ -90,6 +97,7 @@ public class AddPatientSecurityGUI extends JFrame implements ActionListener{
         year=new JLabel("Year");
         middle.add(year, getConstraints(2, 5, 1, 1, GridBagConstraints.WEST));
 
+        //DOB Combo boxes
         dayCombo=new JComboBox<>(daysIn);
         dayCombo.setBorder(loweredBorder);
         middle.add(dayCombo,getConstraints(0, 6, 1, 1, GridBagConstraints.WEST));
@@ -102,10 +110,9 @@ public class AddPatientSecurityGUI extends JFrame implements ActionListener{
         yearCombo.setBorder(loweredBorder);
         middle.add(yearCombo,getConstraints(2, 6, 1, 1, GridBagConstraints.WEST));
 
+        //Label
         or=new JLabel("OR");
         middle.add(or,getConstraints(0, 8, 1, 1, GridBagConstraints.WEST));
-
-
 
         //Patient Number
         patientNum = new JLabel("Patient Number");
@@ -138,7 +145,7 @@ public class AddPatientSecurityGUI extends JFrame implements ActionListener{
         cancel.addActionListener(this);
         bottom.add(cancel);
 
-        // Cancel button
+        // Add new patient button
         add = new JButton("Add New");
         add.addActionListener(this);
         bottom.add(add);
@@ -159,10 +166,6 @@ public class AddPatientSecurityGUI extends JFrame implements ActionListener{
         return c;
     }
 
-    public int getAnswer() {
-        return answer;
-    }
-
     public void actionPerformed(ActionEvent e)
     {
         if (e.getSource().equals(cancel))
@@ -174,12 +177,11 @@ public class AddPatientSecurityGUI extends JFrame implements ActionListener{
                 pList.removeAll(pList);
                 PatientRecord patientRecord = new PatientRecord();
                 pList.addAll(patientRecord.getPatientList());
-                boolean test = false, test2 = false;
+                boolean test = false;
                 String dayC = (String) dayCombo.getSelectedItem();
                 String monthC = (String) monthCombo.getSelectedItem();
                 String yearC = (String) yearCombo.getSelectedItem();
                 int choice = 0, passwordC = 0;
-
                 if ((firstNameText.getText().equals("")) && (surnameText.getText().equals("")) && (patientNumText.getText().equals("")) && (passwordText.getText().equals(""))) {
                     JOptionPane.showMessageDialog(null, "Patient Number or Patient Info are Required Fields");
                 } else if(patientNumText.getText().equals("") && passwordText.getText().equals("")) {
@@ -187,7 +189,6 @@ public class AddPatientSecurityGUI extends JFrame implements ActionListener{
                 }else if((firstNameText.getText().equals("")) && (surnameText.getText().equals("")) && (passwordText.getText().equals(""))) {
                     JOptionPane.showMessageDialog(null, "Patient Information and Password are Required Fields");
                 }else{
-
                     if (patientNumText.getText().equals("")) {
                         for (int i = 0; i < pList.size(); i++) {
                             if (firstNameText.getText().equalsIgnoreCase(pList.get(i).getPatientFName()) && surnameText.getText().equalsIgnoreCase(pList.get(i).getPatientLName()) &&
@@ -208,7 +209,6 @@ public class AddPatientSecurityGUI extends JFrame implements ActionListener{
                             JOptionPane.showMessageDialog(null, "Patient Does Not Exist");
                         }
                     }
-
                     if (!patientNumText.getText().equals("") ) {
                         try {
                             choice = Integer.parseInt(patientNumText.getText());
@@ -220,9 +220,6 @@ public class AddPatientSecurityGUI extends JFrame implements ActionListener{
                             passwordText.setText("");
                         }
                     }
-
-
-
                     if (test == true) {
                         Security security = new Security(selection, choice, passwordC);
                         firstNameText.setText("");

@@ -16,7 +16,13 @@ import java.util.ArrayList;
 
 /**
  * Created by Thomas Murray on 20/03/2015.
+ *
+ * This class allows the user to browse through a collection of time tables.
+ *
+ * 1. consultants time table.
+ * 2. All other equipment time tables.
  */
+
 public class TimeTablesGUI extends JFrame implements ActionListener {
     JButton print, cancel;
     String[] list1;
@@ -41,16 +47,16 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-
         JPanel holder = new JPanel(new GridLayout(1, 1));
         JPanel topSection = new JPanel(new GridLayout(1, 3));
 
+        //Clock
         Clock.DigitalClock clockD = new Clock.DigitalClock();
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
         clock.add(clockD);
 
+        //Title
         JPanel title = new JPanel(new FlowLayout(FlowLayout.CENTER));
         label5 = new JLabel("Time Tables");
         title.add(label5);
@@ -60,7 +66,7 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
         topSection.add(title);
         holder.add(topSection);
 
-
+        //Populate time table combo box
         equipment=new Equipment();
         eqList.addAll(equipment.getEquipments());
         list1 = new String[eqList.size()+2];
@@ -70,7 +76,7 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
             list1[i+2] = eqList.get(i).getEqName();
         }
 
-
+        //Central text area
         JPanel textArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
         timeTableInformation = new JTextArea(40, 70);
         timeTableInformation.setBorder(loweredBorder);
@@ -79,17 +85,16 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         textArea.add(scroll);
 
-
         JPanel holder2 = new JPanel(new GridLayout(3, 1));
         JPanel test = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JPanel buttons = new JPanel(new GridBagLayout());
         JPanel selectionCombo = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
+        //Time tables combo boxes
         combo1 = new JComboBox<String>(list1);
         combo1.setPreferredSize(new Dimension(300, 20));
         selectionCombo.add(combo1);
         combo1.addActionListener(this);
-
 
         // Print button
         print = new JButton("Print");
@@ -111,8 +116,6 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
         f.add(holder2);
         f.setVisible(true);
     }
-
-
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5, 5, 10, 10);
@@ -125,18 +128,14 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
         c.anchor = anchor;
         return c;
     }
-
     public void clearArrays(){
         allTimeTables.removeAll(allTimeTables);
         conTimeTables.removeAll(conTimeTables);
     }
-
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
             f.setVisible(false);
         }
-
-
         else if (e.getSource().equals(print)) {
             File Files = new File("files");
             String tableSelection = (String) combo1.getSelectedItem();
@@ -147,14 +146,11 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
                 try {
                     Printing printing = new Printing(tableSelection + "_timeTables");
                 }catch (PrintException pe){
-
                 }
             } catch (IOException io) {
                 System.out.println(io);
             }
         }
-
-
         else if (e.getSource().equals(combo1)) {
             String tableSelection = (String) combo1.getSelectedItem();
             clearArrays();
@@ -163,7 +159,6 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
             appointment=new Appointment();
            ConsultantTimeTable consultantTimeTable=new ConsultantTimeTable();
             conTimeTables.addAll(consultantTimeTable.getConsultantTimeTable());
-
                 if (tableSelection.equals("Consultant")) {
                     boolean loop=true;
                     contable = "";
@@ -218,7 +213,6 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
                     }
                     timeTableInformation.setText(contable);
                     contable = "";
-
                 }else{
                     int spinner=0,time=0;
                     tTable = "";

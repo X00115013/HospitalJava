@@ -38,38 +38,6 @@ public class PatientOperations {
         }
         return rset;
     }
-    public ResultSet getPatientAdmin(int id) {
-        try {
-            String queryString = "SELECT patient_Number, " +
-                    "patientFName, patientLName " +
-                    ", PatientDOB ,PatientGender," +
-                    "occupation,PatientEmail," +
-                    "patientPhone,patientAddress "+
-                    "FROM Patient WHERE patient_Number= "+id;
-            stmt = conn.createStatement();
-            rset = stmt.executeQuery(queryString);
-        } catch (Exception e) {
-            System.out.println("po 2"+e);
-        }
-        return rset;
-    }
-    public ResultSet getPatientMedical(int id) {
-        try {
-            String queryString = "SELECT patient_Number, " +
-                    "patientFName, patientLName " +
-                    ", PatientDOB ,PatientGender," +
-                    " BloodType ,Symptoms, Diagnoses," +
-                    " RequiredTreatment ," +
-                    " Allergies ," +
-                    "Recommendation " +
-                    "FROM Patient where patient_Number= "+id;
-            stmt = conn.createStatement();
-            rset = stmt.executeQuery(queryString);
-        } catch (Exception e) {
-            System.out.println("po 3"+e);
-        }
-        return rset;
-    }
     public ResultSet getPatientMedical() {
         try {
             String queryString = "SELECT patient_Number, " +
@@ -87,22 +55,6 @@ public class PatientOperations {
         }
         return rset;
     }
-    public int getNumPatients()
-    {
-        int num=0;
-        try {
-            String queryString = "SELECT count(*) FROM Patient";
-
-            stmt = conn.createStatement();
-            rset = stmt.executeQuery(queryString);
-            if (rset.next()) {
-                num = rset.getInt(1);
-            }
-        } catch (Exception e) {
-            System.out.println("This is not working"+e);
-        }
-        return num;
-    }
     public ResultSet getPatientChart(int patientNumIn){
         try {
             String queryString = "SELECT patient_Number, " +
@@ -119,9 +71,6 @@ public class PatientOperations {
         }
         return rset;
     }
-
-
-
     public void addPatient(String patientFNameIn, String patientLNameIn, String patientAddressIn,String occupationIn, String genderIn, String emailIn, String phoneIn, String DOBIn) {
         try {
             String sqlQuery = "INSERT INTO Patient(patient_Number,patientFName, patientLName, patientDOB, patientGender, occupation,PatientEmail," +
@@ -140,9 +89,6 @@ public class PatientOperations {
             System.out.println("po 6"+se);
         }
     }
-
-
-
     public void updatePatientAdmin(int patientNumber, String newPFname,String newPLname, String newPaddress, String occupationIn, String genderIn, String newEmail,String newPphone, String DOBIn)
     {
         try {
@@ -161,7 +107,6 @@ public class PatientOperations {
             System.out.println("Problem update admin po "+se);
         }
     }
-
     public void updatePatientCheckIn(int appNumber, String checkedIn)
     {
         try {
@@ -174,7 +119,6 @@ public class PatientOperations {
             System.out.println("po 7"+se);
         }
     }
-
     public void updatePatientCheckInByNumber( int patientNumber, String checkedIn)
     {
         try {
@@ -190,10 +134,6 @@ public class PatientOperations {
             System.out.println("po 8"+se);
         }
     }
-
-
-
-
     public void updatePatientMedical(int patientNumber,String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment, String newAllergies )
     {
         try {
@@ -252,8 +192,6 @@ public class PatientOperations {
         }
         return rset;
     }
-
-
     public ResultSet getCheckInfo(int n){
         try {
             String queryString = "SELECT * FROM checkOUT where thisVisit = 1 AND patient_Num = "+n;
@@ -275,8 +213,6 @@ public class PatientOperations {
             System.out.println(se);
         }
     }
-
-
     public void addCheckOutInfo(int patientNum ,String extraInfo,String conName) {
         try {
 
@@ -292,13 +228,6 @@ public class PatientOperations {
             System.out.println("add check out info po "+e);
         }
     }
-
-
-
-
-
-
-
     public void archive(int n,String reason) {
         try {
             String queryString1 = "INSERT INTO Archive(archiveID,patient_numIn,reasonForDeletion,archiveFile )VALUES(archive_seq.nexTVal,?,?,?)";
@@ -327,3 +256,58 @@ public class PatientOperations {
         return id;
     }
 }
+
+
+
+//Spare Parts
+
+
+//    public ResultSet getPatientAdmin(int id) {
+//        try {
+//            String queryString = "SELECT patient_Number, " +
+//                    "patientFName, patientLName " +
+//                    ", PatientDOB ,PatientGender," +
+//                    "occupation,PatientEmail," +
+//                    "patientPhone,patientAddress "+
+//                    "FROM Patient WHERE patient_Number= "+id;
+//            stmt = conn.createStatement();
+//            rset = stmt.executeQuery(queryString);
+//        } catch (Exception e) {
+//            System.out.println("po 2"+e);
+//        }
+//        return rset;
+//    }
+//    public ResultSet getPatientMedical(int id) {
+//        try {
+//            String queryString = "SELECT patient_Number, " +
+//                    "patientFName, patientLName " +
+//                    ", PatientDOB ,PatientGender," +
+//                    " BloodType ,Symptoms, Diagnoses," +
+//                    " RequiredTreatment ," +
+//                    " Allergies ," +
+//                    "Recommendation " +
+//                    "FROM Patient where patient_Number= "+id;
+//            stmt = conn.createStatement();
+//            rset = stmt.executeQuery(queryString);
+//        } catch (Exception e) {
+//            System.out.println("po 3"+e);
+//        }
+//        return rset;
+//    }
+
+//    public int getNumPatients()
+//    {
+//        int num=0;
+//        try {
+//            String queryString = "SELECT count(*) FROM Patient";
+//
+//            stmt = conn.createStatement();
+//            rset = stmt.executeQuery(queryString);
+//            if (rset.next()) {
+//                num = rset.getInt(1);
+//            }
+//        } catch (Exception e) {
+//            System.out.println("This is not working"+e);
+//        }
+//        return num;
+//    }

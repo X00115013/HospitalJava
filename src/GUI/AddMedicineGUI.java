@@ -13,6 +13,8 @@ package GUI;
 
     /**
      * Created by Thomas Murray on 04/04/2015.
+     *
+     * This class is for adding,updating and deleting Medicines to the hospital
      */
 
 
@@ -23,7 +25,6 @@ package GUI;
         JTextArea additionalInformation;
         JScrollPane scroll;
         private ArrayList<Medicine> medList = new ArrayList<>();
-        private int patientNumberIn;
         private Medicine medicine;
         private String list = "This should work";
 
@@ -44,32 +45,35 @@ package GUI;
             JPanel holder = new JPanel(new GridLayout(1, 1));
             JPanel topSection = new JPanel(new GridLayout(1, 3));
 
+            //Clock
             Clock.DigitalClock clockD = new Clock.DigitalClock();
             JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
             clock.add(clockD);
 
+            //Title
             JPanel title = new JPanel(new FlowLayout(FlowLayout.CENTER));
             titleF = new JLabel("Add Medicine");
             title.add(titleF);
             titleF.setFont(new Font("Arial", Font.BOLD, 43));
-
             JPanel ID = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-            //labels
+
+            //next med num labels
             patientNum = new JLabel("\tMedicine Number");
             ID.add(patientNum);
-            //text field
+
+            //next med num text field
             patientText = new JTextField(5);
             patientText.setText(Integer.toString(medList.size() + 1));
             patientText.setBorder(loweredBorder);
             patientText.setEditable(false);
             ID.add(patientText);
-
-
             topSection.add(clock);
             topSection.add(title);
             topSection.add(ID);
 
             holder.add(topSection);
+
+            //Central text area
             JPanel textArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
             additionalInformation = new JTextArea(27, 75);
             additionalInformation.setBorder(loweredBorder);
@@ -83,32 +87,37 @@ package GUI;
             JPanel test = new JPanel(new FlowLayout(FlowLayout.CENTER));
             JPanel dobs = new JPanel(new GridBagLayout());
 
+            //Name label
             medName = new JLabel("Medicine Name ");
             dobs.add(medName, getConstraints(0, 3, 2, 1, GridBagConstraints.WEST));
 
+            //Name text
             medNameText = new JTextField(50);
             medNameText.setBorder(loweredBorder);
             medNameText.setEditable(true);
             dobs.add(medNameText, getConstraints(0, 4, 5, 1, GridBagConstraints.WEST));
 
+            //Med price label
             medPrice = new JLabel("Medicine Cost ");
             dobs.add(medPrice, getConstraints(0, 5, 2, 1, GridBagConstraints.WEST));
 
+            //Med price text
             medPriceText = new JTextField(50);
             medPriceText.setBorder(loweredBorder);
             medPriceText.setEditable(true);
             dobs.add(medPriceText, getConstraints(0, 6, 5, 1, GridBagConstraints.WEST));
 
+            //Stock label
             stock = new JLabel("Stock Level ");
             dobs.add(stock, getConstraints(0, 7, 2, 1, GridBagConstraints.WEST));
 
+            //Stock text
             stockText = new JTextField(15);
             stockText.setBorder(loweredBorder);
             stockText.setEditable(true);
             dobs.add(stockText, getConstraints(0, 8, 5, 1, GridBagConstraints.WEST));
 
-
-            // Confirm button
+            // Add button
             confirm = new JButton("ADD");
             confirm.addActionListener(this);
             dobs.add(confirm, getConstraints(0, 9, 1, 1, GridBagConstraints.WEST));
@@ -128,7 +137,7 @@ package GUI;
             delete.addActionListener(this);
             dobs.add(delete, getConstraints(3, 9, 1, 1, GridBagConstraints.WEST));
 
-            // Refresh button
+            // Update button
             update = new JButton("Update Stock Level");
             update.addActionListener(this);
             dobs.add(update, getConstraints(4, 9, 1, 1, GridBagConstraints.WEST));
@@ -158,6 +167,7 @@ package GUI;
             return c;
         }
 
+        //Pulling account information from the database and converting to a string to be displayed
         public String setTextArea() {
             additionalInformation.setText("");
             medList.removeAll(medList);
@@ -194,11 +204,11 @@ package GUI;
                                 JOptionPane.showMessageDialog(null, "Medicine Name is a required field");
                                 test = false;
                             }
-                            if (Integer.parseInt(stockText.getText()) == 0) {
+                            else if (Integer.parseInt(stockText.getText()) == 0) {
                                 JOptionPane.showMessageDialog(null, "Stock Level is a required field");
                                 test = false;
                             }
-                            if (Double.parseDouble(medPriceText.getText()) == 0.0) {
+                            else if (Double.parseDouble(medPriceText.getText()) == 0.0) {
                                 JOptionPane.showMessageDialog(null, "Medicine Price is a required field");
                                 test = false;
                             }
@@ -282,7 +292,6 @@ package GUI;
                             medNameText.setText(medList.get(i).getMedName());
                             medNameText.setEditable(false);
                             medPriceText.setText(Double.toString(medList.get(i).getPrice()));
-//                            stockText.setText(Integer.toString(medList.get(i).getStockLevel()));
                             deletion = false;
                         }
                     }

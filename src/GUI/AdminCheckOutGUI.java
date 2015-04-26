@@ -76,27 +76,23 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener {
 
         JPanel textArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
+        //Pulling account information from the database and converting to a string to be displayed
         additionalInformation = new JTextArea(230, 60);
         additionalInformation.setBorder(loweredBorder);
         JScrollPane scroll = new JScrollPane(additionalInformation);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         textArea.add(scroll);
-
         try {
             po=new PatientOperations();
             rset = po.getCheckInfo(patientNumIn);
             while (rset.next()) {
                 text= "  Additional Information\n\n  "+rset.getString(2)+"\n\n  Regards\n  "+rset.getString(3)+"\n  Patient Number "+rset.getString(5);
             }po.patientOperationsClose();
-
         } catch (SQLException e1) {
             System.out.println(e1);
         }
         additionalInformation.setText(text);
-
         holder.add(textArea);
-
-        //DOB labels
         JPanel test = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JPanel dobs = new JPanel(new GridBagLayout());
 
@@ -110,11 +106,10 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener {
         cancel.addActionListener(this);
         dobs.add(cancel, getConstraints(1, 3, 1, 1, GridBagConstraints.WEST));
 
-        // Cancel button
+        // Generate patient bill button
         bill = new JButton("Generate Bill");
         bill.addActionListener(this);
         dobs.add(bill, getConstraints(2, 3, 1, 1, GridBagConstraints.WEST));
-
 
         checkOutRadio = new JRadioButton("Check-Out");
         checkOutRadio.addActionListener(this);
@@ -125,8 +120,6 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener {
         f.add(holder);
         f.setVisible(true);
     }
-
-
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(10, 5, 10, 10);
@@ -139,8 +132,6 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener {
         c.anchor = anchor;
         return c;
     }
-
-
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
             f.setVisible(false);
@@ -166,6 +157,8 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener {
         } else if (e.getSource().equals(bill)) {
             PaymentGUI paymentGUI = new PaymentGUI(patientNumberIn);
         } else if (e.getSource().equals(checkOutRadio)) {
+
+            //Check if patient has paid their bill
             boolean payCheck = false;
             prescriptions = new Prescription();
             equipUsed = new EquipmentUsed();

@@ -91,10 +91,6 @@ public class AppointmentOperations {
         }
     }
 
-
-
-
-
     public void addAppointmentExisting(String recIn, String equipIn,String conIn,int patientNum,String dateIn) {
         try {
 

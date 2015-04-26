@@ -23,11 +23,10 @@ package GUI;
     public class AddConsultantGUI extends JFrame implements ActionListener {
     JButton confirm, cancel, refresh,delete;
     JLabel patientNum, titleF, reason, conName, conSkill, conEquip;
-    JTextField patientText, conNameText, conSkillText, conEquipText;
+    JTextField patientText, conNameText, conSkillText;
     JTextArea additionalInformation;
     JScrollPane scroll;
     private ArrayList<Consultants> conList = new ArrayList<>();
-    private int patientNumberIn;
     private Consultants consultants;
     private String list = "This should work";
     private ArrayList<Equipment> eqList = new ArrayList<>();
@@ -52,33 +51,34 @@ package GUI;
         JPanel holder = new JPanel(new GridLayout(1, 1));
         JPanel topSection = new JPanel(new GridLayout(1, 3));
 
+        //Clock
         Clock.DigitalClock clockD = new Clock.DigitalClock();
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
         clock.add(clockD);
 
+        //Title
         JPanel title = new JPanel(new FlowLayout(FlowLayout.CENTER));
         titleF = new JLabel("Add Consultant");
         title.add(titleF);
         titleF.setFont(new Font("Arial", Font.BOLD, 37));
 
         JPanel ID = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        //labels
+        //Con num labels
         patientNum = new JLabel("\tConsultant Number");
         ID.add(patientNum);
-        //text field
+        //con num text field
         patientText = new JTextField(5);
         patientText.setText(Integer.toString(conList.size() + 1));
         patientText.setBorder(loweredBorder);
         patientText.setEditable(false);
         ID.add(patientText);
-
-
         topSection.add(clock);
         topSection.add(title);
         topSection.add(ID);
 
         holder.add(topSection);
 
+        //Populating the combo box list
         equipment = new Equipment();
         eqList.addAll(equipment.getEquipments());
         list1 = new String[eqList.size()];
@@ -87,6 +87,7 @@ package GUI;
         }
 
 
+        //Center Text Area
         JPanel textArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
         additionalInformation = new JTextArea(27, 75);
         additionalInformation.setBorder(loweredBorder);
@@ -100,30 +101,36 @@ package GUI;
         JPanel test = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JPanel dobs = new JPanel(new GridBagLayout());
 
+        //Con Label
         conName = new JLabel("Consultant Name ");
         dobs.add(conName, getConstraints(0, 3, 2, 1, GridBagConstraints.WEST));
 
+        //Con Text
         conNameText = new JTextField(50);
         conNameText.setBorder(loweredBorder);
         conNameText.setEditable(true);
         dobs.add(conNameText, getConstraints(0, 4, 5, 1, GridBagConstraints.WEST));
 
+        //Skill Label
         conSkill = new JLabel("Consultant Skill ");
         dobs.add(conSkill, getConstraints(0, 5, 2, 1, GridBagConstraints.WEST));
 
+        //Skill Text
         conSkillText = new JTextField(50);
         conSkillText.setBorder(loweredBorder);
         conSkillText.setEditable(true);
         dobs.add(conSkillText, getConstraints(0, 6, 5, 1, GridBagConstraints.WEST));
 
+        //Combo label
         conEquip = new JLabel("Consultant Equip Skill");
         dobs.add(conEquip, getConstraints(0, 7, 2, 1, GridBagConstraints.WEST));
 
+        //Equipment combo
         equipCombo = new JComboBox<>(list1);
         dobs.add(equipCombo, getConstraints(0, 8, 5, 1, GridBagConstraints.WEST));
 
 
-        // Confirm button
+        // Add button
         confirm = new JButton("ADD");
         confirm.addActionListener(this);
         dobs.add(confirm, getConstraints(0, 9, 1, 1, GridBagConstraints.WEST));
@@ -138,7 +145,7 @@ package GUI;
         refresh.addActionListener(this);
         dobs.add(refresh, getConstraints(2, 9, 1, 1, GridBagConstraints.WEST));
 
-        // Refresh button
+        // Remove button
         delete = new JButton("Remove Consultant");
         delete.addActionListener(this);
         dobs.add(delete, getConstraints(3, 9, 1, 1, GridBagConstraints.WEST));
@@ -167,7 +174,7 @@ package GUI;
         return c;
     }
 
-
+    //Pulling account information from the database and converting to a string to be displayed
     public String setTextArea() {
         list = "";
         additionalInformation.setText("");

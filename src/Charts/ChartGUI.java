@@ -18,16 +18,16 @@ import java.util.ArrayList;
 
 /**
  * Created by Thomas Murray on 10/04/2015.
+ *
+ *
  */
 public class ChartGUI extends JFrame implements ActionListener
 {
     JButton medicine,equipment,consultant,close;
-    JLabel patientNum,label5;
+    JLabel label5;
     private int choice=0;
     private ArrayList<PatientRecord> pList=new ArrayList<>();
     private ArrayList<Appointment> appList=new ArrayList<>();
-    private PatientRecord patientRecord;
-    private Appointment apt;
     private String record="This is meant to be the patient Admin Record";
     private static JPanel chart;
     private static Border RaisedBorder;
@@ -52,10 +52,12 @@ public class ChartGUI extends JFrame implements ActionListener
         JPanel holder=new JPanel(new GridLayout(1,1));
         JPanel topSection=new JPanel(new GridLayout(1,2));
 
+        //Clock
         Clock.DigitalClock clockD=new Clock.DigitalClock();
         JPanel clock = new JPanel();
         clock.add(clockD);
 
+        //Title
         JPanel title=new JPanel(new FlowLayout(FlowLayout.LEFT));
         label5 = new JLabel("Charts");
         title.add(label5);
@@ -70,6 +72,7 @@ public class ChartGUI extends JFrame implements ActionListener
         holder.add(topSection);
         f.add(holder);
 
+        //Chart Panel
         chart=new JPanel(new FlowLayout(FlowLayout.CENTER));
         chart.setPreferredSize(new Dimension(900,600));
 
@@ -77,23 +80,23 @@ public class ChartGUI extends JFrame implements ActionListener
         JPanel test =new JPanel(new FlowLayout(FlowLayout.CENTER));
         JPanel dobs = new JPanel(new GridBagLayout());
 
-        // Update button
+        // Medicine button
         medicine = new JButton("Medicine");
         medicine.addActionListener(this);
         dobs.add(medicine, getConstraints(0, 4, 1, 1, GridBagConstraints.WEST));
 
-        // Delete button
+        // Equipment button
         equipment = new JButton("Equipment");
         equipment.addActionListener(this);
         dobs.add(equipment, getConstraints(1, 4, 1, 1, GridBagConstraints.WEST));
 
-        // Cancel button
+        // Consultant button
         consultant = new JButton("Consultants");
         consultant.addActionListener(this);
         dobs.add(consultant, getConstraints(2, 4, 1, 1, GridBagConstraints.WEST));
 
 
-        // Refresh button
+        // Close button
         close = new JButton("Close");
         close.addActionListener(this);
         dobs.add(close, getConstraints(7, 4, 1, 1, GridBagConstraints.WEST));
@@ -125,14 +128,17 @@ public class ChartGUI extends JFrame implements ActionListener
 
 
 
+    //Calling, adding and clearing charts
     public void actionPerformed(ActionEvent e) {
         try {
             if (e.getSource().equals(close)) {
                 f.setVisible(false);
             } else if (e.getSource().equals(medicine)) {
+                //If existing chart then remove
                 if(replaceTest==1){
                     chart.remove(chartPanel);
                 }else{
+                    //Call and remove charts
                     BarChartDemo barChartDemo = new BarChartDemo("Medicine", 1);
                     JFreeChart chart1 = barChartDemo.createChart(barChartDemo.createDataset());
                     chartPanel = new ChartPanel(chart1, false);
@@ -147,9 +153,11 @@ public class ChartGUI extends JFrame implements ActionListener
                 }
 
             } else if (e.getSource().equals(equipment)) {
+                //If existing chart then remove
                 if(replaceTest==2) {
                     chart.remove(chartPanel2);
                 }else{
+                    //Call and remove charts
                     BarChartDemo barChartDemo2 = new BarChartDemo("Equipment", 2);
                     JFreeChart chart1 = barChartDemo2.createChart2(barChartDemo2.createDataset2());
                     chartPanel2 = new ChartPanel(chart1, false);
@@ -164,9 +172,11 @@ public class ChartGUI extends JFrame implements ActionListener
                 }
 
             } else if (e.getSource().equals(consultant)) {
+                //If existing chart then remove
                 if(replaceTest==3) {
                     chart.remove(chartPanel3);
                 }else{
+                    //Call and remove charts
                     BarChartDemo barChartDemo3 = new BarChartDemo("Consultant", 3);
                     JFreeChart chart1 = barChartDemo3.createChart3(barChartDemo3.createDataset3());
                     chartPanel3 = new ChartPanel(chart1, false);
@@ -180,7 +190,7 @@ public class ChartGUI extends JFrame implements ActionListener
 
                 }
             }
-
+            //Because panel starts as null i use this to trick the user to move to the next option
         } catch (NullPointerException np) {
             JOptionPane.showMessageDialog(null, "Generating Charts");
         }

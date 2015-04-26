@@ -1,16 +1,6 @@
 package GUI;
 
-//import DataBase.AppointmentOperations;
-//import DataBase.PatientOperations;
-//import Model.Appointment;
-//import Model.PatientRecord;
-
-        import Model.Appointment;
         import Model.HealthInsurance;
-        import Model.MedicalCard;
-
-        import java.text.DateFormat;
-        import java.text.SimpleDateFormat;
         import java.util.*;
         import javax.swing.*;
         import javax.swing.border.BevelBorder;
@@ -18,19 +8,19 @@ package GUI;
         import java.awt.*;
         import java.awt.event.ActionEvent;
         import java.awt.event.ActionListener;
-        import java.util.Date;
 
 /**
  * Created by Thomas Murray on 17/03/2015.
+ *
+ * Add and update a patients health insurance using this GUI
+ *
  */
+
 public class healthInsuranceGUI extends JFrame implements ActionListener {
     String[] list1 = {"","Bronze", "Silver", "Gold","Platinum"};
-    JButton confirm;
-    JButton cancel;
-
-    JLabel patientNum;
-    JLabel policyNum,companyName,expiry,xMonth,xYear,coverageType,titleF;
-    JTextField pNumText,companyNameText,xMonthText,xYearText;
+    JButton confirm,cancel;
+    JLabel patientNum, policyNum,companyName,expiry,xMonth,xYear,coverageType,titleF;
+    JTextField pNumText,companyNameText;
     JCheckBox validate;
     JFrame f;
     private String[]list2={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
@@ -38,7 +28,6 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
     private ArrayList<HealthInsurance>hList=new ArrayList<>();
     private HealthInsurance healthInsurance;
     private int patientNumber;
-
     JComboBox<String> coverageTypeCombo;
     JComboBox<String> monthCombo;
     JComboBox<String> yearCombo;
@@ -52,25 +41,23 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-
-
-
         JPanel holder=new JPanel(new GridLayout(1,1));
         JPanel topSection=new JPanel(new GridLayout(1,3));
 
+        //Clock
         Clock.DigitalClock clockD=new Clock.DigitalClock();
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
         clock.add(clockD);
 
+        //Title
         JPanel title=new JPanel(new FlowLayout(FlowLayout.CENTER));
         titleF = new JLabel("Health Insurance");
         title.add(titleF);
         titleF.setFont(new Font("Arial", Font.BOLD, 24));
-
         JPanel ID=new JPanel(new FlowLayout(FlowLayout.CENTER));
-        //labels
+
+        //Patient number label
         patientNum = new JLabel("\tPatient Number");
         ID.add(patientNum);
         //text field
@@ -79,38 +66,33 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
         pNumText.setEditable(false);
         pNumText.setText(Integer.toString(patientNumIn));
         ID.add(pNumText);
-
-
         topSection.add(clock);
         topSection.add(title);
         topSection.add(ID);
-//        f.add(topSection);
-
         holder.add(topSection);
-
-
-
-        //middle
         JPanel holder2=new JPanel(new GridLayout(2,1));
         JPanel middle = new JPanel(new GridBagLayout());
-
         holder2.add(middle, BorderLayout.CENTER);
 
-        //Reason for Visit label
+        //name label
         companyName=new JLabel("Company Name ");
         middle.add(companyName, getConstraints(0, 0, 1, 1, GridBagConstraints.WEST));
 
+        //name text
         companyNameText = new JTextField(35);
         companyNameText.setBorder(loweredBorder);
         middle.add(companyNameText, getConstraints(0, 1, 4, 1, GridBagConstraints.WEST));
 
+        //policy num label
         policyNum = new JLabel("Policy Number");
         middle.add(policyNum, getConstraints(0, 2, 3, 1, GridBagConstraints.WEST));
 
+        //policy num text
         pNumText = new JTextField(35);
         pNumText.setBorder(loweredBorder);
         middle.add(pNumText, getConstraints(0, 3, 3, 1, GridBagConstraints.WEST));
 
+        //Date labels
         expiry = new JLabel("Expiry Date");
         middle.add(expiry, getConstraints(0, 5, 1, 1, GridBagConstraints.WEST));
 
@@ -120,6 +102,7 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
         xYear = new JLabel("Year");
         middle.add(xYear, getConstraints(1, 6, 1, 1, GridBagConstraints.WEST));
 
+        //Date Combo boxes
         monthCombo=new JComboBox<>(list2);
         monthCombo.setBorder(loweredBorder);
         middle.add(monthCombo, getConstraints(0, 7, 1, 1, GridBagConstraints.WEST));
@@ -131,12 +114,13 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
         coverageType = new JLabel("Card Type");
         middle.add(coverageType, getConstraints(0, 8, 1, 1, GridBagConstraints.WEST));
 
+        //Coverage type combo
         coverageTypeCombo = new JComboBox<String>(list1);
         coverageTypeCombo.setPreferredSize(new Dimension(120, 20));
         middle.add(coverageTypeCombo, getConstraints(0, 9, 3, 1, GridBagConstraints.WEST));
         coverageTypeCombo.addActionListener(this);
 
-
+        //if existing record, retrieve and populate
         hList.removeAll(hList);
         healthInsurance=new HealthInsurance();
         hList.addAll(healthInsurance.getHealthList());
@@ -151,16 +135,13 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
             }
         }
 
-
-
-        //bottom
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
         holder2.add(bottom);
+
         // Confirm button
         confirm = new JButton("Confirm");
         confirm.addActionListener(this);
         bottom.add(confirm);
-
 
         // Cancel button
         cancel = new JButton("Cancel");
@@ -171,8 +152,6 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
         validate=new JCheckBox("Valid");
         validate.addActionListener(this);
         bottom.add(validate);
-
-
         f.add(holder);
         f.add(holder2);
         f.setVisible(true);
@@ -204,7 +183,6 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
                 if(hList.get(i).getPatientNum()==patientNumber){
                     test2=true;
                 }
-
             }
             int numFormat=0;
             String polTypeCombo =(String)coverageTypeCombo.getSelectedItem();
@@ -222,7 +200,6 @@ public class healthInsuranceGUI extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Policy Type is a required fields");
                     test=false;
                 }
-
             } else {
                 test=true;
                 while (test==true) {

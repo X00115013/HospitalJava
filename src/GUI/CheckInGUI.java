@@ -13,7 +13,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * Created by Dylan and Thomas Murray on 20/03/2015.
+ * Created by Dylan Mahony and Thomas Murray on 20/03/2015.
+ *
+ * This class allows the patient to check in , check out and get discharged
  */
 public class CheckInGUI extends JFrame implements ActionListener
 {
@@ -42,13 +44,15 @@ public class CheckInGUI extends JFrame implements ActionListener
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-
         JPanel mainHolder=new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        //Clock
         Clock.DigitalClock clockD=new Clock.DigitalClock();
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         clock.add(clockD);
+
+        //Title
         label = new JLabel("Check-In");
         clock.add(label);
         label.setFont(new Font("Arial", Font.BOLD, 46));
@@ -59,7 +63,8 @@ public class CheckInGUI extends JFrame implements ActionListener
         //middle
         JPanel middle = new JPanel(new GridBagLayout());
         test2.add(middle, BorderLayout.WEST);
-        //labels
+
+        //App Num labels
         appNum = new JLabel("Appointment Number");
         middle.add(appNum, getConstraints(0, 0, 1, 1, (GridBagConstraints.WEST)));
         //text field
@@ -68,15 +73,21 @@ public class CheckInGUI extends JFrame implements ActionListener
         or = new JLabel("OR");
         middle.add(or, getConstraints(0, 2, 1, 1, (GridBagConstraints.WEST)));
         middle.add(appNumText, getConstraints(0, 1, 1, 1, (GridBagConstraints.WEST)));
+
+        //First name label
         firstName = new JLabel("First Name");
         middle.add(firstName, getConstraints(0, 3, 1, 1, (GridBagConstraints.WEST)));
-        //text field
+
+        //First name text field
         firstNameText = new JTextField(50);
         firstNameText.setBorder(loweredBorder);
         middle.add(firstNameText, getConstraints(0, 4, 1, 1, (GridBagConstraints.WEST)));
+
+        //Surname label
         surname = new JLabel("Surname");
         middle.add(surname, getConstraints(0, 5, 1, 1, (GridBagConstraints.WEST)));
-        //text field
+
+        //Surname text field
         surnameText = new JTextField(50);
         surnameText.setBorder(loweredBorder);
         middle.add(surnameText, getConstraints(0, 6, 1, 1, (GridBagConstraints.WEST)));
@@ -126,10 +137,6 @@ public class CheckInGUI extends JFrame implements ActionListener
         f.add(mainHolder);
         f.setVisible(true);
     }
-
-
-
-
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(10, 5, 10, 10);
@@ -142,8 +149,6 @@ public class CheckInGUI extends JFrame implements ActionListener
         c.anchor = anchor;
         return c;
     }
-
-
     public void actionPerformed(ActionEvent e)
     {
         if (e.getSource().equals(cancel))

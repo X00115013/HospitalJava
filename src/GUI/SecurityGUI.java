@@ -13,18 +13,17 @@ import java.util.InputMismatchException;
 
 /**
  * Created by Thomas Murray on 01/03/2015.
+ *
+ * This class takes care of most validation when using a patient number as a search tool
+ *
  */
+
+
 public class SecurityGUI extends JFrame implements ActionListener {
     private int answer = 0, selection;
-
-    JButton confirm;
-    JButton cancel;
-
-    JLabel patientNum;
-    JLabel password;
-    JLabel title;
+    JButton confirm,cancel;
+    JLabel patientNum,password,title;
     JTextField patientNumText, passwordText;
-
     JFrame f;
 
     public SecurityGUI(int selectionIn) {
@@ -35,20 +34,15 @@ public class SecurityGUI extends JFrame implements ActionListener {
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
-
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.LEFT));
         f.add(clock, BorderLayout.EAST);
-
-
         JPanel offTop = new JPanel(new FlowLayout(FlowLayout.CENTER));
         f.add(offTop, BorderLayout.NORTH);
 
-
+        //Title
         title = new JLabel("SECURITY");
         offTop.add(title);
         title.setFont(new Font("Arial", Font.BOLD, 44));
-
 
         JPanel middle = new JPanel();
         f.add(middle, BorderLayout.CENTER);
@@ -80,12 +74,10 @@ public class SecurityGUI extends JFrame implements ActionListener {
         confirm.addActionListener(this);
         bottom.add(confirm);
 
-
         // Cancel button
         cancel = new JButton("Cancel");
         cancel.addActionListener(this);
         bottom.add(cancel);
-
         f.setVisible(true);
     }
 
@@ -102,16 +94,10 @@ public class SecurityGUI extends JFrame implements ActionListener {
         return c;
     }
 
-    public int getAnswer() {
-        return answer;
-    }
-
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {
             f.setVisible(false);
-
         } else if (e.getSource().equals(confirm)) {
-            boolean test = true;
             if (patientNumText.getText().equals("") || passwordText.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Both Fields Must Be Populated");
             } else {

@@ -13,17 +13,18 @@ import java.util.ArrayList;
 
 /**
  * Created by Thomas Murray on 28/03/2015.
+ *
+ * This class allows the patient to cancel an appointment and cancelling subsequent tables
  */
 public class CancelAppointmentGUI extends JFrame implements ActionListener {
-    JButton confirm;
-    JButton cancel;
+    JButton confirm, cancel;
     JLabel firstName, surname, appNum, day, month, year, dob, title, or;
     JTextField firstNameText, surnameText, appNumText;
     JFrame f;
     private String[] daysIn = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
     private String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     private String[] years = new String[76];
-    private int choiceGui, setter = 1940;
+    private int setter = 1940;
     JComboBox<String> dayCombo, monthCombo, yearCombo;
     private ArrayList<Appointment> appList = new ArrayList<>();
     private ArrayList<PatientRecord>pList=new ArrayList<>();
@@ -41,42 +42,49 @@ public class CancelAppointmentGUI extends JFrame implements ActionListener {
         f.setResizable(false);
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
         Border loweredBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-
         JPanel holder = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        //Clock
         Clock.DigitalClock clockD = new Clock.DigitalClock();
         JPanel clock = new JPanel(new FlowLayout(FlowLayout.CENTER));
         clock.add(clockD);
+
+        //Title
         title = new JLabel("Cancel Appointment");
         clock.add(title);
         title.setFont(new Font("Arial", Font.BOLD, 24));
         holder.add(clock);
-
         JPanel holder2 = new JPanel(new GridLayout(2, 1));
         JPanel test2 = new JPanel(new GridLayout(1, 1));
-
-        //middle
         JPanel middle = new JPanel(new GridBagLayout());
         test2.add(middle, BorderLayout.WEST);
-        //labels
+
+        //App num labels
         appNum = new JLabel("Appointment Number");
         middle.add(appNum, getConstraints(0, 0, 1, 1, (GridBagConstraints.WEST)));
-        //text field
+
+        //App num text field
         appNumText = new JTextField(50);
         appNumText.setBorder(loweredBorder);
         or = new JLabel("OR");
         middle.add(or, getConstraints(0, 2, 1, 1, (GridBagConstraints.WEST)));
         middle.add(appNumText, getConstraints(0, 1, 1, 1, (GridBagConstraints.WEST)));
+
+        //first name label
         firstName = new JLabel("First Name");
         middle.add(firstName, getConstraints(0, 3, 1, 1, (GridBagConstraints.WEST)));
-        //text field
+
+        //first name text field
         firstNameText = new JTextField(50);
         firstNameText.setBorder(loweredBorder);
         middle.add(firstNameText, getConstraints(0, 4, 1, 1, (GridBagConstraints.WEST)));
+
+        //surname label
         surname = new JLabel("Surname");
         middle.add(surname, getConstraints(0, 5, 1, 1, (GridBagConstraints.WEST)));
-        //text field
+
+        //surname text field
         surnameText = new JTextField(50);
         surnameText.setBorder(loweredBorder);
         middle.add(surnameText, getConstraints(0, 6, 1, 1, (GridBagConstraints.WEST)));
@@ -96,7 +104,7 @@ public class CancelAppointmentGUI extends JFrame implements ActionListener {
         year = new JLabel("Year");
         dobs.add(year, getConstraints(2, 2, 1, 1, GridBagConstraints.WEST));
 
-        //DOB text fields
+        //DOB Combo boxes
         dayCombo = new JComboBox<>(daysIn);
         dayCombo.setBorder(loweredBorder);
         dobs.add(dayCombo, getConstraints(0, 3, 1, 1, GridBagConstraints.WEST));
@@ -107,7 +115,6 @@ public class CancelAppointmentGUI extends JFrame implements ActionListener {
         yearCombo.setBorder(loweredBorder);
         dobs.add(yearCombo, getConstraints(2, 3, 1, 1, GridBagConstraints.WEST));
 
-
         // Confirm button
         confirm = new JButton("Confirm");
         confirm.addActionListener(this);
@@ -117,14 +124,12 @@ public class CancelAppointmentGUI extends JFrame implements ActionListener {
         cancel = new JButton("Cancel");
         cancel.addActionListener(this);
         dobs.add(cancel, getConstraints(1, 4, 1, 1, GridBagConstraints.WEST));
+
         holder2.add(test);
-
-
         holder.add(holder2);
         f.add(holder);
         f.setVisible(true);
     }
-
 
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();
@@ -138,7 +143,6 @@ public class CancelAppointmentGUI extends JFrame implements ActionListener {
         c.anchor = anchor;
         return c;
     }
-
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(cancel)) {

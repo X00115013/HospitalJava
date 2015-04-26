@@ -43,7 +43,6 @@ public class TimeTableOperations {
         }
         return rset;
     }
-
     public ResultSet getTT() {
         try {
             String queryString = "SELECT * FROM TimeTable";
@@ -54,8 +53,6 @@ public class TimeTableOperations {
         }
         return rset;
     }
-
-
     public void setTimeTable(String machineNameIn,int timeIn,  String taken, String consultantNameIn ){
         try {
             String queryString1 = "INSERT INTO TimeTable(tt_ID, machineName, time, taken,con_Name,AppID)VALUES(tt_seq.nextval,?,?,?,?,?)";
@@ -70,15 +67,12 @@ public class TimeTableOperations {
             System.out.println("Insert tt error "+e);
         }
     }
-
     public void updateTimeTable(){
         for (int i = 0; i <42 ; i++) {
             cancelTableEntry(clearInt);
             clearInt++;
         }
     }
-
-
     public void cancelTableEntry(int appNumIn){
         try {
             String queryString = "UPDATE TimeTable SET time = null, con_Name = '', taken = 'Free' WHERE AppID = "+appNumIn;
@@ -87,9 +81,7 @@ public class TimeTableOperations {
         } catch (Exception e) {
             System.out.println(e);
         }
-
     }
-
     public void setTTFree(String equipIn,String taken){
         try {
             String queryString1 = "INSERT INTO TimeTable(tt_ID,machineName,taken,con_Name)VALUES(tt_seq.nextval,?,?,?)";
@@ -102,7 +94,6 @@ public class TimeTableOperations {
             System.out.println(e);
         }
     }
-
     public void setConsultantTimeTable(int timeIn, String consultantNumIn){
         try {
             String queryString1 = "INSERT INTO ConsultantTimeTable(conTT_ID,time,con_Name,AppID)VALUES(conTT_seq.nextval,?,?,?)";
@@ -115,7 +106,6 @@ public class TimeTableOperations {
             System.out.println(e);
         }
     }
-
     public int getCurrVal() {
         int catchInt = 0;
         try {
@@ -130,8 +120,6 @@ public class TimeTableOperations {
         }
         return catchInt;
     }
-
-
     public ResultSet getConsultant(){
         try {
             String queryString = "SELECT * FROM Consultant";
