@@ -23,7 +23,7 @@ package GUI;
         JTextField patientText,enterNumText;
         JTextArea medicalInformation;
         JScrollPane scroll;
-        private int patientNumberIn;
+        private int nextInt=0;
         private String record="\n\n\n\t\t\t\tSelect a Patients Number";
         private ResultSet rset;
         private ArrayList<String>oldMedList=new ArrayList<>();
@@ -90,22 +90,22 @@ package GUI;
 
             enterNumText=new JTextField(15);
             enterNumText.setBorder(loweredBorder);
-            dobs.add(enterNumText,getConstraints(0,3,5,1, GridBagConstraints.WEST));
+            dobs.add(enterNumText,getConstraints(0,3,4,1, GridBagConstraints.WEST));
 
             // Search button
             search = new JButton("Search");
             search.addActionListener(this);
-            dobs.add(search, getConstraints(4, 3, 1, 1, GridBagConstraints.WEST));
+            dobs.add(search, getConstraints(3, 3, 1, 1, GridBagConstraints.WEST));
 
-//            // Back button
-//            back = new JButton("Back");
-//            back.addActionListener(this);
-//            dobs.add(back, getConstraints(0, 4, 1, 1, GridBagConstraints.WEST));
+            // Back button
+            back = new JButton("Back");
+            back.addActionListener(this);
+            dobs.add(back, getConstraints(0, 4, 1, 1, GridBagConstraints.WEST));
 
             // Next button
             next = new JButton("Next");
             next.addActionListener(this);
-            dobs.add(next, getConstraints(0, 4, 1, 1, GridBagConstraints.WEST));
+            dobs.add(next, getConstraints(1, 4, 1, 1, GridBagConstraints.WEST));
 
             // Cancel button
             cancel = new JButton("Cancel");
@@ -165,15 +165,21 @@ package GUI;
                 }
                 so.stockOperationsClose();
                 patientText.setText(enterNumText.getText());
-                medicalInformation.setText(oldMedList.get(0));
+                medicalInformation.setText(oldMedList.get(nextInt));
 
             }else if (e.getSource().equals(back)) {
-                medicalInformation.setText(setTextArea());
+                nextInt--;
+                try {
+                    medicalInformation.setText(oldMedList.get(nextInt));
+                }catch (IndexOutOfBoundsException id){
+                    JOptionPane.showMessageDialog(null, "No More Records for Patient "+enterNumText.getText());
+                }
 
             }
             else if (e.getSource().equals(next)) {
+                nextInt++;
                 try {
-                    medicalInformation.setText(oldMedList.get(+1));
+                    medicalInformation.setText(oldMedList.get(nextInt));
                 }catch (IndexOutOfBoundsException id){
                     JOptionPane.showMessageDialog(null, "No More Records for Patient "+enterNumText.getText());
                 }

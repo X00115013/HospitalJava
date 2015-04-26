@@ -1,5 +1,6 @@
 package GUI;
 
+import DataBase.PatientOperations;
 import Model.*;
 
 import javax.swing.*;
@@ -8,6 +9,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -20,12 +23,15 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener {
     JTextArea additionalInformation;
     JRadioButton checkOutRadio;
     private int patientNumberIn;
+    private String text="";
     private PatientRecord patientRecord;
     private ArrayList<PatientRecord> pRecord = new ArrayList<>();
     private Prescription prescriptions;
     private EquipmentUsed equipUsed;
     private ArrayList<Prescription>presList=new ArrayList<>();
     private ArrayList<EquipmentUsed>eUseList=new ArrayList<>();
+    private ResultSet rset;
+    private PatientOperations po;
 
 
     JFrame f;
@@ -63,20 +69,31 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener {
         patientText.setBorder(loweredBorder);
         patientText.setEditable(false);
         ID.add(patientText);
-
-
         topSection.add(clock);
         topSection.add(title);
         topSection.add(ID);
-
         holder.add(topSection);
-
 
         JPanel textArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         additionalInformation = new JTextArea(230, 60);
         additionalInformation.setBorder(loweredBorder);
-        textArea.add(additionalInformation);
+        JScrollPane scroll = new JScrollPane(additionalInformation);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        textArea.add(scroll);
+
+        try {
+            po=new PatientOperations();
+            rset = po.getCheckInfo(patientNumIn);
+            while (rset.next()) {
+                text= "  Additional Information\n\n  "+rset.getString(2)+"\n\n  Regards\n  "+rset.getString(3)+"\n  Patient Number "+rset.getString(5);
+            }po.patientOperationsClose();
+
+        } catch (SQLException e1) {
+            System.out.println(e1);
+        }
+        additionalInformation.setText(text);
+
         holder.add(textArea);
 
         //DOB labels
@@ -148,7 +165,6 @@ public class AdminCheckOutGUI extends JFrame implements ActionListener {
             }
         } else if (e.getSource().equals(bill)) {
             PaymentGUI paymentGUI = new PaymentGUI(patientNumberIn);
-            f.setVisible(false);
         } else if (e.getSource().equals(checkOutRadio)) {
             boolean payCheck = false;
             prescriptions = new Prescription();

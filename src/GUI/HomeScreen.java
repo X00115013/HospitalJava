@@ -28,14 +28,12 @@ public class HomeScreen extends JFrame implements ActionListener {
     private JLabel pageCenter,pageCenter2;
     JFrame f, g;
     private JTabbedPane tabbedPane;
+    private String name="Hospital Name";
+    boolean localTest=false;
+    int tabbedCheck=1,firstVisit=0;
 
 
     public HomeScreen() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -69,12 +67,18 @@ public class HomeScreen extends JFrame implements ActionListener {
         JPanel top = new JPanel(new GridLayout(1, 3));
         top.setOpaque(true);
         top.add(clock1);
-        pageTitle = new JLabel("Hospital Name");
-        pageTitle.setFont(new Font("Arial", Font.ITALIC, 50));
+        pageTitle = new JLabel();
+        pageTitle.setFont(new Font("Arial", Font.ITALIC, 56));
         top.add(pageTitle);
         top.add(calendarPane);
         top.setBorder(new EmptyBorder(20, 20, 20, 20));
         firstPage.add(top);
+
+        if(firstVisit==0) {
+            name = JOptionPane.showInputDialog("Enter Hospital Name");
+            pageTitle.setText(name);
+            firstVisit++;
+        }
 
 
         try {
@@ -140,8 +144,8 @@ public class HomeScreen extends JFrame implements ActionListener {
         JPanel top2 = new JPanel(new GridLayout(1, 3));
         top2.setOpaque(true);
         top2.add(clock2);
-        pageTitle2 = new JLabel("Hospital Name");
-        pageTitle2.setFont(new Font("Arial", Font.ITALIC , 50));
+        pageTitle2 = new JLabel(name);
+        pageTitle2.setFont(new Font("Arial", Font.ITALIC , 56));
         top2.add(pageTitle2);
         top2.add(calendarPane2);
         top2.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -200,22 +204,38 @@ public class HomeScreen extends JFrame implements ActionListener {
         tabbedPane.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                TabSecurity tabSecurity=new TabSecurity();
-                System.out.println("In Homepage "+tabSecurity.isTest());
-                if(tabSecurity.isTest()==false) {
-                    tabbedPane.setSelectedIndex(1);
-                    System.out.println("In Homepage index 0 "+tabSecurity.isTest());
-                }else{
+                try {
+                    if (tabbedPane.isEnabledAt(0)) {
+                        localTest = true;
+                        tabbedCheck++;
+                    } else if (tabbedPane.isEnabledAt(1)) {
+                        localTest = false;
+                    }
+                    System.out.println("Test here "+localTest);
+                    if ((localTest == true) && (tabbedCheck % 2==0)) {
+                        String input = JOptionPane.showInputDialog("Input Admin Password");
+                        try {
+                            if (Integer.parseInt(input) == 789) {
+                                JOptionPane.showMessageDialog(null, "Password is Correct");
+                                tabbedPane.setSelectedIndex(1);
+                                localTest = false;
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Password is Incorrect");
+                                tabbedPane.setSelectedIndex(0);
+                                localTest = false;
+                            }
+                        }catch(NumberFormatException nf){
+                            tabbedPane.setSelectedIndex(0);
+                            localTest = false;
+                        }
+                    }
+                }catch (NullPointerException np){
                     tabbedPane.setSelectedIndex(0);
-                    System.out.println("In Homepage index 1 "+tabSecurity.isTest());
+                    localTest = false;
                 }
             }
         });
-
         f.setVisible(true);
-
-//        tabbedPane.add(f);
-
     }
 
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {

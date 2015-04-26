@@ -60,7 +60,6 @@ public class BarChartDemo extends JPanel {
             chartPanel.setMouseWheelEnabled(true);
             chartPanel.setDismissDelay(Integer.MAX_VALUE);
             chartPanel.setPreferredSize(new Dimension(1000, 800));
-//            setContentPane(chartPanel);
         } else if (choice == 2) {
             CategoryDataset dataset2 = createDataset2();
             JFreeChart chart2 = createChart2(dataset2);
@@ -70,7 +69,6 @@ public class BarChartDemo extends JPanel {
             chartPanel2.setMouseWheelEnabled(true);
             chartPanel2.setDismissDelay(Integer.MAX_VALUE);
             chartPanel2.setPreferredSize(new Dimension(1000, 800));
-//            setContentPane(chartPanel2);
         } else if (choice == 3) {
             CategoryDataset dataset3 = createDataset3();
             JFreeChart chart3 = createChart3(dataset3);
@@ -80,7 +78,6 @@ public class BarChartDemo extends JPanel {
             chartPanel3.setMouseWheelEnabled(true);
             chartPanel3.setDismissDelay(Integer.MAX_VALUE);
             chartPanel3.setPreferredSize(new Dimension(1000, 800));
-//            setContentPane(chartPanel3);
         }
     }
 
@@ -110,11 +107,6 @@ public class BarChartDemo extends JPanel {
         appList.removeAll(appList);
         appList.addAll(appointment.appArray());
         for (int i = 0; i < eList.size() ; i++) {
-//            for (int k = 0; k < appList.size(); k++) {
-//                if (appList.get(k).getMedicalEquip().equals(eList.get(i).getEqName())) {
-//                    use++;
-//                }
-//            }
             for (int j = 0; j < eqList.size(); j++) {
                 if (eqList.get(j).getEqName().equals(eList.get(i).getEqName())) {
                     use++;
@@ -150,7 +142,7 @@ public class BarChartDemo extends JPanel {
     }
 
     public JFreeChart createChart(CategoryDataset dataset) {
-        JFreeChart chart = ChartFactory.createBarChart("Prescriptions Used", null,"Milligrams", dataset);
+        JFreeChart chart = ChartFactory.createBarChart("Prescriptions Used", null,"10 Milligram Units", dataset);
         chart.addSubtitle(new TextTitle("Amount prescribed and the prescribers"));
         chart.setBackgroundPaint(null);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();

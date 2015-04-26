@@ -1,5 +1,6 @@
 package GUI;
 
+import DataBase.AppointmentOperations;
 import Model.Appointment;
 import Model.MedicalRecord;
 import Model.PatientRecord;
@@ -29,6 +30,7 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
     private PatientRecord patientRecord;
     private Appointment apt;
     private String record="This is meant to be the patient Admin Record";
+    private AppointmentOperations ao;
 
 
     JFrame f;
@@ -78,8 +80,9 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
 
        JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        patientAdminInformation = new JTextArea(40,70);
+        patientAdminInformation = new JTextArea(38,68);
         patientAdminInformation.setBorder(loweredBorder);
+        patientAdminInformation.setFont(new Font("Arial", Font.ITALIC, 14));
         patientAdminInformation.setText(setTextArea());
         scroll = new JScrollPane(patientAdminInformation);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -146,27 +149,27 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
         apt=new Appointment();
         pList.addAll(patientRecord.getPatientList());
         appList.addAll(apt.appArray());
+        ao=new AppointmentOperations();
         for (int i = 0; i <pList.size() ; i++) {
             if (pList.get(i).getPatientNumber() == patientNumberIn) {
                 record = "\n\n--------------------------------------------------------------------------------------------------------------------\n" +
                         "\n   Patient Number is      \t" + pList.get(i).getPatientNumber() + "\n" +
-                        "\n--------------------------------------------------------------------------------------------------------------------\n" +
+                        "\n--------------------------------------------------------------------------------------------------------------------\n\n" +
                         "\n   Patient Name is         \t" + pList.get(i).getPatientFName() + " " + pList.get(i).getPatientLName() + "\n" +
-                        "\n--------------------------------------------------------------------------------------------------------------------\n" +
+
                         "\n   Patient Address is     \t" + pList.get(i).getPatientAddress() + "\n" +
-                        "\n--------------------------------------------------------------------------------------------------------------------\n" +
+
                         "\n   Patient Occupation is \t" + pList.get(i).getOccupation() + "\n" +
-                        "\n--------------------------------------------------------------------------------------------------------------------\n" +
+
                         "\n   Patient Gender is       \t" + pList.get(i).getGender() + "\n" +
-                        "\n--------------------------------------------------------------------------------------------------------------------\n" +
+
                         "\n   Patient DOB is          \t" + pList.get(i).getDOB() + "\n" +
-                        "\n--------------------------------------------------------------------------------------------------------------------\n" +
+
                         "\n   Patient Email is        \t" + pList.get(i).getEmail() + "\n" +
-                        "\n--------------------------------------------------------------------------------------------------------------------\n" +
-                        "\n   Patient Phone is        \t" + pList.get(i).getPhone() + "\n" +
+
+                        "\n   Patient Phone is        \t" + pList.get(i).getPhone() + "\n\n" +
                         "\n--------------------------------------------------------------------------------------------------------------------\n"+
-                        "\n   Patient is currently    \t" + pList.get(i).getCheckedIn() + "\n" +
-                        "\n--------------------------------------------------------------------------------------------------------------------\n";
+                        "\n   Patient is currently    \t" + pList.get(i).getCheckedIn();
             for (int j = 0; j < appList.size(); j++) {
                 if (appList.get(j).getAppNumber() == pList.get(i).getAppID()) {
                     record += record = "\n\n--------------------------------------------------------------------------------------------------------------------\n" +
@@ -174,9 +177,10 @@ public class PatientAdminRecGUI extends JFrame implements ActionListener
                             "\n   Booked Medical Equip      \t" + appList.get(j).getMedicalEquip() + "\n" +
                             "\n   Booked Consultant         \t" + appList.get(j).getConsultantType() + "\n" +
                             "\n   Date & Time Booked        \t" + appList.get(j).getDate() + "\n" +
+                            "\n   Appointment Time          \t" +apt.getAppointmentTime(ao.getAppointmentTime(appList.get(j).getAppNumber()))+"\n"+
                             "\n--------------------------------------------------------------------------------------------------------------------\n\n";
                     }
-                }
+                }ao.appointmentOperationsClose();
             }
         }
 

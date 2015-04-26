@@ -183,6 +183,9 @@ public class PatientOperations {
             stmt = conn.createStatement();
             stmt.executeUpdate(sql1);
             JOptionPane.showMessageDialog(null, "Patient "+patientNumber+" is "+checkedIn);
+            if(checkedIn.equals("Checked OUT")){
+                updateCheckInfo(patientNumber);
+            }
         } catch (Exception se) {
             System.out.println("po 8"+se);
         }
@@ -249,6 +252,53 @@ public class PatientOperations {
         }
         return rset;
     }
+
+
+    public ResultSet getCheckInfo(int n){
+        try {
+            String queryString = "SELECT * FROM checkOUT where thisVisit = 1 AND patient_Num = "+n;
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(queryString);
+        } catch (Exception e) {
+            System.out.println("Check OUT info po "+e);
+        }
+        return rset;
+    }
+
+    public void updateCheckInfo(int patientNumber)
+    {
+        try {
+            String sql1 = "UPDATE checkOUT SET thisVisit = 2 where patient_Num = " +patientNumber;
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql1);
+        } catch (Exception se) {
+            System.out.println(se);
+        }
+    }
+
+
+    public void addCheckOutInfo(int patientNum ,String extraInfo,String conName) {
+        try {
+
+
+            String queryString1 = "INSERT INTO checkOUT(check_ID, message ,conName ,thisVisit, patient_Num ) VALUES(check_seq.nexTVal,?,?,?,?)";
+            pstmt = conn.prepareStatement(queryString1);
+            pstmt.setString(1,extraInfo);
+            pstmt.setString(2,conName);
+            pstmt.setInt(3, 1);
+            pstmt.setInt(4, patientNum);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("add check out info po "+e);
+        }
+    }
+
+
+
+
+
+
+
     public void archive(int n,String reason) {
         try {
             String queryString1 = "INSERT INTO Archive(archiveID,patient_numIn,reasonForDeletion,archiveFile )VALUES(archive_seq.nexTVal,?,?,?)";

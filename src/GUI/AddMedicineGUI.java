@@ -71,8 +71,9 @@ package GUI;
 
             holder.add(topSection);
             JPanel textArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            additionalInformation = new JTextArea(30, 75);
+            additionalInformation = new JTextArea(27, 75);
             additionalInformation.setBorder(loweredBorder);
+            additionalInformation.setFont(new Font("Arial", Font.ITALIC, 14));
             additionalInformation.setText(setTextArea());
             scroll = new JScrollPane(additionalInformation);
             scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -164,8 +165,10 @@ package GUI;
             list = "\t\tLIST AND PRICE OF MEDICINE IN THIS HOSPITAL\n\n" +
                     "___________________________________________________________________________________________________" +
                     "_______________________________\n\n";
+            list+= "\tMedicine ID\t\tName\t\tIn Stock\t\tCost\n\n";
             for (int i = 0; i < medList.size(); i++) {
-                list += list = "\tMachine ID:" + medList.get(i).getMedId() + "\t\tName: " + medList.get(i).getMedName() + "\t\tIn Stock: " + medList.get(i).getStockLevel() + "\t\tCost: " + Bill.df.format(medList.get(i).getPrice()) + "\n\n";
+                list+="\n----------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+                list += list = "\t" + medList.get(i).getMedId() + "\t\t" + medList.get(i).getMedName() + "\t\t" + medList.get(i).getStockLevel() + "\t\t" + Bill.df.format(medList.get(i).getPrice()) + "\n\n";
                 if(medList.get(i).getStockLevel() > 0 && medList.get(i).getStockLevel()<=10){
             JOptionPane.showMessageDialog(null, medList.get(i).getMedName()+" is low on stock, "+medList.get(i).getStockLevel()+" remain");
         }else if (medList.get(i).getStockLevel() <=0){

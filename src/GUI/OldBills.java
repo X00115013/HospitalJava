@@ -24,7 +24,7 @@ public class OldBills extends JFrame implements ActionListener {
     JTextField patientText,enterNumText;
     JTextArea oldBillInformation;
     JScrollPane scroll;
-    private int patientNumberIn;
+    private int nextInt=0;
     private String record="\n\n\n\t\t\t\tSelect a Patients Number";
     private ArrayList<String>billList=new ArrayList<>();
     JFrame f;
@@ -91,32 +91,32 @@ public class OldBills extends JFrame implements ActionListener {
 
         enterNumText=new JTextField(15);
         enterNumText.setBorder(loweredBorder);
-        dobs.add(enterNumText,getConstraints(0,3,5,1, GridBagConstraints.WEST));
+        dobs.add(enterNumText,getConstraints(0,3,4,1, GridBagConstraints.WEST));
 
         // Search button
         search = new JButton("Search");
         search.addActionListener(this);
-        dobs.add(search, getConstraints(4, 3, 1, 1, GridBagConstraints.WEST));
+        dobs.add(search, getConstraints(3, 3, 1, 1, GridBagConstraints.WEST));
 
-//        // Back button
-//        back = new JButton("Back");
-//        back.addActionListener(this);
-//        dobs.add(back, getConstraints(0, 4, 1, 1, GridBagConstraints.WEST));
+        // Back button
+        back = new JButton("Back");
+        back.addActionListener(this);
+        dobs.add(back, getConstraints(0, 4, 1, 1, GridBagConstraints.WEST));
 
         // Next button
         next = new JButton("Next");
         next.addActionListener(this);
-        dobs.add(next, getConstraints(0, 4, 1, 1, GridBagConstraints.WEST));
+        dobs.add(next, getConstraints(1, 4, 1, 1, GridBagConstraints.WEST));
 
         // Cancel button
         cancel = new JButton("Cancel");
         cancel.addActionListener(this);
-        dobs.add(cancel, getConstraints(1, 4, 1, 1, GridBagConstraints.WEST));
+        dobs.add(cancel, getConstraints(2, 4, 1, 1, GridBagConstraints.WEST));
 
         // Refresh button
         refresh = new JButton("Reset");
         refresh.addActionListener(this);
-        dobs.add(refresh, getConstraints(2, 4, 1, 1, GridBagConstraints.WEST));
+        dobs.add(refresh, getConstraints(3, 4, 1, 1, GridBagConstraints.WEST));
 
         test.add(dobs);
         holder2.add(test);
@@ -166,13 +166,14 @@ public class OldBills extends JFrame implements ActionListener {
             so.stockOperationsClose();
             patientText.setText(enterNumText.getText());
             try {
-                oldBillInformation.setText(billList.get(0));
+                oldBillInformation.setText(billList.get(nextInt));
             }catch(IndexOutOfBoundsException io) {
             }
         }
         else if (e.getSource().equals(next)) {
+            nextInt++;
             try {
-                oldBillInformation.setText(billList.get(+1));
+                oldBillInformation.setText(billList.get(nextInt));
             }catch (IndexOutOfBoundsException id){
                 JOptionPane.showMessageDialog(null, "No More Records for Patient "+enterNumText.getText());
             }
@@ -180,6 +181,14 @@ public class OldBills extends JFrame implements ActionListener {
         }else if (e.getSource().equals(refresh)) {
             oldBillInformation.setText(record);
             enterNumText.setText("");
+
+        }else if (e.getSource().equals(back)) {
+            nextInt--;
+            try {
+                oldBillInformation.setText(billList.get(nextInt));
+            }catch (IndexOutOfBoundsException id){
+                JOptionPane.showMessageDialog(null, "No More Records for Patient "+enterNumText.getText());
+            }
 
         }
 

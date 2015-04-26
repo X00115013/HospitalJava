@@ -72,8 +72,9 @@ package GUI;
             holder.add(topSection);
             JPanel textArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-            accountsInformation= new JTextArea(40, 70);
+            accountsInformation= new JTextArea(35, 70);
             accountsInformation.setBorder(loweredBorder);
+            accountsInformation.setFont(new Font("Arial", Font.ITALIC, 14));
             accountsInformation.setText(setTextArea());
             scroll = new JScrollPane(accountsInformation);
             scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -136,10 +137,12 @@ package GUI;
             String textAreaString="";
             so=new StockOperations();
             rset=so.getAccounts();
-            textAreaString = "\n\tAccount ID\tMedicine\tEquipment\tRunning Total\t\tDate\t\tPatient Number\n\n";
+            textAreaString = "\n\tAccount ID\tMedicine\tEquipment\t\tRunning Total\t\tDate\t\tPatient Number\n\n";
             try{
                 while(rset.next()){
-                    textAreaString+= "\t"+Integer.toString(rset.getInt(1))+"\t"+Bill.df.format(rset.getDouble(2))+"\t"+Bill.df.format(rset.getDouble(3))+"\t"+Bill.df.format(rset.getDouble(4))+"\t"+rset.getString(5)+"\t\t"+Integer.toString(rset.getInt(6))+"\n";
+                    textAreaString+= "\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
+                            "\t"+Integer.toString(rset.getInt(1))+"\t"+Bill.df.format(rset.getDouble(2))+"\t"+Bill.df.format(rset.getDouble(3))+"\t\t"+Bill.df.format(rset.getDouble(4))+"\t\t"+rset.getString(5)+"\t\t"+Integer.toString(rset.getInt(6))+"\n";
+
                 }
             }catch (SQLException sq){
 
@@ -157,10 +160,12 @@ package GUI;
                 String textAreaString="";
                 so=new StockOperations();
                 rset=so.getAccounts(Integer.parseInt(enterNumText.getText()));
-                textAreaString = "\n\tAccount ID\tMedicine\tEquipment\tRunning Total\tDate\t\tPatient Number\n\n";
+                textAreaString = "\n\tAccount ID\tMedicine\tEquipment\t\tRunning Total\t\tDate\t\tPatient Number\n\n";
                 try{
                     while(rset.next()){
-                        textAreaString+= "\t"+Integer.toString(rset.getInt(1))+"\t"+Bill.df.format(rset.getDouble(2))+"\t"+Bill.df.format(rset.getDouble(3))+"\t"+Bill.df.format(rset.getDouble(4))+"\t"+rset.getString(5)+"\t\t"+Integer.toString(rset.getInt(6))+"\n";
+                        textAreaString+= "\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
+                                "\t"+Integer.toString(rset.getInt(1))+"\t"+Bill.df.format(rset.getDouble(2))+"\t"+Bill.df.format(rset.getDouble(3))+"\t\t"+Bill.df.format(rset.getDouble(4))+"\t\t"+rset.getString(5)+"\t\t"+Integer.toString(rset.getInt(6))+"\n";
+
                     }
                 }catch (SQLException sq){
 

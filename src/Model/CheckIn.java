@@ -32,4 +32,13 @@ public class CheckIn {
         }
 
     }
+
+    public void addCheckInfo(int patientNumberIn,String message,String conNameIn){
+        po=new PatientOperations();
+        po.addCheckOutInfo(patientNumberIn,message,conNameIn);
+        po.patientOperationsClose();
+
+    }
+
+
 }

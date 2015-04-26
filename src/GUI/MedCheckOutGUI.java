@@ -83,7 +83,9 @@ public class MedCheckOutGUI extends JFrame implements ActionListener
 
         additionalInformation = new JTextArea(230,60);
         additionalInformation.setBorder(loweredBorder);
-        textArea.add(additionalInformation);
+        JScrollPane scroll = new JScrollPane(additionalInformation);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        textArea.add(scroll);
         holder.add(textArea);
 
         JPanel test =new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -143,15 +145,16 @@ public class MedCheckOutGUI extends JFrame implements ActionListener
         else if (e.getSource().equals(confirm))
         {
             if(checkOutRadio.isSelected()) {
+                String nameCatch=(String)conTextCombo.getSelectedItem();
                 patientRecord=new PatientRecord();
                 pList.addAll(patientRecord.getPatientList());
                 for (int i = 0; i < pList.size(); i++) {
                     if (pList.get(i).getPatientNumber() == patientNumberIn ) {
                         CheckIn checkIn = new CheckIn(patientNumberIn, 2);
+                        checkIn.addCheckInfo(patientNumberIn,additionalInformation.getText(),nameCatch);
                         f.setVisible(false);
                     }
                 }
-
             }else{
                 JOptionPane.showMessageDialog(null, "Patient Discharge must be selected!!!");
             }

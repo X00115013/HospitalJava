@@ -1,5 +1,6 @@
 package GUI;
 
+        import DataBase.AppointmentOperations;
         import Model.Appointment;
         import Model.Printing;
 
@@ -29,6 +30,7 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
     private int appNumberIn;
     private Appointment appointment;
     private String appDetails="should be working";
+    private AppointmentOperations ao;
 
 
     JFrame f;
@@ -82,12 +84,15 @@ public class AppointmentDetailsGUI extends JFrame implements ActionListener
 
 
         appointments.addAll(appointment.appArray());
+        ao=new AppointmentOperations();
         for (int i = 0; i < appointments.size(); i++) {
             if(appointmentNumIn==appointments.get(i).appNumber){
-                appDetails="\tAppointment Number ("+appointments.get(i).appNumber+")\n\n" +
-                        "\tReason for Visit ("+appointments.get(i).reasonForVisit+")\n\n" +
-                        "\tMedical Equipment ("+appointments.get(i).medicalEquip+")\n\n" +
-                        "\tConsultant Required ("+appointments.get(i).getConsultantType()+")";
+                appDetails="\tAppointment Number \t"+appointments.get(i).appNumber+"\n\n" +
+                        "\tReason for Visit \t"+appointments.get(i).reasonForVisit+"\n\n" +
+                        "\tMedical Equipment \t"+appointments.get(i).medicalEquip+"\n\n" +
+                        "\tConsultant Required \t"+appointments.get(i).getConsultantType()+"\n\n" +
+                        "\tAppointment Time \t"+appointment.getAppointmentTime(ao.getAppointmentTime(appointmentNumIn));
+                ao.appointmentOperationsClose();
             }
 
         }

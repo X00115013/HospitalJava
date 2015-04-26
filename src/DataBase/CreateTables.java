@@ -358,6 +358,20 @@ public class CreateTables {
                 // The table doesn't exist
             } // MEDICAL EQUIPMENT END
 
+            // MEDICAL EQUIPMENT Sequence & Table START
+            try {
+                stmt.execute("DROP SEQUENCE check_seq ");
+                System.out.println("check out Sequence dropped.");
+            } catch (SQLException ex) {
+                // If in here then the Sequence did not exist
+            }
+            try {
+                stmt.execute("DROP TABLE checkOUT");
+                System.out.println("check out Table dropped");
+            } catch (SQLException ex) {
+                // The table doesn't exist
+            } // MEDICAL EQUIPMENT END
+
         } catch (SQLException ex) {
             System.out.println("ERROR: " + ex.getMessage());
         }
@@ -747,19 +761,21 @@ public class CreateTables {
             System.exit(1);
         }
 
-//        try {
-//            //TIME TABLE START creating table
-//            System.out.println("Creating Time Tables");
-//            String createTimeDetails = "CREATE TABLE Timetable(Equipment_ID  NUMBER PRIMARY KEY REFERENCES MedicalEquipment(Equipment_ID) , " +
-//                    "con_ID NUMBER REFERENCES Consultant(con_ID), " +
-//                    "Bed_ID REFERENCES Bed(Bed_ID))";
-//            pstmt = conn.prepareStatement(createTimeDetails);
-//            pstmt.executeUpdate(createTimeDetails);
-//        } catch (SQLException e) {
-//            System.out.print("SQL Exception " + e);
-//            System.exit(1);
-//        }
-//
+        try {
+            //creating table
+            System.out.println("Creating check out info Tables");
+            String create = "CREATE TABLE checkOUT(check_ID  NUMBER PRIMARY KEY, message VARCHAR2(255),conName VARCHAR2(50), thisVisit NUMBER, patient_Num NUMBER )";
+            pstmt = conn.prepareStatement(create);
+            pstmt.executeUpdate(create);
+            // creating Sequence
+            create = " CREATE SEQUENCE check_seq increment by 1 start with 1";
+            pstmt = conn.prepareStatement(create);
+            pstmt.executeUpdate(create);
+        } catch (SQLException e) {
+            System.out.print("SQL Exception " + e);
+            System.exit(1);
+        }
+
 
         try {
             //TIME TABLE START creating table

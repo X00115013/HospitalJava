@@ -72,8 +72,9 @@ import java.util.ArrayList;
 
             holder.add(topSection);
             JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
-            additionalInformation = new JTextArea(30,65);
+            additionalInformation = new JTextArea(27,65);
             additionalInformation.setBorder(loweredBorder);
+            additionalInformation.setFont(new Font("Arial", Font.ITALIC, 14));
             additionalInformation.setText(setTextArea());
             scroll = new JScrollPane(additionalInformation);
             scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -155,9 +156,10 @@ import java.util.ArrayList;
             list = "\t\tLIST AND PRICE OF EQUIPMENT IN THIS HOSPITAL\n\n" +
                     "___________________________________________________________________________________________________" +
                     "_______________________________\n\n";
+            list+= "\tMachine ID\t\tName\t\tCost\n\n";
             for (int i = 0; i < eqList.size(); i++) {
-                list += list = "\tMachine ID:" + eqList.get(i).getEqId() + "\t\tName: " + eqList.get(i).getEqName() + "\t\tCost: " + Bill.df.format(eqList.get(i).getPrice()) + "\n\n";
-
+                list+="\n----------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+                list += list = "\t" + eqList.get(i).getEqId() + "\t\t" + eqList.get(i).getEqName() + "\t\t" + Bill.df.format(eqList.get(i).getPrice()) + "\n\n";
             }
             return list;
         }

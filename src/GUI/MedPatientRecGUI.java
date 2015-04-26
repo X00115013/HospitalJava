@@ -79,6 +79,7 @@ public class MedPatientRecGUI extends JFrame implements ActionListener {
 
         medicalInformation = new JTextArea(40, 70);
         medicalInformation.setBorder(loweredBorder);
+        medicalInformation.setFont(new Font("Arial", Font.ITALIC, 14));
         medicalInformation.setText(setTextArea());
         scroll = new JScrollPane(medicalInformation);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);

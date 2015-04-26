@@ -31,6 +31,7 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
     private ArrayList<ConsultantTimeTable> conTimeTables = new ArrayList<>();
     private String contable = "This table should be working con Time Tables ";
     private String tTable = "This table should be working Time Tables ";
+    private Appointment appointment;
 
 
     public TimeTablesGUI() {
@@ -159,37 +160,60 @@ public class TimeTablesGUI extends JFrame implements ActionListener {
             clearArrays();
             AllTimeTables allTimeTables1 = new AllTimeTables();
             allTimeTables.addAll(allTimeTables1.getList(tableSelection));
-
+            appointment=new Appointment();
            ConsultantTimeTable consultantTimeTable=new ConsultantTimeTable();
             conTimeTables.addAll(consultantTimeTable.getConsultantTimeTable());
 
                 if (tableSelection.equals("Consultant")) {
+                    boolean loop=true;
                     contable = "";
-                    contable = "\n\n\tMon\tTues\tWed\tThur\tFri\tSat\tSun\n" +
+                    contable = "\n\n" +
                             "---------------------------------------------------------------------------------------------------" +
                             "----------------------------------------------------------------------------------------------------------------------------" +
                             "------------------------------------------------------";
                     for (int k = 0; k < conTimeTables.size(); k++) {
-                        if (k < 6) {
-                            contable += contable = "\n" + conTimeTables.get(k).getTimeIn() + "\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
-                        } else if (k < 12) {
-                            contable += contable = "\n" +
-                                    "\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
-                        } else if (k < 18) {
-                            contable += contable = "\n" +
-                                    "\t\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
-                        } else if (k < 24) {
-                            contable += contable = "\n" +
-                                    "\t\t\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
-                        } else if (k < 30) {
-                            contable += contable = "\n" +
-                                    "\t\t\t\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
-                        } else if (k < 36) {
-                            contable += contable = "\n" +
-                                    "\t\t\t\t\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
-                        } else if (k < 42) {
-                            contable += contable = "\n" +
-                                    "\t\t\t\t\t\t\t" + conTimeTables.get(k).getConsultantNameIn() + "\n";
+                        if ( conTimeTables.get(k).getTimeIn() <= 6) {
+                            if(conTimeTables.get(k).getTimeIn()==1 && loop==true) {
+                                contable += contable = "\n\n\tMonday\n\n";
+                                loop=false;
+                            }
+                            contable += contable =  "\t" + appointment.getAppointmentTime(conTimeTables.get(k).getTimeIn()) + "  \t" + conTimeTables.get(k).getConsultantNameIn() + "\n\n";
+                        } else if (conTimeTables.get(k).getTimeIn()  <= 12) {
+                            if(conTimeTables.get(k).getTimeIn()==7 && loop==false) {
+                                contable += contable = "\n\n\tTuesday\n\n";
+                                loop=true;
+                            }
+                            contable += contable =  "\t"+ appointment.getAppointmentTime(conTimeTables.get(k).getTimeIn()) + "  \t"  + conTimeTables.get(k).getConsultantNameIn() + "\n\n";
+                        } else if ( conTimeTables.get(k).getTimeIn() < 18) {
+                            if(conTimeTables.get(k).getTimeIn()==13 && loop==true) {
+                                contable += contable = "\n\n\tWednesday\n\n";
+                                loop=false;
+                            }
+                                    contable += contable =   "\t"+ appointment.getAppointmentTime(conTimeTables.get(k).getTimeIn())  + "  \t"  + conTimeTables.get(k).getConsultantNameIn() + "\n\n";
+                        } else if (conTimeTables.get(k).getTimeIn()  < 24) {
+                            if(conTimeTables.get(k).getTimeIn()==19 && loop==false) {
+                                contable += contable = "\n\n\tThursday\n\n";
+                                loop=true;
+                            }
+                                    contable += contable =  "\t"+ appointment.getAppointmentTime(conTimeTables.get(k).getTimeIn())  + "  \t"  + conTimeTables.get(k).getConsultantNameIn() + "\n\n";
+                        } else if ( conTimeTables.get(k).getTimeIn() < 30) {
+                            if(conTimeTables.get(k).getTimeIn()==25 && loop==true) {
+                                contable += contable = "\n\n\tFriday\n\n";
+                                loop=false;
+                            }
+                                    contable += contable =   "\t" + appointment.getAppointmentTime(conTimeTables.get(k).getTimeIn()) + "  \t"  + conTimeTables.get(k).getConsultantNameIn() + "\n\n";
+                        } else if (conTimeTables.get(k).getTimeIn()  < 36) {
+                            if(conTimeTables.get(k).getTimeIn()==31 && loop==false) {
+                                contable += contable = "\n\n\tSaturday\n\n";
+                                loop=true;
+                            }
+                                    contable += contable =   "\t" + appointment.getAppointmentTime(conTimeTables.get(k).getTimeIn())  + "  \t" + conTimeTables.get(k).getConsultantNameIn() + "\n\n";
+                        } else if (conTimeTables.get(k).getTimeIn()  < 42) {
+                            if(conTimeTables.get(k).getTimeIn()==37 && loop==true) {
+                                contable += contable = "\n\n\tSunday\n\n";
+                                loop=false;
+                            }
+                               contable += contable =  "\t" + appointment.getAppointmentTime(conTimeTables.get(k).getTimeIn())  + "  \t" + conTimeTables.get(k).getConsultantNameIn() + "\n\n";
                         }
                     }
                     timeTableInformation.setText(contable);

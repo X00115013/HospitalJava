@@ -190,7 +190,7 @@ public class StockOperations {
         }
     }
 
-    String create = "CREATE TABLE OldMedicalRecords(oldMed_ID  NUMBER PRIMARY KEY, dateIn VARCHAR2(60),old_Record VARCHAR2(4000),patient_Num NUMBER)";
+
 
     public ResultSet getOldMecRec(int patient_Num) {
         try {

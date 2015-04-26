@@ -88,8 +88,9 @@ package GUI;
 
 
         JPanel textArea = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        additionalInformation = new JTextArea(30, 75);
+        additionalInformation = new JTextArea(27, 75);
         additionalInformation.setBorder(loweredBorder);
+        additionalInformation.setFont(new Font("Arial", Font.ITALIC, 14));
         additionalInformation.setText(setTextArea());
         scroll = new JScrollPane(additionalInformation);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);

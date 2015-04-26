@@ -111,7 +111,7 @@ public class ProcessReferrals {
                 }
                 else{
                 for (int j = 0; j < pRecList.size(); j++) {
-                    if (patientFName.equalsIgnoreCase(pRecList.get(j).getPatientFName())) {
+                    if ((patientFName.equalsIgnoreCase(pRecList.get(j).getPatientFName()))&& (patientLName.equalsIgnoreCase(pRecList.get(j).getPatientLName()))&& (DOB.equals(pRecList.get(j).getDOB()))){
                         pNum=pRecList.get(j).getPatientNumber();
                         test = true;
                         j=pRecList.size()+1;

@@ -87,12 +87,11 @@ public class PaymentGUI extends JFrame implements ActionListener
 
         holder.add(topSection);
 
-
-
         JPanel textArea=new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         billInformation = new JTextArea(40,70);
         billInformation.setBorder(loweredBorder);
+        billInformation.setFont(new Font("Arial", Font.ITALIC, 14));
         billInformation.setEditable(false);
         billInformation.setText(setTextArea());
         scroll = new JScrollPane(billInformation);
