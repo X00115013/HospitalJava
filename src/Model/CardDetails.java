@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Created by David and Thomas Murray on 17/03/2015.
+ * Created by David Kiernan and Thomas Murray on 17/03/2015.
  */
 public class CardDetails {
     int cardId, securityCode, patientNumIn, cardNum;
@@ -21,7 +21,6 @@ public class CardDetails {
 
     }
 
-
     public CardDetails(int patientNumberIn, int cardNumIn, String cardType, int securityCode, String cardHolder, String expiryDate,int fake) {
         cd = new AllCardOperations();
         patientNumIn = patientNumberIn;
@@ -33,7 +32,6 @@ public class CardDetails {
         updateCard();
     }
 
-
     public CardDetails(int patientNumberIn, int cardNumIn, String cardType, int securityCode, String cardHolder, String expiryDate) {
         cd = new AllCardOperations();
         patientNumIn = patientNumberIn;
@@ -44,7 +42,6 @@ public class CardDetails {
         this.securityCode = securityCode;
         addCard();
     }
-
 
     public CardDetails(int cardId, int patientNum, int cardNumIn, String cardType, int securityCode, String cardHolder, String expiryDate) {
         cardNum = cardNumIn;

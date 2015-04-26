@@ -1,10 +1,11 @@
 package Model;
 
 /**
- * Created by Roland on 16/04/2015.
+ * Created by Thomas Murray on 16/04/2015.
+ *
+ * This class is used to discover what printers are available on the current system
+ *
  */
-
-
 
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;

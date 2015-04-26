@@ -36,7 +36,6 @@ public class PatientRecord {
             System.out.println(e1);
         }
     }
-
     public PatientRecord() {
         patientFName = "";
         patientLName = "";
@@ -58,9 +57,7 @@ public class PatientRecord {
         DOB = DOBIn;
         appID=appIdIn;
         checkedIn=checked;
-
     }
-
     public PatientRecord(int patientNumIn,String patientFNameIn, String patientLNameIn, String patientAddressIn, String occupationIn,String genderIn, String emailIn, String phoneIn, String DOBIn) {
         po=new PatientOperations();
         patientNumber=patientNumIn;
@@ -73,10 +70,7 @@ public class PatientRecord {
         phone = phoneIn;
         DOB = DOBIn;
         updatePatientRecord(patientNumIn);
-
-
     }
-
     public PatientRecord(String patientFNameIn, String patientLNameIn, String patientAddressIn, String occupationIn,String genderIn, String emailIn, String phoneIn, String DOBIn) {
         po=new PatientOperations();
         patientFName = patientFNameIn;
@@ -88,77 +82,59 @@ public class PatientRecord {
         phone = phoneIn;
         DOB = DOBIn;
         addPatientRecord();
-
     }
-
     public void addPatientRecord(){
         System.out.println("New Patient NEW NEW NEW NEW NEW NEW ");
         po.addPatient(patientFName, patientLName, patientAddress, occupation, gender, email, phone, DOB);
         po.patientOperationsClose();
-
     }
-
     public void updatePatientRecord(int patientNumIn){
         System.out.println("Updated Patient UPDATED UPDATED UPDATED ");
         po.updatePatientAdmin(patientNumIn, patientFName, patientLName, patientAddress, occupation, gender, email, phone, DOB);
         po.patientOperationsClose();
     }
-
     public int getPatientNumber() {
         return patientNumber;
     }
-
     public void deletePatientRecords(int patientNumIn,String reason){
         po=new PatientOperations();
         po.deletePatient(patientNumIn,reason);
         po.patientOperationsClose();
     }
-
     public ArrayList getPatientList() {
         refreshArrays();
         return patientList;
     }
-
     public String getPatientFName() {
         return patientFName;
     }
-
     public String getPatientLName() {
         return patientLName;
     }
-
     public String getDOB() {
         return DOB;
     }
-
     public ResultSet getRset() {
         return rset;
     }
-
     public String getPhone() {
         return phone;
     }
-
     public String getOccupation() {
         return occupation;
     }
-
     public String getEmail() {
         return email;
     }
-
     public String getPatientAddress() {
         return patientAddress;
     }
-
     public String getGender() {
         return gender;
     }
-
     public int getAppID() {
         return appID;
     }
-
     public String getCheckedIn() {
         return checkedIn;
     }

@@ -1,7 +1,7 @@
 package Model;
 
 /**
- * Created by David and Thomas Murray on 13/04/2015.
+ * Created by Thomas Murray on 13/04/2015.
  */
     import java.io.ByteArrayInputStream;
     import java.io.FileInputStream;
@@ -23,7 +23,6 @@ package Model;
 
         public Printing(String fileIn)throws PrintException, FileNotFoundException {
              InputStream in = new FileInputStream("files/"+fileIn+".txt");
-
             DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
             AttributeSet attributeSet = new HashAttributeSet();
             attributeSet.add(new PrinterName("HP Deskjet F4200 series", null));

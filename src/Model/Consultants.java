@@ -16,7 +16,6 @@ public class Consultants {
     private ArrayList<Consultants> consultants = new ArrayList<>();
     StockOperations so;
 
-
     public Consultants() {
     }
 
@@ -28,7 +27,6 @@ public class Consultants {
         addConsultant(con_Name,specialityIn,equipSkillIn);
         so.stockOperationsClose();
     }
-
 
     public Consultants(int con_ID, String con_Name, String specialityIn,String equipSkillIn) {
         conId = con_ID;
@@ -81,11 +79,5 @@ public class Consultants {
 
     public String getConSpeciality() {
         return conSpeciality;
-    }
-    public void clearArray(){
-        for (int i = 0; i < consultants.size(); i++) {
-            consultants.remove(i);
-
-        }
     }
 }

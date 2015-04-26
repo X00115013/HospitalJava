@@ -6,18 +6,16 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
- * Created by David and Thomas Murray on 17/03/2015.
+ * Created by David Kiernan and Thomas Murray on 17/03/2015.
  */
 public class MedicalCard {
     private AllCardOperations cd;
     private ArrayList<MedicalCard> medCardList = new ArrayList<>();
     private ResultSet rset;
     private int PPS, GMSNumber,patientNum,ID;
-
     private String gender, validTo, holderName;
 
     public MedicalCard(){
-
     }
 
     public MedicalCard(int patientNumIn,int GMSNumber,int PPS,String gender,String validTo, String holderName,int fake) {
@@ -29,9 +27,7 @@ public class MedicalCard {
         this.validTo = validTo;
         this.holderName = holderName;
         updateMedCard();
-
     }
-
     public MedicalCard(int patientNumIn,int GMSNumber,int PPS,String gender,String validTo, String holderName) {
         cd=new AllCardOperations();
         patientNum=patientNumIn;
@@ -41,7 +37,6 @@ public class MedicalCard {
         this.validTo = validTo;
         this.holderName = holderName;
         addMedCard();
-
     }
     public MedicalCard(int ID, int patientNumIn, int GMSNumber,int PPS,String gender,String validTo, String holderName) {
         patientNum=patientNumIn;
@@ -51,7 +46,6 @@ public class MedicalCard {
         this.gender = gender;
         this.validTo = validTo;
         this.holderName = holderName;
-
     }
     public void refreshMedCardList() {
         cd=new AllCardOperations();
@@ -65,12 +59,10 @@ public class MedicalCard {
             System.out.println(e);
         }
     }
-
     public void addMedCard(){
         cd.addMedCard(patientNum,GMSNumber,PPS,gender,validTo,holderName);
         cd.allCardOperationsClose();
     }
-
     public void updateMedCard(){
         cd.updateMedCard(patientNum,GMSNumber,PPS,gender,validTo,holderName);
         cd.allCardOperationsClose();
@@ -80,27 +72,21 @@ public class MedicalCard {
         refreshMedCardList();
         return medCardList;
     }
-
     public int getPPS() {
         return PPS;
     }
-
     public int getGMSNumber() {
         return GMSNumber;
     }
-
     public int getPatientNum() {
         return patientNum;
     }
-
     public String getGender() {
         return gender;
     }
-
     public String getValidTo() {
         return validTo;
     }
-
     public String getHolderName() {
         return holderName;
     }

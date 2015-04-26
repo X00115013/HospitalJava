@@ -20,9 +20,7 @@ public class Prescription {
     private StockOperations so;
 
     public  Prescription(){
-
     }
-
     public Prescription(int pNumberIn, String medNameIn, int dosageIn,String conNameIn){
         pNum=pNumberIn;
         medName=medNameIn;
@@ -30,7 +28,6 @@ public class Prescription {
         conName=conNameIn;
         addPrescription(pNum,medName,dose,conName);
     }
-
     public Prescription(int presNumIn, int pNumberIn, String medNameIn, int dosageIn,String conNameIn, int paidForIn,String dateIn){
         presNum=presNumIn;
         pNum=pNumberIn;
@@ -40,7 +37,6 @@ public class Prescription {
         paid=paidForIn;
         date=dateIn;
     }
-
     public void refreshArrays() {
         try {
             presList.removeAll(presList);
@@ -53,49 +49,39 @@ public class Prescription {
             System.out.println(e1);
         }
     }
-
     public void addPrescription(int pNumIn,String medNameIn,int amount,String consulNameIn){
         so=new StockOperations();
         so.addPrescription(pNumIn, medNameIn, amount, consulNameIn,getCurrentTimeStamp());
         so.stockOperationsClose();
     }
-
     public void updatePaid(int id){
         so=new StockOperations();
         so.updatePrescriptionPaid(id);
         so.stockOperationsClose();
     }
-
     public void updateStock(String medNameIn,int amount){
         so=new StockOperations();
         so.updateMedicineStock(medNameIn,amount);
         so.stockOperationsClose();
     }
-
     public String getConName() {
         return conName;
     }
-
     public int getpNum() {
         return pNum;
     }
-
     public int getDose() {
         return dose;
     }
-
     public int getPaid() {
         return paid;
     }
-
     public String getMedName() {
         return medName;
     }
-
     public String getDate() {
         return date;
     }
-
     public ArrayList getPresList() {
         refreshArrays();
         return presList;

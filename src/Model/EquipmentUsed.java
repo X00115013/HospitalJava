@@ -19,13 +19,10 @@ package Model;
 
 
         public  EquipmentUsed(){
-
         }
-
 
         public  EquipmentUsed(int pNumber){
             pNum=pNumber;
-
         }
 
         public EquipmentUsed(int pNumberIn, String eqNameIn){

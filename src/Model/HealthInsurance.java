@@ -17,7 +17,6 @@ public class HealthInsurance {
     private String companyName,polType,expDate;
 
     public HealthInsurance() {
-
     }
 
     public HealthInsurance(int patientNumIn,int polNumIn, String companyNameIn, String polTypeIn, String expDateIn,int fake) {
@@ -28,7 +27,6 @@ public class HealthInsurance {
         polType=polTypeIn;
         expDate=expDateIn;
         updateInsurance();
-
     }
     public HealthInsurance(int patientNumIn,int polNumIn, String companyNameIn, String polTypeIn, String expDateIn) {
         cd = new AllCardOperations();
@@ -38,9 +36,7 @@ public class HealthInsurance {
         polType=polTypeIn;
         expDate=expDateIn;
         addInsurance();
-
     }
-
     public HealthInsurance(int ID, int patientNumIn, int polNumIn, String companyNameIn, String polTypeIn, String expDateIn) {
         patientNum = patientNumIn;
         this.ID = ID;
@@ -49,9 +45,7 @@ public class HealthInsurance {
         polNum=polNumIn;
         polType=polTypeIn;
         expDate=expDateIn;
-
     }
-
     public void refreshInsuranceList() {
         cd = new AllCardOperations();
         healthList.removeAll(healthList);
@@ -65,42 +59,33 @@ public class HealthInsurance {
             System.out.println(e);
         }
     }
-
     public void addInsurance() {
         cd.addInsurance(patientNum, polNum, companyName, polType, expDate);
         cd.allCardOperationsClose();
     }
-
     public void updateInsurance() {
         cd.updateInsurance(patientNum, polNum, companyName, polType, expDate);
         cd.allCardOperationsClose();
     }
-
     public ArrayList getHealthList() {
         refreshInsuranceList();
         return healthList;
     }
-
     public int getPolNum() {
         return polNum;
     }
-
     public int getPatientNum() {
         return patientNum;
     }
-
     public int getID() {
         return ID;
     }
-
     public String getCompanyName() {
         return companyName;
     }
-
     public String getPolType() {
         return polType;
     }
-
     public String getExpDate() {
         return expDate;
     }

@@ -6,6 +6,8 @@ import javax.swing.*;
 
 /**
  * Created by Thomas Murray on 24/04/2015.
+ *
+ * For this class i used a variation of the Luhn Algorithm
  */
 public class CardValidation {
 

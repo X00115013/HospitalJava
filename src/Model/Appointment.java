@@ -14,13 +14,10 @@ public class Appointment {
     public String consultantType, medicalEquip;
     public int patientNum, appNumber;
     public String date;
-    private Consultants consultants;
     private ResultSet rset = null;
     private ArrayList<Appointment> appList = new ArrayList<Appointment>();
-    private ArrayList<Consultants> conList = new ArrayList<>();
     private AppointmentOperations ao;
     private Appointment apt;
-
 
     public Appointment() {
     }
@@ -32,7 +29,6 @@ public class Appointment {
         medicalEquip = medicalEquipIn;
         date = dateIn;
     }
-
 
     public Appointment(String reasonForVisitIn, String medicalEquipIn, String consultantTypeIn, int patientNumIn) {
         reasonForVisit = reasonForVisitIn;

@@ -71,28 +71,6 @@ public class TimeTables {
 
     public void setFromConReq(String conRegIn){
         consultantT=new ConsultantTimeTable(time,conRegIn);
-
-
-    }
-
-
-    public void cancelTimeTableEntry(int appointmentNumberIn){
-//        for (int i = 0; i < appList.size(); i++) {
-//            if (appList.get(i).getAppNumber() == appointmentNumberIn) {
-//                if (appList.get(i).getMedicalEquip() == 1) {
-//                    to.cancelXRayTableEntry(appointmentNumberIn);
-//                } else if (appList.get(i).getMedicalEquip() == 2) {
-//                    to.cancelMRITableEntry(appointmentNumberIn);
-//                } else if (appList.get(i).getMedicalEquip() == 3) {
-//                    to.cancelCTTableEntry(appointmentNumberIn);
-//                }
-//                else{
-//                    System.out.println("Error processing time table type: log file");
-//                }
-//            }else{
-//                System.out.println("Appointment does not exist dialog box: to screen");
-//            }
-//        }
     }
 
     public void setFree(){

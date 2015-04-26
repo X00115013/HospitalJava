@@ -36,15 +36,12 @@ public class ProcessReferrals {
     private Consultants consultants;
     private ArrayList<Consultants> conList=new ArrayList<>();
 
-
-
     public ProcessReferrals() {
             ro = new ReferralOperations();
             po = new PatientOperations();
             refreshTables();
             process();
         }
-
 
     public ProcessReferrals(int refNumIn,int gpNumIn,String gpNameIn,String gpLocationIn,
                             String patientFNameIn,String patientSurnameIn,String patientAddressIn,
@@ -67,7 +64,6 @@ public class ProcessReferrals {
         isChecked=isCheckedIn;
     }
 
-
     public void refreshTables() {
         refList.removeAll(refList);
         rset = ro.getReferral();
@@ -83,7 +79,6 @@ public class ProcessReferrals {
         patientRecord=new PatientRecord();
         pRecList.addAll(patientRecord.getPatientList());
     }
-
 
     public void process() {
         boolean test=false;

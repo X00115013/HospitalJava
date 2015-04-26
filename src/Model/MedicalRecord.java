@@ -20,14 +20,12 @@ public class MedicalRecord {
         po=new PatientOperations();
         refreshArray();
     }
-
     public MedicalRecord(int patientNumberIn,String recommendationsIn){
        po=new PatientOperations();
         patientNumber=patientNumberIn;
         recommendations=recommendationsIn;
         po.refMedUpdate(patientNumber,recommendations);
         updateMedicalRecord();
-
     }
     public MedicalRecord(int patientNumberIn,String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment,String newAllergies){
         po=new PatientOperations();
@@ -39,7 +37,6 @@ public class MedicalRecord {
         allergies=newAllergies;
         updateMedicalRecord();
     }
-
     public MedicalRecord(int patientNumberIn,String patientFNameIn, String patientLNameIn, String patientDOBIn,
                          String patientGenderIn, String newBlood, String newSymptoms, String newDiagnoses, String newReqTreatment,String newAllergies, String recommendationsIn){
         patientNumber=patientNumberIn;
@@ -54,7 +51,6 @@ public class MedicalRecord {
         allergies=newAllergies;
         recommendations=recommendationsIn;
     }
-
     public void refreshArray(){
         medicalRecordArrayList.removeAll(medicalRecordArrayList);
         rset = po.getPatientMedical();
@@ -67,42 +63,6 @@ public class MedicalRecord {
             System.out.println("Patient record not working"+e1);
         }
     }
-
-    public void printFromArrayMR(int patientNumIn){
-        System.out.println("\n\n\nPatient Med Record By Number from Array\n");
-        for (int i = 0; i < medicalRecordArrayList.size(); i++) {
-            if(medicalRecordArrayList.get(i).patientNumber == patientNumIn){
-                System.out.print("\n\nPatient Number ("+medicalRecordArrayList.get(i).patientNumber+")");
-                System.out.print("\nPatient First Name ("+medicalRecordArrayList.get(i).patientFName+")");
-                System.out.print("\nPatient Last Name ("+medicalRecordArrayList.get(i).patientLName+")");
-                System.out.print("\nPatient DOB ("+medicalRecordArrayList.get(i).patientDOB+")");
-                System.out.print("\nGender ("+medicalRecordArrayList.get(i).patientGender+")");
-                System.out.print("\nBlood ("+medicalRecordArrayList.get(i).blood+")");
-                System.out.print("\nSymptoms ("+medicalRecordArrayList.get(i).symptoms+")");
-                System.out.print("\nDiagnoses ("+medicalRecordArrayList.get(i).diagnoses+")");
-                System.out.print("\nReq Treatment ("+medicalRecordArrayList.get(i).reqTreatment+")");
-                System.out.print("\nAllergies ("+medicalRecordArrayList.get(i).allergies+")");
-                System.out.print("\nRecommendations ("+medicalRecordArrayList.get(i).recommendations+")\n");
-            }
-        }
-    }
-    public void printAllArrayMR(){
-        System.out.println("\n\n\nPatient Med Record from Array\n");
-        for (int i = 0; i < medicalRecordArrayList.size(); i++) {
-                System.out.print("\n\nPatient Number ("+medicalRecordArrayList.get(i).patientNumber+")");
-                System.out.print("\nPatient First Name ("+medicalRecordArrayList.get(i).patientFName+")");
-                System.out.print("\nPatient Last Name ("+medicalRecordArrayList.get(i).patientLName+")");
-                System.out.print("\nPatient DOB ("+medicalRecordArrayList.get(i).patientDOB+")");
-                System.out.print("\nGender ("+medicalRecordArrayList.get(i).patientGender+")");
-                System.out.print("\nBlood ("+medicalRecordArrayList.get(i).blood+")");
-                System.out.print("\nSymptoms ("+medicalRecordArrayList.get(i).symptoms+")");
-                System.out.print("\nDiagnoses ("+medicalRecordArrayList.get(i).diagnoses+")");
-                System.out.print("\nReq Treatment ("+medicalRecordArrayList.get(i).reqTreatment+")");
-                System.out.print("\nAllergies ("+medicalRecordArrayList.get(i).allergies+")");
-                System.out.print("\nRecommendations ("+medicalRecordArrayList.get(i).recommendations+")\n");
-            }
-        }
-
 
     public ArrayList getMedicalRecordArrayList() {
         return medicalRecordArrayList;
@@ -158,3 +118,41 @@ public class MedicalRecord {
     }
 }
 
+
+
+//Spare parts
+
+//    public void printFromArrayMR(int patientNumIn){
+//        System.out.println("\n\n\nPatient Med Record By Number from Array\n");
+//        for (int i = 0; i < medicalRecordArrayList.size(); i++) {
+//            if(medicalRecordArrayList.get(i).patientNumber == patientNumIn){
+//                System.out.print("\n\nPatient Number ("+medicalRecordArrayList.get(i).patientNumber+")");
+//                System.out.print("\nPatient First Name ("+medicalRecordArrayList.get(i).patientFName+")");
+//                System.out.print("\nPatient Last Name ("+medicalRecordArrayList.get(i).patientLName+")");
+//                System.out.print("\nPatient DOB ("+medicalRecordArrayList.get(i).patientDOB+")");
+//                System.out.print("\nGender ("+medicalRecordArrayList.get(i).patientGender+")");
+//                System.out.print("\nBlood ("+medicalRecordArrayList.get(i).blood+")");
+//                System.out.print("\nSymptoms ("+medicalRecordArrayList.get(i).symptoms+")");
+//                System.out.print("\nDiagnoses ("+medicalRecordArrayList.get(i).diagnoses+")");
+//                System.out.print("\nReq Treatment ("+medicalRecordArrayList.get(i).reqTreatment+")");
+//                System.out.print("\nAllergies ("+medicalRecordArrayList.get(i).allergies+")");
+//                System.out.print("\nRecommendations ("+medicalRecordArrayList.get(i).recommendations+")\n");
+//            }
+//        }
+//    }
+//    public void printAllArrayMR(){
+//        System.out.println("\n\n\nPatient Med Record from Array\n");
+//        for (int i = 0; i < medicalRecordArrayList.size(); i++) {
+//            System.out.print("\n\nPatient Number ("+medicalRecordArrayList.get(i).patientNumber+")");
+//            System.out.print("\nPatient First Name ("+medicalRecordArrayList.get(i).patientFName+")");
+//            System.out.print("\nPatient Last Name ("+medicalRecordArrayList.get(i).patientLName+")");
+//            System.out.print("\nPatient DOB ("+medicalRecordArrayList.get(i).patientDOB+")");
+//            System.out.print("\nGender ("+medicalRecordArrayList.get(i).patientGender+")");
+//            System.out.print("\nBlood ("+medicalRecordArrayList.get(i).blood+")");
+//            System.out.print("\nSymptoms ("+medicalRecordArrayList.get(i).symptoms+")");
+//            System.out.print("\nDiagnoses ("+medicalRecordArrayList.get(i).diagnoses+")");
+//            System.out.print("\nReq Treatment ("+medicalRecordArrayList.get(i).reqTreatment+")");
+//            System.out.print("\nAllergies ("+medicalRecordArrayList.get(i).allergies+")");
+//            System.out.print("\nRecommendations ("+medicalRecordArrayList.get(i).recommendations+")\n");
+//        }
+//    }

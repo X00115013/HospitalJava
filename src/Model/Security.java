@@ -27,13 +27,7 @@ public class Security {
         if(answer != -1 && patientNumCheck()==true){
             setSelection(answer);
         }else if (patientNumCheck()==false){
-            System.out.println("Not a patient match");
-
         }
-    }
-
-    public int getAnswer() {
-        return answer;
     }
 
     public int passCheck(){
@@ -60,9 +54,7 @@ public class Security {
             }else{
                 test2=false;
             }
-
         }return test2;
-
     }
 
     public void setSelection(int answerIn){
@@ -79,7 +71,6 @@ public class Security {
         }else if(selection==6&& (answerIn==1 ||answerIn==3 )){
             Thread thread = new Thread(new ProcessRefThread());
             thread.start();
-//            ProcessReferrals processReferrals=new ProcessReferrals();
         }else if(selection==7&& (answerIn==1 ||answerIn==2 ||answerIn==3 )){
             PatientChartGUI patientChartGUI=new PatientChartGUI(patientNum);
         }else if(selection==8&& (answerIn==1 ||answerIn==3 )){

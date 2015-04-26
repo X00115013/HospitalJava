@@ -6,6 +6,8 @@ package DataBase;
 
 import java.sql.*;
 import java.util.*;
+
+import Model.TimeTables;
 import oracle.jdbc.pool.OracleDataSource;
 
 public class CreateTables {
@@ -569,7 +571,6 @@ public class CreateTables {
             System.out.println("Creating PrescriptionsUsed");
             String createMedicine = "CREATE TABLE Prescriptions (PrescriptionID NUMBER PRIMARY KEY, Pat_NumIn NUMBER, Drug_name VARCHAR2(200), Med_Amount NUMBER,conName VARCHAR2(50), This_Visit NUMBER, dateIn VARCHAR2(60))";
             pstmt = conn.prepareStatement(createMedicine);
-            System.out.println("Even getting here"+createMedicine);
             pstmt.executeUpdate(createMedicine);
             System.out.println("OR here");
             // creating Sequence
@@ -754,7 +755,9 @@ public class CreateTables {
             System.exit(1);
         }
 
-
+        //SET TIMETABLES FREE
+        TimeTables tt=new TimeTables();
+        tt.setFree();
     }
 
     public static void main(String args[]) {

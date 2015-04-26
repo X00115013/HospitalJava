@@ -7,7 +7,6 @@ import DataBase.PatientOperations;
  */
 public class CheckIn {
     private int appNumber,choice;
-    private String state;
     private PatientOperations po;
     public static boolean checkInStatic;
 
@@ -28,11 +27,8 @@ public class CheckIn {
         }else if(choice==3){
             po.updatePatientCheckInByNumber(appNumber, "Checked OUT");
             po.patientOperationsClose();
-
         }
-
     }
-
     public void addCheckInfo(int patientNumberIn,String message,String conNameIn){
         po=new PatientOperations();
         po.addCheckOutInfo(patientNumberIn,message,conNameIn);
