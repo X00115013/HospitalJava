@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Created by David and Thomas Murray on 20/03/2015.
+ * Created by David Kiernan and Thomas Murray on 20/03/2015.
  */
 public class Equipment {
     private int eqId;

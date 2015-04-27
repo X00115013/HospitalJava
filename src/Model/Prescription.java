@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by David and Thomas Murray on 15/03/2015.
+ * Created by Thomas Murray on 15/03/2015.
  */
 public class Prescription {
     private int pNum,dose,paid,presNum;

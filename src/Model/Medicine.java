@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Created by David and Thomas Murray on 15/03/2015.
+ * Created by David Kiernan and Thomas Murray on 15/03/2015.
  */
 public class Medicine {
     private int medId,dosage,stockLevel;

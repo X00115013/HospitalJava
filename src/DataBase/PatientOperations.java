@@ -251,7 +251,7 @@ public class PatientOperations {
                 id = rset.getInt(1);
             }
         } catch (Exception se) {
-            System.out.println("po 9"+se);
+            System.out.println("po 9"+se+"   "+fName);
         }
         return id;
     }

@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by Roland on 06/04/2015.
+ * Created by Thomas Murray on 06/04/2015.
  */
 
     public class StockHomeScreen extends JFrame implements ActionListener {

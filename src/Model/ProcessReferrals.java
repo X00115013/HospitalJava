@@ -125,9 +125,8 @@ public class ProcessReferrals {
               }
             }
         JOptionPane.showMessageDialog(null, counter+" Referrals have been processed");
-
         ro.referralOperationsClose();
-//        po.patientOperationsClose();
+        po.patientOperationsClose();
     }
 
 

@@ -84,7 +84,7 @@ public class PatientRecord {
         addPatientRecord();
     }
     public void addPatientRecord(){
-        System.out.println("New Patient NEW NEW NEW NEW NEW NEW ");
+        System.out.println("New Patient NEW NEW NEW NEW NEW NEW "+patientFName+" "+patientLName);
         po.addPatient(patientFName, patientLName, patientAddress, occupation, gender, email, phone, DOB);
         po.patientOperationsClose();
     }

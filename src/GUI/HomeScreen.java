@@ -3,6 +3,7 @@ package GUI;
 
 
 import Charts.ChartGUI;
+import Model.OpeningWordFile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,9 +29,10 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 public class HomeScreen extends JFrame implements ActionListener {
 
 
-    private JButton appointments,checkIn,prescriptions,adminRecord,charts,medRecord,timeTables,equipment,medicine,payment,consultant,patientCharts,processR,oldBills,oldMed,accounts;
+    private JButton appointments,checkIn,prescriptions,adminRecord,charts,medRecord,timeTables,equipment,medicine,payment,consultant,patientCharts,processR,oldBills,oldMed,accounts,manual;
     private JLabel pageTitle,pageTitle2, pageCenter,pageCenter2;
     JFrame f;
+    private OpeningWordFile wf = new OpeningWordFile();
     private JTabbedPane tabbedPane;
     private String name="Hospital Name";
     boolean localTest=false;
@@ -208,6 +210,28 @@ public class HomeScreen extends JFrame implements ActionListener {
         accounts.setPreferredSize(new Dimension(200, 50));
         buttons2.add(accounts, getConstraints(2, 1, 1, 1, GridBagConstraints.SOUTH));
 
+        manual = new JButton("Manual");
+        manual.addActionListener(new ActionListener() {      // anonymous inner class
+            public void actionPerformed(ActionEvent evt) {
+                Desktop desktop = Desktop.getDesktop();
+
+                try {
+
+                    File f = new File(wf.getDIR());
+
+                    desktop.open(f);  // opens application (MSWord) associated with .doc file
+                } catch (Exception ex) {
+                    // HomeScreen.this is to refer to outer class's instance from inner class
+                    JOptionPane.showMessageDialog(HomeScreen.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+    });
+
+
+
+        manual.setPreferredSize(new Dimension(200, 50));
+        buttons2.add(manual, getConstraints(3, 1, 1, 1, GridBagConstraints.SOUTH));
 
         secondPage.add(buttons2, getConstraints(1, 1, 0, 1, GridBagConstraints.SOUTH));
         tabbedPane.add("Administration Section",secondPage);
@@ -224,7 +248,6 @@ public class HomeScreen extends JFrame implements ActionListener {
                     } else if (tabbedPane.isEnabledAt(1)) {
                         localTest = false;
                     }
-                    System.out.println("Test here "+localTest);
                     if ((localTest == true) && (tabbedCheck % 2==0)) {
                         String input = JOptionPane.showInputDialog("Input Admin Password");
                         try {
@@ -250,6 +273,7 @@ public class HomeScreen extends JFrame implements ActionListener {
         });
         f.setVisible(true);
     }
+
 
     private GridBagConstraints getConstraints(int gridx, int gridy, int gridwidth, int gridheight, int anchor) {
         GridBagConstraints c = new GridBagConstraints();

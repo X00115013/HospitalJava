@@ -16,9 +16,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Random;
 
 /**
- * Created by Lionhart and  Thomas Murray on 17/03/2015.
+ * Created by Dylan Mahony and  Thomas Murray on 17/03/2015.
  */
 public class ReferralGUI extends JFrame implements ActionListener {
     String[] list1;
@@ -43,6 +44,7 @@ public class ReferralGUI extends JFrame implements ActionListener {
     private String[] months={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     private String[] years=new String[76];
     JComboBox<String> dayCombo,monthCombo,yearCombo;
+    Random random= new Random();
 
 
     public ReferralGUI() {
@@ -99,6 +101,7 @@ public class ReferralGUI extends JFrame implements ActionListener {
         ID.add(gPNum);
         //text field
         gPNumText = new JTextField(5);
+        gPNumText.setText(Integer.toString(random.nextInt(1000000)));
         gPNumText.setBorder(loweredBorder);
         ID.add(gPNumText);
 
@@ -222,16 +225,6 @@ public class ReferralGUI extends JFrame implements ActionListener {
         JPanel holder2=new JPanel(new FlowLayout(FlowLayout.LEFT));
         JPanel bottom=new JPanel(new GridBagLayout());
 
-
-//        male = new JRadioButton("Male");
-//        male.addActionListener(this);
-//        bottom.add(male, getConstraints(0, 0, 1, 1, (GridBagConstraints.WEST)));
-//        female = new JRadioButton("Female");
-//        female.addActionListener(this);
-//        bottom.add(female, getConstraints(1, 0, 1, 1, (GridBagConstraints.WEST)));
-
-
-
         //DOB labels
         dobL = new JLabel("Patient DOB");
         bottom.add(dobL, getConstraints(0, 1, 1, 1, GridBagConstraints.WEST));
@@ -311,6 +304,9 @@ public class ReferralGUI extends JFrame implements ActionListener {
                     if (med.equals(eqList.get(i).getEqName())) {
                         catcher = eqList.get(i).getEqName();
                     }
+                    else{
+                        catcher="None Booked";
+                    }
                 }
                 String con = (String) combo2.getSelectedItem();
                 for (int j = 0; j < conList.size(); j++) {
@@ -324,6 +320,14 @@ public class ReferralGUI extends JFrame implements ActionListener {
 
                 Referrals referrals = new Referrals(gpName.getText(), gpLocation.getText(), pFname.getText(), pLname.getText(), pAddress.getText(), (dayC + "-" + monthC + "-" + yearC), pPhone.getText(), reasonVisit.getText(),
                         recommendations.getText(), catcher, catcher2, 1, choice);
+                gpName.setText("");
+                gpLocation.setText("");
+                pFname.setText("");
+                pLname.setText("");
+                pAddress.setText("");
+                pPhone.setText("");
+                reasonVisit.setText("");
+                recommendations.setText("");
             }
 
             }else if (e.getSource().equals(male)) {

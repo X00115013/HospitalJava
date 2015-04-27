@@ -6,7 +6,7 @@ import oracle.jdbc.pool.OracleDataSource;
 import javax.swing.*;
 
 /**
- * Created by David and Thomas Murray on 17/03/2015.
+ * Created by David Kiernan and Thomas Murray on 17/03/2015.
  */
 public class AllCardOperations {
     private Connection conn;

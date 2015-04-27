@@ -10,7 +10,7 @@ import java.util.Scanner;
 import Model.*;
 
 /**
- * Created by David on 04/03/2015.
+ * Created by Thomas Murray and David Kiernan  on 04/03/2015.
  */
 public class Bill {
     private final double VAT = 0.27;

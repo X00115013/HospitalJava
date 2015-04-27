@@ -23,30 +23,41 @@ public class CreateTables {
         try {
             // Load the Oracle JDBC driver
             OracleDataSource ods = new OracleDataSource();
-            System.out.println("Type global1 or home");
-            String val = in.next();
-
-            // Tallaght College
-            if (val.equalsIgnoreCase("global1")) {
-                ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
-                ods.setUser("X00115013");
-                ods.setPassword("db02Dec77");
-                conn = ods.getConnection();
-                System.out.println("connected.");
-            }
-            // At Home
-            else if (val.equalsIgnoreCase("home")) {
+//            System.out.println("Type global1 or home");
+//            String val = in.next();
+//
+//            // Tallaght College
+//            if (val.equalsIgnoreCase("global1")) {
+//                ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
+//                ods.setUser("X00115013");
+//                ods.setPassword("db02Dec77");
+//                conn = ods.getConnection();
+//                System.out.println("connected.");
+//            }
+//            // At Home
+//            else if (val.equalsIgnoreCase("home")) {
                 ods.setURL("jdbc:oracle:thin:hr/hr@localhost:1521/XE");
                 ods.setUser("system");
                 ods.setPassword("30905149");
                 conn = ods.getConnection();
                 System.out.println("connected.");
-            }
+//            }
 
         } catch (Exception e) {
             System.out.println("Unable to load driver. " + e);
         }
         return conn;
+    }
+
+    // This method closes the connection to the Oracle database
+    public void closeDB() {
+        try {
+            conn.close();
+            System.out.println("Connection closed");
+        } catch (SQLException e) {
+            System.out.print("Could not close connection ");
+            e.printStackTrace();
+        }
     }
 
     // Dropping tables and sequences.
@@ -760,14 +771,13 @@ public class CreateTables {
         tt.setFree();
     }
 
-    public static void main(String args[]) {
-        CreateTables cp = new CreateTables();
-        cp.openDB();
-        cp.dropTables();
-        cp.CreateTable();
+//    public static void main(String args[]) {
+//        CreateTables cp = new CreateTables();
+//        cp.openDB();
 //        cp.dropTables();
-
-    }
+//        cp.CreateTable();
+//
+//    }
 }
 
 

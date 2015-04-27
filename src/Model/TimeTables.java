@@ -20,7 +20,6 @@ public class TimeTables {
     private String free="Free";
     private ConsultantTimeTable consultantT;
     private Equipment equipment;
-    private Appointment apt;
     int ind=0;
     private AllTimeTables allT;
 
@@ -45,8 +44,6 @@ public class TimeTables {
         setFromMedReq(selection,req);
         to.TimeTableOperationsClose();
         }
-
-
 
     public void refreshTimeTables() {
         allTimeTables.removeAll(allTimeTables);
@@ -81,7 +78,6 @@ public class TimeTables {
             if(spinner==equipments.size()){
                 spinner=0;
             }
-            System.out.println(i+" TT is free");
         }to.TimeTableOperationsClose();
         to=new TimeTableOperations();
         for (int i = 0; i < 297; i++) {
@@ -90,7 +86,6 @@ public class TimeTables {
             if(spinner==equipments.size()){
                 spinner=0;
             }
-            System.out.println(i+" TT is free");
         }to.TimeTableOperationsClose();
         to=new TimeTableOperations();
         for (int i = 0; i < 297; i++) {
@@ -99,7 +94,6 @@ public class TimeTables {
             if(spinner==equipments.size()){
                 spinner=0;
             }
-            System.out.println(i+" TT is free");
         }to.TimeTableOperationsClose();
     }
 }
